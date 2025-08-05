@@ -1,0 +1,11 @@
+.layout-main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-evenly;
+  padding: 0 !important;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+}
