@@ -1,0 +1,51 @@
+<section class="py-20 bg-[#FFF8F1]">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl font-bold text-[#452317]">Productos Destacados</h2>
+    <p class="text-[#704727] mt-2">
+      Los favoritos de nuestros clientes, preparados diariamente con frutas frescas y chocolate premium.
+    </p>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-2 md:gap-4 px-4">
+    <div
+      *ngFor="let product of products"
+      pAnimateOnScroll
+      enterClass="animate-enter fade-in-10 slide-in-from-b-6 animate-duration-1000"
+      class="
+      w-46 md:w-52
+      bg-white
+      rounded-xl
+      border border-[#f0e5db]
+      p-2 md:p-4
+      shadow-md hover:shadow-xl
+      transform hover:scale-105
+      transition duration-300 ease-in-out
+      flex flex-col items-center"
+    >
+      <div
+        class="w-full h-20 md:h-28 rounded-xl flex items-center justify-center text-4xl bg-gradient-to-br from-[#FCE8D5] to-[#FDEAD9]"
+      >
+        {{ product.emoji }}
+      </div>
+
+      <h3
+        class="text-sm md:text-lg font-semibold md:font-bold justify-start text-[#452317] mt-2 md:mt-2 mb-0 px-0"
+      >
+        <span>{{ product.name }}</span>
+      </h3>
+
+      <p
+        class="text-base md:text-sm font-bold text-[#452317] mt-1 md:mt-2 text-center"
+      >
+        Q{{ product.price | number }}.00
+      </p>
+
+      <div class="flex items-center justify-end w-full h-8 mt-2">
+        <button
+          pButton
+          class="bg-[#6F3E1D] text-white hover:bg-[#5c3116] transition"
+          icon="pi pi-shopping-cart"
+        ></button>
+      </div>
+    </div>
+  </div></section>

@@ -1,0 +1,22 @@
+<section class="py-20 bg-[#FFF8F1]">
+  <div class="text-center mb-12">
+    <h2 class="text-4xl font-bold text-[#452317]"> <span class="text-[#452317]">Nuestras Categorías</span><br /></h2>
+    <p class="text-[#704727] mt-2">Explora nuestra amplia variedad de productos artesanales, hechos con amor y los mejores ingredientes.</p>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-4 px-4">
+    <!-- Card -->
+    <div
+      *ngFor="let cat of categories"
+      pAnimateOnScroll
+      enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000"
+      class="w-52 bg-white rounded-xl border border-[#f0e5db] p-4 shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out flex flex-col items-center"
+    >
+      <div [ngClass]="cat.bg" class="w-full h-28 rounded-xl flex items-center justify-center text-4xl">
+        {{ cat.emoji }}
+      </div>
+      <h3 class="text-lg font-bold text-[#452317] mb-0"><span class="text-[#452317]">{{ cat.title }}</span></h3>
+      <p class="text-sm text-[#704727] text-center mt-2">{{ cat.desc }}</p>
+    </div>
+  </div>
+</section>
