@@ -9,9 +9,11 @@ import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';   // 👈 nuevo
+import { InputNumberModule } from 'primeng/inputnumber';
 import { CartService } from '../../../cart/cart.service';
 import { CartItem } from '../../../cart/cart.models';
+import {CheckboxModule} from 'primeng/checkbox';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-topbar',
@@ -19,7 +21,7 @@ import { CartItem } from '../../../cart/cart.models';
   imports: [
     RouterModule, CommonModule, MenuModule, ButtonModule,
     DividerModule, MenubarModule, DialogModule,
-    SidebarModule, FormsModule, InputTextModule, InputNumberModule
+    SidebarModule, FormsModule, InputTextModule, InputNumberModule, CheckboxModule, RadioButtonModule
   ],
   templateUrl: './app.topbar.html',
 })
@@ -42,15 +44,14 @@ export class AppTopbar {
     return cnt > 99 ? '99+' : String(cnt);
   }
 
-  // ---- Totales y fees ----
   get subtotal(): number {
-    return this.cart.total; // suma de items
+    return this.cart.total;
   }
   get deliveryFee(): number {
-    return this.entrega === 'domicilio' ? 5 : 0; // Q5 a domicilio
+    return this.entrega === 'domicilio' ? 5 : 0;
   }
   get appFee(): number {
-    return 2; // Q2 siempre
+    return 2;
   }
   get grandTotal(): number {
     return this.subtotal + this.deliveryFee + this.appFee;
@@ -67,7 +68,6 @@ export class AppTopbar {
     const fecha = now.toLocaleDateString();
     const hora  = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    // 1) Encabezado
     const header = [
       '*Pedido nuevo*',
       `Fecha: ${fecha}`,
@@ -75,13 +75,11 @@ export class AppTopbar {
       '-----------------------------'
     ].join('\n');
 
-    // 2) Productos
     const items = this.cart.items.map((i, idx) =>
       `${idx + 1}. ${i.title} - Cant: ${i.qty} · Unit: ${q(i.unitPrice)} · Total: ${q(i.unitPrice * i.qty)}`
     ).join('\n');
     const itemsBlock = `Productos:\n${items || '— Sin productos —'}`;
 
-    // 3) Resumen
     const resumen = [
       '-----------------------------',
       'Resumen:',
@@ -91,7 +89,6 @@ export class AppTopbar {
       `TOTAL: ${q(this.grandTotal)}`
     ].join('\n');
 
-    // 4) Detalles de entrega y pago
     const entregaTxt = this.entrega === 'domicilio' ? 'A domicilio' : 'Recoger en local';
     const pagoTxt    = this.pago === 'tarjeta' ? 'Tarjeta' : 'Efectivo';
     const dirTxt     = this.entrega === 'domicilio' ? `Dirección: ${this.direccion.trim()}` : '';
@@ -108,7 +105,6 @@ export class AppTopbar {
       cambioTxt
     ].filter(Boolean).join('\n');
 
-    // Mensaje final que el cliente te envía a ti
     const plain = [header, itemsBlock, resumen, detalles].join('\n\n');
 
     const url = `https://wa.me/${this.telefonoWhats}?text=${encodeURIComponent(plain)}`;
