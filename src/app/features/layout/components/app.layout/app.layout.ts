@@ -10,7 +10,7 @@ import {CartFabComponent} from '@shared/components/cart-fab/cart-fab.component';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, CartFabComponent],
+  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, ],
   templateUrl: './app.layout.html',
 })
 export class AppLayout {
@@ -102,14 +102,12 @@ export class AppLayout {
   }
 
   hideMenu() {
-    // Cierra todos los menús
     this.layoutService.layoutState.update((prev) => ({
       ...prev,
       overlayMenuActive: false,
       staticMenuMobileActive: false,
       menuHoverActive: false,
     }));
-    // Notifica a otros componentes para cerrar sus menús
     this.layoutService.closeAllMenus();
 
     if (this.menuOutsideClickListener) {

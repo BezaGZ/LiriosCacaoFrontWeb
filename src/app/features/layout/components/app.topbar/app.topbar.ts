@@ -8,6 +8,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
 import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';   // 👈 nuevo
 import { CartService } from '../../../cart/cart.service';
 import { CartItem } from '../../../cart/cart.models';
 
@@ -17,7 +19,7 @@ import { CartItem } from '../../../cart/cart.models';
   imports: [
     RouterModule, CommonModule, MenuModule, ButtonModule,
     DividerModule, MenubarModule, DialogModule,
-    SidebarModule, FormsModule
+    SidebarModule, FormsModule, InputTextModule, InputNumberModule
   ],
   templateUrl: './app.topbar.html',
 })
@@ -26,30 +28,90 @@ export class AppTopbar {
   readonly cart = inject(CartService);
 
   entrega: 'domicilio' | 'local' = 'domicilio';
+  pago: 'efectivo' | 'tarjeta' = 'efectivo';
+  direccion = '';
+  cambio: number | null = null;       // 👈 nuevo
+
   telefonoWhats = '50230625215';
 
   irInicio() { this.router.navigate(['/']); }
 
-  get cartItemCount(): number {
-    return this.cart.count;
-  }
-
+  get cartItemCount(): number { return this.cart.count; }
   mostrarCantidadCarrito(): string {
     const cnt = this.cartItemCount;
     return cnt > 99 ? '99+' : String(cnt);
   }
 
-  // WhatsApp checkout
+  // ---- Totales y fees ----
+  get subtotal(): number {
+    return this.cart.total; // suma de items
+  }
+  get deliveryFee(): number {
+    return this.entrega === 'domicilio' ? 5 : 0; // Q5 a domicilio
+  }
+  get appFee(): number {
+    return 2; // Q2 siempre
+  }
+  get grandTotal(): number {
+    return this.subtotal + this.deliveryFee + this.appFee;
+  }
+
   checkoutWhatsApp() {
-    const lines = this.cart.items.map(i =>
-      `• ${i.title} x${i.qty} — Q${(i.unitPrice * i.qty).toFixed(2)}`
-    ).join('%0A');
+    if (this.entrega === 'domicilio' && !this.direccion.trim()) {
+      alert('Por favor, ingresa una dirección para la entrega a domicilio.');
+      return;
+    }
 
-    const total = `Total: Q${this.cart.total.toFixed(2)}`;
-    const entrega = `Entrega: ${this.entrega === 'domicilio' ? 'A domicilio' : 'Recoger en local'}`;
+    const q = (n: number) => `Q${n.toFixed(2)}`;
+    const now = new Date();
+    const fecha = now.toLocaleDateString();
+    const hora  = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    const msg = `Hola!%0AQuiero hacer este pedido:%0A%0A${lines}%0A%0A${total}%0A${entrega}`;
-    const url = `https://wa.me/${this.telefonoWhats}?text=${msg}`;
+    // 1) Encabezado
+    const header = [
+      '*Pedido nuevo*',
+      `Fecha: ${fecha}`,
+      `Hora: ${hora}`,
+      '-----------------------------'
+    ].join('\n');
+
+    // 2) Productos
+    const items = this.cart.items.map((i, idx) =>
+      `${idx + 1}. ${i.title} - Cant: ${i.qty} · Unit: ${q(i.unitPrice)} · Total: ${q(i.unitPrice * i.qty)}`
+    ).join('\n');
+    const itemsBlock = `Productos:\n${items || '— Sin productos —'}`;
+
+    // 3) Resumen
+    const resumen = [
+      '-----------------------------',
+      'Resumen:',
+      `Subtotal: ${q(this.subtotal)}`,
+      ...(this.deliveryFee > 0 ? [`Envío: ${q(this.deliveryFee)}`] : []),
+      `Fee app: ${q(this.appFee)}`,
+      `TOTAL: ${q(this.grandTotal)}`
+    ].join('\n');
+
+    // 4) Detalles de entrega y pago
+    const entregaTxt = this.entrega === 'domicilio' ? 'A domicilio' : 'Recoger en local';
+    const pagoTxt    = this.pago === 'tarjeta' ? 'Tarjeta' : 'Efectivo';
+    const dirTxt     = this.entrega === 'domicilio' ? `Dirección: ${this.direccion.trim()}` : '';
+    const cambioTxt  = (this.pago === 'efectivo' && this.cambio != null && !Number.isNaN(this.cambio))
+      ? `Cambio con: ${q(this.cambio)}`
+      : '';
+
+    const detalles = [
+      '-----------------------------',
+      'Detalles:',
+      `Entrega: ${entregaTxt}`,
+      `Pago: ${pagoTxt}`,
+      dirTxt,
+      cambioTxt
+    ].filter(Boolean).join('\n');
+
+    // Mensaje final que el cliente te envía a ti
+    const plain = [header, itemsBlock, resumen, detalles].join('\n\n');
+
+    const url = `https://wa.me/${this.telefonoWhats}?text=${encodeURIComponent(plain)}`;
     window.open(url, '_blank');
   }
 
@@ -57,22 +119,8 @@ export class AppTopbar {
   dec(i: CartItem) { this.cart.dec(i.id); }
   remove(i: CartItem) { this.cart.remove(i.id); }
 
-  // propiedad local para el two-way binding
   sidebarVisible = false;
-
-  ngOnInit() {
-    // sincroniza el estado del servicio -> UI
-    this.cart.sidebarVisible$.subscribe(v => (this.sidebarVisible = !!v));
-  }
-
-  showCart() {
-    this.cart.open(); // esto disparará el subscribe y pondrá sidebarVisible = true
-  }
-
-// Mantén el servicio sincronizado cuando PrimeNG cambie el visible
-  onSidebarVisibleChange(v: boolean) {
-    // si quieres, puedes exponer setVisible en el service
-    if (v) this.cart.open();
-    else this.cart.close();
-  }
+  ngOnInit() { this.cart.sidebarVisible$.subscribe(v => (this.sidebarVisible = !!v)); }
+  showCart() { this.cart.open(); }
+  onSidebarVisibleChange(v: boolean) { v ? this.cart.open() : this.cart.close(); }
 }
