@@ -6,6 +6,7 @@ import { FEATURED_PRESETS } from '../../../../core/utils/featured.presets';
 import { presetToCard, FeaturedCardVM } from '../../../../core/utils/featured.adapter';
 import { FeaturedPreset } from '../../../../core/utils/featured.models';
 import { DialogModule } from 'primeng/dialog';
+import { CartService } from '../../../cart/cart.service';
 
 // para personalizar
 import { CHOCOFRUTA_SEED } from '../../../..//data';
@@ -97,10 +98,39 @@ export class HomefeaturesproductsComponent {
 
 
   // 2 acciones posibles:
-  // A) Agregar al carrito (no modifica la card)
+  constructor(private cart: CartService) {}
+
   addToCart() {
-    // ... usa tu CarritoService aquí
+    const fruta = this.frutas.find(f => f.slug === this.selectedFrutaSlug);
+    const choc  = this.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
+    if (!fruta || !choc) return;
+
+    const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
+    const topNombreList = tops.map(t => t.nombre);
+    const title = `Choco${fruta.nombre} con ${choc.nombre}` + (topNombreList.length ? ` + ${topNombreList.join(', ')}` : '');
+
+    // imagen preferida (con topping principal si existe, luego sin, luego nophoto)
+    const topPrincipal = topNombreList[0];
+    const paths = buildChocoImagePaths(fruta.nombre, choc.nombre, topPrincipal);
+    const imageUrl = paths.withTop || paths.withoutTop || paths.fallback;
+
+    const unitPrice = this.previewPrice(); // ya calculas el precio unitario
+
+    this.cart.add({
+      kind: 'chocofruta',
+      title,
+      imageUrl,
+      unitPrice,
+      qty: 1,
+      data: {
+        chocofruta: {
+          fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, cantidad: 1
+        }
+      }
+    });
+
     this.dialogVisible = false;
+    this.cart.open(); // opcional: abrir carrito al agregar
   }
 
   // B) Actualizar la card con la nueva combinación
@@ -154,4 +184,6 @@ export class HomefeaturesproductsComponent {
     // Cualquier otro caso → nophoto
     img.src = fallback;
   }
+
+
 }
