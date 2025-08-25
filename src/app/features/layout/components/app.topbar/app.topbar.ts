@@ -38,4 +38,10 @@ export class AppTopbar {
   irInicio() {
     this.router.navigate(['/']);
   }
+
+  animate(event: Event) {
+    const el = event.currentTarget as HTMLElement;
+    el.classList.add('animate-bounce');
+    setTimeout(() => el.classList.remove('animate-bounce'), 500);
+  }
 }
