@@ -1,0 +1,162 @@
+<!--
+  ============================================================================
+  info.component.html
+  ============================================================================
+  Esta es la plantilla HTML. Usamos Tailwind CSS para todo el estilo.
+  El contenedor principal tiene 'relative' para posicionar las imágenes de fondo.
+-->
+<div class="relative bg-[#FFF8F1] overflow-hidden">
+  <!-- Imagen de fondo superior -->
+  <img
+    src="assets/img/topfont.png"
+    alt="Decoración superior"
+    class="absolute top-0 left-0 w-full h-auto opacity-25"
+    aria-hidden="true"
+  />
+  <!-- Imagen de fondo inferior -->
+  <img
+    src="../../../../assets/img/bottomfont.png"
+    alt="Decoración inferior"
+    class="absolute bottom-0 left-0 w-full h-auto -z-0 opacity-25"
+    aria-hidden="true"
+  />
+
+  <!-- Contenedor principal del contenido -->
+  <main class="relative z-10 font-sans text-[#452317] px-4 sm:px-6 lg:px-8">
+
+    <!-- ======================= Sección 1: Encabezado ======================= -->
+    <section class="text-center py-20 md:py-32">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
+        Nuestra Historia de Sabor y Tradición
+      </h1>
+      <p class="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-[#704727]">
+        En Lirios y Cacao, creemos que los mejores momentos se comparten con sabores auténticos. Descubre la historia detrás de cada chocofruta, hecha a mano en el corazón de Chiquimula.
+      </p>
+      <!-- Placeholder para la imagen principal de trabajo -->
+      <div class="mt-12 max-w-4xl mx-auto bg-white/50 p-4 rounded-2xl shadow-lg border border-[#f0e5db]">
+        <div class="bg-gray-200 h-64 md:h-96 rounded-xl flex items-center justify-center">
+          <span class="text-[#704727]">Próximamente: Una foto de nuestro trabajo artesanal</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divisor de Onda 1 -->
+    <div class="-mx-4 sm:-mx-6 lg:-mx-8">
+    <div class="w-full">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+        <path d="M1440 38.2647C1294 3.16176 1031.71 -24.3824 720 38.2647C408.286 100.912 146 82.5 0 38.2647V120H1440V38.2647Z" fill="#F7EDE3"/>
+      </svg>
+    </div>
+    </div>
+
+    <!-- ======================= Sección 2: Nuestra Historia (El Origen) ======================= -->
+    <div class="-mx-4 sm:-mx-6 lg:-mx-8">
+    <section class="bg-[#F7EDE3] py-20 md:py-24 -mt-2">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <!-- Columna de texto -->
+        <div class="text-center md:text-left px-4 sm:px-6 md:px-0">
+          <h2 class="text-3xl md:text-4xl font-bold">De un Sueño Familiar a Tu Paladar</h2>
+          <p class="mt-4 text-lg text-[#704727]">
+            La historia de Lirios y Cacao comenzó con una chispa de inspiración de Karelle Castillo, un deseo de crear algo único que representara la riqueza de nuestra tierra. Pero una idea, por más brillante que sea, necesita un alma para florecer.
+          </p>
+          <p class="mt-4 text-lg text-[#704727]">
+            Esa alma fue Danissa Castillo. Con su apoyo incondicional y su visión, transformó un sueño en un proyecto tangible. Aunque ya no esté físicamente con nosotros, su espíritu y su memoria son el ingrediente secreto en cada una de nuestras creaciones. Lirios y Cacao es nuestro homenaje a su legado, un legado de amor, fuerza y dulzura.
+          </p>
+          <div class="mt-8 border-l-4 border-[#452317] pl-4">
+            <h3 class="font-bold text-xl">Lo que nos hace únicos</h3>
+            <p class="text-[#704727] mt-1">Nuestros chocolates saborizados, una innovación única en la región, son el corazón de nuestra propuesta. Cada sabor está diseñado para sorprenderte y crear una experiencia inolvidable.</p>
+          </div>
+        </div>
+        <!-- Columna de imagen (Placeholder) -->
+        <div class="bg-white/60 p-3 rounded-2xl shadow-lg border border-[#f0e5db] ">
+          <div class="bg-gray-200 h-80 rounded-xl flex items-center justify-center">
+            <span class="text-[#704727] p-4 text-center">Espacio para una foto memorable de Karelle y Danissa</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- Divisor de Onda 2 (Invertido) -->
+    <div class="-mx-4 sm:-mx-6 lg:-mx-8">
+    <div class="w-full -mb-2">
+      <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+        <path d="M0 81.7353C146 116.838 408.286 144.382 720 81.7353C1031.71 19.0882 1294 37.5 1440 81.7353V0H0V81.7353Z" fill="#F7EDE3"/>
+      </svg>
+    </div>
+    </div>
+
+    <!-- ======================= Sección 3: Visítanos ======================= -->
+    <section class="py-20 md:py-24 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold">Visítanos</h2>
+      <p class="mt-4 text-lg text-[#704727]">
+        Encuéntranos fácilmente con tu aplicación favorita de mapas.
+      </p>
+
+      <!-- Card con mapa estilizado -->
+      <div class="max-w-3xl mx-auto mt-10">
+        <p-card styleClass="rounded-2xl shadow-lg overflow-hidden border border-[#f0e5db]">
+          <!-- Header personalizado (si no lo quieres, bórralo) -->
+          <div class="px-5 pt-5 pb-3 text-center">
+            <h3 class="text-xl font-bold text-[#452317]">Nuestra Ubicación</h3>
+            <p class="text-sm text-[#704727] mt-1">Lirios&Cacao</p>
+          </div>
+
+          <!-- Contenedor del mapa con estilo -->
+          <div class="relative rounded-2xl overflow-hidden mx-4 mb-5 border border-[#f0e5db]">
+            <iframe
+              class="map-iframe block w-full h-[380px] pointer-events-none"
+              src="https://www.google.com/maps?q=14.79906,-89.5510&hl=es&z=16&output=embed"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#FFF8F1]/0 via-transparent to-[#FFF8F1]/0"></div>
+
+            <div class="absolute bottom-3 left-3 bg-white/80 backdrop-blur px-3 py-1.5 rounded-full text-xs text-[#452317] shadow">
+              2a Avenida & 5a Calle, Chiquimula
+            </div>
+          </div>
+        </p-card>
+      </div>
+
+      <div class="mt-4 flex flex-col sm:flex-row justify-center gap-4">
+        <!-- Google Maps -->
+        <p-button
+          icon="pi pi-map"
+          label="Abrir en Google Maps"
+          styleClass="p-button-outlined p-button-secondary"
+          (click)="abrirGoogleMaps()"
+        ></p-button>
+
+        <!-- Waze -->
+        <p-button
+          icon="pi pi-car"
+          label="Abrir en Waze"
+          styleClass="p-button-outlined p-button-success"
+          severity="info"
+          (click)="abrirWaze()"
+        ></p-button>
+      </div>
+    </section>
+
+    <!-- ======================= Sección 4: Redes Sociales ======================= -->
+    <section class="text-center py-12">
+      <h2 class="text-3xl font-bold">Síguenos la Pista</h2>
+      <p class="mt-2 text-lg text-[#704727]">Entérate de nuestras novedades y promociones.</p>
+      <div class="mt-6 flex justify-center gap-6">
+        <a href="#" class="text-[#452317] hover:text-[#704727] transition-transform transform hover:scale-110" (click)="abrirFacebook()">
+          <i class="pi pi-facebook" style="font-size: 2.5rem"></i>
+        </a>
+        <a href="#" class="text-[#452317] hover:text-[#704727] transition-transform transform hover:scale-110" (click)="abrirInstagram()">
+          <i class="pi pi-instagram" style="font-size: 2.5rem"></i>
+        </a>
+        <a href="#" class="text-[#452317] hover:text-[#704727] transition-transform transform hover:scale-110" (click)="abrirWhatsapp()">
+          <i class="pi pi-whatsapp" style="font-size: 2.5rem"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+</div>

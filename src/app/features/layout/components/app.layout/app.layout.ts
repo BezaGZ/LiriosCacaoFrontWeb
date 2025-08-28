@@ -7,6 +7,7 @@ import { AppFooter } from '../app.footer/app.footer';
 import { LayoutService } from '../../service/layout.service';
 import {CartFabComponent} from '@shared/components/cart-fab/cart-fab.component';
 
+
 @Component({
   selector: 'app-layout',
   standalone: true,

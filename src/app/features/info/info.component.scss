@@ -1,0 +1,28 @@
+:host ::ng-deep .p-card .p-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #452317;
+}
+:host ::ng-deep .p-card .p-card-body {
+  padding: 0;
+}
+:host ::ng-deep .p-card .p-card-content {
+  padding: 0;
+}
+
+
+.map-iframe {
+  filter: grayscale(12%) saturate(0.92) contrast(1.03) brightness(0.98);
+  transition: filter 200ms ease, transform 200ms ease, opacity 200ms ease;
+  opacity: 0.96;
+}
+
+.map-iframe:hover {
+  filter: grayscale(0%) saturate(1) contrast(1.04) brightness(1);
+  opacity: 1;
+  transform: scale(1.002);
+}
+
+:host ::ng-deep .p-card .p-card-body {
+  padding: 0;
+}
