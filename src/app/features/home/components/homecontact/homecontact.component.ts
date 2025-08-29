@@ -9,7 +9,7 @@ import {CommonModule} from '@angular/common';
   styleUrl: './homecontact.component.scss'
 })
 export class HomecontactComponent {
-  openWhatsAppContact() {
-    window.open('https://wa.me/50247885552?text=Hola%2Ctengo%20una%20respecto%20a%20un%20producto', '_blank');
-  }
+  abrirFacebook()  { window.open('https://www.facebook.com/Liriosycacao', '_blank'); }
+  abrirInstagram() { window.open('https://www.instagram.com/lirios_ycacao?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank'); }
+  abrirWhatsapp()  { window.open('https://wa.me/45827110', '_blank'); }
 }
