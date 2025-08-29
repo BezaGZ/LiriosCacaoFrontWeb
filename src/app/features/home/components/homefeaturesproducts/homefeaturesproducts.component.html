@@ -22,7 +22,6 @@
       "
       (click)="openCustomize(product.id)"
     >
-      <!-- Imagen -->
       <div
         class="w-full h-24 sm:h-28 rounded-xl overflow-hidden relative"
         style="background-color: #f7ede3;"
@@ -41,7 +40,6 @@
         ></button>
       </div>
 
-      <!-- Título -->
       <h3 class="font-semibold text-[#452317] mt-2 leading-snug h-10
             text-xs sm:text-sm md:text-sm">
   <span class="block line-clamp-2">
@@ -52,7 +50,6 @@
   </span>
       </h3>
 
-      <!-- Precio -->
       <p
         class="font-bold text-[#452317] mt-1
                text-sm sm:text-base md:text-lg"
@@ -76,7 +73,6 @@
   </ng-template>
 
   <div class="p-3 flex flex-col gap-3">
-    <!-- Fruta -->
     <label class="font-semibold text-sm">Fruta</label>
     <select
       class="p-inputtext p-component"
@@ -86,7 +82,6 @@
       <option *ngFor="let f of frutas" [value]="f.slug">{{ f.nombre }}</option>
     </select>
 
-    <!-- Chocolate -->
     <label class="font-semibold text-sm mt-2">Chocolate</label>
     <select
       class="p-inputtext p-component"
@@ -98,7 +93,6 @@
       </option>
     </select>
 
-    <!-- Toppings -->
     <label class="font-semibold text-sm mt-2">Toppings</label>
     <div class="grid grid-cols-2 gap-2">
       <label *ngFor="let t of toppings" class="flex items-center gap-2">
@@ -111,7 +105,6 @@
       </label>
     </div>
 
-    <!-- Doble chocolate -->
     <label class="flex items-center gap-2 mt-2">
       <input type="checkbox" [(ngModel)]="dobleChocolate" name="dobleChoco" />
       <span>
@@ -120,7 +113,6 @@
       </span>
     </label>
 
-    <!-- Preview -->
     <div class="mt-3">
       <img
         [src]="previewImage()"

@@ -11,7 +11,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/home/home.component').then((m) => m.HomeComponent),
       },
+      {
+        path: 'sobrenosotros',
+        loadComponent: () =>
+          import('./features/info/info.component').then((m) => m.InfoComponent),
+      },
     ],
+
   },
 
   {

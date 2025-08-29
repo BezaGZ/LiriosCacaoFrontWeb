@@ -24,7 +24,7 @@ export class InfoComponent {
   }
 
   abrirFacebook() {
-    window.open('https://www.facebook.com/DulcesMomentosChiqui', '_blank');
+    window.open('https://www.facebook.com/Liriosycacao', '_blank');
   }
   abrirInstagram() {
     window.open('https://www.instagram.com/lirios_ycacao?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank');
