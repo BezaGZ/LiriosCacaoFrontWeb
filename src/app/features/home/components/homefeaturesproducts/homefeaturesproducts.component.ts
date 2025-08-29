@@ -7,28 +7,26 @@ import { presetToCard, FeaturedCardVM } from '../../../../core/utils/featured.ad
 import { FeaturedPreset } from '../../../../core/utils/featured.models';
 import { DialogModule } from 'primeng/dialog';
 import { CartService } from '../../../cart/cart.service';
-
-// para personalizar
 import { CHOCOFRUTA_SEED } from '../../../..//data';
 import { calcularPrecioUnitarioChocofruta } from '../../../../data/chocofruta.logic';
 import { buildChocoImagePaths } from '../../../../core/utils/image-resolver';
 import {FormsModule} from '@angular/forms';
+import {CheckboxModule} from 'primeng/checkbox';
+import {DividerModule} from 'primeng/divider';
+import {DropdownModule} from 'primeng/dropdown';
 
 @Component({
   selector: 'app-homefeaturesproducts',
   standalone: true,
-  imports: [CommonModule, AnimateOnScrollModule, ButtonModule, DialogModule, FormsModule],
+  imports: [CommonModule, CheckboxModule, DropdownModule, DividerModule, AnimateOnScrollModule, ButtonModule, DialogModule, FormsModule],
   templateUrl: './homefeaturesproducts.component.html',
   styleUrls: ['./homefeaturesproducts.component.scss']
 })
 export class HomefeaturesproductsComponent {
 
 
-
-
-
-
-
+  frutasOptions = this.frutas.map(f => ({ label: f.nombre, value: f.slug }));
+  chocolatesOptions = this.chocolates.map(c => ({ label: c.nombre, value: c.colorSlug }));
 
 
   // view-models para las cards

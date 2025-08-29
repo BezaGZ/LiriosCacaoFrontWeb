@@ -1,0 +1,32 @@
+:host ::ng-deep .mini-dialog {
+  --p-dialog-header-padding: 0.85rem 1rem;
+  --p-dialog-content-padding: 0 0 0 0;
+  --p-dialog-border-radius: 1rem;
+  --p-dialog-shadow: 0 8px 24px rgba(0,0,0,.12);
+
+  .p-dialog-header {
+    border-bottom: 1px solid #f0e5db;
+    background: #fff8f1;
+  }
+
+  .p-dialog-content {
+    background: #fffdf9;
+  }
+
+  .p-dialog-footer {
+    border-top: 1px solid #f0e5db;
+    padding: .75rem 1rem 1rem 1rem;
+  }
+
+  .p-dropdown,
+  .p-inputtext {
+    --p-inputtext-border-radius: .75rem;
+    --p-inputtext-padding-y: .55rem;
+    --p-inputtext-padding-x: .75rem;
+    width: 100%;
+  }
+
+  .p-checkbox .p-checkbox-box {
+    border-radius: .5rem;
+  }
+}
