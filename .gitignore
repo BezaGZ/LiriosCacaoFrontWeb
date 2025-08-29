@@ -40,3 +40,5 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+# Firebase GitHub Actions workflows
+.github/workflows/
