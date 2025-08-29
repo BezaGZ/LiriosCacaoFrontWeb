@@ -22,6 +22,15 @@ import {FormsModule} from '@angular/forms';
   styleUrls: ['./homefeaturesproducts.component.scss']
 })
 export class HomefeaturesproductsComponent {
+
+
+
+
+
+
+
+
+
   // view-models para las cards
   products: FeaturedCardVM[] = FEATURED_PRESETS.map(presetToCard);
 
@@ -99,6 +108,56 @@ export class HomefeaturesproductsComponent {
 
   // 2 acciones posibles:
   constructor(private cart: CartService) {}
+
+  /**
+   * Agrega un producto al carrito directamente desde la card destacada.
+   * @param product El view-model de la card que se quiere agregar.
+   * @param event El evento del mouse, para detener su propagación.
+   */
+  addToCartFromCard(product: FeaturedCardVM, event: MouseEvent) {
+    // ¡Paso clave! Detiene el burbujeo para que no se active el (click) del div padre.
+    event.stopPropagation();
+
+    // Buscamos el preset original para tener todos los datos necesarios
+    const preset = FEATURED_PRESETS.find(p => p.id === product.id);
+    if (!preset) {
+      console.error('No se encontró el preset para el producto:', product.id);
+      return;
+    }
+
+    // Usamos los datos del preset para añadir al carrito
+    const { fruta, chocolate, toppings, dobleChocolate } = preset;
+
+    // === INICIO DE LA CORRECCIÓN ===
+
+    // 1. Construimos el título a partir de las propiedades que sí existen en product.meta
+    const title = `Choco${product.meta.frutaNombre} con ${product.meta.chocolateNombre}` +
+      (product.meta.toppings.length ? ` + ${product.meta.toppings.join(', ')}` : '');
+
+    // Construimos el objeto para el carrito
+    this.cart.add({
+      kind: 'chocofruta',
+      title: title, // 2. Usamos la variable 'title' que acabamos de crear
+      imageUrl: product.imageUrl,
+      unitPrice: product.price,
+      qty: 1,
+      data: {
+        chocofruta: {
+          fruta,
+          chocolate,
+          toppings,
+          dobleChocolate: !!dobleChocolate,
+          cantidad: 1
+        }
+      }
+    });
+
+    console.log(`${title} agregado al carrito!`); // 3. Usamos la variable 'title' aquí también
+
+    // === FIN DE LA CORRECCIÓN ===
+
+    this.cart.open(); // Opcional: abrir el carrito
+  }
 
   addToCart() {
     const fruta = this.frutas.find(f => f.slug === this.selectedFrutaSlug);
@@ -184,6 +243,12 @@ export class HomefeaturesproductsComponent {
     // Cualquier otro caso → nophoto
     img.src = fallback;
   }
+
+
+
+
+
+
 
 
 }

@@ -36,7 +36,8 @@
           pButton
           type="button"
           icon="pi pi-shopping-cart"
-          class="!absolute !top-2 !right-2 !w-8 !h-8 sm:!w-10 sm:!h-10 !rounded-full !bg-[#452317]/80 !border-none"
+          class="!absolute !top-2 !right-2 !w-8 !h-8 sm:!w-10 sm:!h-10 !rounded-full !bg-[#452317]/80 !border-none "
+          (click)="addToCartFromCard(product, $event)"
         ></button>
       </div>
 
