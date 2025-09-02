@@ -14,22 +14,22 @@
         <span class="text-sm">Inicio</span>
       </div>
       <div class="flex flex-col items-center cursor-pointer
-            transition transform hover:scale-110 hover:text-[#452317]">
+            transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('chocofruta')">
         <img src="assets/icons/chocofruta.svg" alt="chocofrutas" class="w-5 h-5 mb-1" />
         <span class="text-sm">Chocofrutas</span>
       </div>
       <div class="flex flex-col items-center cursor-pointer
-            transition transform hover:scale-110 hover:text-[#452317]">
+            transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('helado')">
         <img src="assets/icons/helados.svg" alt="helados" class="w-5 h-5 mb-1" />
         <span class="text-sm">Helados</span>
       </div>
       <div class="flex flex-col items-center cursor-pointer
-            transition transform hover:scale-110 hover:text-[#452317]">
+            transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('flor')">
         <img src="assets/icons/floristeria.svg" alt="Flor" class="w-5 h-5 mb-1" />
         <span class="text-sm">Floristería</span>
       </div>
       <div class="flex flex-col items-center cursor-pointer
-            transition transform hover:scale-110 hover:text-[#452317]">
+            transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('evento')">
         <img src="assets/icons/eventos.svg" alt="Globos" class="w-5 h-5 mb-1" />
         <span class="text-sm">Eventos</span>
       </div>
@@ -62,6 +62,7 @@
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
+      (click)="goToCategory('chocofruta')"
     >
       <img src="assets/icons/chocofruta.svg" alt="chocofrutas" class="w-5 h-5 mb-1" />
       <span class="text-xs">Chocofrutas</span>
@@ -71,6 +72,7 @@
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
+      (click)="goToCategory('helado')"
     >
       <img src="assets/icons/helados.svg" alt="helados"
            class="w-5 h-5 mb-1 transition-transform duration-200" />
@@ -81,6 +83,7 @@
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
+      (click)="goToCategory('flor')"
     >
       <img src="assets/icons/floristeria.svg" alt="Flor" class="w-5 h-5 mb-1" />
       <span class="text-xs">Floristería</span>
@@ -90,6 +93,7 @@
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
+      (click)="goToCategory('evento')"
     >
       <img src="assets/icons/eventos.svg" alt="Flor" class="w-5 h-5 mb-1" />
       <span class="text-xs">Eventos</span>

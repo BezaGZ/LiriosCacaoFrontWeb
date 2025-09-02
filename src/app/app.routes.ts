@@ -16,6 +16,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/info/info.component').then((m) => m.InfoComponent),
       },
+      {
+        path: 'productos',
+        loadComponent: () =>
+          import('./features/listproducts/listproducts.component').then((m) => m.ListproductsComponent),
+      }
     ],
 
   },
@@ -23,7 +28,7 @@ export const routes: Routes = [
   {
     path: 'test',
     loadComponent: () =>
-      import('./features/info/info.component').then((m) => m.InfoComponent),
+      import('./features/listproducts/listproducts.component').then((m) => m.ListproductsComponent),
   },
 
 ];

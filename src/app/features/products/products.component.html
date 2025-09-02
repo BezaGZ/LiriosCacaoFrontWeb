@@ -1,0 +1,132 @@
+<section class="py-10">
+  <div *ngIf="!products.length" class="text-center text-gray-500 py-12">
+    <i class="pi pi-search" style="font-size: 2rem"></i>
+    <p class="mt-2">No se encontraron productos.</p>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-3 px-2">
+    <div
+      *ngFor="let product of products"
+      pAnimateOnScroll
+      enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000"
+      class="w-40 sm:w-44 md:w-52
+      bg-white rounded-xl border border-[#f0e5db]
+      p-3 md:p-4 shadow-md hover:shadow-xl
+      transform hover:scale-105 transition duration-300 ease-in-out flex flex-col
+      text-xs sm:text-sm md:text-base cursor-pointer"
+      (click)="openCustomize(product)"
+    >
+      <div class="w-full h-24 sm:h-28 rounded-xl overflow-hidden relative
+       bg-[#f7ede3]">
+        <img
+          [src]="product.imageUrl"
+          [alt]="product.title"
+          (error)="onImageError($event)"
+          class="w-full h-full object-contain"
+        />
+        <button
+          pButton
+          type="button"
+          icon="pi pi-shopping-cart"
+          class="!absolute !top-2 !right-2 !w-8 !h-8 sm:!w-10 sm:!h-10 !rounded-full !bg-[#452317]/80 !border-none"
+          (click)="addToCartFromCard(product, $event)"
+        ></button>
+      </div>
+
+      <h3 class="font-semibold text-[#452317] mt-2 leading-snug h-10 text-xs sm:text-sm md:text-sm">
+        <span class="block line-clamp-2">{{ product.title }}</span>
+      </h3>
+
+      <p class="font-bold text-[#452317] mt-1 text-sm sm:text-base md:text-lg">
+        {{ product.price | currency:'GTQ':'symbol':'1.2-2' }}
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<ng-container *ngIf="dialogVisible">
+  <p-dialog
+    [(visible)]="dialogVisible"
+    [modal]="true"
+    position="bottom"
+    [dismissableMask]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [blockScroll]="true"
+    [breakpoints]="{ '640px': '95vw' }"
+    [style]="{ width: '480px', maxWidth: '95vw' }"
+    styleClass="mini-dialog"
+  >
+    <ng-template pTemplate="header">
+      <div class="flex items-center gap-2">
+        <i class="pi pi-sliders-h text-[#452317]"></i>
+        <span class="font-semibold text-[#452317]">Personaliza tu Chocofruta</span>
+      </div>
+    </ng-template>
+
+    <div class="p-4 flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium text-[#704727]">Fruta</label>
+        <p-dropdown
+          [options]="frutasOptions"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="selectedFrutaSlug"
+          placeholder="Selecciona una fruta"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-medium text-[#704727]">Chocolate</label>
+        <p-dropdown
+          [options]="chocolatesOptions"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="selectedChocolateSlug"
+          placeholder="Selecciona un chocolate"
+        />
+      </div>
+      <p-divider class="my-1" />
+      <div class="flex flex-col gap-2">
+        <label class="text-xs font-medium text-[#704727]">Toppings</label>
+        <div class="grid grid-cols-2 gap-2">
+          <label *ngFor="let t of toppings" class="flex items-center gap-2 rounded-md border border-[#f0e5db] px-2 py-2">
+            <p-checkbox
+              [binary]="true"
+              [ngModel]="selectedToppingsIds.includes(t.id)"
+              (onChange)="onToggleTopping(t.id, $event.checked)"
+              [inputId]="'top-' + t.id"
+            />
+            <span class="text-sm">{{ t.nombre }}</span>
+          </label>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <p-checkbox [binary]="true" [(ngModel)]="dobleChocolate" inputId="doblechoco" />
+        <label  class="text-sm">
+          Doble chocolate
+          <span class="font-medium">
+            (+{{ CHOCOFRUTA_SEED.reglas.recargoDobleChocolate | currency:'GTQ' }})
+          </span>
+        </label>
+      </div>
+      <div class="rounded-xl border border-[#f0e5db] p-3 bg-white/60">
+        <img [src]="previewImage()" (error)="onImageError($event)" alt="preview" class="w-full h-40 object-contain rounded" />
+        <div class="mt-2 text-right font-bold text-[#452317]">
+          {{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button
+        pButton
+        label="Agregar al carrito"
+        icon="pi pi-shopping-cart"
+        class="w-full md:w-auto"
+        (click)="addToCart()"
+      ></button>
+    </ng-template>
+  </p-dialog>
+</ng-container>

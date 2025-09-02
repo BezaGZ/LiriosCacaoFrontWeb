@@ -16,4 +16,17 @@ export class HomewelcomeComponent {
   irSobreNosotros() {
     this.router.navigate(['/sobrenosotros']);
   }
+
+  /**
+   * Navega a la página de listado de productos y aplica un filtro de categoría.
+   * @param category El ID de la categoría a filtrar (ej: 'chocofruta', 'helado')
+   */
+  goToCategory(category: string) {
+    // La ruta a la que navegamos es la de tu productos
+    // El segundo argumento son las opciones, donde pasamos los queryParams
+    this.router.navigate(['/productos'], {
+      queryParams: { category: category }
+    });
+  }
+
 }

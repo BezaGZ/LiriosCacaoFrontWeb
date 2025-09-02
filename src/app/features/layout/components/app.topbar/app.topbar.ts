@@ -45,4 +45,17 @@ export class AppTopbar {
     const cnt = this.cartItemCount;
     return cnt > 99 ? '99+' : String(cnt);
   }
+
+  /**
+   * Navega a la página de listado de productos y aplica un filtro de categoría.
+   * @param category El ID de la categoría a filtrar (ej: 'chocofruta', 'helado')
+   */
+  goToCategory(category: string) {
+    // La ruta a la que navegamos es la de tu productos
+    // El segundo argumento son las opciones, donde pasamos los queryParams
+    this.router.navigate(['/productos'], {
+      queryParams: { category: category }
+    });
+  }
+
 }
