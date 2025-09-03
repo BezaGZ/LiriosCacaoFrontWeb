@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // --- Tus Componentes Hijos ---
-import { ProductsComponent } from '../products/products.component';
+import { ProductsComponent } from '@features/listproducts/components/products/products.component';
 import { CategoryFiltersComponent } from '../listproducts/components/category-filters/category-filters.component';
 import { SearchBarComponent } from '../listproducts/components/search-bar/search-bar.component';
 

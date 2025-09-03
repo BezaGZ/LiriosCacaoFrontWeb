@@ -10,8 +10,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
-        preset: Aura
+        preset: Aura,
       },
+
     }),
     provideRouter(routes)
 

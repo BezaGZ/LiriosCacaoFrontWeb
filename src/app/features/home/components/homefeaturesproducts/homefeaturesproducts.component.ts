@@ -6,7 +6,7 @@ import { FEATURED_PRESETS } from '../../../../core/utils/featured.presets';
 import { presetToCard, FeaturedCardVM } from '../../../../core/utils/featured.adapter';
 import { FeaturedPreset } from '../../../../core/utils/featured.models';
 import { DialogModule } from 'primeng/dialog';
-import { CartService } from '../../../cart/cart.service';
+import { CartService } from '@features/cart/cart.service';
 import { CHOCOFRUTA_SEED } from '../../../..//data';
 import { calcularPrecioUnitarioChocofruta } from '../../../../data/chocofruta.logic';
 import { buildChocoImagePaths } from '../../../../core/utils/image-resolver';
