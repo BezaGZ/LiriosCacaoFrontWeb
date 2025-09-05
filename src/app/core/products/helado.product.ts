@@ -1,9 +1,9 @@
 // core/products/helado.products.ts
 
-import { HELADOS_PALETA_SEED } from '../../data/helados.seed';
-import { SaborHelado } from '../../data/models';
+import { HELADOS_PALETA_SEED } from '../domain/helado/helados.seed';
+import { SaborHelado } from '../domain/helado/helado.models';
 import { imgHeladoPaleta } from '../utils/image-resolver';
-import { ProductCardVM } from '../models/product-card.vm';
+import { ProductCardVM } from '../ui-models/product-card.vm';
 
 function heladoToCardVM(sabor: SaborHelado): ProductCardVM {
   return {

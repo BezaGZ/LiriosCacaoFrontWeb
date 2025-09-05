@@ -1,4 +1,4 @@
-import { CatalogoChocofruta, Fruta, Chocolate, Topping } from './models';
+import { CatalogoChocofruta, Fruta, Chocolate, Topping } from './chocofruta.models';
 
 const FRUTAS: Fruta[] = [
   { id: 'fru_manzana',   nombre: 'Manzana',   slug: 'manzana',   imagenBase: 'assets/chocofruta/manzana_tradicional.png',  disponible: true },

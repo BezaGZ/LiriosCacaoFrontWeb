@@ -11,10 +11,10 @@ import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 
 // --- Imports de tu Lógica y Datos ---
-import { ProductCardVM } from '@core/models/product-card.vm'; // <-- El modelo genérico
+import { ProductCardVM } from '@core/ui-models/product-card.vm'; // <-- El modelo genérico
 import { CartService } from '@features/cart/cart.service';
-import { CHOCOFRUTA_SEED } from '../../../../data';
-import { calcularPrecioUnitarioChocofruta } from '../../../../data/chocofruta.logic';
+import { CHOCOFRUTA_SEED } from '@core/domain';
+import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 import { buildChocoImagePaths } from '@core/utils/image-resolver';
 
 @Component({

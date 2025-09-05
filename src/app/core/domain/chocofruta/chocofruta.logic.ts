@@ -1,4 +1,4 @@
-import { Fruta, Chocolate, Topping, PrecioReglasChocofruta } from './models';
+import { Fruta, Chocolate, Topping, PrecioReglasChocofruta } from './chocofruta.models';
 
 export interface SeleccionChocofruta {
   fruta: Fruta;

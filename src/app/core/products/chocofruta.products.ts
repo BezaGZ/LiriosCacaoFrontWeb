@@ -1,10 +1,10 @@
 // core/products/chocofruta.products.ts
 
-import { CHOCOFRUTA_SEED } from '../../data';
-import { Fruta, Chocolate, Topping } from '../../data/models';
-import { calcularPrecioUnitarioChocofruta } from '../../data/chocofruta.logic';
+import { CHOCOFRUTA_SEED } from '../domain';
+import { Fruta, Chocolate, Topping } from '../domain/chocofruta/chocofruta.models';
+import { calcularPrecioUnitarioChocofruta } from '../domain/chocofruta/chocofruta.logic';
 import { buildChocoImagePaths } from '../utils/image-resolver';
-import { ProductCardVM } from '../models/product-card.vm';
+import { ProductCardVM } from '../ui-models/product-card.vm';
 
 // Función "adaptadora" específica para chocofrutas
 function chocofrutaToCardVM(fruta: Fruta, chocolate: Chocolate, topping?: Topping): ProductCardVM {

@@ -1,4 +1,4 @@
-import { SeleccionChocofruta } from '../../data/chocofruta.logic';
+import { SeleccionChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 
 export type CartItemKind = 'chocofruta';
 

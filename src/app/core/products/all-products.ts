@@ -1,6 +1,6 @@
 // core/products/all-products.ts
 
-import { ProductCardVM } from '../models/product-card.vm';
+import { ProductCardVM } from '../ui-models/product-card.vm';
 import { ALL_CHOCOFRUTAS } from './chocofruta.products';
 import { ALL_HELADOS } from './helado.product';
 

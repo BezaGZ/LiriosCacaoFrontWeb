@@ -8,7 +8,7 @@ import { SearchBarComponent } from '../listproducts/components/search-bar/search
 
 // --- ¡Importante! Usamos los nuevos datos ---
 import { ALL_PRODUCTS } from '../../core/products/all-products';
-import { ProductCardVM } from '../../core/models/product-card.vm';
+import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({

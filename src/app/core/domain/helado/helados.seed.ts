@@ -1,4 +1,4 @@
-import { CatalogoHeladosPaleta, SaborHelado } from './models';
+import { CatalogoHeladosPaleta, SaborHelado } from './helado.models';
 
 const P = 5;
 

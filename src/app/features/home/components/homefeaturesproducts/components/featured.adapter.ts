@@ -1,7 +1,7 @@
 import { FeaturedPreset } from './featured.models';
-import { buildChocoImagePaths } from './image-resolver';
-import { CHOCOFRUTA_SEED } from '../../data';
-import { calcularPrecioUnitarioChocofruta } from '../../data/chocofruta.logic';
+import { buildChocoImagePaths } from '@core/utils/image-resolver';
+import { CHOCOFRUTA_SEED } from '@core/domain';
+import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 
 export interface FeaturedCardVM {
   id: string;

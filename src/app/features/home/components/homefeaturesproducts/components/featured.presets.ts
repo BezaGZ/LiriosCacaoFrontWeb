@@ -1,4 +1,4 @@
-import { CHOCOFRUTA_SEED } from '../../data';
+import { CHOCOFRUTA_SEED } from '@core/domain';
 import { FeaturedPreset } from './featured.models';
 
 const F = (slug: string) => CHOCOFRUTA_SEED.frutas.find(f => f.slug === slug)!;
