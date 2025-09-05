@@ -19,7 +19,7 @@
       <div class="w-full h-24 sm:h-28 rounded-xl overflow-hidden relative
        bg-[#f7ede3]">
         <img
-          [src]="product.imageUrl"
+          [src]="product.imageUrls.base"
           [alt]="product.title"
           (error)="onImageError($event)"
           class="w-full h-full object-contain"
@@ -74,7 +74,7 @@
           optionLabel="label"
           optionValue="value"
           [(ngModel)]="selectedFrutaSlug"
-          placeholder="Selecciona una fruta"
+          (ngModelChange)="updatePreviewImages()" placeholder="Selecciona una fruta"
         />
       </div>
       <div class="flex flex-col gap-1">
@@ -84,7 +84,7 @@
           optionLabel="label"
           optionValue="value"
           [(ngModel)]="selectedChocolateSlug"
-          placeholder="Selecciona un chocolate"
+          (ngModelChange)="updatePreviewImages()" placeholder="Selecciona un chocolate"
         />
       </div>
       <p-divider class="my-1" />
@@ -111,9 +111,21 @@
           </span>
         </label>
       </div>
-      <div class="rounded-xl border border-[#f0e5db] p-3 bg-white/60">
-        <img [src]="previewImage()" (error)="onImageError($event)" alt="preview" class="w-full h-40 object-contain rounded" />
-        <div class="mt-2 text-right font-bold text-[#452317]">
+      <div class="relative rounded-xl border border-[#f0e5db] p-3 bg-white/60 w-full h-40">
+        <img
+          [src]="previewImagePaths.base"
+          (error)="onImageError($event)"
+          alt="preview-base"
+          class="absolute inset-0 w-full h-full object-contain rounded"
+        />
+        <img
+          *ngIf="previewImagePaths.topping"
+          [src]="previewImagePaths.topping"
+          (error)="onImageError($event)"
+          alt="preview-topping"
+          class="absolute inset-0 w-full h-full object-contain rounded"
+        />
+        <div class="absolute bottom-2 right-2 font-bold text-[#452317]">
           {{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}
         </div>
       </div>

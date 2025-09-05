@@ -5,15 +5,22 @@ import { SaborHelado } from '../domain/helado/helado.models';
 import { imgHeladoPaleta } from '../utils/image-resolver';
 import { ProductCardVM } from '../ui-models/product-card.vm';
 
+// core/products/helado.products.ts
+
 function heladoToCardVM(sabor: SaborHelado): ProductCardVM {
   return {
     id: sabor.id,
     category: 'helado',
     title: `Paleta de ${sabor.nombre}`,
-    imageUrl: imgHeladoPaleta(sabor.slug), // Asumiendo que tienes una función para la imagen
     price: sabor.precio,
-    customizable: false, // Los helados de paleta no se personalizan
-    data: { sabor }
+    customizable: false,
+    data: { sabor },
+    // --- CORRECCIÓN AQUÍ ---
+    // Usamos el nuevo formato de imageUrls
+    imageUrls: {
+      base: imgHeladoPaleta(sabor.slug), // La imagen principal va en 'base'
+      topping: ''                        // Los helados no tienen topping
+    }
   };
 }
 

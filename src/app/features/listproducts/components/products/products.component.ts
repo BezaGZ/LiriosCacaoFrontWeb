@@ -11,11 +11,12 @@ import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 
 // --- Imports de tu Lógica y Datos ---
-import { ProductCardVM } from '@core/ui-models/product-card.vm'; // <-- El modelo genérico
+import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { CartService } from '@features/cart/cart.service';
 import { CHOCOFRUTA_SEED } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
-import { buildChocoImagePaths } from '@core/utils/image-resolver';
+// Se elimina la importación de `buildChocoImagePaths` que ya no se usa
+import { buildLayeredImagePaths } from '@core/utils/image-resolver';
 
 @Component({
   selector: 'app-products',
@@ -34,17 +35,13 @@ import { buildChocoImagePaths } from '@core/utils/image-resolver';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
-  // ----------------------------------------------------
   // --- Propiedades Principales ---
-  // ----------------------------------------------------
   @Input() products: ProductCardVM[] = [];
   readonly cart = inject(CartService);
 
-  // ----------------------------------------------------
-  // --- Lógica del Dialog de Personalización (para Chocofrutas) ---
-  // ----------------------------------------------------
+  // --- Lógica del Dialog de Personalización ---
   dialogVisible = false;
-  private currentProductData: any = null; // Para guardar datos del producto a personalizar
+  previewImagePaths = { base: '', topping: '' };
 
   // Estado del formulario del dialog
   selectedFrutaSlug?: string;
@@ -58,50 +55,48 @@ export class ProductsComponent {
 
   get toppings() { return CHOCOFRUTA_SEED.toppings.filter(t => t.disponible); }
 
-  /**
-   * Abre el dialog de personalización SÓLO si el producto es una chocofruta personalizable.
-   */
   openCustomize(product: ProductCardVM) {
-    console.log('Intentando abrir customizer para:', product);
-
     if (!product.customizable || product.category !== 'chocofruta') {
-      console.log('El producto no es personalizable, saliendo...');
-      return; // No hace nada si no es personalizable
+      return;
     }
-
-
-    this.currentProductData = product.data; // Guardamos los datos originales
     const { fruta, chocolate, toppings } = product.data;
-
-    // Inicializamos el formulario del dialog con los datos del producto
     this.selectedFrutaSlug = fruta.slug;
     this.selectedChocolateSlug = chocolate.colorSlug;
     this.selectedToppingsIds = toppings.map((t: any) => t.id);
-    this.dobleChocolate = false; // Reiniciamos
-
+    this.dobleChocolate = false;
     this.dialogVisible = true;
+    this.updatePreviewImages();
   }
 
-  /**
-   * Agrega un producto al carrito directamente desde el botón en la tarjeta.
-   */
-  addToCartFromCard(product: ProductCardVM, event: MouseEvent) {
-    event.stopPropagation(); // Evita que se abra el dialog
+  updatePreviewImages() {
+    const fruta = CHOCOFRUTA_SEED.frutas.find(f => f.slug === this.selectedFrutaSlug);
+    const choc = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
+    if (!fruta || !choc) {
+      this.previewImagePaths = { base: 'assets/img/nophoto.png', topping: '' };
+      return;
+    }
+    const top = this.toppings.find(t => t.id === this.selectedToppingsIds[0]);
+    const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, top?.nombre);
+    this.previewImagePaths.base = paths.baseImage;
+    this.previewImagePaths.topping = paths.toppingImage;
+  }
 
+  addToCartFromCard(product: ProductCardVM, event: MouseEvent) {
+    event.stopPropagation();
     this.cart.add({
-      kind: 'chocofruta', // Puedes hacer esto dinámico si es necesario
+      kind: product.category,
       title: product.title,
-      imageUrl: product.imageUrl,
       unitPrice: product.price,
       qty: 1,
       data: product.data,
+      imageUrls: {
+        base: product.imageUrls.base,
+        topping: '',
+      },
     });
     this.cart.open();
   }
 
-  /**
-   * Agrega el producto personalizado desde el dialog al carrito.
-   */
   addToCart() {
     const fruta = CHOCOFRUTA_SEED.frutas.find(f => f.slug === this.selectedFrutaSlug);
     const choc = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
@@ -110,17 +105,17 @@ export class ProductsComponent {
     const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
     const topNombreList = tops.map(t => t.nombre);
     const title = `Choco${fruta.nombre} con ${choc.nombre}` + (topNombreList.length ? ` + ${topNombreList.join(', ')}` : '');
-
     const topPrincipal = topNombreList[0];
-    const paths = buildChocoImagePaths(fruta.nombre, choc.nombre, topPrincipal);
-    const imageUrl = paths.withTop || paths.withoutTop || paths.fallback;
-
+    const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, topPrincipal);
     const unitPrice = this.previewPrice();
 
     this.cart.add({
       kind: 'chocofruta',
       title,
-      imageUrl,
+      imageUrls: {
+        base: paths.baseImage,
+        topping: paths.toppingImage,
+      },
       unitPrice,
       qty: 1,
       data: {
@@ -132,37 +127,20 @@ export class ProductsComponent {
     this.cart.open();
   }
 
-  // --- Métodos de ayuda para el dialog (casi sin cambios) ---
-
   previewPrice(): number {
     const fruta = CHOCOFRUTA_SEED.frutas.find(f => f.slug === this.selectedFrutaSlug);
     const choc = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
     if (!fruta || !choc) return 0;
     const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
     return calcularPrecioUnitarioChocofruta(
-      { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, cantidad: 1 },
-      CHOCOFRUTA_SEED.reglas
+        { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, cantidad: 1 },
+        CHOCOFRUTA_SEED.reglas
     );
   }
 
-
-  // Dentro de la clase ProductsComponent en products.component.ts
-
-  /**
-   * Maneja el error de carga de una imagen y le asigna una imagen de fallback.
-   */
   onImageError(event: Event) {
     const element = event.target as HTMLImageElement;
     element.src = 'assets/img/nophoto.png';
-  }
-
-  previewImage(): string {
-    const fruta = CHOCOFRUTA_SEED.frutas.find(f => f.slug === this.selectedFrutaSlug);
-    const choc = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
-    if (!fruta || !choc) return 'assets/img/nophoto.png';
-    const topPrincipal = this.toppings.find(t => t.id === this.selectedToppingsIds[0])?.nombre;
-    const paths = buildChocoImagePaths(fruta.nombre, choc.nombre, topPrincipal);
-    return paths.withTop || paths.withoutTop || paths.fallback;
   }
 
   onToggleTopping(id: string, checked: boolean) {
@@ -173,6 +151,7 @@ export class ProductsComponent {
     } else {
       this.selectedToppingsIds = this.selectedToppingsIds.filter(x => x !== id);
     }
+    this.updatePreviewImages();
   }
 
   protected readonly CHOCOFRUTA_SEED = CHOCOFRUTA_SEED;

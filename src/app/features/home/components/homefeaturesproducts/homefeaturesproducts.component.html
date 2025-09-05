@@ -9,59 +9,17 @@
   </div>
 
   <div class="flex flex-wrap justify-center gap-3 px-2">
-    <div
+    <app-product-card
       *ngFor="let product of products"
       pAnimateOnScroll
       enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000"
-      class="
-        w-40 sm:w-44 md:w-52
-        bg-white rounded-xl border border-[#f0e5db]
-        p-3 md:p-4 shadow-md hover:shadow-xl
-        transform hover:scale-105 transition duration-300 ease-in-out flex flex-col
-        text-xs sm:text-sm md:text-base cursor-pointer
-      "
-      (click)="openCustomize(product.id)"
-    >
-      <div
-        class="w-full h-24 sm:h-28 rounded-xl overflow-hidden relative"
-        style="background-color: #f7ede3;"
-      >
-        <img
-          [src]="product.imageUrl"
-          (error)="onCardImgError(product, $event)"
-          [alt]="'Choco' + product.meta.frutaNombre + ' con ' + product.meta.chocolateNombre"
-          class="w-full h-full object-contain"
-        />
-        <button
-          pButton
-          type="button"
-          icon="pi pi-shopping-cart"
-          class="!absolute !top-2 !right-2 !w-8 !h-8 sm:!w-10 sm:!h-10 !rounded-full !bg-[#452317]/80 !border-none "
-          (click)="addToCartFromCard(product, $event)"
-        ></button>
-      </div>
-
-      <h3 class="font-semibold text-[#452317] mt-2 leading-snug h-10
-            text-xs sm:text-sm md:text-sm">
-  <span class="block line-clamp-2">
-    Choco{{ product.meta.frutaNombre }} con {{ product.meta.chocolateNombre }}
-    <ng-container *ngIf="product.meta.toppings.length">
-      + {{ product.meta.toppings.join(', ') }}
-    </ng-container>
-  </span>
-      </h3>
-
-      <p
-        class="font-bold text-[#452317] mt-1
-               text-sm sm:text-base md:text-lg"
-      >
-        {{ product.price | currency:'GTQ':'symbol':'1.2-2' }}
-      </p>
-    </div>
+      [product]="product"
+      (customize)="handleCustomize($event)"
+      (addToCart)="handleAddToCart($event)"
+    ></app-product-card>
   </div>
 </section>
 
-<!-- Dialog de personalización -->
 <ng-container *ngIf="dialogVisible">
   <p-dialog
     [(visible)]="dialogVisible"
@@ -75,7 +33,6 @@
     [style]="{ width: '480px', maxWidth: '95vw' }"
     styleClass="mini-dialog"
   >
-    <!-- Header -->
     <ng-template pTemplate="header">
       <div class="flex items-center gap-2">
         <i class="pi pi-sliders-h text-[#452317]"></i>
@@ -83,10 +40,7 @@
       </div>
     </ng-template>
 
-    <!-- Content -->
     <div class="p-4 flex flex-col gap-4">
-
-      <!-- Fruta -->
       <div class="flex flex-col gap-1">
         <label class="text-xs font-medium text-[#704727]">Fruta</label>
         <p-dropdown
@@ -94,13 +48,12 @@
           [options]="frutasOptions"
           optionLabel="label"
           optionValue="value"
-          [(ngModel)]="selectedFrutaSlug"
           [showClear]="true"
           placeholder="Selecciona una fruta"
-        />
+          [(ngModel)]="selectedFrutaSlug"
+          (ngModelChange)="updatePreviewImages()" />
       </div>
 
-      <!-- Chocolate -->
       <div class="flex flex-col gap-1">
         <label class="text-xs font-medium text-[#704727]">Chocolate</label>
         <p-dropdown
@@ -111,15 +64,13 @@
           [(ngModel)]="selectedChocolateSlug"
           [showClear]="true"
           placeholder="Selecciona un chocolate"
-        />
+          (ngModelChange)="updatePreviewImages()" />
       </div>
 
       <p-divider class="my-1" />
 
-      <!-- Toppings -->
       <div class="flex flex-col gap-2">
         <label class="text-xs font-medium text-[#704727]">Toppings</label>
-
         <div class="grid grid-cols-2 gap-2">
           <label
             *ngFor="let t of toppings"
@@ -129,21 +80,20 @@
               [binary]="true"
               [ngModel]="selectedToppingsIds.includes(t.id)"
               (onChange)="onToggleTopping(t.id, $event.checked)"
-              inputId="top-{{t.id}}"
+              [inputId]="'top-' + t.id"
             />
             <span class="text-sm">{{ t.nombre }}</span>
           </label>
         </div>
       </div>
 
-      <!-- Doble chocolate -->
       <div class="flex items-center gap-2">
         <p-checkbox
           [binary]="true"
           [(ngModel)]="dobleChocolate"
           inputId="doblechoco"
         />
-        <label  class="text-sm">
+        <label class="text-sm">
           Doble chocolate
           <span class="font-medium">
             (+{{ CHOCOFRUTA_SEED.reglas.recargoDobleChocolate | currency:'GTQ' }})
@@ -151,28 +101,33 @@
         </label>
       </div>
 
-      <!-- Preview -->
-      <div class="rounded-xl border border-[#f0e5db] p-3 bg-white/60">
+      <div class="relative rounded-xl border border-[#f0e5db] p-3 bg-white/60 w-full h-40">
         <img
-          [src]="previewImage()"
-          (error)="onPreviewImgError($event)"
-          alt="preview"
-          class="w-full h-40 object-contain rounded"
+          [src]="previewImagePaths.base"
+          (error)="onImageError($event)"
+          alt="preview-base"
+          class="absolute inset-0 w-full h-full object-contain rounded"
         />
-        <div class="mt-2 text-right font-bold text-[#452317]">
+        <img
+          *ngIf="previewImagePaths.topping"
+          [src]="previewImagePaths.topping"
+          (error)="onImageError($event)"
+          alt="preview-topping"
+          class="absolute inset-0 w-full h-full object-contain rounded"
+        />
+        <div class="absolute bottom-2 right-2 font-bold text-[#452317]">
           {{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
     <ng-template pTemplate="footer">
       <button
         pButton
         label="Agregar al carrito"
         icon="pi pi-shopping-cart"
         class="w-full md:w-auto"
-        (click)="addToCart()"
+        (click)="addToCartFromDialog()"
       ></button>
     </ng-template>
   </p-dialog>

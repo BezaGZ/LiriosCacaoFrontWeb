@@ -1,4 +1,4 @@
-import { Fruta, Chocolate, Topping } from '../../../../../data/models';
+import { Fruta, Chocolate, Topping } from '../../../../../core/domain/chocofruta/chocofruta.models';
 
 export interface FeaturedPreset {
   id: string;

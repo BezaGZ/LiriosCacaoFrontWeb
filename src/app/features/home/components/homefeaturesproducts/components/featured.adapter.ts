@@ -1,49 +1,37 @@
+// core/utils/featured.adapter.ts
+
 import { FeaturedPreset } from './featured.models';
-import { buildChocoImagePaths } from '@core/utils/image-resolver';
+import { buildLayeredImagePaths } from '@core/utils/image-resolver';
 import { CHOCOFRUTA_SEED } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
+import { ProductCardVM } from '@core/ui-models/product-card.vm'; // <-- Importa el modelo universal
 
-export interface FeaturedCardVM {
-  id: string;
-  imageUrl: string;
-  imgPaths: { withTop: string; withoutTop: string; fallback: string };
-  price: number;
-  meta: {
-    frutaNombre: string;
-    chocolateNombre: string;
-    toppings: string[];
-  };
-}
-
-export function presetToCard(p: FeaturedPreset): FeaturedCardVM {
-  const topPrincipal = p.toppings?.[0]?.nombre;
-  const imgPaths = buildChocoImagePaths(
-    p.fruta.nombre,
-    p.chocolate.nombre,
-    topPrincipal
-  );
-  const imageUrl = imgPaths.withTop || imgPaths.withoutTop || imgPaths.fallback;
+// Esta función ahora devuelve el ProductCardVM universal
+export function presetToCard(p: FeaturedPreset): ProductCardVM {
+  const { fruta, chocolate, toppings, dobleChocolate } = p;
 
   const price = calcularPrecioUnitarioChocofruta(
-    {
-      fruta: p.fruta,
-      chocolate: p.chocolate,
-      toppings: p.toppings,
-      dobleChocolate: p.dobleChocolate ?? false,
-      cantidad: 1,
-    },
+    { fruta, chocolate, toppings, dobleChocolate: !!dobleChocolate, cantidad: 1 },
     CHOCOFRUTA_SEED.reglas
   );
 
+  const title = `Choco${fruta.nombre} con ${chocolate.nombre}` +
+    (toppings.length > 0 ? ` + ${toppings.map(t => t.nombre).join(', ')}` : '');
+
+  // Usamos el sistema de capas para obtener las imágenes
+  const topPrincipal = toppings.length > 0 ? toppings[0] : undefined;
+  const paths = buildLayeredImagePaths(fruta.nombre, chocolate.nombre, topPrincipal?.nombre);
+
   return {
     id: p.id,
-    imageUrl,
-    imgPaths,
-    price,
-    meta: {
-      frutaNombre: p.fruta.nombre,
-      chocolateNombre: p.chocolate.nombre,
-      toppings: p.toppings.map((t) => t.nombre),
+    category: 'chocofruta',
+    title: title,
+    price: price,
+    customizable: true,
+    data: { chocofruta: { fruta, chocolate, toppings, dobleChocolate: !!dobleChocolate, cantidad: 1 } },
+    imageUrls: {
+      base: paths.baseImage,
+      topping: paths.toppingImage,
     },
   };
 }

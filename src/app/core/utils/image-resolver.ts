@@ -35,3 +35,27 @@ export function imgHeladoPaleta(saborSlug: string) {
 }
 
 
+/**
+ * Construye rutas para un sistema de imágenes por capas.
+ * Devuelve una imagen base y una imagen de topping separadas.
+ */
+export function buildLayeredImagePaths(frutaNombre: string, chocolateNombre: string, toppingPrincipalNombre?: string) {
+  const frutaToken = toToken(frutaNombre);
+  const chocolateToken = toToken(chocolateNombre);
+
+  // 1. Construye la ruta de la imagen base (fruta + chocolate)
+  // ej: assets/img/chocos/pina/chocopinatradicional.png
+  const baseImage = `${IMG_BASE}/chocos/${frutaToken}/choco${frutaToken}${chocolateToken}.png`;
+
+  let toppingImage = '';
+  // 2. Si hay un topping, construye su ruta
+  if (toppingPrincipalNombre) {
+    const toppingToken = toToken(toppingPrincipalNombre);
+    // ej: assets/img/chocos/pina/toppings/pinaangelitos.png
+    toppingImage = `${IMG_BASE}/chocos/${frutaToken}/toppings/${frutaToken}${toppingToken}.png`;
+  }
+
+  const fallback = `${IMG_BASE}/nophoto.png`;
+
+  return { baseImage, toppingImage, fallback };
+}

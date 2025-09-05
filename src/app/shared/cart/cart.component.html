@@ -16,7 +16,19 @@
   <div class="flex flex-col gap-3 max-h-[70vh] overflow-y-auto pr-1">
     <div *ngIf="(cart.items$ | async) as items; else empty">
       <div *ngFor="let it of items" class="flex gap-3 items-center border-b pb-2">
-        <img [src]="it.imageUrl" class="w-14 h-14 object-contain rounded border" />
+        <div class="relative w-14 h-14">
+          <img
+            [src]="it.imageUrls.base"
+            alt="base-product"
+            class="absolute inset-0 w-full h-full object-contain rounded border"
+          />
+          <img
+            *ngIf="it.imageUrls.topping"
+            [src]="it.imageUrls.topping"
+            alt="topping"
+            class="absolute inset-0 w-full h-full object-contain rounded"
+          />
+        </div>
         <div class="flex-1 min-w-0">
           <div class="font-medium text-sm leading-tight line-clamp-2">{{ it.title }}</div>
           <div class="text-xs text-gray-500">Q{{ it.unitPrice | number:'1.2-2' }} c/u</div>

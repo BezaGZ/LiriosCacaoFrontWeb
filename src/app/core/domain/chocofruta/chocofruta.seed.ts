@@ -28,6 +28,7 @@ const TOPPINGS: Topping[] = [
   { id: 'top_angelitos',   nombre: 'Angelitos',            disponible: true },
   { id: 'top_kitkat',      nombre: 'Cereal kit kat',       disponible: true },
   { id: 'top_frootloops',  nombre: 'Frootlops',            disponible: true },
+  { id: 'top_lineaschocolate', nombre: 'Líneas de chocolate',  disponible: true },
 ];
 
 export const CHOCOFRUTA_SEED: CatalogoChocofruta = {
