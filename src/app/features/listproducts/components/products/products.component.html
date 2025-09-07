@@ -16,8 +16,6 @@
   </div>
 </section>
 
-
-
 <ng-container *ngIf="dialogVisible">
   <p-dialog
     [(visible)]="dialogVisible"
@@ -34,32 +32,52 @@
     <ng-template pTemplate="header">
       <div class="flex items-center gap-2">
         <i class="pi pi-sliders-h text-[#452317]"></i>
-        <span class="font-semibold text-[#452317]">Personaliza tu Chocofruta</span>
+        <span class="font-semibold text-[#452317]">
+          {{ editingProduct?.category === 'chocofruta' ? 'Personaliza tu Chocofruta' : 'Personaliza tu Helado' }}
+        </span>
       </div>
     </ng-template>
 
     <div class="p-4 flex flex-col gap-4">
-      <div class="flex flex-col gap-1">
+      <div *ngIf="editingProduct?.category === 'chocofruta'" class="flex flex-col gap-1">
         <label class="text-xs font-medium text-[#704727]">Fruta</label>
         <p-dropdown
           [options]="frutasOptions"
           optionLabel="label"
           optionValue="value"
           [(ngModel)]="selectedFrutaSlug"
-          (ngModelChange)="updatePreviewImages()" placeholder="Selecciona una fruta"
+          (ngModelChange)="updatePreviewImages()"
+          placeholder="Selecciona una fruta"
         />
       </div>
+
+      <div *ngIf="editingProduct?.category === 'helado'" class="flex flex-col gap-1">
+        <label class="text-xs font-medium text-[#704727]">Sabor</label>
+        <p-dropdown
+          [options]="saboresHeladoOptions"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="selectedSaborId"
+          (ngModelChange)="updatePreviewImages()"
+          placeholder="Selecciona un sabor"
+        />
+      </div>
+
       <div class="flex flex-col gap-1">
-        <label class="text-xs font-medium text-[#704727]">Chocolate</label>
+        <label class="text-xs font-medium text-[#704727]">Baño de Chocolate (Opcional)</label>
         <p-dropdown
           [options]="chocolatesOptions"
           optionLabel="label"
           optionValue="value"
           [(ngModel)]="selectedChocolateSlug"
-          (ngModelChange)="updatePreviewImages()" placeholder="Selecciona un chocolate"
+          (ngModelChange)="updatePreviewImages()"
+          placeholder="Sin chocolate"
+          [showClear]="true"
         />
       </div>
+
       <p-divider class="my-1" />
+
       <div class="flex flex-col gap-2">
         <label class="text-xs font-medium text-[#704727]">Toppings</label>
         <div class="grid grid-cols-2 gap-2">
@@ -74,7 +92,18 @@
           </label>
         </div>
       </div>
-      <div class="flex items-center gap-2">
+
+      <div *ngIf="editingProduct?.category === 'helado'" class="flex items-center gap-2">
+        <p-checkbox [(ngModel)]="extraChocolateHelado" [binary]="true" inputId="extrachoco-helado" />
+        <label  class="text-sm">
+          Chocolate Extra
+          <span class="font-medium">
+      (+{{ HELADO_SEED.reglas.recargoChocolateExtra | currency:'GTQ' }})
+    </span>
+        </label>
+      </div>
+
+      <div *ngIf="editingProduct?.category === 'chocofruta'" class="flex items-center gap-2">
         <p-checkbox [binary]="true" [(ngModel)]="dobleChocolate" inputId="doblechoco" />
         <label  class="text-sm">
           Doble chocolate
@@ -83,6 +112,7 @@
           </span>
         </label>
       </div>
+
       <div class="relative rounded-xl border border-[#f0e5db] p-3 bg-white/60 w-full h-40">
         <img
           [src]="previewImagePaths.base"

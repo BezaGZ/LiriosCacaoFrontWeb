@@ -1,6 +1,6 @@
-import { CatalogoHeladosPaleta, SaborHelado } from './helado.models';
+import {CatalogoHelado, SaborHelado} from './helado.models';
 
-const P = 5;
+const P = 8;
 
 const SABORES_PALETA: SaborHelado[] = [
   { id: 'pal_vino',        nombre: 'Vino',        slug: 'vino',         precio: P, disponible: true },
@@ -14,7 +14,14 @@ const SABORES_PALETA: SaborHelado[] = [
   { id: 'pal_mania',       nombre: 'Manía',       slug: 'mania',        precio: P, disponible: true },
 ];
 
-export const HELADOS_PALETA_SEED: CatalogoHeladosPaleta = {
+// Reemplaza HELADOS_PALETA_SEED por HELADO_SEED
+export const HELADO_SEED: CatalogoHelado = {
   tipo: 'paleta',
   sabores: SABORES_PALETA,
+  // --- AÑADIMOS LAS REGLAS DE PRECIOS ---
+  reglas: {
+    recargoChocolate: 2, // Ejemplo: Bañar en chocolate cuesta Q3 extra
+    recargoTopping: 2,
+    recargoChocolateExtra: 2 // Ejemplo: Cada topping cuesta Q2 extra
+  },
 };

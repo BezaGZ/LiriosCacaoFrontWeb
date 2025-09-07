@@ -6,12 +6,13 @@ import { AppTopbar } from '../app.topbar/app.topbar';
 import { AppFooter } from '../app.footer/app.footer';
 import { LayoutService } from '../../service/layout.service';
 import {CartComponent} from '@shared/cart/cart.component';
+import {Toast} from 'primeng/toast';
 
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, CartComponent,],
+  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, CartComponent, Toast,],
   templateUrl: './app.layout.html',
 })
 export class AppLayout {
