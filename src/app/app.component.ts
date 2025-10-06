@@ -1,29 +1,34 @@
-import {Component, inject} from '@angular/core';
-import {NavigationEnd, Router, RouterOutlet} from '@angular/router';
-import {filter} from 'rxjs';
+import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { filter } from 'rxjs';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+
 
 declare let gtag: Function;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: '<router-outlet></router-outlet>',
 })
 export class AppComponent {
-  title = 'LiriosCacaoFrontend';
   private readonly router = inject(Router);
 
-  constructor() {
-    // --- PASO 2: Escucha los eventos de navegación del router de Angular ---
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
+  constructor(
 
-      // --- PASO 3: Envía un evento 'page_view' a Google Analytics ---
-      gtag('config', 'G-2JPZ2292XP', {
-        'page_path': event.urlAfterRedirects
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.router.events.pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+      ).subscribe((event: NavigationEnd) => {
+
+        gtag('config', 'G-2JPZ2292XP', {
+          'page_path': event.urlAfterRedirects
+        });
       });
-    });
+    }
   }
 }

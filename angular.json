@@ -17,7 +17,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/lirios-cacao-frontend",
+            "outputPath": "dist/LiriosCacaoFrontend",
+
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -101,7 +102,6 @@
             "scripts": []
           }
         },
-
         "prerender": {
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
@@ -161,3 +161,4 @@
     "analytics": "38e77383-90a3-4a13-b679-8b821eedaf16"
   }
 }
+
