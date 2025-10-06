@@ -1,0 +1,12 @@
+/* To learn more about this file, see: https://angular.dev/reference/configs/tsconfig. */
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/server",
+    "target": "es2022",
+    "module": "esnext",
+    "types": ["node"]
+  },
+  "files": ["src/main.server.ts", "src/server.ts"],
+  "include": ["src/**/*.d.ts"]
+}
