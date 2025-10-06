@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import {provideRouter} from '@angular/router';
 import {MessageService} from 'primeng/api';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
 
     }),
     provideRouter(routes),
-    MessageService
+    MessageService, provideClientHydration(withEventReplay())
 
   ]};

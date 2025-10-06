@@ -1,15 +1,12 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// --- Tus Componentes Hijos ---
+import { Title, Meta } from '@angular/platform-browser';
 import { ProductsComponent } from '@features/listproducts/components/products/products.component';
 import { CategoryFiltersComponent } from '../listproducts/components/category-filters/category-filters.component';
 import { SearchBarComponent } from '../listproducts/components/search-bar/search-bar.component';
-
-// --- ¡Importante! Usamos los nuevos datos ---
 import { ALL_PRODUCTS } from '../../core/products/all-products';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-listproducts',
@@ -24,7 +21,10 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class ListproductsComponent implements OnInit {
   readonly route = inject(ActivatedRoute);
-  // Tipado actualizado a ProductCardVM
+  readonly router = inject(Router);
+  private readonly titleService = inject(Title);
+  private readonly metaService = inject(Meta);
+
   allProducts: ProductCardVM[] = [];
   filteredProducts: ProductCardVM[] = [];
 
@@ -34,46 +34,68 @@ export class ListproductsComponent implements OnInit {
   ngOnInit() {
     this.allProducts = ALL_PRODUCTS;
 
-    // Nos "suscribimos" a los cambios en los parámetros de la URL
     this.route.queryParams.subscribe(params => {
-      // Leemos el parámetro 'category' de la URL
-      const categoryFromUrl = params['category'];
+      this.currentCategory = params['category'] || 'all';
+      this.currentSearch = params['search'] || '';
 
-      // Si existe, lo usamos. Si no, usamos 'all' por defecto.
-      this.currentCategory = categoryFromUrl || 'all';
-
-      // ¡Aplicamos los filtros con la categoría que acabamos de leer!
+      this.updateSeoTags(this.currentCategory);
       this.applyFilters();
     });
   }
 
+  private updateSeoTags(category: string) {
+    let title = 'Catálogo Completo | Lirio & Cacao';
+    let description = 'Explora nuestro catálogo completo de chocofrutas, helados artesanales, arreglos florales y más. Hecho con amor en Chiquimula.';
+
+    switch (category) {
+      case 'chocofruta':
+        title = 'Chocofrutas a Domicilio en Chiquimula | Lirio & Cacao';
+        description = 'Deliciosas fresas, piñas y bananos cubiertos de chocolate premium. Elige tus toppings favoritos y pide en línea.';
+        break;
+      case 'helado':
+        title = 'Paletas de Helado Artesanal en Chiquimula | Lirio & Cacao';
+        description = 'Refréscate con nuestras paletas de helado hechas con ingredientes naturales. Sabores de vino, oreo, café y más.';
+        break;
+      case 'flor':
+        title = 'Arreglos Florales para Toda Ocasión | Lirio & Cacao';
+        description = 'Sorprende con nuestros hermosos arreglos florales. Ramos de rosas, detalles para cumpleaños y eventos especiales en Chiquimula.';
+        break;
+      case 'evento':
+        title = 'Detalles y Arreglos para Eventos | Lirio & Cacao';
+        description = 'Cotiza con nosotros los detalles para tu evento especial. Ofrecemos arreglos, chocofrutas y más para hacer tu celebración inolvidable.';
+        break;
+    }
+
+    this.titleService.setTitle(title);
+    this.metaService.updateTag({ name: 'description', content: description });
+  }
+
   onSearch(searchTerm: string) {
-    this.currentSearch = searchTerm.toLowerCase();
-    this.applyFilters();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: searchTerm || null },
+      queryParamsHandling: 'merge',
+    });
   }
 
   onCategorySelect(categoryId: string) {
-    // Cuando el usuario hace clic en un filtro DENTRO de la página,
-    // también actualizamos el estado.
-    this.currentCategory = categoryId;
-    this.applyFilters();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { category: categoryId },
+      queryParamsHandling: 'merge',
+    });
   }
 
   private applyFilters() {
     let tempProducts = [...this.allProducts];
-
-    // 1. Filtrar por CATEGORÍA (funciona perfecto con ProductCardVM)
     if (this.currentCategory !== 'all') {
       tempProducts = tempProducts.filter(p => p.category === this.currentCategory);
     }
-
-    // 2. Filtrar por TÉRMINO DE BÚSQUEDA (funciona perfecto con ProductCardVM)
     if (this.currentSearch) {
       tempProducts = tempProducts.filter(p =>
         p.title.toLowerCase().includes(this.currentSearch)
       );
     }
-
     this.filteredProducts = tempProducts;
   }
 }

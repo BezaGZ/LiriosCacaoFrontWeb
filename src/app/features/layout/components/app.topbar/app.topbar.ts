@@ -9,7 +9,6 @@ import { CartService } from '@features/cart/cart.service';
   imports: [
     RouterModule,
     CommonModule
-    // ¡Solo los módulos que el HTML realmente usa!
   ],
   templateUrl: './app.topbar.html',
 })
