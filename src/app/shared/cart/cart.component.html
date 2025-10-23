@@ -1,123 +1,149 @@
-<p-sidebar
+<p-dialog
   [(visible)]="sidebarVisible"
   (visibleChange)="onSidebarVisibleChange($event)"
-  position="right"
   [modal]="true"
-  [dismissible]="false"
-  [showCloseIcon]="true"
-  [baseZIndex]="5000"
-  [blockScroll]="false"
-  [style]="{ width: '92vw', maxWidth: '420px' }"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [blockScroll]="true"
+  [showHeader]="true"
+  [closable]="false"
+  [breakpoints]="{ '768px': '100vw' }"
+  [style]="{ width: '600px', maxWidth: '100vw', height: '100vh', maxHeight: '100vh' }"
+  styleClass="cart-dialog"
+  [contentStyle]="{ padding: '0' }"
 >
   <ng-template pTemplate="header">
-    <div class="font-semibold">Tu carrito</div>
+    <div class="cart-header">
+      <button class="close-btn" (click)="sidebarVisible = false">
+        <i class="pi pi-times"></i>
+      </button>
+      <div class="header-content">
+        <span class="cart-title">Tu carrito</span>
+        <span class="cart-count" *ngIf="cartItemCount > 0">({{ cartItemCount }} {{ cartItemCount === 1 ? 'item' : 'items' }})</span>
+      </div>
+      <div style="width: 40px;"></div>
+    </div>
   </ng-template>
 
-  <div class="flex flex-col gap-3 max-h-[70vh] overflow-y-auto pr-1">
+  <div class="cart-items-container">
     <div *ngIf="(cart.items$ | async) as items; else empty">
-      <div *ngFor="let it of items" class="flex gap-3 items-center border-b pb-2">
-        <div class="relative w-14 h-14">
+      <div *ngFor="let it of items" class="cart-item">
+        <div class="item-image-container">
           <img
             [src]="it.imageUrls.base"
             alt="base-product"
-            class="absolute inset-0 w-full h-full object-contain rounded border"
+            class="item-image"
           />
           <img
             *ngIf="it.imageUrls.topping"
             [src]="it.imageUrls.topping"
             alt="topping"
-            class="absolute inset-0 w-full h-full object-contain rounded"
+            class="item-image item-overlay"
           />
         </div>
-        <div class="flex-1 min-w-0">
-          <div class="font-medium text-sm leading-tight line-clamp-2">{{ it.title }}</div>
-          <div class="text-xs text-gray-500">Q{{ it.unitPrice | number:'1.2-2' }} c/u</div>
-          <div class="mt-1 flex items-center gap-2">
-            <button pButton icon="pi pi-minus" size="small" (click)="dec(it)"></button>
-            <span class="w-6 text-center font-medium">{{ it.qty }}</span>
-            <button pButton icon="pi pi-plus" size="small" (click)="inc(it)"></button>
-            <button pButton icon="pi pi-trash" class="p-button-text p-button-danger ml-auto" (click)="remove(it)"></button>
+        <div class="item-details">
+          <div class="item-name">{{ it.title }}</div>
+          <div class="item-unit-price">Q{{ it.unitPrice | number:'1.2-2' }} c/u</div>
+          <div class="item-controls">
+            <div class="quantity-controls">
+              <button class="qty-btn" (click)="dec(it)">
+                <i class="pi pi-minus"></i>
+              </button>
+              <span class="qty-display">{{ it.qty }}</span>
+              <button class="qty-btn" (click)="inc(it)">
+                <i class="pi pi-plus"></i>
+              </button>
+            </div>
+            <button class="remove-btn" (click)="remove(it)">
+              <i class="pi pi-trash"></i>
+            </button>
           </div>
         </div>
-        <div class="font-bold">Q{{ (it.unitPrice * it.qty) | number:'1.2-2' }}</div>
+        <div class="item-total-price">Q{{ (it.unitPrice * it.qty) | number:'1.2-2' }}</div>
       </div>
     </div>
     <ng-template #empty>
-      <div class="text-center text-sm text-gray-500 py-6">Tu carrito está vacío</div>
+      <div class="empty-cart">
+        <i class="pi pi-shopping-cart empty-icon"></i>
+        <p class="empty-text">Tu carrito está vacío</p>
+      </div>
     </ng-template>
   </div>
 
-  <p-divider></p-divider>
+  <div class="cart-divider"></div>
 
-  <div class="flex flex-col gap-3">
+  <div class="checkout-section">
     <!-- Entrega -->
-    <div class="flex items-center gap-4">
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
+    <div class="section-group">
+      <h3 class="section-label">Método de entrega</h3>
+      <div class="radio-group">
+        <label class="radio-option" [class.selected]="entrega === 'domicilio'">
           <p-radioButton
             name="entrega"
             [value]="'domicilio'"
             [(ngModel)]="entrega"
             inputId="entrega-domicilio">
           </p-radioButton>
-          <label  class="cursor-pointer">A domicilio</label>
-        </div>
+          <span>A domicilio</span>
+        </label>
 
-        <div class="flex items-center gap-2">
+        <label class="radio-option" [class.selected]="entrega === 'local'">
           <p-radioButton
             name="entrega"
             [value]="'local'"
             [(ngModel)]="entrega"
             inputId="entrega-local">
           </p-radioButton>
-          <label  class="cursor-pointer">Recoger en local</label>
-        </div>
+          <span>Recoger en local</span>
+        </label>
       </div>
     </div>
 
     <!-- Dirección si es a domicilio -->
-    <div *ngIf="entrega === 'domicilio'">
-      <label class="block text-sm font-medium mb-1">Dirección de entrega</label>
+    <div *ngIf="entrega === 'domicilio'" class="section-group">
+      <label class="input-label">Dirección de entrega</label>
       <input
         type="text"
         pInputText
         [(ngModel)]="direccion"
         placeholder="Ej: 5a avenida 3-45 zona 1, Esquipulas"
-        class="w-full"
+        class="custom-input"
       />
-      <small class="text-xs text-gray-500">
+      <small class="input-hint">
         Por favor, incluye referencias si es posible.
       </small>
     </div>
 
     <!-- Método de pago -->
-    <div class="flex items-center gap-4">
-      <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
+    <div class="section-group">
+      <h3 class="section-label">Método de pago</h3>
+      <div class="radio-group">
+        <label class="radio-option" [class.selected]="pago === 'efectivo'">
           <p-radioButton
             name="pago"
             [value]="'efectivo'"
             [(ngModel)]="pago"
             inputId="pago-efectivo">
           </p-radioButton>
-          <label  class="cursor-pointer">Efectivo</label>
-        </div>
+          <span>Efectivo</span>
+        </label>
 
-        <div class="flex items-center gap-2">
+        <label class="radio-option" [class.selected]="pago === 'tarjeta'">
           <p-radioButton
             name="pago"
             [value]="'tarjeta'"
             [(ngModel)]="pago"
             inputId="pago-tarjeta">
           </p-radioButton>
-          <label  class="cursor-pointer">Tarjeta</label>
-        </div>
+          <span>Tarjeta</span>
+        </label>
       </div>
     </div>
 
     <!-- Cambio si pago en efectivo -->
-    <div *ngIf="pago === 'efectivo'">
-      <label class="block text-sm font-medium mb-1">¿Con cuánto pagas? (opcional)</label>
+    <div *ngIf="pago === 'efectivo'" class="section-group">
+      <label class="input-label">¿Con cuánto pagas? <span class="optional-label">(opcional)</span></label>
       <p-inputNumber
         [(ngModel)]="cambio"
         mode="decimal"
@@ -126,29 +152,40 @@
         inputId="cambio"
         [useGrouping]="false"
         placeholder="Ej: 100 o 10.50"
-        class="w-full"
+        styleClass="custom-input-number"
       ></p-inputNumber>
-      <small class="text-xs text-gray-500">
+      <small class="input-hint">
         Indica el valor del efectivo con el que pagarás para facilitar el cambio.
       </small>
     </div>
 
     <!-- Resumen -->
-    <div class="mt-2 space-y-1 text-sm">
-      <div class="flex justify-between"><span>Subtotal</span><span>Q{{ subtotal | number:'1.2-2' }}</span></div>
-      <div class="flex justify-between"><span>Envío</span><span>Q{{ deliveryFee | number:'1.2-2' }}</span></div>
-      <div class="flex justify-between"><span>Fee app</span><span>Q{{ appFee | number:'1.2-2' }}</span></div>
-      <div class="flex justify-between text-base font-bold pt-1 border-t">
-        <span>Total</span><span>Q{{ grandTotal | number:'1.2-2' }}</span>
+    <div class="summary-section">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>Q{{ subtotal | number:'1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Envío</span>
+        <span>Q{{ deliveryFee | number:'1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Fee app</span>
+        <span>Q{{ appFee | number:'1.2-2' }}</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span>Q{{ grandTotal | number:'1.2-2' }}</span>
       </div>
     </div>
 
     <button
-      pButton
-      label="Enviar pedido por WhatsApp"
-      icon="pi pi-whatsapp"
+      class="whatsapp-button"
       (click)="checkoutWhatsApp()"
       [disabled]="entrega === 'domicilio' && !direccion.trim()"
-    ></button>
+    >
+      <i class="pi pi-whatsapp"></i>
+      <span>Enviar pedido por WhatsApp</span>
+    </button>
   </div>
-</p-sidebar>
+</p-dialog>

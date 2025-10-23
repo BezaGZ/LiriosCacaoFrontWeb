@@ -1,13 +1,11 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {AsyncPipe, DecimalPipe, NgForOf, NgIf} from "@angular/common";
-import {ButtonDirective} from "primeng/button";
-import {Divider} from "primeng/divider";
 import {InputNumber} from "primeng/inputnumber";
 import {InputText} from "primeng/inputtext";
 import {PrimeTemplate} from "primeng/api";
 import {RadioButton} from "primeng/radiobutton";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Sidebar} from "primeng/sidebar";
+import {FormsModule} from "@angular/forms";
+import {Dialog} from "primeng/dialog";
 import {Router} from '@angular/router';
 import {CartService} from '@features/cart/cart.service';
 import {CartItem} from '@features/cart/cart.models';
@@ -16,23 +14,20 @@ import {CartItem} from '@features/cart/cart.models';
   selector: 'app-cart',
   imports: [
     AsyncPipe,
-    ButtonDirective,
     DecimalPipe,
-    Divider,
     InputNumber,
     InputText,
     NgForOf,
     NgIf,
     PrimeTemplate,
     RadioButton,
-    ReactiveFormsModule,
-    Sidebar,
+    Dialog,
     FormsModule
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   readonly router = inject(Router);
   readonly cart = inject(CartService);
 
