@@ -1,0 +1,138 @@
+// Preview Section - Hero (matching chocofruta dialog)
+.preview-section {
+  background: linear-gradient(to bottom, #fafafa 0%, #ffffff 100%);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.preview-image-container {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.preview-price {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #452317;
+  letter-spacing: -0.02em;
+}
+
+// Sections Container
+.sections-container {
+  background: #ffffff;
+}
+
+.section {
+  padding: 1.5rem 1rem;
+  border-bottom: 8px solid #f7f7f7;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flor-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4b5563;
+  margin: 0;
+}
+
+.flor-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.flor-list li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.flor-list li::before {
+  content: "\2022";
+  position: absolute;
+  left: 0.5rem;
+  color: #452317;
+  font-weight: bold;
+}
+
+.flor-list.personalizaciones li::before {
+  content: "\2728";
+}
+
+.flor-list.notas li::before {
+  content: "\2139";
+}
+
+// Footer Button (matching chocofruta style)
+.uber-footer {
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+}
+
+.whatsapp-btn-footer {
+  width: 100%;
+  background: #25d366 !important;
+  border: none !important;
+  border-radius: 0.75rem !important;
+  padding: 1rem 1.5rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2) !important;
+
+  &:hover {
+    background: #20ba5a !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25) !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  i, span {
+    color: #ffffff;
+  }
+
+  i {
+    font-size: 1.25rem;
+  }
+}

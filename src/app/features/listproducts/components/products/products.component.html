@@ -11,10 +11,17 @@
       enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000"
       [product]="product"
       (customize)="handleCustomize($event)"
-      (addToCart)="handleAddToCart($event)">
+      (addToCart)="handleAddToCart($event)"
+      (whatsapp)="handleWhatsApp($event)">
     </app-product-card>
   </div>
 </section>
+
+<!-- Dialog de Flores -->
+<app-flor-dialog
+  [flor]="selectedFlor"
+  [(visible)]="florDialogVisible">
+</app-flor-dialog>
 
 <ng-container *ngIf="dialogVisible">
   <p-dialog

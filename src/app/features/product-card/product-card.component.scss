@@ -104,6 +104,49 @@
   }
 }
 
+// WhatsApp Button (for flores)
+.whatsapp-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #25d366;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.2);
+  z-index: 2;
+
+  @media (min-width: 640px) {
+    width: 40px;
+    height: 40px;
+  }
+
+  i {
+    font-size: 0.875rem;
+
+    @media (min-width: 640px) {
+      font-size: 1rem;
+    }
+  }
+
+  &:hover {
+    background: #20ba5a;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 // Product Info
 .product-info {
   padding: 0.75rem;

@@ -1,0 +1,89 @@
+<p-dialog
+  [visible]="visible"
+  (visibleChange)="onVisibilityChange($event)"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  [blockScroll]="true"
+  [breakpoints]="{ '768px': '100vw' }"
+  [style]="{ width: '600px', maxWidth: '100vw', height: '100vh', maxHeight: '100vh' }"
+  styleClass="uber-dialog"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="flex items-center justify-between w-full px-4">
+      <button
+        pButton
+        icon="pi pi-arrow-left"
+        class="p-button-text p-button-rounded p-button-sm text-[#452317]"
+        (click)="close()"
+      ></button>
+      <span class="font-semibold text-[#452317] text-lg">
+        {{ flor?.nombre }}
+      </span>
+      <div style="width: 40px;"></div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="flor" class="uber-dialog-content">
+    <!-- Preview Section - Fixed Top -->
+    <div class="preview-section">
+      <div class="preview-image-container">
+        <img [src]="flor.imagenUrl" [alt]="flor.nombre" class="preview-image" />
+      </div>
+      <div class="preview-price">
+        {{ flor.precio | currency:'GTQ':'symbol':'1.0-2' }}
+      </div>
+    </div>
+
+    <!-- Scrollable Sections -->
+    <div class="sections-container">
+      <!-- Descripción -->
+      <div class="section">
+        <h3 class="section-title">Descripción</h3>
+        <p class="flor-description">{{ flor.descripcion }}</p>
+      </div>
+
+      <!-- Incluye -->
+      <div class="section">
+        <h3 class="section-title">Incluye</h3>
+        <ul class="flor-list">
+          <li *ngFor="let item of flor.incluye">{{ item }}</li>
+        </ul>
+      </div>
+
+      <!-- Personalizaciones -->
+      <div class="section">
+        <h3 class="section-title">Opciones personalizables</h3>
+        <ul class="flor-list personalizaciones">
+          <li *ngFor="let opcion of flor.personalizaciones">{{ opcion }}</li>
+        </ul>
+      </div>
+
+      <!-- Notas adicionales -->
+      <div *ngIf="flor.notas && flor.notas.length > 0" class="section">
+        <h3 class="section-title">Notas</h3>
+        <ul class="flor-list notas">
+          <li *ngFor="let nota of flor.notas">{{ nota }}</li>
+        </ul>
+      </div>
+
+      <!-- Spacer para que el último elemento no quede oculto por el footer -->
+      <div style="height: 80px;"></div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="uber-footer">
+      <button
+        pButton
+        class="whatsapp-btn-footer"
+        (click)="openWhatsApp()"
+      >
+        <i class="pi pi-whatsapp"></i>
+        <span>Consultar por WhatsApp</span>
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

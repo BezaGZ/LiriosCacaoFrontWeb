@@ -14,11 +14,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProductCardComponent } from '@features/product-card/product-card.component';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { CartService } from '@features/cart/cart.service';
-import { CHOCOFRUTA_SEED, HELADO_SEED } from '@core/domain';
+import { CHOCOFRUTA_SEED, HELADO_SEED, Flor } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 import { calcularPrecioUnitarioHelado } from '@core/domain/helado/helado.logic';
 import { buildLayeredImagePaths, imgHeladoPaleta } from '@core/utils/image-resolver';
-import {MessageService} from "primeng/api";
+import { MessageService } from "primeng/api";
+import { FlorDialogComponent } from '../flor-dialog/flor-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -26,7 +27,7 @@ import {MessageService} from "primeng/api";
   imports: [
     CommonModule, FormsModule, AnimateOnScrollModule, ButtonModule, DialogModule,
     CheckboxModule, DividerModule, DropdownModule,
-    ProductCardComponent
+    ProductCardComponent, FlorDialogComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
@@ -65,9 +66,20 @@ export class ProductsComponent {
   // 2. Haz HELADO_SEED accesible para el HTML
   protected readonly HELADO_SEED = HELADO_SEED;
 
+  // --- Estado del diálogo de Flores ---
+  florDialogVisible = false;
+  selectedFlor: Flor | null = null;
+
   // --- MANEJADORES DE EVENTOS ---
 
   handleCustomize(product: ProductCardVM): void {
+    // Para flores, mostrar el diálogo específico de flores
+    if (product.category === 'flor') {
+      this.selectedFlor = product.data.flor;
+      this.florDialogVisible = true;
+      return;
+    }
+
     if (!product.customizable) return;
 
     this.editingProduct = product; // Guardamos el producto actual
@@ -252,5 +264,13 @@ export class ProductsComponent {
 
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/img/nophoto.png';
+  }
+
+  // Maneja el clic en el botón de WhatsApp para flores
+  handleWhatsApp(product: ProductCardVM): void {
+    if (product.category === 'flor') {
+      this.selectedFlor = product.data.flor;
+      this.florDialogVisible = true;
+    }
   }
 }

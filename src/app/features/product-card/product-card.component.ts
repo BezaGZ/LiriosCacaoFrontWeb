@@ -17,6 +17,7 @@ export class ProductCardComponent implements OnInit {
   @Input() product!: ProductCardVM;
   @Output() addToCart = new EventEmitter<ProductCardVM>();
   @Output() customize = new EventEmitter<ProductCardVM>();
+  @Output() whatsapp = new EventEmitter<ProductCardVM>();
 
   // El estado interno ahora solo se preocupa por las imágenes
   currentImageUrls: { base: string; topping?: string; } = { base: '' };
@@ -40,5 +41,11 @@ export class ProductCardComponent implements OnInit {
   // Emite el evento para personalizar
   emitCustomize(): void {
     this.customize.emit(this.product);
+  }
+
+  // Emite el evento para abrir WhatsApp (flores)
+  emitWhatsApp(event: MouseEvent): void {
+    event.stopPropagation();
+    this.whatsapp.emit(this.product);
   }
 }

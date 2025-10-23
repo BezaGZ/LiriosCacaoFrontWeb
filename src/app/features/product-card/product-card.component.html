@@ -14,7 +14,18 @@
       class="product-image product-overlay"
     />
 
+    <!-- Botón de WhatsApp para flores -->
     <button
+      *ngIf="product.category === 'flor'"
+      class="whatsapp-btn"
+      (click)="emitWhatsApp($event)"
+    >
+      <i class="pi pi-whatsapp"></i>
+    </button>
+
+    <!-- Botón de carrito para otros productos -->
+    <button
+      *ngIf="product.category !== 'flor'"
       class="add-to-cart-btn"
       (click)="emitAddToCart($event)"
     >
