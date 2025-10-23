@@ -88,6 +88,12 @@ The `CartService` is a singleton service managing shopping cart state with RxJS:
 - Automatically merges items with the same title
 - Computes `count` and `total` dynamically
 
+The cart UI (`src/app/shared/cart/`) uses `p-dialog` from PrimeNG positioned as a right-side panel:
+- Full-screen on mobile (< 768px), 600px width on desktop
+- Implements `OnInit` to subscribe to `CartService.sidebarVisible$`
+- Includes delivery options (domicilio/local), payment methods (efectivo/tarjeta)
+- WhatsApp checkout integration with order summary formatting
+
 ### Features Structure
 
 Feature modules are organized under `src/app/features/`:
@@ -127,6 +133,26 @@ All routes wrapped in `AppLayout` component for consistent shell.
 - Global styles in `src/styles.scss`
 - Tailwind and PrimeNG themes configured
 - Style budget: 4MB initial bundle (warns at 4MB, errors at 5MB)
+- Brand color: `#452317` (dark brown/café)
+- Background accents: `#FFF8F1` (cream), `#fafafa` (light gray)
+
+### Navigation & Active State
+
+The topbar (`src/app/features/layout/components/app.topbar/`) detects active routes:
+- Subscribes to `Router.events` filtered by `NavigationEnd`
+- Parses URL to determine current page (`isHome`) and category (`currentCategory`)
+- Shows visual indicator (brown line) below active navigation item
+- Mobile topbar: Fixed bottom, 80px height with `pb-4` and `pt-3` spacing to avoid iPhone home indicator
+- Desktop topbar: Sticky top with category filters
+
+### Product Customization Dialog
+
+Product dialogs (`src/app/features/listproducts/components/products/`) follow a minimalist "Uber Eats" style:
+- Uses `p-dialog` with `styleClass="uber-dialog"`
+- Fixed preview section at top showing product image and price
+- Scrollable options sections with card-based selection UI
+- Selected items show brown border (`#452317`) and cream background (`#fef9f5`)
+- Footer with sticky "Add to Cart" button showing total price
 
 ## Key Technical Patterns
 
@@ -136,6 +162,7 @@ All routes wrapped in `AppLayout` component for consistent shell.
 4. **Lazy Loading**: All feature routes lazy-loaded for performance
 5. **View Models**: Domain models transformed to presentation models (ProductCardVM)
 6. **Path Aliases**: Consistent import patterns using @ aliases
+7. **Minimalist UI**: Dialogs and panels use subtle shadows, rounded corners (0.75rem), and consistent spacing
 
 ## Testing Notes
 
