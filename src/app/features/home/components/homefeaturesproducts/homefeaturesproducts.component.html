@@ -24,111 +24,142 @@
   <p-dialog
     [(visible)]="dialogVisible"
     [modal]="true"
-    [position]="'bottom'"
     [dismissableMask]="true"
     [draggable]="false"
     [resizable]="false"
     [blockScroll]="true"
-    [breakpoints]="{ '640px': '95vw' }"
-    [style]="{ width: '480px', maxWidth: '95vw' }"
-    styleClass="mini-dialog"
+    [breakpoints]="{ '768px': '100vw' }"
+    [style]="{ width: '600px', maxWidth: '100vw', height: '100vh', maxHeight: '100vh' }"
+    styleClass="uber-dialog"
+    [contentStyle]="{ padding: '0' }"
   >
     <ng-template pTemplate="header">
-      <div class="flex items-center gap-2">
-        <i class="pi pi-sliders-h text-[#452317]"></i>
-        <span class="font-semibold text-[#452317]">Personaliza tu Chocofruta</span>
+      <div class="flex items-center justify-between w-full px-4">
+        <button
+          pButton
+          icon="pi pi-arrow-left"
+          class="p-button-text p-button-rounded p-button-sm text-[#452317]"
+          (click)="dialogVisible = false"
+        ></button>
+        <span class="font-semibold text-[#452317] text-lg">
+          Personaliza tu Chocofruta
+        </span>
+        <div style="width: 40px;"></div>
       </div>
     </ng-template>
 
-    <div class="p-4 flex flex-col gap-4">
-      <div class="flex flex-col gap-1">
-        <label class="text-xs font-medium text-[#704727]">Fruta</label>
-        <p-dropdown
-          class="w-full"
-          [options]="frutasOptions"
-          optionLabel="label"
-          optionValue="value"
-          [showClear]="true"
-          placeholder="Selecciona una fruta"
-          [(ngModel)]="selectedFrutaSlug"
-          (ngModelChange)="updatePreviewImages()" />
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <label class="text-xs font-medium text-[#704727]">Chocolate</label>
-        <p-dropdown
-          class="w-full"
-          [options]="chocolatesOptions"
-          optionLabel="label"
-          optionValue="value"
-          [(ngModel)]="selectedChocolateSlug"
-          [showClear]="true"
-          placeholder="Selecciona un chocolate"
-          (ngModelChange)="updatePreviewImages()" />
-      </div>
-
-      <p-divider class="my-1" />
-
-      <div class="flex flex-col gap-2">
-        <label class="text-xs font-medium text-[#704727]">Toppings</label>
-        <div class="grid grid-cols-2 gap-2">
-          <label
-            *ngFor="let t of toppings"
-            class="flex items-center gap-2 rounded-md border border-[#f0e5db] px-2 py-2"
-          >
-            <p-checkbox
-              [binary]="true"
-              [ngModel]="selectedToppingsIds.includes(t.id)"
-              (onChange)="onToggleTopping(t.id, $event.checked)"
-              [inputId]="'top-' + t.id"
-            />
-            <span class="text-sm">{{ t.nombre }}</span>
-          </label>
+    <div class="uber-dialog-content">
+      <!-- Preview Section -->
+      <div class="preview-section">
+        <div class="preview-image-container">
+          <img
+            [src]="previewImagePaths.base"
+            (error)="onImageError($event)"
+            alt="preview-base"
+            class="preview-image"
+          />
+          <img
+            *ngIf="previewImagePaths.topping"
+            [src]="previewImagePaths.topping"
+            (error)="onImageError($event)"
+            alt="preview-topping"
+            class="preview-image preview-overlay"
+          />
         </div>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <p-checkbox
-          [binary]="true"
-          [(ngModel)]="dobleChocolate"
-          inputId="doblechoco"
-        />
-        <label class="text-sm">
-          Doble chocolate
-          <span class="font-medium">
-            (+{{ CHOCOFRUTA_SEED.reglas.recargoDobleChocolate | currency:'GTQ' }})
-          </span>
-        </label>
-      </div>
-
-      <div class="relative rounded-xl border border-[#f0e5db] p-3 bg-white/60 w-full h-40">
-        <img
-          [src]="previewImagePaths.base"
-          (error)="onImageError($event)"
-          alt="preview-base"
-          class="absolute inset-0 w-full h-full object-contain rounded"
-        />
-        <img
-          *ngIf="previewImagePaths.topping"
-          [src]="previewImagePaths.topping"
-          (error)="onImageError($event)"
-          alt="preview-topping"
-          class="absolute inset-0 w-full h-full object-contain rounded"
-        />
-        <div class="absolute bottom-2 right-2 font-bold text-[#452317]">
+        <div class="preview-price">
           {{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}
         </div>
+      </div>
+
+      <!-- Scrollable Sections -->
+      <div class="sections-container">
+        <!-- Sección 1: Elige tu Fruta -->
+        <div class="section">
+          <h3 class="section-title">Elige tu fruta</h3>
+          <div class="options-grid">
+            <div
+              *ngFor="let fruta of frutasOptions"
+              class="option-card"
+              [class.selected]="selectedFrutaSlug === fruta.value"
+              (click)="selectFruta(fruta.value)"
+            >
+              <div class="option-content">
+                <span class="option-name">{{ fruta.label }}</span>
+                <i class="pi pi-check check-icon" *ngIf="selectedFrutaSlug === fruta.value"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 2: Baño de Chocolate -->
+        <div class="section">
+          <h3 class="section-title">Baño de chocolate</h3>
+          <div class="options-grid">
+            <div
+              *ngFor="let choc of chocolatesOptions"
+              class="option-card"
+              [class.selected]="selectedChocolateSlug === choc.value"
+              (click)="selectChocolate(choc.value)"
+            >
+              <div class="option-content">
+                <span class="option-name">{{ choc.label }}</span>
+                <i class="pi pi-check check-icon" *ngIf="selectedChocolateSlug === choc.value"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 3: Toppings -->
+        <div class="section">
+          <h3 class="section-title">Toppings <span class="optional-tag">Opcional</span></h3>
+          <div class="options-grid">
+            <div
+              *ngFor="let t of toppings"
+              class="option-card multi-select"
+              [class.selected]="selectedToppingsIds.includes(t.id)"
+              (click)="toggleTopping(t.id)"
+            >
+              <div class="option-content">
+                <span class="option-name">{{ t.nombre }}</span>
+                <i class="pi pi-check check-icon" *ngIf="selectedToppingsIds.includes(t.id)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección 4: Extras -->
+        <div class="section">
+          <h3 class="section-title">Extras <span class="optional-tag">Opcional</span></h3>
+          <div class="options-grid">
+            <div
+              class="option-card multi-select"
+              [class.selected]="dobleChocolate"
+              (click)="dobleChocolate = !dobleChocolate"
+            >
+              <div class="option-content">
+                <span class="option-name">Doble chocolate</span>
+                <span class="option-price">+{{ CHOCOFRUTA_SEED.reglas.recargoDobleChocolate | currency:'GTQ':'symbol':'1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacer -->
+        <div style="height: 80px;"></div>
       </div>
     </div>
 
     <ng-template pTemplate="footer">
-      <button
-        pButton
-        label="Agregar al carrito"
-        icon="pi pi-shopping-cart"
-        class="w-full md:w-auto"
-        (click)="addToCartFromDialog()"
-      ></button>
+      <div class="uber-footer">
+        <button
+          pButton
+          class="add-to-cart-btn"
+          (click)="addToCartFromDialog()"
+        >
+          <span>Agregar al carrito</span>
+          <span class="btn-price">{{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}</span>
+        </button>
+      </div>
     </ng-template>
   </p-dialog>
 </ng-container>

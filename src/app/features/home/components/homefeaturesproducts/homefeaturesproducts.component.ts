@@ -158,6 +158,26 @@ export class HomefeaturesproductsComponent {
     this.updatePreviewImages();
   }
 
+  // Nuevos métodos para el diseño tipo Uber Eats
+  selectFruta(slug: string): void {
+    this.selectedFrutaSlug = slug;
+    this.updatePreviewImages();
+  }
+
+  selectChocolate(slug: string | null): void {
+    this.selectedChocolateSlug = slug ?? undefined;
+    this.updatePreviewImages();
+  }
+
+  toggleTopping(id: string): void {
+    if (this.selectedToppingsIds.includes(id)) {
+      this.selectedToppingsIds = this.selectedToppingsIds.filter(x => x !== id);
+    } else {
+      this.selectedToppingsIds = [...this.selectedToppingsIds, id];
+    }
+    this.updatePreviewImages();
+  }
+
   onImageError(event: Event): void {
     (event.target as HTMLImageElement).src = 'assets/img/nophoto.png';
   }
