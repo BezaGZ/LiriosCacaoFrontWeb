@@ -7,31 +7,36 @@
     </a>
 
     <div class="flex justify-center items-center gap-4">
-      <div class="flex flex-col items-center cursor-pointer
+      <div class="flex flex-col items-center cursor-pointer relative
             transition transform hover:scale-110 hover:text-[#452317] "(click)=irInicio()>
         <img src="assets/icons/inicio.svg" alt="inicio"
              class="w-7 h-5 mb-1 transition-transform duration-200" />
         <span class="text-sm">Inicio</span>
+        <div *ngIf="isHome" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </div>
-      <div class="flex flex-col items-center cursor-pointer
+      <div class="flex flex-col items-center cursor-pointer relative
             transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('chocofruta')">
         <img src="assets/icons/chocofruta.svg" alt="chocofrutas" class="w-5 h-5 mb-1" />
         <span class="text-sm">Chocofrutas</span>
+        <div *ngIf="currentCategory === 'chocofruta'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </div>
-      <div class="flex flex-col items-center cursor-pointer
+      <div class="flex flex-col items-center cursor-pointer relative
             transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('helado')">
         <img src="assets/icons/helados.svg" alt="helados" class="w-5 h-5 mb-1" />
         <span class="text-sm">Helados</span>
+        <div *ngIf="currentCategory === 'helado'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </div>
-      <div class="flex flex-col items-center cursor-pointer
+      <div class="flex flex-col items-center cursor-pointer relative
             transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('flor')">
         <img src="assets/icons/floristeria.svg" alt="Flor" class="w-5 h-5 mb-1" />
         <span class="text-sm">Floristería</span>
+        <div *ngIf="currentCategory === 'flor'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </div>
-      <div class="flex flex-col items-center cursor-pointer
+      <div class="flex flex-col items-center cursor-pointer relative
             transition transform hover:scale-110 hover:text-[#452317]" (click)="goToCategory('evento')">
         <img src="assets/icons/eventos.svg" alt="Globos" class="w-5 h-5 mb-1" />
         <span class="text-sm">Eventos</span>
+        <div *ngIf="currentCategory === 'evento'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </div>
     </div>
 
@@ -46,19 +51,20 @@
 
   </div>
 
-  <div class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 flex justify-around items-center pb-3">
+  <div class="md:hidden fixed bottom-0 left-0 z-50 w-full h-20 bg-white border-t border-gray-200 flex justify-around items-center pb-4 pt-3">
 
     <div
-      class="flex flex-col items-center cursor-pointer
+      class="flex flex-col items-center cursor-pointer relative
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
     (click)="irInicio()">
       <img src="assets/icons/inicio.svg" alt="inicio" class="w-7 h-5 mb-1"  />
       <span class="text-xs">Inicio</span>
+      <div *ngIf="isHome" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </div>
     <div
-      class="flex flex-col items-center cursor-pointer
+      class="flex flex-col items-center cursor-pointer relative
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
@@ -66,9 +72,10 @@
     >
       <img src="assets/icons/chocofruta.svg" alt="chocofrutas" class="w-5 h-5 mb-1" />
       <span class="text-xs">Chocofrutas</span>
+      <div *ngIf="currentCategory === 'chocofruta'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </div>
     <div
-      class="flex flex-col items-center cursor-pointer
+      class="flex flex-col items-center cursor-pointer relative
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
@@ -77,9 +84,10 @@
       <img src="assets/icons/helados.svg" alt="helados"
            class="w-5 h-5 mb-1 transition-transform duration-200" />
       <span class="text-xs">Helados</span>
+      <div *ngIf="currentCategory === 'helado'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </div>
     <div
-      class="flex flex-col items-center cursor-pointer
+      class="flex flex-col items-center cursor-pointer relative
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
@@ -87,9 +95,10 @@
     >
       <img src="assets/icons/floristeria.svg" alt="Flor" class="w-5 h-5 mb-1" />
       <span class="text-xs">Floristería</span>
+      <div *ngIf="currentCategory === 'flor'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </div>
     <div
-      class="flex flex-col items-center cursor-pointer
+      class="flex flex-col items-center cursor-pointer relative
          transition transform duration-200
          hover:scale-110 hover:-translate-y-1
          active:scale-110 active:animate-bounce md:active:scale-100 md:active:animate-none"
@@ -97,6 +106,7 @@
     >
       <img src="assets/icons/eventos.svg" alt="Flor" class="w-5 h-5 mb-1" />
       <span class="text-xs">Eventos</span>
+      <div *ngIf="currentCategory === 'evento'" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </div>
 
     <div

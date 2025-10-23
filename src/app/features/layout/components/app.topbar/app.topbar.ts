@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from '@features/cart/cart.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-topbar',
@@ -15,6 +16,39 @@ import { CartService } from '@features/cart/cart.service';
 export class AppTopbar {
   readonly router = inject(Router);
   readonly cart = inject(CartService);
+
+  currentCategory: string | null = null;
+  isHome = false;
+
+  constructor() {
+    // Detectar cambios de ruta
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateActiveState();
+    });
+
+    // Inicializar estado
+    this.updateActiveState();
+  }
+
+  /**
+   * Actualiza el estado de qué sección está activa
+   */
+  private updateActiveState() {
+    const url = this.router.url;
+    const urlTree = this.router.parseUrl(url);
+    const path = urlTree.root.children['primary']?.segments[0]?.path;
+
+    this.isHome = !path || path === '';
+
+    // Si estamos en /productos, obtenemos la categoría del queryParam
+    if (path === 'productos') {
+      this.currentCategory = urlTree.queryParams['category'] || null;
+    } else {
+      this.currentCategory = null;
+    }
+  }
 
   /**
    * Navega a la página de inicio.
