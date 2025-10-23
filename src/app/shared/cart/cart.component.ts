@@ -48,13 +48,13 @@ export class CartComponent implements OnInit {
     return this.cart.total;
   }
   get deliveryFee(): number {
-    return this.entrega === 'domicilio' ? 5 : 0;
+    return this.entrega === 'domicilio' ? 7 : 0;
   }
   get appFee(): number {
-    return 2;
+    return 0;
   }
   get grandTotal(): number {
-    return this.subtotal + this.deliveryFee + this.appFee;
+    return this.subtotal + this.deliveryFee;
   }
 
   checkoutWhatsApp() {
@@ -85,7 +85,7 @@ export class CartComponent implements OnInit {
       'Resumen:',
       `Subtotal: ${q(this.subtotal)}`,
       ...(this.deliveryFee > 0 ? [`Envío: ${q(this.deliveryFee)}`] : []),
-      `Fee app: ${q(this.appFee)}`,
+      ...(this.appFee > 0 ? [`Fee app: ${q(this.appFee)}`] : []),
       `TOTAL: ${q(this.grandTotal)}`
     ].join('\n');
 

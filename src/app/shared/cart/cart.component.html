@@ -182,7 +182,7 @@
     <button
       class="whatsapp-button"
       (click)="checkoutWhatsApp()"
-      [disabled]="entrega === 'domicilio' && !direccion.trim()"
+      [disabled]="cartItemCount === 0 || (entrega === 'domicilio' && !direccion.trim())"
     >
       <i class="pi pi-whatsapp"></i>
       <span>Enviar pedido por WhatsApp</span>
