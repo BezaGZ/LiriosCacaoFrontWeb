@@ -2,36 +2,24 @@
 
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-category-filters',
   standalone: true,
-  imports: [CommonModule, ButtonModule],
-  // Asumo que tu HTML es similar a esto. Si no, ajústalo.
-  template: `
-    <div class="flex gap-3 overflow-x-auto pb-2">
-      <p-button
-        *ngFor="let category of categories"
-        [label]="category.name"
-        [outlined]="selectedCategory !== category.id"
-        (click)="selectCategory(category.id)"
-        styleClass="p-button-sm"
-      ></p-button>
-    </div>
-  `,
+  imports: [CommonModule],
+  templateUrl: './category-filters.component.html',
+  styleUrls: ['./category-filters.component.scss']
 })
 export class CategoryFiltersComponent {
-  // --- ¡Línea clave! ---
   @Output() categorySelected = new EventEmitter<string>();
   @Input() selectedCategory: string = 'all';
 
   categories = [
-    { id: 'all', name: 'Todos' },
-    { id: 'chocofruta', name: 'Chocofrutas' },
-    { id: 'helado', name: 'Helados' },
-    { id: 'flor', name: 'Floristería' },
-    { id: 'evento', name: 'Eventos' },
+    { id: 'all', name: 'Todos', image: 'assets/categories/todos.png' },
+    { id: 'chocofruta', name: 'Chocofrutas', image: 'assets/categories/chocofruta.png' },
+    { id: 'helado', name: 'Helados', image: 'assets/categories/helados.png' },
+    { id: 'flor', name: 'Floristería', image: 'assets/categories/floristeria.png' },
+    { id: 'evento', name: 'Eventos', image: 'assets/categories/eventos.png' },
   ];
 
   selectCategory(categoryId: string) {

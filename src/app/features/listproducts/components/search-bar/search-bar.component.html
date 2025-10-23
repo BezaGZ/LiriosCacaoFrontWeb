@@ -1,1 +1,20 @@
-<p>search-bar works!</p>
+<div class="search-bar-container">
+  <div class="search-input-wrapper">
+    <i class="pi pi-search search-icon"></i>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Busca productos, categorías..."
+      [value]="searchValue"
+      (input)="onInput($event)"
+    />
+    <button
+      *ngIf="searchValue"
+      class="clear-button"
+      (click)="clearSearch()"
+      type="button"
+    >
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+</div>
