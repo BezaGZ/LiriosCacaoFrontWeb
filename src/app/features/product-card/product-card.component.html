@@ -1,46 +1,29 @@
-<div
-  class="w-40 sm:w-44 md:w-52
-    bg-white rounded-xl border border-[#f0e5db]
-    p-3 md:p-4 shadow-md hover:shadow-xl
-    transform hover:scale-105 transition duration-300 ease-in-out flex flex-col
-    text-xs sm:text-sm md:text-base"
->
-  <div
-    class="w-full h-24 sm:h-28 rounded-xl overflow-hidden relative bg-[#f7ede3] cursor-pointer"
-    (click)="emitCustomize()"
-  >
+<div class="product-card">
+  <div class="product-image-container" (click)="emitCustomize()">
     <img
       [src]="currentImageUrls.base"
       (error)="onImageError($event)"
       alt="base-product"
-      class="absolute inset-0 w-full h-full object-contain"
+      class="product-image"
     />
     <img
       *ngIf="currentImageUrls.topping"
       [src]="currentImageUrls.topping"
       (error)="onImageError($event)"
       alt="topping-layer"
-      class="absolute inset-0 w-full h-full object-contain"
+      class="product-image product-overlay"
     />
 
     <button
-      pButton
-      type="button"
-      icon="pi pi-shopping-cart"
-      class="!absolute !top-2 !right-2 !w-8 !h-8 sm:!w-10 sm:!h-10 !rounded-full !bg-[#452317]/80 !border-none "
+      class="add-to-cart-btn"
       (click)="emitAddToCart($event)"
-    ></button>
+    >
+      <i class="pi pi-shopping-cart"></i>
+    </button>
   </div>
 
-  <h3 class="font-semibold text-[#452317] mt-2 leading-snug h-10
-        text-xs sm:text-sm md:text-sm">
-    <span class="block line-clamp-2">{{ product.title }}</span>
-  </h3>
-
-  <p class="font-bold text-[#452317] mt-1
-           text-sm sm:text-base md:text-lg"
-  >
-    {{ product.price | currency:'GTQ':'symbol':'1.2-2' }}
-  </p>
-
+  <div class="product-info">
+    <h3 class="product-title">{{ product.title }}</h3>
+    <p class="product-price">{{ product.price | currency:'GTQ':'symbol':'1.0-2' }}</p>
+  </div>
 </div>
