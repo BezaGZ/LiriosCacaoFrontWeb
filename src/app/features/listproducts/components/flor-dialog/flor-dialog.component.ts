@@ -34,7 +34,7 @@ export class FlorDialogComponent {
     if (!this.flor) return;
 
     const mensaje = this.buildWhatsAppMessage();
-    const numeroWhatsApp = '50246828283';
+    const numeroWhatsApp = '45827110';
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
   }

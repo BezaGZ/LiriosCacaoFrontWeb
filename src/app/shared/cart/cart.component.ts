@@ -36,7 +36,7 @@ export class CartComponent implements OnInit {
   direccion = '';
   cambio: number | null = null;       // 👈 nuevo
 
-  telefonoWhats = '50230625215';
+  telefonoWhats = '45827110';
 
   get cartItemCount(): number { return this.cart.count; }
   mostrarCantidadCarrito(): string {
