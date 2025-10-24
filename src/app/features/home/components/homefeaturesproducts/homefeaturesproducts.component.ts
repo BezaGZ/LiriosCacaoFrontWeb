@@ -47,11 +47,16 @@ export class HomefeaturesproductsComponent {
   selectedFrutaSlug?: string;
   selectedChocolateSlug?: string;
   selectedToppingsIds: string[] = [];
+  selectedLineasChocolateSlug?: string | null = null;
   dobleChocolate = false;
 
   frutasOptions = CHOCOFRUTA_SEED.frutas.map(f => ({ label: f.nombre, value: f.slug }));
   chocolatesOptions = CHOCOFRUTA_SEED.chocolates.map(c => ({ label: c.nombre, value: c.colorSlug }));
   get toppings() { return CHOCOFRUTA_SEED.toppings.filter(t => t.disponible); }
+
+  get hasLineasChocolateSelected(): boolean {
+    return this.selectedToppingsIds.includes('top_lineaschocolate');
+  }
 
 
   // --- NUEVOS MÉTODOS PARA MANEJAR EVENTOS DE LA TARJETA ---
@@ -116,7 +121,17 @@ export class HomefeaturesproductsComponent {
     if (!fruta || !choc) return;
 
     const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
-    const title = `Choco${fruta.nombre} con ${choc.nombre}` + (tops.length ? ` + ${tops.map(t => t.nombre).join(', ')}` : '');
+
+    // Construir el título con los toppings (incluyendo sabor de líneas si aplica)
+    const toppingsNames = tops.map(t => {
+      if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
+        const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
+        return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
+      }
+      return t.nombre;
+    });
+
+    const title = `Choco${fruta.nombre} con ${choc.nombre}` + (toppingsNames.length ? ` + ${toppingsNames.join(', ')}` : '');
     const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, tops[0]?.nombre);
     const unitPrice = this.previewPrice();
 
@@ -126,7 +141,7 @@ export class HomefeaturesproductsComponent {
       imageUrls: { base: paths.baseImage, topping: paths.toppingImage },
       unitPrice,
       qty: 1,
-      data: { chocofruta: { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, cantidad: 1 } },
+      data: { chocofruta: { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, lineasChocolateSlug: this.selectedLineasChocolateSlug, cantidad: 1 } },
     });
 
     this.dialogVisible = false;
@@ -190,10 +205,18 @@ export class HomefeaturesproductsComponent {
   toggleTopping(id: string): void {
     if (this.selectedToppingsIds.includes(id)) {
       this.selectedToppingsIds = this.selectedToppingsIds.filter(x => x !== id);
+      // Si se deselecciona "Líneas de chocolate", limpiar la sub-opción
+      if (id === 'top_lineaschocolate') {
+        this.selectedLineasChocolateSlug = null;
+      }
     } else {
       this.selectedToppingsIds = [...this.selectedToppingsIds, id];
     }
     this.updatePreviewImages();
+  }
+
+  selectLineasChocolate(slug: string): void {
+    this.selectedLineasChocolateSlug = slug;
   }
 
   onImageError(event: Event): void {

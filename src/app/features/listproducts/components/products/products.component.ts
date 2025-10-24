@@ -53,12 +53,19 @@ export class ProductsComponent {
   // Compartido
   selectedChocolateSlug?: string | null = null;
   selectedToppingsIds: string[] = [];
+  // Para líneas de chocolate (sub-opción)
+  selectedLineasChocolateSlug?: string | null = null;
 
   // --- Opciones para Dropdowns ---
   frutasOptions = CHOCOFRUTA_SEED.frutas.map(f => ({ label: f.nombre, value: f.slug }));
   saboresHeladoOptions = HELADO_SEED.sabores.map(s => ({ label: s.nombre, value: s.id }));
   chocolatesOptions = CHOCOFRUTA_SEED.chocolates.map(c => ({ label: c.nombre, value: c.colorSlug }));
   get toppings() { return CHOCOFRUTA_SEED.toppings.filter(t => t.disponible); }
+
+  // Verifica si "Líneas de chocolate" está seleccionado
+  get hasLineasChocolateSelected(): boolean {
+    return this.selectedToppingsIds.includes('top_lineaschocolate');
+  }
 
   // 1. Añade una propiedad para el estado del checkbox
   extraChocolateHelado = false;
@@ -87,6 +94,7 @@ export class ProductsComponent {
     // Limpiamos el estado anterior
     this.selectedToppingsIds = [];
     this.selectedChocolateSlug = null;
+    this.selectedLineasChocolateSlug = null;
     this.dobleChocolate = false;
     this.extraChocolateHelado = false;
 
@@ -143,8 +151,18 @@ export class ProductsComponent {
       if (!fruta || !choc) return;
 
       const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
-      // 2. Asignamos el valor a 'title', sin volver a declararla con 'const'
-      title = `Choco${fruta.nombre} con ${choc.nombre}` + (tops.length ? ` + ${tops.map(t => t.nombre).join(', ')}` : '');
+
+      // Construir el título con los toppings
+      const toppingsNames = tops.map(t => {
+        // Si es "Líneas de chocolate" y hay un sabor seleccionado, incluirlo
+        if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
+          const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
+          return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
+        }
+        return t.nombre;
+      });
+
+      title = `Choco${fruta.nombre} con ${choc.nombre}` + (toppingsNames.length ? ` + ${toppingsNames.join(', ')}` : '');
 
       const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, tops[0]?.nombre);
       const unitPrice = this.previewPrice();
@@ -152,7 +170,7 @@ export class ProductsComponent {
       this.cart.add({
         kind: 'chocofruta', title, unitPrice, qty: 1,
         imageUrls: { base: paths.baseImage, topping: paths.toppingImage },
-        data: { chocofruta: { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, cantidad: 1 } },
+        data: { chocofruta: { fruta, chocolate: choc, toppings: tops, dobleChocolate: this.dobleChocolate, lineasChocolateSlug: this.selectedLineasChocolateSlug, cantidad: 1 } },
       });
     }
 
@@ -162,17 +180,26 @@ export class ProductsComponent {
       if (!sabor) return;
 
       const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
+
+      // Construir el título con los toppings (incluyendo sabor de líneas si aplica)
+      const toppingsNames = tops.map(t => {
+        if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
+          const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
+          return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
+        }
+        return t.nombre;
+      });
+
       const unitPrice = this.previewPrice();
-      // 2. Asignamos el valor a 'title', sin volver a declararla con 'let'
       title = `Paleta de ${sabor.nombre}`;
       if (choc) title += ` c/${choc.nombre}`;
-      if (tops.length > 0) title += ` + ${tops.map(t => t.nombre).join(', ')}`;
+      if (toppingsNames.length > 0) title += ` + ${toppingsNames.join(', ')}`;
 
       const imageUrls = { base: imgHeladoPaleta(sabor.slug), topping: '' };
 
       this.cart.add({
         kind: 'helado', title, unitPrice, qty: 1, imageUrls,
-        data: { helado: { sabor, chocolate: choc, toppings: tops, chocolateExtra: this.extraChocolateHelado, cantidad: 1 } },
+        data: { helado: { sabor, chocolate: choc, toppings: tops, chocolateExtra: this.extraChocolateHelado, lineasChocolateSlug: this.selectedLineasChocolateSlug, cantidad: 1 } },
       });
     }
 
@@ -256,10 +283,18 @@ export class ProductsComponent {
   toggleTopping(id: string): void {
     if (this.selectedToppingsIds.includes(id)) {
       this.selectedToppingsIds = this.selectedToppingsIds.filter(x => x !== id);
+      // Si se deselecciona "Líneas de chocolate", limpiar la sub-opción
+      if (id === 'top_lineaschocolate') {
+        this.selectedLineasChocolateSlug = null;
+      }
     } else {
       this.selectedToppingsIds = [...this.selectedToppingsIds, id];
     }
     this.updatePreviewImages();
+  }
+
+  selectLineasChocolate(slug: string): void {
+    this.selectedLineasChocolateSlug = slug;
   }
 
   onImageError(event: Event): void {

@@ -147,6 +147,24 @@
           </div>
         </div>
 
+        <!-- Sección 3.5: Sabor de Líneas de Chocolate (solo si está seleccionado) -->
+        <div class="section" *ngIf="hasLineasChocolateSelected">
+          <h3 class="section-title">Sabor de líneas de chocolate</h3>
+          <div class="options-grid">
+            <div
+              *ngFor="let choc of chocolatesOptions"
+              class="option-card"
+              [class.selected]="selectedLineasChocolateSlug === choc.value"
+              (click)="selectLineasChocolate(choc.value)"
+            >
+              <div class="option-content">
+                <span class="option-name">{{ choc.label }}</span>
+                <i class="pi pi-check check-icon" *ngIf="selectedLineasChocolateSlug === choc.value"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Sección 4: Extras -->
         <div class="section" *ngIf="editingProduct?.category === 'chocofruta' || editingProduct?.category === 'helado'">
           <h3 class="section-title">Extras <span class="optional-tag">Opcional</span></h3>
