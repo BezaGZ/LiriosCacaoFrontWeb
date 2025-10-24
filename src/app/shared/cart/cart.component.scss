@@ -97,11 +97,12 @@
 
 // Items Container
 .cart-items-container {
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   overflow-y: auto;
   padding: 1rem;
   background: #fafafa;
   min-height: 0;
+  max-height: 40vh; // Limita la altura máxima para que no tape el checkout
 }
 
 .cart-item {
@@ -288,9 +289,13 @@
 .checkout-section {
   background: #ffffff;
   padding: 1.25rem;
+  padding-bottom: 1.5rem; // Espacio extra en el fondo
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  flex-shrink: 0; // No se encoge
+  overflow-y: auto; // Permite scroll independiente
+  max-height: 60vh; // Altura máxima para que siempre sea visible
 }
 
 .section-group {
