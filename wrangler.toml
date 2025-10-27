@@ -1,0 +1,8 @@
+[site]
+bucket = "./dist/LiriosCacaoFrontend/browser"
+
+[build]
+command = "npm run build"
+
+name = "lirios-cacao-frontend"
+compatibility_date = "2025-10-27"
