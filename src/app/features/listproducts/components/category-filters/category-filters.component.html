@@ -1,19 +1,13 @@
 <div class="categories-container">
   <div class="categories-scroll">
-    <div
+    <button
       *ngFor="let category of categories"
-      class="category-card"
+      class="category-pill"
       [class.active]="selectedCategory === category.id"
       (click)="selectCategory(category.id)"
+      [attr.aria-label]="'Filtrar por ' + category.name"
     >
-      <div class="category-image-wrapper">
-        <img
-          [src]="category.image"
-          [alt]="category.name"
-          class="category-image"
-        />
-      </div>
       <span class="category-name">{{ category.name }}</span>
-    </div>
+    </button>
   </div>
 </div>

@@ -4,15 +4,17 @@
     <input
       type="text"
       class="search-input"
-      placeholder="Busca productos, categorías..."
+      placeholder="Buscar chocofrutas, helados..."
       [value]="searchValue"
       (input)="onInput($event)"
+      aria-label="Buscar productos"
     />
     <button
       *ngIf="searchValue"
       class="clear-button"
       (click)="clearSearch()"
       type="button"
+      aria-label="Limpiar búsqueda"
     >
       <i class="pi pi-times"></i>
     </button>

@@ -15,11 +15,11 @@ export class CategoryFiltersComponent {
   @Input() selectedCategory: string = 'all';
 
   categories = [
-    { id: 'all', name: 'Todos', image: 'assets/categories/todos.png' },
-    { id: 'chocofruta', name: 'Chocofrutas', image: 'assets/categories/chocofruta.png' },
-    { id: 'helado', name: 'Helados', image: 'assets/categories/helados.png' },
-    { id: 'flor', name: 'Floristería', image: 'assets/categories/floristeria.png' },
-    { id: 'evento', name: 'Eventos', image: 'assets/categories/eventos.png' },
+    { id: 'all', name: 'Todos' },
+    { id: 'chocofruta', name: 'Chocofrutas' },
+    { id: 'helado', name: 'Helados' },
+    { id: 'flor', name: 'Floristería' },
+    { id: 'evento', name: 'Eventos' },
   ];
 
   selectCategory(categoryId: string) {

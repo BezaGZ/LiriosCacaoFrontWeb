@@ -1,17 +1,20 @@
-<div class="flex flex-col">
-  <div class="sticky top-0 z-20 bg-[#FFF8F1] p-4 shadow-md">
+<div class="flex flex-col min-h-screen bg-[#FFF8F1]">
+  <!-- Barra de búsqueda sticky -->
+  <div class="sticky top-0 z-20 bg-[#FFF8F1] shadow-sm">
     <app-search-bar (searchChanged)="onSearch($event)"></app-search-bar>
   </div>
 
-  <div class="bg-[#FFF8F1] p-4 pt-4">
-    <h2 class="text-xl font-bold ...">Categorías</h2>
+  <!-- Categorías -->
+  <div class="bg-[#FFF8F1] px-4 md:px-6 lg:px-8 pt-6 pb-4 border-b border-[#f0e5db]">
+    <h2 class="text-base md:text-lg font-bold !text-[#452317] mb-3">Categorías</h2>
     <app-category-filters
       [selectedCategory]="currentCategory"
       (categorySelected)="onCategorySelect($event)">
     </app-category-filters>
   </div>
 
-  <div class="p-0">
+  <!-- Productos -->
+  <div class="flex-1">
     <app-products [products]="filteredProducts"></app-products>
   </div>
 </div>
