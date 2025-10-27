@@ -3,3 +3,8 @@
 @use "primeflex/primeflex.css";
 @use "app/features/layout/styles/layout.scss";
 @plugin "tailwindcss-primeui";
+
+// Forzar modo claro en todo el proyecto
+:root {
+  color-scheme: light;
+}

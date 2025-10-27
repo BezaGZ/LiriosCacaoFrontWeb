@@ -4,6 +4,23 @@
   --p-dialog-content-padding: 0;
   --p-dialog-border-radius: 0;
 
+  // Forzar colores para modo claro en radio buttons
+  .p-radiobutton {
+    .p-radiobutton-box {
+      border-color: #e8e8e8 !important;
+      background: #ffffff !important;
+
+      &.p-highlight {
+        border-color: #452317 !important;
+        background: #452317 !important;
+      }
+
+      .p-radiobutton-icon {
+        background-color: #ffffff !important;
+      }
+    }
+  }
+
   .p-dialog-mask {
     align-items: stretch !important;
     justify-content: flex-end !important;
@@ -86,13 +103,13 @@
 .cart-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
 }
 
 .cart-count {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #757575;
+  color: #757575 !important;
 }
 
 // Items Container
@@ -153,7 +170,7 @@
 .item-name {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
   line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -164,7 +181,7 @@
 
 .item-unit-price {
   font-size: 0.8125rem;
-  color: #757575;
+  color: #757575 !important;
 }
 
 .item-controls {
@@ -216,7 +233,7 @@
   text-align: center;
   font-weight: 600;
   font-size: 0.9375rem;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
 }
 
 .remove-btn {
@@ -251,7 +268,7 @@
 .item-total-price {
   font-size: 1rem;
   font-weight: 700;
-  color: #452317;
+  color: #452317 !important;
   flex-shrink: 0;
   align-self: flex-start;
 }
@@ -274,7 +291,7 @@
 
 .empty-text {
   font-size: 0.9375rem;
-  color: #757575;
+  color: #757575 !important;
   margin: 0;
 }
 
@@ -307,7 +324,7 @@
 .section-label {
   font-size: 1rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
   margin: 0;
 }
 
@@ -340,21 +357,21 @@
   span {
     font-size: 0.9375rem;
     font-weight: 500;
-    color: #1a1a1a;
+    color: #1a1a1a !important;
   }
 }
 
 .input-label {
   font-size: 0.9375rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
   display: block;
 }
 
 .optional-label {
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #757575;
+  color: #757575 !important;
 }
 
 .custom-input {
@@ -364,11 +381,17 @@
   border-radius: 0.75rem;
   font-size: 0.9375rem;
   transition: all 0.2s ease;
+  color: #1a1a1a !important;
+  background: #ffffff !important;
 
   &:focus {
     outline: none;
-    border-color: #452317;
-    background: #fef9f5;
+    border-color: #452317 !important;
+    background: #fef9f5 !important;
+  }
+
+  &::placeholder {
+    color: #999 !important;
   }
 }
 
@@ -382,18 +405,24 @@
     border-radius: 0.75rem;
     font-size: 0.9375rem;
     transition: all 0.2s ease;
+    color: #1a1a1a !important;
+    background: #ffffff !important;
 
     &:focus {
       outline: none;
-      border-color: #452317;
-      background: #fef9f5;
+      border-color: #452317 !important;
+      background: #fef9f5 !important;
+    }
+
+    &::placeholder {
+      color: #999 !important;
     }
   }
 }
 
 .input-hint {
   font-size: 0.8125rem;
-  color: #757575;
+  color: #757575 !important;
   display: block;
   line-height: 1.4;
 }
@@ -413,14 +442,15 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.9375rem;
-  color: #1a1a1a;
+  color: #1a1a1a !important;
 
   span:first-child {
-    color: #757575;
+    color: #757575 !important;
   }
 
   span:last-child {
     font-weight: 500;
+    color: #1a1a1a !important;
   }
 }
 
@@ -430,10 +460,14 @@
   align-items: center;
   font-size: 1.125rem;
   font-weight: 700;
-  color: #452317;
+  color: #452317 !important;
   padding-top: 0.75rem;
   margin-top: 0.5rem;
   border-top: 2px solid #e8e8e8;
+
+  span {
+    color: #452317 !important;
+  }
 }
 
 // WhatsApp Button

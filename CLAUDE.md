@@ -6,6 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Lirios Cacao Frontend is an Angular 19 e-commerce application for a cacao/chocolate products business. The app features customizable chocolate-covered fruit products (chocofrutas) and ice cream (helados), with PWA support and SSR/prerendering capabilities.
 
+**Tech Stack:**
+- Angular 19 (standalone components, signals-ready)
+- TypeScript 5.7 with strict mode enabled
+- RxJS 7.8 for reactive state management
+- PrimeNG 19 + Tailwind CSS 4 for UI
+- Angular SSR with hydration and event replay
+
 ## Development Commands
 
 ### Local Development
@@ -21,6 +28,7 @@ npm run build            # Production build (outputs to dist/)
 npm run build:ssr        # Build with SSR
 npm run serve:ssr        # Serve pre-built SSR app
 npm run prerender        # Prerender routes
+npm run vercel-build     # Production build for Vercel deployment
 ```
 
 ### Testing
@@ -169,3 +177,14 @@ Product dialogs (`src/app/features/listproducts/components/products/`) follow a 
 - Uses Jasmine + Karma
 - Test files follow `*.spec.ts` naming
 - Config in `tsconfig.spec.json` and `karma.conf.js` (if exists)
+
+## TypeScript Configuration
+
+The project uses strict TypeScript settings:
+- `strict: true` - All strict type checking options enabled
+- `noImplicitReturns: true` - All code paths must return a value
+- `noFallthroughCasesInSwitch: true` - Switch statements must be exhaustive
+- `noPropertyAccessFromIndexSignature: true` - Use bracket notation for index access
+- `isolatedModules: true` - Each file must be independently compilable
+
+When adding new code, ensure it adheres to these strict checks.
