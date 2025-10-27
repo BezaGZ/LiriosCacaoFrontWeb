@@ -1,9 +1,11 @@
 {
-  "name": "LiriosYCacao",
+  "name": "Lirios y Cacao - Chocofrutas en Chiquimula",
   "short_name": "Lirios&Cacao",
-  "theme_color": "#A67B5B",
-  "background_color": "#FFFFFF",
+  "description": "Chocofrutas artesanales, helados y arreglos florales. Pide por WhatsApp desde la app.",
+  "theme_color": "#452317",
+  "background_color": "#FFF8F1",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
   "icons": [

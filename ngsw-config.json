@@ -18,12 +18,29 @@
     },
     {
       "name": "assets",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/assets/**/*.{svg,cur,jpg,jpeg,png,apng,webp,avif,gif,otf,ttf,woff,woff2}"
         ]
+      },
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "7d",
+        "strategy": "performance"
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-calls",
+      "urls": [],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1h",
+        "timeout": "10s",
+        "strategy": "freshness"
       }
     }
   ]
