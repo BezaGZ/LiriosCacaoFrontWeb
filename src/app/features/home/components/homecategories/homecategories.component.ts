@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AnimateOnScrollModule} from 'primeng/animateonscroll';
 import {CardModule} from 'primeng/card';
 import {CommonModule} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-homecategories',
@@ -10,30 +11,40 @@ import {CommonModule} from '@angular/common';
   styleUrl: './homecategories.component.scss'
 })
 export class HomeCategoriesComponent {
+  constructor(private router: Router) {}
+
   categories = [
     {
-      emoji: '🍓',
+      icon: 'pi-heart-fill',
       title: 'Chocofrutas',
-      desc: 'Frutas frescas cubiertas con el mejor chocolate',
-      bg: 'bg-gradient-to-br from-[#D09162] to-[#6F3E1D]'
+      desc: 'Frutas frescas cubiertas con chocolate premium',
+      color: '#8B4513',
+      slug: 'chocofruta'
     },
     {
-      emoji: '🍦',
+      icon: 'pi-sun',
       title: 'Helados',
       desc: 'Helados artesanales de frutas naturales',
-      bg: 'bg-gradient-to-br from-blue-400 to-blue-600'
+      color: '#6B8E23',
+      slug: 'helado'
     },
     {
-      emoji: '🌸',
+      icon: 'pi-sparkles',
       title: 'Floristería',
       desc: 'Arreglos florales para toda ocasión',
-      bg: 'bg-gradient-to-br from-pink-400 to-pink-600'
+      color: '#C71585',
+      slug: 'flor'
     },
     {
-      emoji: '🎉',
+      icon: 'pi-star-fill',
       title: 'Eventos',
-      desc: 'Servicios especiales para tus celebraciones',
-      bg: 'bg-gradient-to-br from-purple-400 to-purple-600'
+      desc: 'Servicios especiales para celebraciones',
+      color: '#8A2BE2',
+      slug: 'evento'
     }
   ];
+
+  goToCategory(slug: string) {
+    this.router.navigate(['/productos'], { queryParams: { categoria: slug } });
+  }
 }

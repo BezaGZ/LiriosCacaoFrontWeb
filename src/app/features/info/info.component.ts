@@ -1,16 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMapsModule } from '@angular/google-maps';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [CommonModule,
-    GoogleMapsModule,
-    CardModule, ButtonModule ],
+  imports: [CommonModule],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss'
 })
