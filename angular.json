@@ -107,7 +107,9 @@
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
             "routes": [
-              "/"
+              "/",
+              "/sobrenosotros",
+              "/productos"
             ]
           },
           "configurations": {
