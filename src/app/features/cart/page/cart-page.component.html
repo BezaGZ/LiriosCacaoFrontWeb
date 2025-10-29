@@ -1,31 +1,13 @@
-<p-dialog
-  [(visible)]="sidebarVisible"
-  (visibleChange)="onSidebarVisibleChange($event)"
-  [modal]="true"
-  [dismissableMask]="true"
-  [draggable]="false"
-  [resizable]="false"
-  [blockScroll]="true"
-  [showHeader]="true"
-  [closable]="false"
-  [breakpoints]="{ '768px': '100vw' }"
-  [style]="{ width: '600px', maxWidth: '100vw', height: '100vh', maxHeight: '100vh' }"
-  styleClass="cart-dialog"
-  [contentStyle]="{ padding: '0' }"
->
-  <ng-template pTemplate="header">
-    <div class="cart-header">
-      <button class="close-btn" (click)="sidebarVisible = false">
-        <i class="pi pi-times"></i>
-      </button>
-      <div class="header-content">
-        <span class="cart-title">Tu carrito</span>
-        <span class="cart-count" *ngIf="cartItemCount > 0">({{ cartItemCount }} {{ cartItemCount === 1 ? 'item' : 'items' }})</span>
-      </div>
-      <div style="width: 40px;"></div>
+<div class="cart-page-container">
+  <!-- Header -->
+  <div class="cart-header">
+    <div class="header-content">
+      <span class="cart-title">Tu carrito</span>
+      <span class="cart-count" *ngIf="cartItemCount > 0">({{ cartItemCount }} {{ cartItemCount === 1 ? 'item' : 'items' }})</span>
     </div>
-  </ng-template>
+  </div>
 
+  <!-- Items Container -->
   <div class="cart-items-container">
     <div *ngIf="(cart.items$ | async) as items; else empty">
       <div *ngFor="let it of items" class="cart-item">
@@ -67,12 +49,14 @@
       <div class="empty-cart">
         <i class="pi pi-shopping-cart empty-icon"></i>
         <p class="empty-text">Tu carrito está vacío</p>
+        <p class="empty-subtext">Agrega productos desde nuestro catálogo</p>
       </div>
     </ng-template>
   </div>
 
   <div class="cart-divider"></div>
 
+  <!-- Checkout Section -->
   <div class="checkout-section">
     <!-- Entrega -->
     <div class="section-group">
@@ -188,4 +172,4 @@
       <span>Enviar pedido por WhatsApp</span>
     </button>
   </div>
-</p-dialog>
+</div>

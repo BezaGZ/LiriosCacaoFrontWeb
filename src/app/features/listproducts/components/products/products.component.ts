@@ -18,8 +18,8 @@ import { CHOCOFRUTA_SEED, HELADO_SEED, Flor } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 import { calcularPrecioUnitarioHelado } from '@core/domain/helado/helado.logic';
 import { buildLayeredImagePaths, imgHeladoPaleta } from '@core/utils/image-resolver';
-import { MessageService } from "primeng/api";
 import { FlorDialogComponent } from '../flor-dialog/flor-dialog.component';
+import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
 
 @Component({
   selector: 'app-products',
@@ -33,7 +33,7 @@ import { FlorDialogComponent } from '../flor-dialog/flor-dialog.component';
   styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
-  private readonly messageService = inject(MessageService); // <-- Inyéctalo aquí
+  private readonly cartConfirmation = inject(CartConfirmationService);
 
   // --- Propiedades Principales ---
   @Input() products: ProductCardVM[] = [];
@@ -127,13 +127,7 @@ export class ProductsComponent {
       imageUrls: product.imageUrls,
     });
 
-
-    this.messageService.add({
-      severity: 'success',
-      summary: '¡Añadido!',
-      detail: `${product.title} se agregó a tu carrito.`,
-      life: 3000 // El mensaje dura 3 segundos
-    });
+    this.cartConfirmation.showAddedToCartConfirmation(product.title);
   }
 
 
@@ -207,13 +201,7 @@ export class ProductsComponent {
     if (!title) return;
 
     this.dialogVisible = false;
-    this.messageService.add({
-      severity: 'success',
-      summary: '¡Añadido!',
-      // 3. Ahora podemos usar 'title' aquí sin problemas
-      detail: `${title} se agregó a tu carrito.`,
-      life: 3000
-    });
+    this.cartConfirmation.showAddedToCartConfirmation(title);
   }
 
   updatePreviewImages(): void {

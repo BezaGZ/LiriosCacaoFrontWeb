@@ -9,8 +9,42 @@
     <app-footer class="hidden md:block"></app-footer>
   </div>
   <div class="layout-mask animate-fadein"></div>
-  <app-cart></app-cart>
+
+  <!-- Toast general -->
   <p-toast></p-toast>
+
+  <!-- Toast personalizado para confirmación de carrito -->
+  <p-toast key="cart-confirm" position="top-center" [style]="{marginTop: '80px'}">
+    <ng-template let-message pTemplate="message">
+      <div class="flex flex-col gap-3 p-4" style="min-width: 300px;">
+        <div class="flex items-start gap-3">
+          <i class="pi pi-check-circle text-green-500" style="font-size: 1.5rem;"></i>
+          <div class="flex-1">
+            <div class="font-semibold text-lg text-[#1a1a1a] dark:text-white">{{message.summary}}</div>
+            <div class="text-sm mt-1 text-[#757575] dark:text-gray-300">{{message.detail}}</div>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button
+            pButton
+            label="Seguir comprando"
+            class="flex-1 !text-gray-700 dark:!text-black"
+            [outlined]="true"
+            severity="secondary"
+            (click)="cartConfirmation.continueShopping()"
+            style="padding: 0.75rem 1rem; font-size: 0.875rem;">
+          </button>
+          <button
+            pButton
+            label="Ir al carrito"
+            class="flex-1 !text-white"
+            (click)="cartConfirmation.goToCart()"
+            style="background: #452317; border-color: #452317; padding: 0.75rem 1rem; font-size: 0.875rem;">
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </p-toast>
 </div>
 
 <!--<app-cart-fab></app-cart-fab>-->

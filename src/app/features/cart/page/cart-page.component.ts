@@ -2,17 +2,17 @@ import {Component, inject, OnInit} from '@angular/core';
 import {AsyncPipe, DecimalPipe, NgForOf, NgIf} from "@angular/common";
 import {InputNumber} from "primeng/inputnumber";
 import {InputText} from "primeng/inputtext";
-import {PrimeTemplate} from "primeng/api";
 import {RadioButton} from "primeng/radiobutton";
 import {FormsModule} from "@angular/forms";
-import {Dialog} from "primeng/dialog";
 import {Router} from '@angular/router';
+import {Title, Meta} from '@angular/platform-browser';
 import {CartService} from '@features/cart/cart.service';
 import {CartItem} from '@features/cart/cart.models';
 import {CHOCOFRUTA_SEED} from '@core/domain';
 
 @Component({
-  selector: 'app-cart',
+  selector: 'app-cart-page',
+  standalone: true,
   imports: [
     AsyncPipe,
     DecimalPipe,
@@ -20,22 +20,32 @@ import {CHOCOFRUTA_SEED} from '@core/domain';
     InputText,
     NgForOf,
     NgIf,
-    PrimeTemplate,
     RadioButton,
-    Dialog,
     FormsModule
   ],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+  templateUrl: './cart-page.component.html',
+  styleUrl: './cart-page.component.scss'
 })
-export class CartComponent implements OnInit {
+export class CartPageComponent implements OnInit {
   readonly router = inject(Router);
   readonly cart = inject(CartService);
+  private readonly titleService = inject(Title);
+  private readonly metaService = inject(Meta);
+
+  ngOnInit() {
+    // --- TÍTULO Y DESCRIPCIÓN OPTIMIZADOS PARA SEO ---
+    this.titleService.setTitle('Carrito de Compras | Lirio & Cacao - Chiquimula');
+
+    this.metaService.updateTag({
+      name: 'description',
+      content: 'Finaliza tu pedido de chocofrutas, helados artesanales y arreglos florales. Entrega a domicilio en Chiquimula. ¡Completa tu compra ahora!'
+    });
+  }
 
   entrega: 'domicilio' | 'local' = 'domicilio';
   pago: 'efectivo' | 'tarjeta' = 'efectivo';
   direccion = '';
-  cambio: number | null = null;       // 👈 nuevo
+  cambio: number | null = null;
 
   telefonoWhats = '45827110';
 
@@ -160,9 +170,4 @@ export class CartComponent implements OnInit {
   inc(i: CartItem) { this.cart.inc(i.id); }
   dec(i: CartItem) { this.cart.dec(i.id); }
   remove(i: CartItem) { this.cart.remove(i.id); }
-
-  sidebarVisible = false;
-  ngOnInit() { this.cart.sidebarVisible$.subscribe(v => (this.sidebarVisible = !!v)); }
-  showCart() { this.cart.open(); }
-  onSidebarVisibleChange(v: boolean) { v ? this.cart.open() : this.cart.close(); }
 }

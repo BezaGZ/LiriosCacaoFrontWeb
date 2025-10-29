@@ -5,17 +5,19 @@ import { filter, Subscription } from 'rxjs';
 import { AppTopbar } from '../app.topbar/app.topbar';
 import { AppFooter } from '../app.footer/app.footer';
 import { LayoutService } from '../../service/layout.service';
-import { CartComponent } from '@shared/cart/cart.component';
-import { ToastModule } from 'primeng/toast'; // <-- Corrige el import de Toast
+import { ToastModule } from 'primeng/toast';
+import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, CartComponent, ToastModule], // <-- Usa ToastModule
+  imports: [CommonModule, AppTopbar, RouterModule, AppFooter, ToastModule, ButtonModule],
   templateUrl: './app.layout.html',
 })
 export class AppLayout {
   overlayMenuOpenSubscription: Subscription;
+  readonly cartConfirmation: CartConfirmationService;
   menuOutsideClickListener: any;
 
   @ViewChild(AppTopbar) appTopBar!: AppTopbar;
@@ -24,9 +26,11 @@ export class AppLayout {
     public layoutService: LayoutService,
     public renderer: Renderer2,
     public router: Router,
+    private cartConfirmationService: CartConfirmationService,
     // --- 2. Inyecta PLATFORM_ID ---
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.cartConfirmation = this.cartConfirmationService;
     // --- 3. Protege toda la lógica que depende del navegador ---
     if (isPlatformBrowser(this.platformId)) {
       this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {

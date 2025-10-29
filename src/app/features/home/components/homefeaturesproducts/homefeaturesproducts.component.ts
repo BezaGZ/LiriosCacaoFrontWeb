@@ -22,6 +22,7 @@ import { MessageService } from 'primeng/api';
 // Imports para los datos de esta sección específica
 import { FEATURED_PRESETS } from './components/featured.presets';
 import { presetToCard } from './components/featured.adapter';
+import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
 
 @Component({
   selector: 'app-homefeaturesproducts',
@@ -35,7 +36,7 @@ import { presetToCard } from './components/featured.adapter';
   styleUrls: ['./homefeaturesproducts.component.scss']
 })
 export class HomefeaturesproductsComponent {
-  private readonly messageService = inject(MessageService);
+  private readonly cartConfirmation = inject(CartConfirmationService);
 
   // La lista de productos ahora usa el tipo universal ProductCardVM
   products: ProductCardVM[] = FEATURED_PRESETS.map(presetToCard);
@@ -99,14 +100,7 @@ export class HomefeaturesproductsComponent {
       }
     });
 
-    this.messageService.add({
-      severity: 'success',
-      summary: '¡Añadido!',
-      detail: `${product.title} se agregó a tu carrito.`,
-      life: 3000
-    });
-
-    this.cart.open();
+    this.cartConfirmation.showAddedToCartConfirmation(product.title);
   }
 
 
@@ -145,15 +139,7 @@ export class HomefeaturesproductsComponent {
     });
 
     this.dialogVisible = false;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: '¡Añadido!',
-      detail: `${title} se agregó a tu carrito.`,
-      life: 3000
-    });
-
-    this.cart.open();
+    this.cartConfirmation.showAddedToCartConfirmation(title);
   }
 
   updatePreviewImages(): void {

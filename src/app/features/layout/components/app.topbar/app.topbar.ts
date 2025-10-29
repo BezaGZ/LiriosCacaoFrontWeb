@@ -19,6 +19,7 @@ export class AppTopbar {
 
   currentCategory: string | null = null;
   isHome = false;
+  isCart = false;
 
   constructor() {
     // Detectar cambios de ruta
@@ -41,6 +42,7 @@ export class AppTopbar {
     const path = urlTree.root.children['primary']?.segments[0]?.path;
 
     this.isHome = !path || path === '';
+    this.isCart = path === 'carrito';
 
     // Si estamos en /productos, obtenemos la categoría del queryParam
     if (path === 'productos') {
@@ -58,10 +60,10 @@ export class AppTopbar {
   }
 
   /**
-   * Abre el sidebar del carrito llamando al servicio.
+   * Navega a la página del carrito.
    */
   showCart() {
-    this.cart.open();
+    this.router.navigate(['/carrito']);
   }
 
   /**

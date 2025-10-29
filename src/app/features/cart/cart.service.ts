@@ -5,18 +5,12 @@ import { CartItem } from '@features/cart/cart.models';
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private _items$ = new BehaviorSubject<CartItem[]>([]);
-  private _sidebarVisible$ = new BehaviorSubject<boolean>(false);
 
   readonly items$ = this._items$.asObservable();
-  readonly sidebarVisible$ = this._sidebarVisible$.asObservable();
 
   get items(): CartItem[] { return this._items$.value; }
   get count(): number { return this.items.reduce((a, i) => a + i.qty, 0); }
   get total(): number { return this.items.reduce((a, i) => a + i.unitPrice * i.qty, 0); }
-
-  open()  { this._sidebarVisible$.next(true); }
-  close() { this._sidebarVisible$.next(false); }
-  toggle(){ this._sidebarVisible$.next(!this._sidebarVisible$.value); }
 
   add(item: Omit<CartItem, 'id'>) {
     const key = item.title;
