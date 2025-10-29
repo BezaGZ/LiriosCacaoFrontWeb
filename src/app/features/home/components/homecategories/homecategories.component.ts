@@ -45,6 +45,6 @@ export class HomeCategoriesComponent {
   ];
 
   goToCategory(slug: string) {
-    this.router.navigate(['/productos'], { queryParams: { categoria: slug } });
+    this.router.navigate(['/productos'], { queryParams: { category: slug } });
   }
 }

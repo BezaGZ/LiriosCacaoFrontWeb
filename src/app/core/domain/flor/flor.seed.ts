@@ -6,7 +6,7 @@ const FLORES: Flor[] = [
     nombre: 'Cajita rosal',
     slug: 'cajita-rosal',
     descripcion: 'Exclusiva presentación con rosa de chocolate rellena de bombones Hershey\'s, Milky Way, Kisses y Reese\'s, acompañada de cuatro fresas cubiertas en chocolate premium, mazo de madera y tarjeta personalizada. Un obsequio sofisticado que combina elegancia, detalle y exquisitez.',
-    precio: 120.00,
+    precio: 200.00,
     imagenUrl: 'assets/img/flores/cajitarosal.jpg',
     incluye: [
       'Caja de color blanco, café o negro',
@@ -26,7 +26,7 @@ const FLORES: Flor[] = [
     nombre: 'Cajita fresita',
     slug: 'cajita-fresita',
     descripcion: 'Caja con 14 fresas cubiertas en chocolate premium, color a elección, decoradas con mini marshmallows y tarjeta personalizada. Un detalle elegante, dulce y hecho a tu gusto.',
-    precio: 85.00,
+    precio: 150.00,
     imagenUrl: 'assets/img/flores/cajitafresita.jpeg',
     incluye: [
       'Caja de color blanco o café',
@@ -47,7 +47,7 @@ const FLORES: Flor[] = [
     nombre: 'Mini Bouquet delicado',
     slug: 'mini-bouquet-delicado',
     descripcion: 'Delicado bouquet con girasoles y flores de acento envuelto en papel coreano premium. Un detalle luminoso, elegante y lleno de vida.',
-    precio: 95.00,
+    precio: 130.00,
     imagenUrl: 'assets/img/flores/minibouquetdelicado.jpeg',
     incluye: [
       'Follaje a juego con el color',
@@ -65,7 +65,7 @@ const FLORES: Flor[] = [
     nombre: 'Bouquet buena alegría',
     slug: 'bouquet-buena-alegria',
     descripcion: 'Arreglo con girasoles y rosas amarillas en base roja, acompañado de globo personalizado. Un diseño lleno de alegría, color y celebración.',
-    precio: 150.00,
+    precio: 350.00,
     imagenUrl: 'assets/img/flores/bouquetbuenaalegria.jpeg',
     incluye: [
       'Rosas de exportación',
@@ -86,7 +86,7 @@ const FLORES: Flor[] = [
     nombre: 'Bouquet rosal Ferrero',
     slug: 'bouquet-rosal-ferrero',
     descripcion: 'Elegante bouquet con rosas en tonos rosa y crema, acompañado de chocolates Ferrero Rocher, envuelto en papel premium con detalles dorados. Un regalo que combina belleza y dulzura en perfecta armonía.',
-    precio: 180.00,
+    precio: 1100.00,
     imagenUrl: 'assets/img/flores/bouquetrosalferrero.jpeg',
     incluye: [
       'Rosas de exportación',
@@ -105,7 +105,7 @@ const FLORES: Flor[] = [
     nombre: 'Bouquet girasol floral',
     slug: 'bouquet-girasol-floral',
     descripcion: 'Bouquet con girasoles y rosas rosadas, envuelto en papel coreano premium y decorado con listón rojo. Color, alegría y elegancia en un solo detalle.',
-    precio: 140.00,
+    precio: 450.00,
     imagenUrl: 'assets/img/flores/bouquetgirasolfloral.jpeg',
     incluye: [
       'Rosas de exportación',
@@ -124,7 +124,7 @@ const FLORES: Flor[] = [
     nombre: 'Arreglo globo aerostático',
     slug: 'globo-aerostatico',
     descripcion: 'Elegante diseño con rosas y flores en tonos a elección, acompañado de follaje natural y un globo decorativo con mensaje corto personalizado. Presentado en una base de porcelana premium, este arreglo transmite alegría, celebración, y estilo en cada detalle.',
-    precio: 200.00,
+    precio: 375.00,
     imagenUrl: 'assets/img/flores/globoaerostatico.jpeg',
     incluye: [
       'Rosas de exportación',
@@ -144,7 +144,7 @@ const FLORES: Flor[] = [
     nombre: 'Bouquet de 20 Fresas con Chocolate Premium',
     slug: 'bouquet-20-fresas',
     descripcion: 'Ramo elaborado con 20 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo llovizna y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
-    precio: 165.00,
+    precio: 210.00,
     imagenUrl: 'assets/img/flores/bouquetveintefresasconchocolatepremium.jpeg',
     incluye: [
       '[20] Fresas frescas cubiertas en chocolate premium',
@@ -164,7 +164,7 @@ const FLORES: Flor[] = [
     nombre: 'Bouquet de 32 Fresas con Chocolate Premium',
     slug: 'bouquet-32-fresas',
     descripcion: 'Ramo elaborado con 32 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo nube y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
-    precio: 220.00,
+    precio: 300.00,
     imagenUrl: 'assets/img/flores/bouquettreintaydosfresasconchocolatepremium.jpeg',
     incluye: [
       '[32] Fresas frescas cubiertas en chocolate premium',
