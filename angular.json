@@ -109,7 +109,8 @@
             "routes": [
               "/",
               "/sobrenosotros",
-              "/productos"
+              "/productos",
+              "/carrito"
             ]
           },
           "configurations": {

@@ -1,0 +1,14 @@
+# robots.txt para www.liriosycacao.com
+
+# Permitir a todos los robots rastrear el sitio
+User-agent: *
+Allow: /
+
+# Bloquear rutas administrativas o temporales (si existen)
+Disallow: /test
+
+# Sitemap
+Sitemap: https://www.liriosycacao.com/sitemap.xml
+
+# Crawl delay (opcional, recomendado para sitios grandes)
+Crawl-delay: 1
