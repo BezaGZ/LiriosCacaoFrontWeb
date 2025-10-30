@@ -7,7 +7,7 @@ const FLORES: Flor[] = [
     slug: 'cajita-rosal',
     descripcion: 'Exclusiva presentación con rosa de chocolate rellena de bombones Hershey\'s, Milky Way, Kisses y Reese\'s, acompañada de cuatro fresas cubiertas en chocolate premium, mazo de madera y tarjeta personalizada. Un obsequio sofisticado que combina elegancia, detalle y exquisitez.',
     precio: 200.00,
-    imagenUrl: 'assets/img/flores/cajitarosal.jpg',
+    imagenUrl: 'assets/img/flores/cajitarosal.PNG',
     incluye: [
       'Caja de color blanco, café o negro',
       'Sabor a elección blanco o negro',
@@ -27,7 +27,7 @@ const FLORES: Flor[] = [
     slug: 'cajita-fresita',
     descripcion: 'Caja con 14 fresas cubiertas en chocolate premium, color a elección, decoradas con mini marshmallows y tarjeta personalizada. Un detalle elegante, dulce y hecho a tu gusto.',
     precio: 150.00,
-    imagenUrl: 'assets/img/flores/cajitafresita.jpeg',
+    imagenUrl: 'assets/img/flores/cajitafresita.PNG',
     incluye: [
       'Caja de color blanco o café',
       'Sabor de a elección blanco o negro',
@@ -48,7 +48,7 @@ const FLORES: Flor[] = [
     slug: 'mini-bouquet-delicado',
     descripcion: 'Delicado bouquet con girasoles y flores de acento envuelto en papel coreano premium. Un detalle luminoso, elegante y lleno de vida.',
     precio: 130.00,
-    imagenUrl: 'assets/img/flores/minibouquetdelicado.jpeg',
+    imagenUrl: 'assets/img/flores/minibouquetdelicado.PNG',
     incluye: [
       'Follaje a juego con el color',
       'Girasoles',
@@ -66,7 +66,7 @@ const FLORES: Flor[] = [
     slug: 'bouquet-buena-alegria',
     descripcion: 'Arreglo con girasoles y rosas amarillas en base roja, acompañado de globo personalizado. Un diseño lleno de alegría, color y celebración.',
     precio: 350.00,
-    imagenUrl: 'assets/img/flores/bouquetbuenaalegria.jpeg',
+    imagenUrl: 'assets/img/flores/bouquetbuenaalegria.PNG',
     incluye: [
       'Rosas de exportación',
       'Follaje a juego con el color',
@@ -87,7 +87,7 @@ const FLORES: Flor[] = [
     slug: 'bouquet-rosal-ferrero',
     descripcion: 'Elegante bouquet con rosas en tonos rosa y crema, acompañado de chocolates Ferrero Rocher, envuelto en papel premium con detalles dorados. Un regalo que combina belleza y dulzura en perfecta armonía.',
     precio: 1100.00,
-    imagenUrl: 'assets/img/flores/bouquetrosalferrero.jpeg',
+    imagenUrl: 'assets/img/flores/bouquetrosalferrero.PNG',
     incluye: [
       'Rosas de exportación',
       'Ferrero Rocher',
@@ -106,7 +106,7 @@ const FLORES: Flor[] = [
     slug: 'bouquet-girasol-floral',
     descripcion: 'Bouquet con girasoles y rosas rosadas, envuelto en papel coreano premium y decorado con listón rojo. Color, alegría y elegancia en un solo detalle.',
     precio: 450.00,
-    imagenUrl: 'assets/img/flores/bouquetgirasolfloral.jpeg',
+    imagenUrl: 'assets/img/flores/bouquetgirasolfloral.PNG',
     incluye: [
       'Rosas de exportación',
       'Follaje a juego con el color',
@@ -125,7 +125,7 @@ const FLORES: Flor[] = [
     slug: 'globo-aerostatico',
     descripcion: 'Elegante diseño con rosas y flores en tonos a elección, acompañado de follaje natural y un globo decorativo con mensaje corto personalizado. Presentado en una base de porcelana premium, este arreglo transmite alegría, celebración, y estilo en cada detalle.',
     precio: 375.00,
-    imagenUrl: 'assets/img/flores/globoaerostatico.jpeg',
+    imagenUrl: 'assets/img/flores/globoaerostatico.PNG',
     incluye: [
       'Rosas de exportación',
       'Follaje a juego con el color',
@@ -145,7 +145,7 @@ const FLORES: Flor[] = [
     slug: 'bouquet-20-fresas',
     descripcion: 'Ramo elaborado con 20 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo llovizna y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
     precio: 210.00,
-    imagenUrl: 'assets/img/flores/bouquetveintefresasconchocolatepremium.jpeg',
+    imagenUrl: 'assets/img/flores/bouquetveintefresasconchocolatepremium.PNG',
     incluye: [
       '[20] Fresas frescas cubiertas en chocolate premium',
       'Opción de chocolate blanco o oscuro',
@@ -165,7 +165,7 @@ const FLORES: Flor[] = [
     slug: 'bouquet-32-fresas',
     descripcion: 'Ramo elaborado con 32 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo nube y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
     precio: 300.00,
-    imagenUrl: 'assets/img/flores/bouquettreintaydosfresasconchocolatepremium.jpeg',
+    imagenUrl: 'assets/img/flores/bouquettreintaydosfresasconchocolatepremium.PNG',
     incluye: [
       '[32] Fresas frescas cubiertas en chocolate premium',
       'Opción de chocolate blanco o oscuro',
