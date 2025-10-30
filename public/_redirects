@@ -1,0 +1,6 @@
+# Redirigir todo el tráfico de liriosycacao.com a www.liriosycacao.com
+https://liriosycacao.com/* https://www.liriosycacao.com/:splat 301!
+http://liriosycacao.com/* https://www.liriosycacao.com/:splat 301!
+
+# También forzar HTTPS para www
+http://www.liriosycacao.com/* https://www.liriosycacao.com/:splat 301!

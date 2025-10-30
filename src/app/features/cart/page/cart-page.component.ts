@@ -34,11 +34,11 @@ export class CartPageComponent implements OnInit {
 
   ngOnInit() {
     // --- TÍTULO Y DESCRIPCIÓN OPTIMIZADOS PARA SEO ---
-    this.titleService.setTitle('Carrito de Compras | Lirio & Cacao - Chiquimula');
+    this.titleService.setTitle('Carrito de Compras - Chocofresas, Chocobananos y Florería | Lirio & Cacao');
 
     this.metaService.updateTag({
       name: 'description',
-      content: 'Finaliza tu pedido de chocofrutas, helados artesanales y arreglos florales. Entrega a domicilio en Chiquimula. ¡Completa tu compra ahora!'
+      content: 'Finaliza tu pedido de chocofresas, chocobananos, helados artesanales y ramos de flores. Entrega a domicilio en Chiquimula. ¡Completa tu compra por WhatsApp!'
     });
   }
 

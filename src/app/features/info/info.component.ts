@@ -17,11 +17,11 @@ export class InfoComponent implements OnInit {
 
   // ngOnInit para establecer el título y la descripción ---
   ngOnInit(): void {
-    this.titleService.setTitle('Nuestra Historia y Ubicación en Chiquimula | Lirio & Cacao');
+    this.titleService.setTitle('Sobre Nosotros - Chocofrutas, Florería y Helados en Chiquimula | Lirio & Cacao');
 
     this.metaService.updateTag({
       name: 'description',
-      content: 'Descubre la historia detrás de Lirio & Cacao. Somos un emprendimiento en Chiquimula dedicado a crear detalles únicos. ¡Visítanos o contáctanos para tu próximo evento!'
+      content: 'Conoce Lirio & Cacao, tu tienda de chocofrutas artesanales, florería y helados en Chiquimula. Especialistas en chocofresas, chocobananos, ramos de rosas y detalles para cumpleaños, bodas y 15 años. ¡Visítanos o contáctanos!'
     });
   }
 

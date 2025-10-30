@@ -26,11 +26,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // --- TÍTULO Y DESCRIPCIÓN OPTIMIZADOS ---
-    this.titleService.setTitle('Arreglos Florales, Chocofrutas y Helados en Chiquimula | Lirio & Cacao');
+    this.titleService.setTitle('Chocofresas, Chocobananos, Helados y Florería Chiquimula | Lirio & Cacao');
 
     this.metaService.updateTag({
       name: 'description',
-      content: 'Descubre en Lirio & Cacao los mejores arreglos florales, deliciosas chocofrutas y helados artesanales en Chiquimula. El detalle perfecto para eventos y regalos. ¡Haz tu pedido!'
+      content: 'Chocofrutas artesanales en Chiquimula: chocofresas, chocobananos, choco uvas. Florería con ramos de rosas, girasoles y fresas cubiertas de chocolate. Helados artesanales. Detalles para cumpleaños, bodas y 15 años. ¡Entrega a domicilio!'
     });
 
     // --- JSON-LD STRUCTURED DATA ---

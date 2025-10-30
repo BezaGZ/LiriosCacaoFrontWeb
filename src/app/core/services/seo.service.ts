@@ -28,12 +28,15 @@ export class SeoService {
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
       'name': 'Lirio y Cacao',
-      'description': 'Arreglos florales, chocofrutas y helados artesanales en Chiquimula',
+      'description': 'Chocofrutas artesanales en Chiquimula: chocofresas, chocobananos, choco uvas. Florería con ramos de rosas, girasoles y fresas cubiertas de chocolate. Helados artesanales. Detalles para cumpleaños, bodas y 15 años. Entrega a domicilio.',
       'image': 'https://www.liriosycacao.com/assets/img/logo.png',
       'logo': 'https://www.liriosycacao.com/assets/img/logo.png',
       'url': 'https://www.liriosycacao.com',
       'telephone': '+502-4582-7110',
       'priceRange': '$$',
+      'servesCuisine': 'Postres, Dulces, Chocolate',
+      'paymentAccepted': 'Efectivo, Tarjeta, Transferencia',
+      'currenciesAccepted': 'GTQ',
       'address': {
         '@type': 'PostalAddress',
         'streetAddress': '2a Avenida & 5a Calle',
@@ -58,7 +61,8 @@ export class SeoService {
       'sameAs': [
         'https://www.facebook.com/Liriosycacao',
         'https://www.instagram.com/lirios_ycacao'
-      ]
+      ],
+      'keywords': 'chocofrutas chiquimula, chocofresas, chocobananos, choco uvas, florería chiquimula, ramo de rosas, ramo de girasoles, helados artesanales, cumpleaños, bodas, 15 años, entrega domicilio'
     });
     this.renderer.appendChild(document.head, script);
   }

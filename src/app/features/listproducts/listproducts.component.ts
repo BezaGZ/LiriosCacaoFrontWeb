@@ -45,24 +45,24 @@ export class ListproductsComponent implements OnInit {
 
   private updateSeoTags(category: string) {
     let title = 'Catálogo Completo | Lirio & Cacao';
-    let description = 'Explora nuestro catálogo completo de chocofrutas, helados artesanales, arreglos florales y más. Hecho con amor en Chiquimula.';
+    let description = 'Explora nuestro catálogo completo de chocofrutas, chocofresas, chocobananos, helados artesanales, ramos de rosas y más. Hecho con amor en Chiquimula.';
 
     switch (category) {
       case 'chocofruta':
-        title = 'Chocofrutas a Domicilio en Chiquimula | Lirio & Cacao';
-        description = 'Deliciosas fresas, piñas y bananos cubiertos de chocolate premium. Elige tus toppings favoritos y pide en línea.';
+        title = 'Chocofrutas a Domicilio en Chiquimula: Chocofresas, Chocobananos | Lirio & Cacao';
+        description = 'Chocofrutas artesanales en Chiquimula: chocofresas, chocobananos, choco uvas, choco piña, choco sandía. Cubiertas de chocolate premium con toppings personalizables. ¡Entrega a domicilio!';
         break;
       case 'helado':
         title = 'Paletas de Helado Artesanal en Chiquimula | Lirio & Cacao';
-        description = 'Refréscate con nuestras paletas de helado hechas con ingredientes naturales. Sabores de vino, oreo, café y más.';
+        description = 'Helados artesanales en Chiquimula. Paletas de helado hechas con ingredientes naturales. Sabores de vino, oreo, café y más. ¡Refréscate con calidad!';
         break;
       case 'flor':
-        title = 'Arreglos Florales para Toda Ocasión | Lirio & Cacao';
-        description = 'Sorprende con nuestros hermosos arreglos florales. Ramos de rosas, detalles para cumpleaños y eventos especiales en Chiquimula.';
+        title = 'Florería en Chiquimula: Ramos de Rosas, Girasoles y Fresas con Chocolate | Lirio & Cacao';
+        description = 'Florería en Chiquimula. Ramos de rosas, ramos de girasoles, arreglos florales y fresas cubiertas de chocolate. Detalles perfectos para cumpleaños, bodas y 15 años. ¡Sorprende con amor!';
         break;
       case 'evento':
-        title = 'Detalles y Arreglos para Eventos | Lirio & Cacao';
-        description = 'Cotiza con nosotros los detalles para tu evento especial. Ofrecemos arreglos, chocofrutas y más para hacer tu celebración inolvidable.';
+        title = 'Detalles para Eventos en Chiquimula: Cumpleaños, Bodas, 15 Años | Lirio & Cacao';
+        description = 'Detalles para eventos en Chiquimula. Especialistas en cumpleaños, bodas, 15 años y fiestas. Chocofrutas, arreglos florales y más para hacer tu celebración inolvidable. ¡Cotiza con nosotros!';
         break;
     }
 

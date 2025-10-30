@@ -28,7 +28,6 @@ npm run build            # Production build (outputs to dist/)
 npm run build:ssr        # Build with SSR
 npm run serve:ssr        # Serve pre-built SSR app
 npm run prerender        # Prerender routes
-npm run vercel-build     # Production build for Vercel deployment
 ```
 
 ### Testing
