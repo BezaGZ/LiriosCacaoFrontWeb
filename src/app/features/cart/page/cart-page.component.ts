@@ -9,6 +9,7 @@ import {Title, Meta} from '@angular/platform-browser';
 import {CartService} from '@features/cart/cart.service';
 import {CartItem} from '@features/cart/cart.models';
 import {CHOCOFRUTA_SEED} from '@core/domain';
+import {abrirWhatsApp} from '@core/config/contacto.config';
 
 @Component({
   selector: 'app-cart-page',
@@ -47,7 +48,6 @@ export class CartPageComponent implements OnInit {
   direccion = '';
   cambio: number | null = null;
 
-  telefonoWhats = '45827110';
 
   get cartItemCount(): number { return this.cart.count; }
   mostrarCantidadCarrito(): string {
@@ -163,8 +163,7 @@ export class CartPageComponent implements OnInit {
 
     const plain = [header, itemsBlock, resumen, detalles].join('\n\n');
 
-    const url = `https://wa.me/${this.telefonoWhats}?text=${encodeURIComponent(plain)}`;
-    window.open(url, '_blank');
+    abrirWhatsApp(plain);
   }
 
   inc(i: CartItem) { this.cart.inc(i.id); }

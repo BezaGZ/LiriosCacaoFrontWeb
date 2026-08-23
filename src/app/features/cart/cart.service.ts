@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CartItem } from '@features/cart/cart.models';
+import { CartItem, NewCartItem, buildConfigKey } from '@features/cart/cart.models';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -12,18 +12,28 @@ export class CartService {
   get count(): number { return this.items.reduce((a, i) => a + i.qty, 0); }
   get total(): number { return this.items.reduce((a, i) => a + i.unitPrice * i.qty, 0); }
 
-  add(item: Omit<CartItem, 'id'>) {
-    const key = item.title;
-    const idx = this.items.findIndex(i => i.title === key);
+  /**
+   * Agrega un producto al carrito.
+   *
+   * Solo se fusiona con un item existente si la configuración es idéntica
+   * (misma fruta/sabor, mismo chocolate, mismos toppings, mismos extras y
+   * mismo precio). Antes se comparaba por título, y como el título no incluye
+   * los extras, "doble chocolate" se fusionaba con la versión sin extra y se
+   * cobraba el precio equivocado.
+   */
+  add(item: NewCartItem) {
+    const configKey = buildConfigKey(item);
+    const idx = this.items.findIndex(i => i.configKey === configKey);
     let next: CartItem[];
+
     if (idx >= 0) {
       const existing = this.items[idx];
       next = [...this.items];
       next[idx] = { ...existing, qty: existing.qty + item.qty };
     } else {
-      const id = crypto.randomUUID?.() || Math.random().toString(36).slice(2);
-      next = [...this.items, { ...item, id }];
+      next = [...this.items, { ...item, id: this.newId(), configKey }];
     }
+
     this._items$.next(next);
   }
 
@@ -50,4 +60,8 @@ export class CartService {
   }
 
   clear() { this._items$.next([]); }
+
+  private newId(): string {
+    return globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2);
+  }
 }
