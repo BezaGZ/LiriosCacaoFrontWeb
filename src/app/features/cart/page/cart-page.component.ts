@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {AsyncPipe, DecimalPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {InputNumber} from "primeng/inputnumber";
 import {InputText} from "primeng/inputtext";
 import {RadioButton} from "primeng/radiobutton";
@@ -16,7 +16,7 @@ import {abrirWhatsApp} from '@core/config/contacto.config';
   standalone: true,
   imports: [
     AsyncPipe,
-    DecimalPipe,
+    CurrencyPipe,
     InputNumber,
     InputText,
     NgForOf,

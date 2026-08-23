@@ -67,7 +67,7 @@
           />
         </div>
         <div class="preview-price">
-          {{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}
+          {{ previewPrice() | currency }}
         </div>
       </div>
 
@@ -175,7 +175,7 @@
           (click)="addToCartFromDialog()"
         >
           <span>Agregar al carrito</span>
-          <span class="btn-price">{{ previewPrice() | currency:'GTQ':'symbol':'1.0-2' }}</span>
+          <span class="btn-price">{{ previewPrice() | currency }}</span>
         </button>
       </div>
     </ng-template>

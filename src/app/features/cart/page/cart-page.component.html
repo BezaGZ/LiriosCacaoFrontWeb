@@ -26,7 +26,7 @@
         </div>
         <div class="item-details">
           <div class="item-name">{{ it.title }}</div>
-          <div class="item-unit-price">Q{{ it.unitPrice | number:'1.2-2' }} c/u</div>
+          <div class="item-unit-price">{{ it.unitPrice | currency }} c/u</div>
           <div class="item-controls">
             <div class="quantity-controls">
               <button class="qty-btn" (click)="dec(it)">
@@ -42,7 +42,7 @@
             </button>
           </div>
         </div>
-        <div class="item-total-price">Q{{ (it.unitPrice * it.qty) | number:'1.2-2' }}</div>
+        <div class="item-total-price">{{ (it.unitPrice * it.qty) | currency }}</div>
       </div>
     </div>
     <ng-template #empty>
@@ -147,19 +147,19 @@
     <div class="summary-section">
       <div class="summary-row">
         <span>Subtotal</span>
-        <span>Q{{ subtotal | number:'1.2-2' }}</span>
+        <span>{{ subtotal | currency }}</span>
       </div>
       <div class="summary-row">
         <span>Envío</span>
-        <span>Q{{ deliveryFee | number:'1.2-2' }}</span>
+        <span>{{ deliveryFee | currency }}</span>
       </div>
       <div class="summary-row">
         <span>Fee app</span>
-        <span>Q{{ appFee | number:'1.2-2' }}</span>
+        <span>{{ appFee | currency }}</span>
       </div>
       <div class="summary-total">
         <span>Total</span>
-        <span>Q{{ grandTotal | number:'1.2-2' }}</span>
+        <span>{{ grandTotal | currency }}</span>
       </div>
     </div>
 
