@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
+import { WHATSAPP_LOCAL, whatsAppUrl, abrirWhatsApp } from '@core/config/contacto.config';
 
 @Component({
   selector: 'app-info',
@@ -10,6 +11,9 @@ import { Title, Meta } from '@angular/platform-browser';
   styleUrl: './info.component.scss'
 })
 export class InfoComponent implements OnInit {
+
+  readonly whatsappUrl = whatsAppUrl();
+  readonly whatsappLocal = WHATSAPP_LOCAL;
 
   // Inyectamos los servicios de SEO ---
   private readonly titleService = inject(Title);
@@ -42,6 +46,6 @@ export class InfoComponent implements OnInit {
   }
 
   abrirWhatsapp() {
-    window.open('https://wa.me/45827110', '_blank');
+    abrirWhatsApp();
   }
 }

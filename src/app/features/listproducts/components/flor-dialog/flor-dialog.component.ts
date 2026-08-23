@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Flor } from '@core/domain/flor/flor.models';
+import { abrirWhatsApp } from '@core/config/contacto.config';
 
 @Component({
   selector: 'app-flor-dialog',
@@ -33,10 +34,7 @@ export class FlorDialogComponent {
   openWhatsApp(): void {
     if (!this.flor) return;
 
-    const mensaje = this.buildWhatsAppMessage();
-    const numeroWhatsApp = '45827110';
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, '_blank');
+    abrirWhatsApp(this.buildWhatsAppMessage());
   }
 
   private buildWhatsAppMessage(): string {
