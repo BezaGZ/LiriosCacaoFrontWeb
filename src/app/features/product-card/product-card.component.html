@@ -3,14 +3,14 @@
     <img
       [src]="currentImageUrls.base"
       (error)="onImageError($event)"
-      alt="base-product"
+      [alt]="product.title"
       class="product-image"
     />
     <img
       *ngIf="currentImageUrls.topping"
       [src]="currentImageUrls.topping"
-      (error)="onImageError($event)"
-      alt="topping-layer"
+      (error)="onLayerError($event)"
+      alt=""
       class="product-image product-overlay"
     />
 

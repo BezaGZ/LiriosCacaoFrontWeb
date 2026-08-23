@@ -4,13 +4,14 @@ import { HELADO_SEED } from '../domain/helado/helados.seed';
 import { SaborHelado } from '../domain/helado/helado.models';
 import { imgHeladoPaleta } from '../utils/image-resolver';
 import { ProductCardVM } from '../ui-models/product-card.vm';
+import { tituloHelado } from '../utils/product-title';
 
 // Esta función ahora crea una tarjeta para un helado BASE, listo para ser personalizado
 function heladoToCardVM(sabor: SaborHelado): ProductCardVM {
   return {
     id: sabor.id,
     category: 'helado',
-    title: `Paleta de ${sabor.nombre}`,
+    title: tituloHelado({ sabor }),
     price: sabor.precio, // Mostramos el precio "desde"
     customizable: true, // <-- ¡CAMBIO IMPORTANTE! Ahora es personalizable
     data: {

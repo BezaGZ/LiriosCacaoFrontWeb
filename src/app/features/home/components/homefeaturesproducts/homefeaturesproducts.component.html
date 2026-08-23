@@ -61,8 +61,8 @@
           <img
             *ngIf="previewImagePaths.topping"
             [src]="previewImagePaths.topping"
-            (error)="onImageError($event)"
-            alt="preview-topping"
+            (error)="onLayerError($event)"
+            alt=""
             class="preview-image preview-overlay"
           />
         </div>

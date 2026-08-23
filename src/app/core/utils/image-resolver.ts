@@ -1,5 +1,12 @@
 export const IMG_BASE = 'assets/img';
 
+/**
+ * Imagen que se muestra cuando un producto todavia no tiene foto.
+ * Es una tarjeta de marca que dice "Foto proximamente", no un icono de error:
+ * el cliente debe poder seguir comprando aunque falte la foto.
+ */
+export const IMG_PLACEHOLDER = `${IMG_BASE}/proximamente.png`;
+
 export function imgChocofruta(frutaSlug: string, chocolateSlug: string) {
   return `${IMG_BASE}/chocos/${frutaSlug}/${chocolateSlug}.png`;
 }
@@ -15,7 +22,7 @@ export function toToken(s: string): string {
  * assets/img/chocos/<fruta>/
  *   - choco<fruta><chocolate>.png
  *   - choco<fruta><chocolate><topping>.png
- * fallback: assets/img/nophoto.jpg
+ * fallback: IMG_PLACEHOLDER
  */
 export function buildChocoImagePaths(frutaNombre: string, chocolateNombre: string, toppingPrincipal?: string) {
   const fruta = toToken(frutaNombre);
@@ -25,7 +32,7 @@ export function buildChocoImagePaths(frutaNombre: string, chocolateNombre: strin
   const baseDir    = `${IMG_BASE}/chocos/${fruta}`;
   const withoutTop = `${baseDir}/choco${fruta}${choc}.png`;
   const withTop    = top ? `${baseDir}/choco${fruta}${choc}${top}.png` : '';
-  const fallback   = `${IMG_BASE}/nophoto.png`;
+  const fallback   = IMG_PLACEHOLDER;
 
   return { withTop, withoutTop, fallback };
 }
@@ -55,7 +62,7 @@ export function buildLayeredImagePaths(frutaNombre: string, chocolateNombre: str
     toppingImage = `${IMG_BASE}/chocos/${frutaToken}/toppings/${frutaToken}${toppingToken}.png`;
   }
 
-  const fallback = `${IMG_BASE}/nophoto.png`;
+  const fallback = IMG_PLACEHOLDER;
 
   return { baseImage, toppingImage, fallback };
 }

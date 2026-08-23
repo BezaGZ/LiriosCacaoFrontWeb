@@ -16,13 +16,14 @@ import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { CartService } from '@features/cart/cart.service';
 import { CHOCOFRUTA_SEED } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
-import { buildLayeredImagePaths } from '@core/utils/image-resolver';
+import { buildLayeredImagePaths, IMG_PLACEHOLDER } from '@core/utils/image-resolver';
 import { MessageService } from 'primeng/api';
 
 // Imports para los datos de esta sección específica
 import { FEATURED_PRESETS } from './components/featured.presets';
 import { presetToCard } from './components/featured.adapter';
 import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
+import { tituloChocofruta } from '@core/utils/product-title';
 
 @Component({
   selector: 'app-homefeaturesproducts',
@@ -116,16 +117,11 @@ export class HomefeaturesproductsComponent {
 
     const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
 
-    // Construir el título con los toppings (incluyendo sabor de líneas si aplica)
-    const toppingsNames = tops.map(t => {
-      if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
-        const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
-        return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
-      }
-      return t.nombre;
+    const title = tituloChocofruta({
+      fruta, chocolate: choc, toppings: tops,
+      dobleChocolate: this.dobleChocolate,
+      lineasChocolateSlug: this.selectedLineasChocolateSlug,
     });
-
-    const title = `Choco${fruta.nombre} con ${choc.nombre}` + (toppingsNames.length ? ` + ${toppingsNames.join(', ')}` : '');
     const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, tops[0]?.nombre);
     const unitPrice = this.previewPrice();
 
@@ -146,7 +142,7 @@ export class HomefeaturesproductsComponent {
     const fruta = CHOCOFRUTA_SEED.frutas.find(f => f.slug === this.selectedFrutaSlug);
     const choc = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedChocolateSlug);
     if (!fruta || !choc) {
-      this.previewImagePaths = { base: 'assets/img/nophoto.png', topping: '' };
+      this.previewImagePaths = { base: IMG_PLACEHOLDER, topping: '' };
       return;
     }
     const top = this.toppings.find(t => t.id === this.selectedToppingsIds[0]);
@@ -206,7 +202,12 @@ export class HomefeaturesproductsComponent {
   }
 
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/img/nophoto.png';
+    (event.target as HTMLImageElement).src = IMG_PLACEHOLDER;
+  }
+
+  /** La capa de topping se oculta si falta, para no tapar el producto. */
+  onLayerError(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 
   protected readonly CHOCOFRUTA_SEED = CHOCOFRUTA_SEED;

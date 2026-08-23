@@ -17,9 +17,10 @@ import { CartService } from '@features/cart/cart.service';
 import { CHOCOFRUTA_SEED, HELADO_SEED, Flor } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 import { calcularPrecioUnitarioHelado } from '@core/domain/helado/helado.logic';
-import { buildLayeredImagePaths, imgHeladoPaleta } from '@core/utils/image-resolver';
+import { buildLayeredImagePaths, imgHeladoPaleta, IMG_PLACEHOLDER } from '@core/utils/image-resolver';
 import { FlorDialogComponent } from '../flor-dialog/flor-dialog.component';
 import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
+import { tituloChocofruta, tituloHelado } from '@core/utils/product-title';
 
 @Component({
   selector: 'app-products',
@@ -146,17 +147,11 @@ export class ProductsComponent {
 
       const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
 
-      // Construir el título con los toppings
-      const toppingsNames = tops.map(t => {
-        // Si es "Líneas de chocolate" y hay un sabor seleccionado, incluirlo
-        if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
-          const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
-          return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
-        }
-        return t.nombre;
+      title = tituloChocofruta({
+        fruta, chocolate: choc, toppings: tops,
+        dobleChocolate: this.dobleChocolate,
+        lineasChocolateSlug: this.selectedLineasChocolateSlug,
       });
-
-      title = `Choco${fruta.nombre} con ${choc.nombre}` + (toppingsNames.length ? ` + ${toppingsNames.join(', ')}` : '');
 
       const paths = buildLayeredImagePaths(fruta.nombre, choc.nombre, tops[0]?.nombre);
       const unitPrice = this.previewPrice();
@@ -175,19 +170,12 @@ export class ProductsComponent {
 
       const tops = this.toppings.filter(t => this.selectedToppingsIds.includes(t.id));
 
-      // Construir el título con los toppings (incluyendo sabor de líneas si aplica)
-      const toppingsNames = tops.map(t => {
-        if (t.id === 'top_lineaschocolate' && this.selectedLineasChocolateSlug) {
-          const chocolateLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === this.selectedLineasChocolateSlug);
-          return chocolateLineas ? `Líneas de chocolate ${chocolateLineas.nombre}` : t.nombre;
-        }
-        return t.nombre;
-      });
-
       const unitPrice = this.previewPrice();
-      title = `Paleta de ${sabor.nombre}`;
-      if (choc) title += ` c/${choc.nombre}`;
-      if (toppingsNames.length > 0) title += ` + ${toppingsNames.join(', ')}`;
+      title = tituloHelado({
+        sabor, chocolate: choc, toppings: tops,
+        chocolateExtra: this.extraChocolateHelado,
+        lineasChocolateSlug: this.selectedLineasChocolateSlug,
+      });
 
       const imageUrls = { base: imgHeladoPaleta(sabor.slug), topping: '' };
 
@@ -286,7 +274,12 @@ export class ProductsComponent {
   }
 
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/img/nophoto.png';
+    (event.target as HTMLImageElement).src = IMG_PLACEHOLDER;
+  }
+
+  /** La capa de topping se oculta si falta, para no tapar el producto. */
+  onLayerError(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 
   // Maneja el clic en el botón de WhatsApp para flores

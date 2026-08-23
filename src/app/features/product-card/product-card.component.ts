@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
+import { IMG_PLACEHOLDER } from '@core/utils/image-resolver';
 
 @Component({
   selector: 'app-product-card',
@@ -27,9 +28,19 @@ export class ProductCardComponent implements OnInit {
     this.currentImageUrls = { ...this.product.imageUrls };
   }
 
-  // Maneja errores de carga de imagen
+  // La imagen principal falta: se muestra la tarjeta "Foto proximamente".
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/img/nophoto.png';
+    (event.target as HTMLImageElement).src = IMG_PLACEHOLDER;
+  }
+
+  /**
+   * La CAPA de topping falta: se oculta y ya.
+   * Ojo, aqui no sirve el placeholder: esta imagen se dibuja ENCIMA del
+   * producto, asi que poner la tarjeta de "foto proximamente" taparia una
+   * foto que si existe.
+   */
+  onLayerError(event: Event): void {
+    (event.target as HTMLImageElement).style.display = 'none';
   }
 
   // Emite el evento para añadir al carrito

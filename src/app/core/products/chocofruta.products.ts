@@ -3,6 +3,7 @@ import { Fruta, Chocolate, Topping } from '../domain/chocofruta/chocofruta.model
 import { calcularPrecioUnitarioChocofruta } from '../domain/chocofruta/chocofruta.logic';
 import { buildLayeredImagePaths } from '../utils/image-resolver'; // Solo importamos el nuevo
 import { ProductCardVM } from '../ui-models/product-card.vm';
+import { tituloChocofruta } from '../utils/product-title';
 
 function chocofrutaToCardVM(fruta: Fruta, chocolate: Chocolate, topping?: Topping): ProductCardVM {
   const toppings = topping ? [topping] : [];
@@ -11,10 +12,7 @@ function chocofrutaToCardVM(fruta: Fruta, chocolate: Chocolate, topping?: Toppin
     CHOCOFRUTA_SEED.reglas
   );
   const paths = buildLayeredImagePaths(fruta.nombre, chocolate.nombre, topping?.nombre);
-  let title = `Choco${fruta.nombre} con ${chocolate.nombre}`;
-  if (topping) {
-    title += ` + ${topping.nombre}`;
-  }
+  const title = tituloChocofruta({ fruta, chocolate, toppings });
 
   return {
     // Te recomiendo generar un ID único y estable aquí
