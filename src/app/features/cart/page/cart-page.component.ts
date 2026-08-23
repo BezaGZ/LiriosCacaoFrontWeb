@@ -25,8 +25,16 @@ import {abrirWhatsApp} from '@core/config/contacto.config';
     FormsModule
   ],
   templateUrl: './cart-page.component.html',
-  styleUrl: './cart-page.component.scss'
+  styleUrl: './cart-page.component.scss',
+  host: { 'ngSkipHydration': 'true' }
 })
+  /**
+   * El HTML prerenderizado se genera con el carrito vacio (en el servidor no
+   * hay localStorage y el HTML es el mismo para todos). Si el visitante trae
+   * un carrito guardado, lo que pinta el navegador no coincide con ese HTML.
+   * ngSkipHydration le dice a Angular que renderice esta parte de cero en vez
+   * de intentar reutilizar el HTML del servidor.
+   */
 export class CartPageComponent implements OnInit {
   readonly router = inject(Router);
   readonly cart = inject(CartService);

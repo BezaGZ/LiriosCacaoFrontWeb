@@ -17,6 +17,10 @@ interface CategoriaNav {
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './app.topbar.html',
+  // La burbuja con la cantidad del carrito depende de localStorage, que en el
+  // servidor no existe: el HTML prerenderizado nunca la trae. Sin esto, un
+  // visitante con carrito guardado provoca un desajuste al hidratar.
+  host: { 'ngSkipHydration': 'true' },
 })
 export class AppTopbar implements OnDestroy {
   readonly router = inject(Router);

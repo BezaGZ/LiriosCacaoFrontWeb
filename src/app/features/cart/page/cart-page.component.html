@@ -9,8 +9,14 @@
 
   <!-- Items Container -->
   <div class="cart-items-container">
-    <div *ngIf="(cart.items$ | async) as items; else empty">
-      <div *ngFor="let it of items" class="cart-item">
+    <!--
+      Ojo con el estado vacio: `*ngIf="items"` no sirve, porque un arreglo
+      vacio [] es truthy en JavaScript y la rama `else` no se ejecutaba nunca.
+      Hay que preguntar por items.length.
+    -->
+    <ng-container *ngIf="(cart.items$ | async) as items">
+      <div *ngIf="items.length; else empty">
+        <div *ngFor="let it of items" class="cart-item">
         <div class="item-image-container">
           <img
             [src]="it.imageUrls.base"
@@ -42,9 +48,10 @@
             </button>
           </div>
         </div>
-        <div class="item-total-price">{{ (it.unitPrice * it.qty) | currency }}</div>
+          <div class="item-total-price">{{ (it.unitPrice * it.qty) | currency }}</div>
+        </div>
       </div>
-    </div>
+    </ng-container>
     <ng-template #empty>
       <div class="empty-cart">
         <i class="pi pi-shopping-cart empty-icon"></i>
