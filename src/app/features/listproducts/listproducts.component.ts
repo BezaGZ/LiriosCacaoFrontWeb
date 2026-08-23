@@ -7,6 +7,7 @@ import { SearchBarComponent } from '../listproducts/components/search-bar/search
 import { ALL_PRODUCTS } from '../../core/products/all-products';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { ActivatedRoute, Router } from '@angular/router';
+import { matchesSearch } from '@core/utils/text';
 
 @Component({
   selector: 'app-listproducts',
@@ -91,10 +92,9 @@ export class ListproductsComponent implements OnInit {
     if (this.currentCategory !== 'all') {
       tempProducts = tempProducts.filter(p => p.category === this.currentCategory);
     }
-    if (this.currentSearch) {
-      tempProducts = tempProducts.filter(p =>
-        p.title.toLowerCase().includes(this.currentSearch)
-      );
+    if (this.currentSearch.trim()) {
+      // Se normalizan ambos lados: sin esto, "Fresa" o "Piña" no encontraban nada.
+      tempProducts = tempProducts.filter(p => matchesSearch(p.title, this.currentSearch));
     }
     this.filteredProducts = tempProducts;
   }
