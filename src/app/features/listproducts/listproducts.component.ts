@@ -8,6 +8,7 @@ import { ALL_PRODUCTS } from '../../core/products/all-products';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { ActivatedRoute, Router } from '@angular/router';
 import { matchesSearch } from '@core/utils/text';
+import { SeoService } from '@core/services/seo.service';
 
 @Component({
   selector: 'app-listproducts',
@@ -25,6 +26,7 @@ export class ListproductsComponent implements OnInit {
   readonly router = inject(Router);
   private readonly titleService = inject(Title);
   private readonly metaService = inject(Meta);
+  private readonly seo = inject(SeoService);
 
   allProducts: ProductCardVM[] = [];
   filteredProducts: ProductCardVM[] = [];
@@ -97,5 +99,12 @@ export class ListproductsComponent implements OnInit {
       tempProducts = tempProducts.filter(p => matchesSearch(p.title, this.currentSearch));
     }
     this.filteredProducts = tempProducts;
+
+    // Catalogo como datos estructurados, para que Google entienda que esta
+    // pagina es una lista de productos con precios y no solo texto.
+    this.seo.insertItemListSchema(
+      this.currentCategory === 'all' ? 'Catálogo Lirio y Cacao' : `Categoría: ${this.currentCategory}`,
+      this.filteredProducts
+    );
   }
 }

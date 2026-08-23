@@ -1,96 +1,75 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CartService } from '@features/cart/cart.service';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
+interface CategoriaNav {
+  id: string;
+  nombre: string;
+  /** nombre del archivo en assets/icons, sin extension */
+  icono: string;
+}
 
 @Component({
   selector: 'app-topbar',
   standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule
-  ],
+  imports: [RouterModule, CommonModule],
   templateUrl: './app.topbar.html',
 })
-export class AppTopbar {
+export class AppTopbar implements OnDestroy {
   readonly router = inject(Router);
   readonly cart = inject(CartService);
+
+  /**
+   * Las categorias del menu. Antes cada una estaba escrita a mano dos veces
+   * (barra de escritorio y barra movil), con iconos y textos duplicados.
+   */
+  readonly categorias: CategoriaNav[] = [
+    { id: 'chocofruta', nombre: 'Chocofrutas', icono: 'chocofruta' },
+    { id: 'helado',     nombre: 'Helados',     icono: 'helados' },
+    { id: 'flor',       nombre: 'Floristería', icono: 'floristeria' },
+    { id: 'evento',     nombre: 'Eventos',     icono: 'eventos' },
+  ];
 
   currentCategory: string | null = null;
   isHome = false;
   isCart = false;
 
-  constructor() {
-    // Detectar cambios de ruta
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.updateActiveState();
-    });
+  private readonly sub: Subscription;
 
-    // Inicializar estado
+  constructor() {
+    this.sub = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.updateActiveState());
+
     this.updateActiveState();
   }
 
-  /**
-   * Actualiza el estado de qué sección está activa
-   */
-  private updateActiveState() {
-    const url = this.router.url;
-    const urlTree = this.router.parseUrl(url);
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  /** Marca que seccion esta activa, para la rayita de abajo. */
+  private updateActiveState(): void {
+    const urlTree = this.router.parseUrl(this.router.url);
     const path = urlTree.root.children['primary']?.segments[0]?.path;
 
-    this.isHome = !path || path === '';
+    this.isHome = !path;
     this.isCart = path === 'carrito';
-
-    // Si estamos en /productos, obtenemos la categoría del queryParam
-    if (path === 'productos') {
-      this.currentCategory = urlTree.queryParams['category'] || null;
-    } else {
-      this.currentCategory = null;
-    }
+    this.currentCategory = path === 'productos'
+      ? (urlTree.queryParams['category'] || null)
+      : null;
   }
 
-  /**
-   * Navega a la página de inicio.
-   */
-  irInicio() {
-    this.router.navigate(['/']);
-  }
-
-  /**
-   * Navega a la página del carrito.
-   */
-  showCart() {
-    this.router.navigate(['/carrito']);
-  }
-
-  /**
-   * Obtiene la cantidad total de ítems del carrito para mostrarla en la "burbuja".
-   */
   get cartItemCount(): number {
     return this.cart.count;
   }
 
-  /**
-   * Formatea el número de ítems para la UI (ej: muestra "99+").
-   */
+  /** Muestra "99+" cuando se pasa de 99, para que no rompa la burbuja. */
   mostrarCantidadCarrito(): string {
     const cnt = this.cartItemCount;
     return cnt > 99 ? '99+' : String(cnt);
   }
-
-  /**
-   * Navega a la página de listado de productos y aplica un filtro de categoría.
-   * @param category El ID de la categoría a filtrar (ej: 'chocofruta', 'helado')
-   */
-  goToCategory(category: string) {
-    // La ruta a la que navegamos es la de tu productos
-    // El segundo argumento son las opciones, donde pasamos los queryParams
-    this.router.navigate(['/productos'], {
-      queryParams: { category: category }
-    });
-  }
-
 }

@@ -30,10 +30,5 @@ export const routes: Routes = [
 
   },
 
-  {
-    path: 'test',
-    loadComponent: () =>
-      import('./features/listproducts/listproducts.component').then((m) => m.ListproductsComponent),
-  },
 
 ];
