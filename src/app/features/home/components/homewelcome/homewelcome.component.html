@@ -1,46 +1,70 @@
-<!-- Hero Section - Diseño minimalista -->
-<div class="w-full min-h-[85vh] flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 px-6 md:px-12 lg:px-20 py-20 lg:py-24 bg-gradient-to-b from-[#D09162] to-[#FFF8F1]">
+<!--
+  Portada del inicio.
+
+  El titular anterior decia "Deleitate con Nuestras Chocofrutas": nombraba uno
+  de los cuatro negocios y se contradecia con la banda que viene justo debajo,
+  que habla de eventos completos y jardines para 150 personas. Ademas es el
+  <h1> del sitio entero, o sea la frase con la que Google decide de que se
+  trata todo.
+
+  Ahora nombra el negocio completo y la ciudad. "Chiquimula" no aparecia en
+  ningun lado de la portada, y en un negocio local es lo primero que hace
+  falta decir.
+-->
+<div class="w-full min-h-[58vh] flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-16 px-6 md:px-12 lg:px-20 py-12 lg:py-16 bg-gradient-to-b from-[#D09162] to-[#FFF8F1]">
 
   <!-- Contenido de texto -->
-  <div class="flex-1 max-w-2xl text-center lg:text-left space-y-8">
+  <div class="flex-1 max-w-2xl text-center lg:text-left space-y-5">
 
-    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight font-bold !text-[#452317]">
-      <span class="block !text-[#452317]">Deléitate con</span>
-      <span class="block !text-[#452317]">Nuestras</span>
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight font-bold !text-[#452317]">
+      <span class="block !text-[#452317]">Chocofrutas, flores y eventos</span>
       <span class="block bg-gradient-to-br from-[#D09162] to-[#6F3E1D] bg-clip-text text-transparent">
-        Chocofrutas
+        en Chiquimula
       </span>
     </h1>
 
-    <p class="!text-[#452317] text-lg md:text-xl leading-relaxed max-w-lg mx-auto lg:mx-0 opacity-90">
-      Frutas frescas y seleccionadas, cubiertas con el mejor chocolate. Una experiencia única para tu paladar.
+    <!--
+      Concreta y no de relleno. La anterior decia "una experiencia unica para
+      tu paladar", que no informa nada y encima volvia a hablar solo de fruta.
+    -->
+    <p class="!text-[#452317] text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 opacity-90">
+      Chocofrutas y helados artesanales, arreglos florales, y la organización
+      completa de tu evento con jardín propio.
     </p>
 
-    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-      <button
-        class="bg-[#452317] !text-white font-semibold py-3.5 px-8 rounded-xl hover:bg-[#3a1d14] transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-        (click)="goToCategory('all')">
-        Ver Productos
-      </button>
-      <button
-        class="border-2 border-[#452317] !text-[#452317] font-semibold py-3.5 px-8 rounded-xl hover:bg-[#452317] hover:!text-white transition-all duration-200"
-        (click)="irSobreNosotros()">
-        Sobre Nosotros
-      </button>
+    <!--
+      Enlaces <a routerLink>, no <button (click)>: Google puede seguirlos, se
+      abren en pestana nueva y se ve a donde llevan al pasar el mouse.
+
+      El segundo boton era "Sobre Nosotros", que no es una accion de compra y
+      pesaba visualmente igual que el principal. Se cambia por la cotizacion
+      de eventos, que es el producto de mayor ticket.
+    -->
+    <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 pt-2">
+      <a
+        routerLink="/productos"
+        class="bg-[#452317] !text-white font-semibold py-3.5 px-8 rounded-xl text-center hover:bg-[#3a1d14] transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        Ver productos
+      </a>
+      <a
+        routerLink="/eventos"
+        class="border-2 border-[#452317] !text-[#452317] font-semibold py-3.5 px-8 rounded-xl text-center hover:bg-[#452317] hover:!text-white transition-all duration-200">
+        Cotizar mi evento
+      </a>
     </div>
 
   </div>
 
-  <!-- Imagen/Logo -->
+  <!-- Logo -->
   <div class="flex-1 flex justify-center lg:justify-end w-full max-w-md lg:max-w-lg">
     <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-      <!-- Círculo decorativo de fondo -->
+      <!-- Circulo decorativo de fondo -->
       <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[#D09162] to-[#6F3E1D] opacity-20 blur-2xl"></div>
       <!-- Logo -->
       <div class="relative rounded-full bg-gradient-to-br from-[#D09162] to-[#6F3E1D] p-8 sm:p-10 md:p-12 shadow-2xl w-full h-full flex items-center justify-center">
         <img
           src="./assets/img/logo_blanco.png"
-          alt="Lirios y Cacao Logo"
+          alt="Lirios y Cacao"
           class="w-full h-full object-contain transition-transform duration-300 hover:scale-105" />
       </div>
     </div>

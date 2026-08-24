@@ -1,31 +1,20 @@
 import { Component } from '@angular/core';
-import {Button, ButtonModule} from 'primeng/button';
-import {Router} from '@angular/router';
+import { RouterLink } from '@angular/router';
 
+/**
+ * Portada del inicio.
+ *
+ * Ya no necesita Router ni metodos de navegacion: los dos botones son enlaces
+ * <a routerLink>. Antes eran <button (click)> que llamaban al Router a mano,
+ * con lo que Google no podia seguirlos y no se podian abrir en pestana nueva.
+ *
+ * Tambien se quita ButtonModule de PrimeNG: estaba importado pero no se usaba
+ * ningun p-button, los botones son <a> con clases de Tailwind.
+ */
 @Component({
   selector: 'app-homewelcome',
-  imports: [
-    ButtonModule
-  ],
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './homewelcome.component.html',
 })
-export class HomewelcomeComponent {
-  constructor(private router: Router) {}
-
-  irSobreNosotros() {
-    this.router.navigate(['/sobrenosotros']);
-  }
-
-  /**
-   * Navega a la página de listado de productos y aplica un filtro de categoría.
-   * @param category El ID de la categoría a filtrar (ej: 'chocofruta', 'helado')
-   */
-  goToCategory(category: string) {
-    // La ruta a la que navegamos es la de tu productos
-    // El segundo argumento son las opciones, donde pasamos los queryParams
-    this.router.navigate(['/productos'], {
-      queryParams: { category: category }
-    });
-  }
-
-}
+export class HomewelcomeComponent {}
