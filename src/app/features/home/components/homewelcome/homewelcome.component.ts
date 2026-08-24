@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
     ButtonModule
   ],
   templateUrl: './homewelcome.component.html',
-  styleUrl: './homewelcome.component.scss'
 })
 export class HomewelcomeComponent {
   constructor(private router: Router) {}

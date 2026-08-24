@@ -7,7 +7,6 @@ import {WHATSAPP_LOCAL, whatsAppUrl, abrirWhatsApp} from '@core/config/contacto.
   selector: 'app-homecontact',
   imports: [CommonModule, ButtonModule],
   templateUrl: './homecontact.component.html',
-  styleUrl: './homecontact.component.scss'
 })
 export class HomecontactComponent {
   readonly whatsappUrl = whatsAppUrl();

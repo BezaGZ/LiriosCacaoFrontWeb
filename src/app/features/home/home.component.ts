@@ -16,7 +16,6 @@ import { Title, Meta } from '@angular/platform-browser';
     HomecontactComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   private readonly titleService = inject(Title);

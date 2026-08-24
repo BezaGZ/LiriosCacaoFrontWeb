@@ -8,7 +8,6 @@ import {Router} from '@angular/router';
   selector: 'app-homecategories',
   imports: [CommonModule, CardModule, AnimateOnScrollModule],
   templateUrl: './homecategories.component.html',
-  styleUrl: './homecategories.component.scss'
 })
 export class HomeCategoriesComponent {
   constructor(private router: Router) {}
