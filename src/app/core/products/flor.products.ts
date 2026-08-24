@@ -1,4 +1,4 @@
-import { FLORES_SEED } from '../domain/flor/flor.seed';
+import { FLORES_PUBLICADAS } from '../domain/flor/flor.seed';
 import { Flor } from '../domain/flor/flor.models';
 import { ProductCardVM } from '../ui-models/product-card.vm';
 import { ItemCotizable } from '../ui-models/cotizable';
@@ -27,4 +27,10 @@ function florToCardVM(flor: Flor): ProductCardVM {
   };
 }
 
-export const ALL_FLORES: ProductCardVM[] = FLORES_SEED.flores.map(florToCardVM);
+/*
+ * FLORES_PUBLICADAS y no FLORES_SEED.flores: la segunda incluye lo que esta
+ * en borrador. El pastel, que todavia no tiene foto ni precio, se estaba
+ * colando en el catalogo como una tarjeta "Foto proximamente" a Q0 -- se
+ * filtraba en /floristeria pero no aqui.
+ */
+export const ALL_FLORES: ProductCardVM[] = FLORES_PUBLICADAS.map(florToCardVM);

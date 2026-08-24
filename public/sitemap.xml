@@ -47,17 +47,19 @@
     </image:image>
   </url>
 
-  <url>
-    <loc>https://www.liriosycacao.com/productos?category=flor</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/categories/floristeria.png</image:loc>
-      <image:title>Florería en Chiquimula: Ramos de Rosas y Girasoles</image:title>
-      <image:caption>Arreglos florales para cumpleaños, bodas y 15 años</image:caption>
-    </image:image>
-  </url>
+  <!--
+    /productos?category=flor NO va en el sitemap, a proposito.
+
+    Muestra los mismos 9 arreglos que /floristeria, y tener las dos URLs aqui
+    las pone a competir por la misma busqueda: Google reparte la fuerza entre
+    ambas y puede quedarse con la peor, la que no tiene filtro por ocasion ni
+    aviso de temporada.
+
+    La pagina sigue existiendo y funcionando (el chip del catalogo y el
+    buscador la usan); solo deja de presentarse como pagina a indexar.
+
+    Ojo: en un comentario XML no se pueden escribir dos guiones seguidos.
+  -->
 
   <!-- Floristeria: pagina propia con entrada por ocasion -->
   <url>
