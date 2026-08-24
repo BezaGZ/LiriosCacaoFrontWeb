@@ -1,0 +1,13 @@
+<button
+  *ngIf="ocasion"
+  type="button"
+  class="banda"
+  (click)="alTocar()"
+  [attr.aria-label]="'Ver arreglos para ' + ocasion.etiqueta"
+>
+  <span class="banda-texto">
+    <strong class="banda-titulo">Pedidos para el {{ ocasion.etiqueta }}</strong>
+    <span class="banda-detalle">{{ cuentaAtras }} · {{ aviso }}</span>
+  </span>
+  <span class="banda-flecha" aria-hidden="true">→</span>
+</button>

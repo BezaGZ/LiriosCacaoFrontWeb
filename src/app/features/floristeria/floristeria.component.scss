@@ -1,0 +1,385 @@
+$cafe:       #452317;
+$cafe-suave: #704727;
+$crema:      #FFF8F1;
+$crema-alt:  #FFF3E6;
+
+.pagina-flores {
+  background: $crema;
+}
+
+/* ===================== HERO ===================== */
+
+/*
+  Banda horizontal, no portada a pantalla completa: el producto es el
+  argumento y hay que llegar rapido a el. En movil se apila -- texto arriba,
+  foto abajo y mas chica.
+*/
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2.5rem;
+    padding: 3rem 3rem 2rem;
+  }
+}
+
+.hero-kicker {
+  color: $cafe-suave !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.625rem;
+}
+
+.hero-titulo {
+  color: $cafe !important;
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.18;
+  margin: 0 0 0.75rem;
+  // Sin max-width el titular se estira demasiado en escritorio y se lee peor.
+  max-width: 18ch;
+
+  @media (min-width: 768px) {
+    font-size: 2.75rem;
+  }
+}
+
+.hero-bajada {
+  color: $cafe-suave !important;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  max-width: 34rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.0625rem;
+  }
+}
+
+// Los tres datos que la gente pregunta antes de nada: cuanto, como llega,
+// para cuando. Van arriba y no en letra chica.
+.hero-datos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  li {
+    background: #ffffff;
+    border: 2px solid rgba(69, 35, 23, 0.1);
+    border-radius: 2rem;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: $cafe !important;
+  }
+}
+
+.hero-foto-caja {
+  // En movil la foto va debajo y contenida, para no empujar el catalogo
+  // fuera de la pantalla.
+  height: 13rem;
+  order: 2;
+
+  @media (min-width: 768px) {
+    height: 20rem;
+  }
+}
+
+.hero-foto {
+  width: 100%;
+  height: 100%;
+  // contain: es un recorte, recortarlo por los bordes le corta el ramo.
+  object-fit: contain;
+  display: block;
+}
+
+/* ===================== OCASIONES ===================== */
+
+.ocasiones {
+  padding: 0.5rem 1.5rem 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    padding: 0 3rem 2rem;
+  }
+}
+
+.ocasiones-titulo {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: $cafe !important;
+  margin: 0 0 0.875rem;
+}
+
+/*
+  Se envuelven en varias filas en vez de hacer scroll horizontal: un chip
+  cortado a media palabra en el borde se lee como un bug, no como "hay mas".
+*/
+.ocasiones-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // "Ver todo" no lleva .chip-etiqueta dentro, asi que el color va tambien
+  // en el boton: si no, al activarse queda texto oscuro sobre fondo cafe.
+  color: $cafe;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background: #ffffff;
+  border: 2px solid #e8e8e8;
+  border-radius: 1rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 3px rgba(69, 35, 23, 0.04);
+
+  &:hover:not(.activo) {
+    border-color: #d0d0d0;
+    background: #fafafa;
+  }
+
+  &.activo {
+    background: $cafe;
+    border-color: $cafe;
+    color: #ffffff !important;
+
+    .chip-etiqueta { color: #ffffff !important; }
+    .chip-fecha    { color: rgba(255, 255, 255, 0.75) !important; }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.chip-etiqueta {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $cafe !important;
+  white-space: nowrap;
+}
+
+.chip-fecha {
+  font-size: 0.6875rem;
+  color: $cafe-suave !important;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+/* ===================== SECCIONES ===================== */
+
+.seccion {
+  padding: 2rem 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    padding: 3rem;
+  }
+}
+
+.franja {
+  background: $crema-alt;
+  max-width: none;
+
+  // El fondo va de borde a borde; el contenido se centra con el mismo ancho
+  // que el resto, si no queda pegado a la izquierda en escritorio.
+  > * {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.seccion-titulo {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: $cafe !important;
+  margin: 0 0 0.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.75rem;
+  }
+}
+
+.seccion-bajada {
+  font-size: 0.9375rem;
+  color: $cafe-suave !important;
+  margin: 0 0 1.5rem;
+  max-width: 38rem;
+}
+
+/* ===================== TARJETAS ===================== */
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  // Mas aire que antes: con recortes, el espacio en blanco entre productos
+  // es parte del producto.
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/*
+  Las fotos de los arreglos son RECORTES sobre fondo blanco, no fotos de
+  ambiente. Eso manda en el diseno de la tarjeta:
+
+  El hueco de la foto tenia fondo crema y el cuerpo blanco -- al reves de lo
+  que pedia el material. El producto recortado quedaba flotando sobre un
+  cuadro durazno, y la tarjeta entera se disolvia contra la pagina, que
+  tambien es crema.
+
+  Ahora la tarjeta es blanca entera: el recorte se funde con su fondo (se ve
+  el ramo, no el cuadro) y el blanco contra la pagina crema es lo que separa
+  una tarjeta de otra, sin necesidad de bordes ni sombras fuertes.
+*/
+.tarjeta {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: pointer;
+  // Sombra minima: la separacion la da el blanco contra el crema, no la
+  // sombra. Una sombra marcada compite con el producto.
+  box-shadow: 0 1px 4px rgba(69, 35, 23, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(69, 35, 23, 0.12);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.tarjeta-foto-caja {
+  // Relacion fija para todas: las fotos vienen con proporciones distintas y
+  // sin esto la cuadricula queda despareja.
+  aspect-ratio: 3 / 4;
+  // Blanco, igual que el resto de la tarjeta: el recorte no debe verse
+  // pegado sobre un cuadro de otro color.
+  background: #ffffff;
+  padding: 0.5rem 0.5rem 0;
+}
+
+.tarjeta-foto {
+  width: 100%;
+  height: 100%;
+  // contain, no cover: son recortes de producto. Recortarlos por los bordes
+  // le corta el ramo al arreglo.
+  object-fit: contain;
+  display: block;
+}
+
+.tarjeta-cuerpo {
+  padding: 0.875rem 1rem 1.125rem;
+  text-align: center;
+}
+
+.tarjeta-nombre {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: $cafe !important;
+  margin: 0 0 0.375rem;
+  line-height: 1.35;
+}
+
+/*
+  El precio baja de peso a proposito. Antes iba en 17px y peso 800: era lo
+  mas negro de la tarjeta y le ganaba a la foto. El precio informa, no vende;
+  el que vende es el arreglo.
+*/
+.tarjeta-precio {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $cafe-suave !important;
+  margin: 0;
+}
+
+/* ===================== SIN RESULTADOS ===================== */
+
+.vacio {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.vacio-texto {
+  color: $cafe-suave !important;
+  font-size: 1rem;
+  margin: 0 0 1.25rem;
+
+  strong { color: $cafe !important; }
+}
+
+.boton-secundario {
+  background: transparent;
+  border: 2px solid $cafe;
+  border-radius: 2rem;
+  padding: 0.75rem 1.5rem;
+  color: $cafe !important;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:active { transform: scale(0.98); }
+}
+
+/* ===================== DEDICATORIA ===================== */
+
+.dedicatoria {
+  background: $cafe;
+  padding: 3rem 1.5rem calc(3rem + 5rem);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    padding: 4rem 3rem;
+  }
+}
+
+.dedicatoria-titulo {
+  color: #ffffff !important;
+  font-size: 1.375rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.dedicatoria-texto {
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 34rem;
+}

@@ -5,6 +5,8 @@ const FLORES: Flor[] = [
     id: 'flor_cajita_rosal',
     nombre: 'Cajita rosal',
     slug: 'cajita-rosal',
+    familia: 'fresas',
+    ocasiones: ['carino', 'aniversario', 'cumpleanos', 'porque-si'],
     descripcion: 'Exclusiva presentación con rosa de chocolate rellena de bombones Hershey\'s, Milky Way, Kisses y Reese\'s, acompañada de cuatro fresas cubiertas en chocolate premium, mazo de madera y tarjeta personalizada. Un obsequio sofisticado que combina elegancia, detalle y exquisitez.',
     precio: 200.00,
     imagenUrl: 'assets/img/flores/cajitarosal.PNG',
@@ -25,6 +27,8 @@ const FLORES: Flor[] = [
     id: 'flor_cajita_fresita',
     nombre: 'Cajita fresita',
     slug: 'cajita-fresita',
+    familia: 'fresas',
+    ocasiones: ['carino', 'cumpleanos', 'porque-si'],
     descripcion: 'Caja con 14 fresas cubiertas en chocolate premium, color a elección, decoradas con mini marshmallows y tarjeta personalizada. Un detalle elegante, dulce y hecho a tu gusto.',
     precio: 150.00,
     imagenUrl: 'assets/img/flores/cajitafresita.PNG',
@@ -46,6 +50,8 @@ const FLORES: Flor[] = [
     id: 'flor_mini_bouquet_delicado',
     nombre: 'Mini Bouquet delicado',
     slug: 'mini-bouquet-delicado',
+    familia: 'flor',
+    ocasiones: ['amarillas', 'madre', 'cumpleanos', 'porque-si'],
     descripcion: 'Delicado bouquet con girasoles y flores de acento envuelto en papel coreano premium. Un detalle luminoso, elegante y lleno de vida.',
     precio: 130.00,
     imagenUrl: 'assets/img/flores/minibouquetdelicado.PNG',
@@ -64,6 +70,8 @@ const FLORES: Flor[] = [
     id: 'flor_bouquet_buena_alegria',
     nombre: 'Bouquet buena alegría',
     slug: 'bouquet-buena-alegria',
+    familia: 'flor',
+    ocasiones: ['amarillas', 'madre', 'cumpleanos', 'graduacion'],
     descripcion: 'Arreglo con girasoles y rosas amarillas en base roja, acompañado de globo personalizado. Un diseño lleno de alegría, color y celebración.',
     precio: 350.00,
     imagenUrl: 'assets/img/flores/bouquetbuenaalegria.PNG',
@@ -85,6 +93,8 @@ const FLORES: Flor[] = [
     id: 'flor_bouquet_rosal_ferrero',
     nombre: 'Bouquet rosal Ferrero',
     slug: 'bouquet-rosal-ferrero',
+    familia: 'flor',
+    ocasiones: ['aniversario', 'carino', 'madre'],
     descripcion: 'Elegante bouquet con rosas en tonos rosa y crema, acompañado de chocolates Ferrero Rocher, envuelto en papel premium con detalles dorados. Un regalo que combina belleza y dulzura en perfecta armonía.',
     precio: 1100.00,
     imagenUrl: 'assets/img/flores/bouquetrosalferrero.PNG',
@@ -104,6 +114,8 @@ const FLORES: Flor[] = [
     id: 'flor_bouquet_girasol_floral',
     nombre: 'Bouquet girasol floral',
     slug: 'bouquet-girasol-floral',
+    familia: 'flor',
+    ocasiones: ['amarillas', 'madre', 'cumpleanos', 'graduacion'],
     descripcion: 'Bouquet con girasoles y rosas rosadas, envuelto en papel coreano premium y decorado con listón rojo. Color, alegría y elegancia en un solo detalle.',
     precio: 450.00,
     imagenUrl: 'assets/img/flores/bouquetgirasolfloral.PNG',
@@ -123,6 +135,8 @@ const FLORES: Flor[] = [
     id: 'flor_globo_aerostatico',
     nombre: 'Arreglo globo aerostático',
     slug: 'globo-aerostatico',
+    familia: 'flor',
+    ocasiones: ['cumpleanos', 'graduacion', 'aniversario'],
     descripcion: 'Elegante diseño con rosas y flores en tonos a elección, acompañado de follaje natural y un globo decorativo con mensaje corto personalizado. Presentado en una base de porcelana premium, este arreglo transmite alegría, celebración, y estilo en cada detalle.',
     precio: 375.00,
     imagenUrl: 'assets/img/flores/globoaerostatico.PNG',
@@ -143,6 +157,8 @@ const FLORES: Flor[] = [
     id: 'flor_bouquet_20_fresas',
     nombre: 'Bouquet de 20 Fresas con Chocolate Premium',
     slug: 'bouquet-20-fresas',
+    familia: 'fresas',
+    ocasiones: ['carino', 'aniversario', 'cumpleanos', 'porque-si'],
     descripcion: 'Ramo elaborado con 20 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo llovizna y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
     precio: 210.00,
     imagenUrl: 'assets/img/flores/bouquetveintefresasconchocolatepremium.PNG',
@@ -163,6 +179,8 @@ const FLORES: Flor[] = [
     id: 'flor_bouquet_32_fresas',
     nombre: 'Bouquet de 32 Fresas con Chocolate Premium',
     slug: 'bouquet-32-fresas',
+    familia: 'fresas',
+    ocasiones: ['carino', 'aniversario', 'madre', 'cumpleanos'],
     descripcion: 'Ramo elaborado con 32 fresas frescas bañadas en chocolate premium. Un diseño artesanal con follaje tipo nube y envoltura en papel coreano premium, ideal para expresar amor, gratitud o celebración.',
     precio: 300.00,
     imagenUrl: 'assets/img/flores/bouquettreintaydosfresasconchocolatepremium.PNG',
@@ -178,9 +196,47 @@ const FLORES: Flor[] = [
       'Estilo de envoltura y tipo de listón',
       'Tarjeta con dedicatoria personalizada'
     ]
+  },
+  {
+    /*
+     * Producto NUEVO todavia sin foto ni precio. En borrador: existe aqui
+     * para que la seccion de especialidad ya nazca preparada, pero no se
+     * publica. Cuando haya foto y precio, se pone borrador: false y aparece
+     * solo, sin tocar nada mas.
+     */
+    id: 'flor_pastel',
+    nombre: 'Pastel',
+    slug: 'pastel',
+    familia: 'pasteleria',
+    borrador: true,
+    ocasiones: ['cumpleanos', 'aniversario', 'graduacion'],
+    descripcion: 'PENDIENTE: describir el pastel. Faltan foto y precio.',
+    precio: 0,
+    imagenUrl: 'assets/img/flores/pastel.PNG',
+    incluye: [],
+    personalizaciones: [],
   }
 ];
 
 export const FLORES_SEED: CatalogoFlores = {
   flores: FLORES
 };
+
+/** Lo que si se ensena al publico. Fuera lo que este en borrador. */
+export const FLORES_PUBLICADAS: Flor[] = FLORES.filter(f => !f.borrador);
+
+/**
+ * Publicadas de una familia, ordenadas de menor a mayor precio.
+ *
+ * El orden importa: el catalogo va de Q130 a Q1100, y un arreglo de Q1100
+ * junto a uno de Q130 sin orden hace que el barato parezca pobre y el caro
+ * parezca caro. De menor a mayor, el precio se lee como una escalera.
+ */
+export function floresPorFamilia(familia: Flor['familia']): Flor[] {
+  return FLORES_PUBLICADAS
+    .filter(f => f.familia === familia)
+    .sort((a, b) => a.precio - b.precio);
+}
+
+/** El precio mas bajo publicado, para el "desde Q___" del hero. */
+export const PRECIO_FLOR_DESDE: number = Math.min(...FLORES_PUBLICADAS.map(f => f.precio));

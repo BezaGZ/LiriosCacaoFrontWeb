@@ -1,0 +1,158 @@
+<div class="pagina-flores">
+
+  <!--
+    Aviso de temporada. Solo se pinta cuando se acerca una fecha del
+    calendario; el resto del ano no existe.
+  -->
+  <app-banda-estacional (elegir)="elegirOcasion($event)"></app-banda-estacional>
+
+  <!--
+    Hero compacto CON foto: una banda horizontal, texto a la izquierda y un
+    arreglo a la derecha. No una portada a pantalla completa -- las flores se
+    compran rapido y por impulso, y lo que hay que hacer es llegar pronto al
+    producto.
+  -->
+  <header class="hero">
+    <div class="hero-texto">
+      <p class="hero-kicker">Floristería · Chiquimula</p>
+
+      <!--
+        El titular nombra el cruce que nadie mas tiene aqui: flores Y
+        chocolate. "Un detalle que dice lo que querés decir" lo podia firmar
+        cualquier floristeria del mundo; esto no.
+      -->
+      <h1 class="hero-titulo">Flores y fresas con chocolate, hechas a tus colores</h1>
+      <p class="hero-bajada">
+        Ramos, cajitas y bouquets. Vos elegís los colores y la dedicatoria;
+        nosotros lo armamos.
+      </p>
+      <ul class="hero-datos">
+        <li>Desde {{ precioDesde | currency }}</li>
+        <li>A domicilio o recoger</li>
+        <li>1 a 2 días según el tamaño</li>
+      </ul>
+    </div>
+
+    <!--
+      La foto es un recorte, igual que las de las tarjetas. No hace falta una
+      foto de ambiente: sobre el fondo crema el recorte se sostiene solo.
+    -->
+    <div class="hero-foto-caja" aria-hidden="true">
+      <img [src]="fotoPortada" alt="" class="hero-foto" />
+    </div>
+  </header>
+
+  <!-- Filtro por ocasion -->
+  <section class="ocasiones">
+    <h2 class="ocasiones-titulo">¿Para qué ocasión?</h2>
+
+    <div class="ocasiones-chips">
+      <button
+        type="button"
+        class="chip"
+        [class.activo]="!ocasionActiva"
+        (click)="quitarFiltro()"
+      >Ver todo</button>
+
+      <button
+        *ngFor="let o of ocasiones"
+        type="button"
+        class="chip"
+        [class.activo]="ocasionActiva === o.id"
+        [attr.aria-pressed]="ocasionActiva === o.id"
+        (click)="elegirOcasion(o.id)"
+      >
+        <span class="chip-etiqueta">{{ o.etiqueta }}</span>
+        <!-- La fecha es el gancho: recuerda que el dia se acerca -->
+        <span class="chip-fecha" *ngIf="o.fecha">{{ o.fecha }}</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Nada coincide con el filtro -->
+  <section class="vacio" *ngIf="sinResultados">
+    <p class="vacio-texto">
+      Todavía no tenemos un arreglo listo para <strong>{{ etiquetaActiva }}</strong>,
+      pero lo armamos a tu gusto.
+    </p>
+    <button type="button" class="boton-secundario" (click)="quitarFiltro()">
+      Ver todos los arreglos
+    </button>
+  </section>
+
+  <!-- Arreglos florales -->
+  <section class="seccion" *ngIf="floresFiltradas.length">
+    <h2 class="seccion-titulo">Arreglos florales</h2>
+
+    <div class="rejilla">
+      <article
+        *ngFor="let flor of floresFiltradas; trackBy: trackPorId"
+        class="tarjeta"
+        (click)="abrir(flor)"
+        (keydown.enter)="abrir(flor)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Ver ' + flor.nombre"
+      >
+        <div class="tarjeta-foto-caja">
+          <img [src]="flor.imagenUrl" [alt]="flor.nombre" class="tarjeta-foto" />
+        </div>
+        <div class="tarjeta-cuerpo">
+          <h3 class="tarjeta-nombre">{{ flor.nombre }}</h3>
+          <p class="tarjeta-precio">{{ flor.precio | currency }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!--
+    La especialidad va en seccion propia: una floristeria normal de Chiquimula
+    no hace fresas con chocolate. Mezclarlas con los ramos las convierte en un
+    arreglo mas y se pierde lo que diferencia al negocio.
+  -->
+  <section class="seccion franja" *ngIf="fresasFiltradas.length">
+    <h2 class="seccion-titulo">Nuestra especialidad: fresas con chocolate</h2>
+    <p class="seccion-bajada">
+      Fresas frescas cubiertas de chocolate premium, en bouquet o en cajita.
+      El color del chocolate lo elegís vos.
+    </p>
+
+    <div class="rejilla">
+      <article
+        *ngFor="let flor of fresasFiltradas; trackBy: trackPorId"
+        class="tarjeta"
+        (click)="abrir(flor)"
+        (keydown.enter)="abrir(flor)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Ver ' + flor.nombre"
+      >
+        <div class="tarjeta-foto-caja">
+          <img [src]="flor.imagenUrl" [alt]="flor.nombre" class="tarjeta-foto" />
+        </div>
+        <div class="tarjeta-cuerpo">
+          <h3 class="tarjeta-nombre">{{ flor.nombre }}</h3>
+          <p class="tarjeta-precio">{{ flor.precio | currency }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!--
+    La tarjeta de dedicatoria estaba enterrada como la cuarta vineta de una
+    lista dentro de un dialogo que hay que abrir. Es lo que de verdad se
+    compra: nadie regala flores, regala un mensaje.
+  -->
+  <section class="dedicatoria">
+    <h2 class="dedicatoria-titulo">Todos llevan tarjeta con tu dedicatoria</h2>
+    <p class="dedicatoria-texto">
+      Escribís el mensaje y lo ponemos a mano en la tarjeta. También podés
+      elegir los colores del arreglo, y añadirle un globo personalizado.
+    </p>
+  </section>
+</div>
+
+<app-cotizacion-dialog
+  [(visible)]="dialogoVisible"
+  [item]="itemSeleccionado"
+></app-cotizacion-dialog>

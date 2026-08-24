@@ -1,0 +1,47 @@
+.banda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.875rem 1.25rem;
+  // Va de borde a borde y arriba de todo: es un aviso, no una tarjeta mas.
+  background: #452317;
+  transition: background 0.2s ease;
+
+  &:hover { background: #5a2f1e; }
+  &:active { opacity: 0.9; }
+
+  @media (min-width: 768px) {
+    padding: 1rem 3rem;
+  }
+}
+
+.banda-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.banda-titulo {
+  color: #ffffff !important;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.banda-detalle {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.banda-flecha {
+  flex-shrink: 0;
+  color: #ffffff !important;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
