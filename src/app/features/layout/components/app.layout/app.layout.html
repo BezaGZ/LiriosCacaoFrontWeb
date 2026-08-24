@@ -1,12 +1,24 @@
 <div class="layout-wrapper" [ngClass]="containerClass">
   <app-topbar></app-topbar>
   <div class="layout-main-container">
-    <div class="layout-main flex flex-col flex-1 pb-16 md:pb-0">
+    <!--
+      Sin pb-16: ese padding-bottom reservaba en movil el espacio de la barra
+      de navegacion fija, y tenia sentido cuando el pie no existia en telefono.
+      Ahora el pie si esta y reserva ese espacio el mismo, asi que el pb-16
+      solo dejaba un hueco vacio de 56px entre el contenido y el pie.
+    -->
+    <div class="layout-main flex flex-col flex-1">
       <div class="flex-grow">
         <router-outlet></router-outlet>
       </div>
     </div>
-    <app-footer class="hidden md:block"></app-footer>
+    <!--
+      El footer estaba oculto en movil (hidden md:block), asi que en telefono
+      no se veia nunca: ni el credito ni el aviso de derechos. Y el sitio se
+      usa sobre todo en movil. Ahora se muestra siempre; el espacio para la
+      barra de navegacion fija lo reserva el propio footer.
+    -->
+    <app-footer></app-footer>
   </div>
   <div class="layout-mask animate-fadein"></div>
 

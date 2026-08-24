@@ -1,5 +1,14 @@
 :root {
-    --surface-ground: var(--p-surface-100);
+    /*
+      Era var(--p-surface-100), un gris azulado (#f1f5f9) heredado de la
+      plantilla de PrimeNG. Se asomaba como una banda gris en cualquier hueco
+      entre secciones -- al final del inicio, debajo del pie, entre bloques --
+      porque ninguna paleta del sitio tiene ese color.
+
+      Ahora es el crema del sitio: si alguna vez queda un hueco, se ve del
+      color del fondo y nadie lo nota.
+    */
+    --surface-ground: #FFF8F1;
     --code-background: var(--p-surface-900);
     --code-color: var(--p-surface-200);
 }
