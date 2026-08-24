@@ -6,6 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 
 import { Evento, eventosPorTipo } from '@core/domain';
 import { ItemCotizable } from '@core/ui-models/cotizable';
+import { SeoService } from '@core/services/seo.service';
 import { CotizacionDialogComponent } from '@features/listproducts/components/cotizacion-dialog/cotizacion-dialog.component';
 import { CotizadorEventoComponent } from '@features/listproducts/components/cotizador-evento/cotizador-evento.component';
 
@@ -47,6 +48,7 @@ import { CotizadorEventoComponent } from '@features/listproducts/components/coti
 export class EventosComponent implements OnInit {
   private readonly titleService = inject(Title);
   private readonly metaService = inject(Meta);
+  private readonly seo = inject(SeoService);
 
   readonly jardines = eventosPorTipo('lugar');
   readonly celebraciones = eventosPorTipo('celebracion');
@@ -101,6 +103,11 @@ export class EventosComponent implements OnInit {
         'mobiliario, decoración, comida, disco y letras 3D. Bodas, 15 años, cumpleaños ' +
         'temáticos y pedidas de mano. Cotiza por WhatsApp.',
     });
+
+    // El bloque de la pagina anterior sigue en el head al navegar sin
+    // recargar, asi que primero se limpia y luego se pone el de esta.
+    this.seo.limpiarJsonLdDePagina();
+    this.seo.insertEventosSchema(this.celebraciones, this.jardines);
   }
 
   /**
@@ -111,8 +118,11 @@ export class EventosComponent implements OnInit {
     this.itemSeleccionado = {
       nombre: evento.nombre,
       descripcion: evento.descripcion,
-      precio: evento.precioDesde,
-      esDesde: true,
+      // Sin precioDesde no se pinta precio: en un montaje a medida no hay
+      // un "desde" honesto que mostrar.
+      precio: evento.precioDesde ?? 0,
+      esDesde: evento.precioDesde != null,
+      modalidad: evento.modalidad,
       imagenUrl: evento.imagenUrl,
       galeria: evento.galeria,
       capacidad: evento.capacidad,

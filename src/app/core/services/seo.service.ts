@@ -83,6 +83,27 @@ export class SeoService {
     this.renderer.appendChild(this.doc.head, script);
   }
 
+  /** Quita un bloque, si esta. */
+  private removeJsonLd(id: string): void {
+    const previo = this.doc.getElementById(id);
+    if (previo) {
+      this.renderer.removeChild(this.doc.head, previo);
+    }
+  }
+
+  /**
+   * Borra los bloques que pertenecen a UNA pagina concreta.
+   *
+   * LocalBusiness y Organization describen al negocio y viven en todas; estos
+   * no. Al navegar dentro del sitio sin recargar, el bloque de la pagina
+   * anterior se quedaba en el head: el catalogo de chocofrutas seguia
+   * declarado estando ya en /eventos. Cada pagina llama a esto antes de
+   * insertar el suyo.
+   */
+  limpiarJsonLdDePagina(): void {
+    ['ld-itemlist', 'ld-eventos'].forEach(id => this.removeJsonLd(id));
+  }
+
   insertLocalBusinessSchema(): void {
     this.setJsonLd('ld-localbusiness', {
       '@context': 'https://schema.org',
@@ -145,6 +166,108 @@ export class SeoService {
         'https://www.instagram.com/lirios_ycacao'
       ]
     });
+  }
+
+  /**
+   * Datos estructurados de la pagina de eventos.
+   *
+   * Se usa Service y NO Event: en schema.org un Event es una fiesta concreta
+   * con fecha, y esto es el servicio de organizarla. Marcarlo como Event
+   * obligaria a inventar un startDate y Google lo descartaria igual.
+   *
+   * Los jardines si van aparte como EventVenue, que es lo que son, con su
+   * capacidad real. Todo en un @graph para que sea un solo script.
+   */
+  insertEventosSchema(
+    celebraciones: { nombre: string; descripcion: string; imagenUrl: string }[],
+    lugares: { nombre: string; descripcion: string; imagenUrl: string; capacidad?: number; incluye: string[] }[]
+  ): void {
+    const negocio = {
+      '@type': 'LocalBusiness',
+      'name': 'Lirio y Cacao',
+      'url': SITIO,
+      'telephone': '+502-4582-7110',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Chiquimula',
+        'addressRegion': 'Chiquimula',
+        'addressCountry': 'GT'
+      }
+    };
+
+    const servicio = {
+      '@type': 'Service',
+      '@id': `${SITIO}/eventos#servicio`,
+      'name': 'Organización de eventos en Chiquimula',
+      'serviceType': 'Organización de eventos',
+      'description': 'Organizamos el evento completo en Chiquimula: jardín, mobiliario, decoración, comida, disco y sonido, letras 3D y mamparas. Bodas, 15 años, cumpleaños temáticos y pedidas de mano. Cada servicio se cotiza por separado.',
+      'url': `${SITIO}/eventos`,
+      'provider': negocio,
+      'areaServed': {
+        '@type': 'City',
+        'name': 'Chiquimula',
+        'addressCountry': 'GT'
+      },
+      'availableChannel': {
+        '@type': 'ServiceChannel',
+        'serviceUrl': `${SITIO}/eventos`,
+        'servicePhone': '+502-4582-7110'
+      },
+      // Sin precios a proposito: no hay un "desde" honesto, y declarar un
+      // precio falso en los datos estructurados es peor que no declarar nada.
+      'hasOfferCatalog': {
+        '@type': 'OfferCatalog',
+        'name': 'Eventos que organizamos',
+        'itemListElement': celebraciones.map(c => ({
+          '@type': 'Offer',
+          'itemOffered': {
+            '@type': 'Service',
+            'name': c.nombre,
+            'description': c.descripcion,
+            'image': this.urlAbsoluta(c.imagenUrl),
+            'provider': { '@id': `${SITIO}/eventos#servicio` }
+          }
+        }))
+      }
+    };
+
+    const venues = lugares.map(l => ({
+      '@type': 'EventVenue',
+      '@id': `${SITIO}/eventos#${l.nombre.toLowerCase().replace(/\s+/g, '-')}`,
+      'name': l.nombre,
+      'description': l.descripcion,
+      'image': this.urlAbsoluta(l.imagenUrl),
+      ...(l.capacidad ? { 'maximumAttendeeCapacity': l.capacidad } : {}),
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Chiquimula',
+        'addressRegion': 'Chiquimula',
+        'addressCountry': 'GT'
+      },
+      'amenityFeature': l.incluye.map(cosa => ({
+        '@type': 'LocationFeatureSpecification',
+        'name': cosa,
+        'value': true
+      }))
+    }));
+
+    const migas = {
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        { '@type': 'ListItem', 'position': 1, 'name': 'Inicio', 'item': SITIO },
+        { '@type': 'ListItem', 'position': 2, 'name': 'Eventos', 'item': `${SITIO}/eventos` }
+      ]
+    };
+
+    this.setJsonLd('ld-eventos', {
+      '@context': 'https://schema.org',
+      '@graph': [servicio, ...venues, migas]
+    });
+  }
+
+  /** Las rutas del seed son relativas; en JSON-LD tienen que ser absolutas. */
+  private urlAbsoluta(ruta: string): string {
+    return ruta.startsWith('http') ? ruta : `${SITIO}/${ruta.replace(/^\//, '')}`;
   }
 
   /** Catalogo de productos de una categoria, como ItemList. */

@@ -104,6 +104,7 @@ export class ListproductsComponent implements OnInit {
 
     // Catalogo como datos estructurados, para que Google entienda que esta
     // pagina es una lista de productos con precios y no solo texto.
+    this.seo.limpiarJsonLdDePagina();
     this.seo.insertItemListSchema(
       this.currentCategory === 'all' ? 'Catálogo Lirio y Cacao' : `Categoría: ${this.currentCategory}`,
       this.filteredProducts
