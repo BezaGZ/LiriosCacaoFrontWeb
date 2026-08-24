@@ -8,6 +8,12 @@
   .p-dialog {
     border-radius: 0 !important;
 
+    // Misma razon que arriba: el alto lo manda el CSS, no el [style] de la
+    // plantilla, para poder dar el respaldo de 100vh antes de 100dvh.
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+
     @media (min-width: 768px) {
       border-radius: 1rem !important;
       max-height: 90vh !important;
@@ -26,7 +32,14 @@
     background: #ffffff;
     overflow-y: auto;
     padding: 0 !important;
+
+    // OJO con 100vh en iOS: ahi vale la altura de la pantalla COMO SI la barra
+    // del navegador estuviera oculta, y no encoge cuando la barra aparece. El
+    // dialogo quedaba mas alto que lo visible y se comia el primer titulo.
+    // 100dvh si sigue el alto real. La linea de 100vh se deja de respaldo para
+    // navegadores viejos que no entienden dvh (la ignoran y se quedan con ella).
     height: calc(100vh - 140px);
+    height: calc(100dvh - 140px);
 
     @media (min-width: 768px) {
       height: auto;
@@ -37,6 +50,9 @@
   .p-dialog-footer {
     border-top: 1px solid #e8e8e8;
     padding: 0 !important;
+    // En iPhone sin boton fisico, deja aire para la barra del gesto de inicio;
+    // sin esto el boton de accion queda debajo de ella.
+    padding-bottom: env(safe-area-inset-bottom) !important;
     background: #ffffff;
     position: sticky;
     bottom: 0;

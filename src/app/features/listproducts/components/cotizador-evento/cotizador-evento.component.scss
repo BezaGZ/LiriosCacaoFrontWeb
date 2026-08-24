@@ -61,12 +61,21 @@
 .chip-check { font-size: 0.7rem; }
 
 // --- entradas de texto ---
+// 16px EXACTOS, y en pixeles a proposito.
+//
+// iOS Safari hace zoom de golpe cuando enfocas un input con letra menor a
+// 16px. Aqui no sirve poner 1rem: _core.scss define html { font-size: 14px },
+// asi que 1rem son 14px y el telefono seguiria acercandose.
+//
+// La alternativa que se suele usar (user-scalable=no en el viewport) apaga el
+// zoom con los dedos para todo el mundo, y eso si es un problema de
+// accesibilidad. No lo hagas.
 .entrada {
   width: 100%;
   padding: 0.7rem 0.9rem;
   border: 1.5px solid #e8ddd4;
   border-radius: 0.65rem;
-  font-size: 0.95rem;
+  font-size: 16px;
   color: #452317;
   background: #fff;
 

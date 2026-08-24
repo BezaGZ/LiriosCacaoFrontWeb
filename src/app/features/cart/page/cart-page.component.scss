@@ -429,12 +429,21 @@
   color: #757575 !important;
 }
 
+// 16px EXACTOS, y en pixeles a proposito.
+//
+// iOS Safari hace zoom de golpe cuando enfocas un input con letra menor a
+// 16px. Aqui no sirve poner 1rem: _core.scss define html { font-size: 14px },
+// asi que 1rem son 14px y el telefono seguiria acercandose.
+//
+// La alternativa que se suele usar (user-scalable=no en el viewport) apaga el
+// zoom con los dedos para todo el mundo, y eso si es un problema de
+// accesibilidad. No lo hagas.
 .custom-input {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 2px solid #e8e8e8;
   border-radius: 0.75rem;
-  font-size: 0.9375rem;
+  font-size: 16px;
   transition: all 0.2s ease;
   color: #1a1a1a !important;
   background: #ffffff !important;
@@ -463,7 +472,7 @@
     padding: 0.875rem 1rem;
     border: 2px solid #e8e8e8;
     border-radius: 0.75rem;
-    font-size: 0.9375rem;
+    font-size: 16px;
     transition: all 0.2s ease;
     color: #1a1a1a !important;
     background: #ffffff !important;
