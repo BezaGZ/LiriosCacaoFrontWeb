@@ -128,9 +128,24 @@ $crema-alt:   #FFF3E6;
   }
 }
 
+/*
+  Franja a todo lo ancho.
+
+  El fondo llega de borde a borde, pero el contenido NO: se centra con el
+  mismo ancho maximo que el resto de secciones. Sin esto el titulo quedaba
+  pegado al borde izquierdo en escritorio mientras las demas secciones si
+  estaban centradas, y la pagina se veia desalineada.
+*/
 .franja {
   background: $crema-alt;
   max-width: none;
+  text-align: center;
+
+  > * {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .seccion-titulo {
@@ -291,6 +306,11 @@ $crema-alt:   #FFF3E6;
 }
 
 .cubrimos-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 3.5rem;
   background: #ffffff;
   border: 2px solid rgba(69, 35, 23, 0.1);
   border-radius: 0.875rem;
