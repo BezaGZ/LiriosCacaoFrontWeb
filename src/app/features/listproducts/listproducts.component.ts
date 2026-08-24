@@ -40,6 +40,13 @@ export class ListproductsComponent implements OnInit {
     this.allProducts = ALL_PRODUCTS;
 
     this.route.queryParams.subscribe(params => {
+      // Los eventos se mudaron a /eventos. Este enlace estuvo en el sitemap y
+      // en Google, asi que en vez de mostrar un catalogo vacio se redirige.
+      if (params['category'] === 'evento') {
+        this.router.navigate(['/eventos'], { replaceUrl: true });
+        return;
+      }
+
       this.currentCategory = params['category'] || 'all';
       this.currentSearch = params['search'] || '';
 
@@ -64,10 +71,6 @@ export class ListproductsComponent implements OnInit {
       case 'flor':
         title = 'Florería en Chiquimula: Ramos de Rosas, Girasoles y Fresas con Chocolate | Lirio & Cacao';
         description = 'Florería en Chiquimula. Ramos de rosas, ramos de girasoles, arreglos florales y fresas cubiertas de chocolate. Detalles perfectos para cumpleaños, bodas y 15 años. ¡Sorprende con amor!';
-        break;
-      case 'evento':
-        title = 'Detalles para Eventos en Chiquimula: Cumpleaños, Bodas, 15 Años | Lirio & Cacao';
-        description = 'Detalles para eventos en Chiquimula. Especialistas en cumpleaños, bodas, 15 años y fiestas. Chocofrutas, arreglos florales y más para hacer tu celebración inolvidable. ¡Cotiza con nosotros!';
         break;
     }
 

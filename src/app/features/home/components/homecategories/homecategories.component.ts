@@ -4,6 +4,19 @@ import {CardModule} from 'primeng/card';
 import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
 
+interface Categoria {
+  icon: string;
+  title: string;
+  desc: string;
+  color: string;
+  slug: string;
+  /**
+   * Ruta propia, para las secciones que ya no son un filtro del catalogo.
+   * Sin esto la tarjeta va a /productos?category=<slug>.
+   */
+  ruta?: string;
+}
+
 @Component({
   selector: 'app-homecategories',
   imports: [CommonModule, CardModule, AnimateOnScrollModule],
@@ -31,7 +44,7 @@ import {Router} from '@angular/router';
 export class HomeCategoriesComponent {
   constructor(private router: Router) {}
 
-  categories = [
+  categories: Categoria[] = [
     {
       icon: 'pi-heart-fill',
       title: 'Chocofrutas',
@@ -56,13 +69,18 @@ export class HomeCategoriesComponent {
     {
       icon: 'pi-star-fill',
       title: 'Eventos',
-      desc: 'Servicios especiales para celebraciones',
+      desc: 'Jardín, mobiliario, decoración, comida y sonido',
       color: '#8A2BE2',
-      slug: 'evento'
+      slug: 'evento',
+      ruta: '/eventos'
     }
   ];
 
-  goToCategory(slug: string) {
-    this.router.navigate(['/productos'], { queryParams: { category: slug } });
+  irA(cat: Categoria): void {
+    if (cat.ruta) {
+      this.router.navigate([cat.ruta]);
+      return;
+    }
+    this.router.navigate(['/productos'], { queryParams: { category: cat.slug } });
   }
 }
