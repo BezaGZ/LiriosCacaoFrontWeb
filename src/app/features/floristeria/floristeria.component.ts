@@ -45,11 +45,7 @@ export class FloristeriaComponent implements OnInit {
 
   readonly ocasiones: OcasionInfo[] = OCASIONES;
 
-  /**
-   * Arreglo de la portada. Se elige a mano: se busca el que mejor resume las
-   * dos mitades del negocio (flores y color), no el mas caro ni el primero.
-   */
-  readonly fotoPortada = 'assets/img/flores/bouquetgirasolfloral.PNG';
+  // La portada ahora es una imagen de fondo, declarada en el SCSS.
   readonly precioDesde = PRECIO_FLOR_DESDE;
 
   private readonly flores = floresPorFamilia('flor');

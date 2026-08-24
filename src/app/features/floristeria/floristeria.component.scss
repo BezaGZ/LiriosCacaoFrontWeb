@@ -10,23 +10,70 @@ $crema-alt:  #FFF3E6;
 /* ===================== HERO ===================== */
 
 /*
-  Banda horizontal, no portada a pantalla completa: el producto es el
-  argumento y hay que llegar rapido a el. En movil se apila -- texto arriba,
-  foto abajo y mas chica.
+  La foto va de fondo y el texto encima, no al lado.
+
+  La imagen esta compuesta como banner: el ramo ocupa la derecha y el lado
+  izquierdo es fondo liso, vacio a proposito. Ponerla en una columna aparte
+  desperdiciaba ese hueco y obligaba a apilarla en movil, que era lo que
+  empujaba el catalogo fuera de la pantalla.
+
+  Asi la portada no cuesta ni un pixel de alto extra: la foto vive detras del
+  texto que ya estaba.
 */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1.5rem 1.5rem 1rem;
+  position: relative;
+  overflow: hidden;
+  // La foto tiene un crema mas calido (~#F0E7D7) que el de la pagina. Se
+  // declara como color de fondo para que el empalme no se note mientras
+  // carga la imagen.
+  background-color: #F2EADC;
+  background-image: url('/assets/img/flores/portada.jpg');
+  background-repeat: no-repeat;
+  // right: el encuadre util es el ramo. Al recortar, lo que se pierde es
+  // fondo liso de la izquierda, que no hace falta.
+  background-position: right center;
+  background-size: cover;
+}
+
+/*
+  Velo que va del crema de la pagina a transparente.
+
+  Hace dos cosas a la vez: disimula el empalme entre el crema de la foto y el
+  del sitio, y garantiza que el titulo se lea aunque el recorte deje flores
+  detras del texto. Sin esto, en pantallas angostas el titulo cae encima de
+  los petalos.
+*/
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    #FFF8F1 0%,
+    #FFF8F1 50%,
+    rgba(255, 248, 241, 0.88) 72%,
+    rgba(255, 248, 241, 0) 100%
+  );
+
+  @media (min-width: 768px) {
+    background: linear-gradient(
+      to right,
+      #FFF8F1 0%,
+      #FFF8F1 30%,
+      rgba(255, 248, 241, 0.75) 46%,
+      rgba(255, 248, 241, 0) 66%
+    );
+  }
+}
+
+.hero-texto {
+  position: relative;
+  padding: 1.75rem 1.5rem 1.25rem;
   max-width: 72rem;
   margin: 0 auto;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1.1fr 1fr;
-    gap: 2.5rem;
-    padding: 3rem 3rem 2rem;
+    padding: 3.5rem 3rem 2.5rem;
   }
 }
 
@@ -45,11 +92,13 @@ $crema-alt:  #FFF3E6;
   font-weight: 800;
   line-height: 1.2;
   margin: 0 0 0.5rem;
-  // Sin max-width el titular se estira demasiado en escritorio y se lee peor.
-  max-width: 18ch;
+  // Se corta antes de llegar a las flores. Sin el limite, en escritorio el
+  // titular se estira sobre el ramo y se pierde.
+  max-width: 14ch;
 
   @media (min-width: 768px) {
     font-size: 2.75rem;
+    max-width: 15ch;
   }
 }
 
@@ -58,10 +107,13 @@ $crema-alt:  #FFF3E6;
   font-size: 0.9375rem;
   line-height: 1.5;
   margin: 0 0 1rem;
-  max-width: 34rem;
+  // Angosta en movil a proposito: con 20rem la ultima linea caia encima del
+  // liston del ramo y se leia mal.
+  max-width: 15rem;
 
   @media (min-width: 768px) {
     font-size: 1.0625rem;
+    max-width: 28rem;
   }
 }
 
@@ -74,9 +126,14 @@ $crema-alt:  #FFF3E6;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  max-width: 20rem;
+
+  @media (min-width: 768px) {
+    max-width: none;
+  }
 
   li {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.92);
     border: 2px solid rgba(69, 35, 23, 0.1);
     border-radius: 2rem;
     padding: 0.5rem 0.9rem;
@@ -84,34 +141,6 @@ $crema-alt:  #FFF3E6;
     font-weight: 600;
     color: $cafe !important;
   }
-}
-
-/*
-  En MOVIL no hay foto de portada, y es a proposito.
-
-  Con ella el primer producto empezaba en y=748 sobre una pantalla de 844:
-  habia que hacer scroll de casi una pantalla entera para ver una sola flor.
-  Y la foto era un recorte de los mismos que salen en la rejilla 300px mas
-  abajo, o sea que costaba media pantalla para ensenar dos veces lo mismo.
-
-  En movil la rejilla de productos ES la portada. La foto vuelve desde tablet,
-  donde el hero cabe al lado del texto sin empujar nada.
-*/
-.hero-foto-caja {
-  display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-    height: 22rem;
-  }
-}
-
-.hero-foto {
-  width: 100%;
-  height: 100%;
-  // contain: es un recorte, recortarlo por los bordes le corta el ramo.
-  object-fit: contain;
-  display: block;
 }
 
 /* ===================== OCASIONES ===================== */

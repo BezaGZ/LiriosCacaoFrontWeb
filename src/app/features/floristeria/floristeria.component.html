@@ -7,10 +7,12 @@
   <app-banda-estacional (elegir)="elegirOcasion($event)"></app-banda-estacional>
 
   <!--
-    Hero compacto CON foto: una banda horizontal, texto a la izquierda y un
-    arreglo a la derecha. No una portada a pantalla completa -- las flores se
-    compran rapido y por impulso, y lo que hay que hacer es llegar pronto al
-    producto.
+    La portada es una foto pensada como banner: el ramo a la derecha y el
+    lado izquierdo vacio a proposito. Por eso el texto va ENCIMA de la
+    imagen y no al lado: la composicion ya reserva su sitio.
+
+    Sigue siendo una banda baja, no una portada a pantalla completa. Las
+    flores se compran rapido y hay que llegar pronto al producto.
   -->
   <header class="hero">
     <div class="hero-texto">
@@ -31,14 +33,6 @@
         <li>A domicilio o recoger</li>
         <li>1 a 2 días según el tamaño</li>
       </ul>
-    </div>
-
-    <!--
-      La foto es un recorte, igual que las de las tarjetas. No hace falta una
-      foto de ambiente: sobre el fondo crema el recorte se sostiene solo.
-    -->
-    <div class="hero-foto-caja" aria-hidden="true">
-      <img [src]="fotoPortada" alt="" class="hero-foto" />
     </div>
   </header>
 
