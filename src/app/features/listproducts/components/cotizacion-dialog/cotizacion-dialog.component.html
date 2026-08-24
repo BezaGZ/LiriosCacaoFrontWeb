@@ -76,10 +76,13 @@
       </div>
 
       <div class="section" *ngIf="item.incluye.length">
-        <h3 class="section-title">Incluye</h3>
+        <h3 class="section-title">{{ tituloIncluye }}</h3>
         <ul class="flor-list">
           <li *ngFor="let linea of item.incluye">{{ linea }}</li>
         </ul>
+        <p class="nota-a-medida" *ngIf="esAMedida">
+          Cada servicio tiene su propio precio y se cotiza por separado, según lo que elijas.
+        </p>
       </div>
 
       <div class="section" *ngIf="item.noIncluye?.length">

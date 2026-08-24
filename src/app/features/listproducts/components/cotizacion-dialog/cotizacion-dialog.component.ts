@@ -31,7 +31,7 @@ export class CotizacionDialogComponent {
   mostrandoCuestionario = false;
 
   @Input() set item(valor: ItemCotizable | null) {
-    this._item = valor;
+    this._item = valor ? this.limpiar(valor) : null;
     this.mostrandoCuestionario = false;
     // La portada primero y luego la galeria. Se filtran vacios por si el seed
     // trae huecos.
@@ -40,6 +40,37 @@ export class CotizacionDialogComponent {
   }
   get item(): ItemCotizable | null { return this._item; }
   private _item: ItemCotizable | null = null;
+
+  /**
+   * Red de seguridad: las listas del seed se imprimen tal cual aqui, y las
+   * notas de trabajo ("PENDIENTE: ...", "CONFIRMAR: ...") ya se colaron una
+   * vez a la vista del cliente. Cualquier linea que empiece asi se descarta.
+   *
+   * No reemplaza a llenar el seed: solo evita que un olvido se publique.
+   */
+  private limpiar(item: ItemCotizable): ItemCotizable {
+    const util = (linea: string) => !/^\s*(PENDIENTE|CONFIRMAR)\b/i.test(linea);
+    return {
+      ...item,
+      incluye: item.incluye.filter(util),
+      noIncluye: item.noIncluye?.filter(util),
+      personalizaciones: item.personalizaciones.filter(util),
+      notas: item.notas?.filter(util),
+    };
+  }
+
+  /**
+   * "Incluye" promete un paquete cerrado. En un montaje a medida el negocio
+   * no promete eso: la lista es de lo que SE PUEDE incluir, y cada cosa se
+   * cotiza por separado.
+   */
+  get tituloIncluye(): string {
+    return this._item?.modalidad === 'a-medida' ? 'Podemos incluir' : 'Incluye';
+  }
+
+  get esAMedida(): boolean {
+    return this._item?.modalidad === 'a-medida';
+  }
 
   get tieneGaleria(): boolean { return this.fotos.length > 1; }
 

@@ -2,42 +2,50 @@ import { CatalogoEventos, Evento } from './evento.models';
 
 /*
  * ============================================================================
- *  PENDIENTE: CONTENIDO REAL
+ *  COMO SE COBRA UN EVENTO AQUI
  * ============================================================================
- *  Todo lo que dice PENDIENTE aqui abajo es relleno para poder ver la pagina
- *  funcionando. Antes de publicar hay que reemplazar, en cada paquete:
+ *  Esto NO son paquetes cerrados. Segun la duena, en un montaje a medida se
+ *  puede incluir practicamente todo -- vajilla, comida, sonido, decoracion --
+ *  pero cada cosa tiene su propio precio y se cotiza por separado.
  *
- *    - nombre        como se llama el paquete
- *    - precioDesde   precio de partida real (en quetzales)
- *    - capacidad     cuantas personas caben, si incluye lugar
- *    - descripcion   2 o 3 lineas concretas, sin adjetivos de relleno
- *    - incluye       la lista completa: jardin, mobiliario, comida, disco,
- *                    decoracion, letras 3D, mamparas, letreros...
- *    - personalizaciones  que se puede ajustar
- *    - notas         anticipacion para reservar, deposito, etc.
+ *  Por eso:
+ *
+ *    - modalidad: 'a-medida'   en las celebraciones. La lista `incluye` se
+ *                              titula "Podemos incluir" y el dialogo aclara
+ *                              que cada servicio se cotiza aparte.
+ *
+ *    - modalidad: 'alquiler'   solo en los jardines, que si tienen un precio
+ *                              propio. Ahi `incluye` es lo que viene en ese
+ *                              precio; la decoracion va por aparte.
+ *
+ *    - precioDesde             se omite en las celebraciones. No hay un
+ *                              "desde" honesto cuando el precio depende de
+ *                              cuanto se arme.
+ *
+ *    - anticipacion            depende del tamano del evento, asi que no se
+ *                              promete un numero de dias.
+ *
+ *  IMPORTANTE: nada de PENDIENTE ni CONFIRMAR en los textos. Estas listas se
+ *  imprimen tal cual en el dialogo que ve el cliente. (El dialogo ademas
+ *  filtra esas lineas por si acaso, pero no hay que depender de eso.)
  *
  *  Las imagenes van en public/assets/img/eventos/ (ver el LEEME de esa
- *  carpeta). Mientras no exista la foto, la tarjeta muestra "Foto proximamente"
- *  sola, asi que no se rompe nada.
- *
- *  Lo que mas vende aqui es lo CONCRETO: el numero de personas y la lista de
- *  lo que incluye. "Un solo lugar: jardin, mobiliario, comida y disco" pesa
- *  mas que cualquier frase bonita.
+ *  carpeta). Un paquete sin fotos ni datos lleva `borrador: true` y no se
+ *  publica.
  * ============================================================================
  */
 
 const EVENTOS: Evento[] = [
   {
-    // Fotos reales de tres fiestas distintas: Minions, Mario Bros y un 40
-    // anos elegante. La galeria mezcla las cuatro celebraciones a proposito:
+    // Fotos reales de cuatro fiestas distintas: Minions, Mario Bros, un 40
+    // anos elegante y un montaje en azul. La galeria las mezcla a proposito:
     // lo que se vende aqui es el RANGO de tematicas, no un montaje concreto.
     id: 'evt_cumpleanos',
     nombre: 'Cumpleaños temáticos',
     slug: 'cumpleanos',
     tipo: 'celebracion',
-    descripcion: 'Montamos el cumpleaños completo con la temática que elijas: desde Minions o Mario Bros para los niños, hasta montajes elegantes para adultos. Arco de globos, mampara, números iluminados y mobiliario vestido.',
-    precioDesde: 0,          // PENDIENTE: precio de partida
-    capacidad: 0,            // PENDIENTE: hasta cuántas personas
+    modalidad: 'a-medida',
+    descripcion: 'Montamos el cumpleaños con la temática que elijas: desde Minions o Mario Bros para los niños, hasta montajes elegantes para adultos. Vos decidís hasta dónde llega — solo la decoración, o el evento completo con comida y sonido.',
     imagenUrl: 'assets/img/eventos/cumpleanos/1.jpg',
     galeria: [
       'assets/img/eventos/cumpletematico1/1.jpg',   // Minions
@@ -53,19 +61,18 @@ const EVENTOS: Evento[] = [
       'Decoración temática completa',
       'Arco de globos',
       'Mampara y números o letras iluminadas',
-      'Mesas y sillas con mantelería',
-      'CONFIRMAR: ¿la vajilla va incluida?',
-    ],
-    noIncluye: [
-      'CONFIRMAR: comida y sonido — ¿se coordinan aparte?',
+      'Mobiliario y mantelería',
+      'Vajilla',
+      'Comida',
+      'Disco y sonido',
     ],
     personalizaciones: [
-      'Temática a elección (Minions, Mario Bros, elegante para adultos...)',
+      'Cualquier temática: Minions, Mario Bros, elegante para adultos...',
       'Colores del montaje',
-      'PENDIENTE: qué otras temáticas ya tienen armadas',
+      'Para niños o para adultos',
     ],
     notas: [
-      'PENDIENTE: con cuántos días de anticipación se reserva',
+      'El tiempo con el que hay que reservar depende del tamaño del evento: escribinos con tu fecha y te decimos.',
     ],
   },
   {
@@ -75,9 +82,8 @@ const EVENTOS: Evento[] = [
     nombre: '15 años',
     slug: 'quinceanos',
     tipo: 'celebracion',
+    modalidad: 'a-medida',
     descripcion: 'Arco iluminado con globos en tus colores, letras de 15 gigantes encendidas y montaje completo. Lo armamos en jardín o en salón, y se ve espectacular de noche.',
-    precioDesde: 0,          // PENDIENTE
-    capacidad: 0,            // PENDIENTE
     imagenUrl: 'assets/img/eventos/quinceanos/1.jpg',
     galeria: [
       'assets/img/eventos/quinceanos/3.jpg',
@@ -87,25 +93,29 @@ const EVENTOS: Evento[] = [
     incluye: [
       'Arco iluminado con globos',
       'Letras de 15 iluminadas',
-      'CONFIRMAR: mobiliario y mantelería',
-    ],
-    noIncluye: [
-      'CONFIRMAR: comida y sonido',
+      'Decoración y montaje completo',
+      'Mobiliario y mantelería',
+      'Vajilla',
+      'Comida',
+      'Disco y sonido',
     ],
     personalizaciones: [
       'Colores de los globos y del montaje',
-      'PENDIENTE: qué más se puede ajustar',
+      'Se monta en jardín o en salón',
+    ],
+    notas: [
+      'El tiempo con el que hay que reservar depende del tamaño del evento: escribinos con tu fecha y te decimos.',
     ],
   },
   {
-    // Producto NUEVO. Fotos reales: camino de velas, alfombra roja, arco
-    // floral iluminado y letrero de neon "Quieres casarte conmigo?".
+    // Fotos reales: camino de velas, alfombra roja, arco floral iluminado y
+    // letrero de neon.
     id: 'evt_pedida_mano',
     nombre: 'Pedida de mano',
     slug: 'pedida-de-mano',
     tipo: 'celebracion',
+    modalidad: 'a-medida',
     descripcion: 'Montaje íntimo para pedir matrimonio: camino de velas, alfombra, arco floral iluminado y letrero de neón. Preparamos todo para que solo tengas que llegar con ella.',
-    precioDesde: 0,          // PENDIENTE
     imagenUrl: 'assets/img/eventos/pedida-de-mano/1.jpg',
     galeria: [
       'assets/img/eventos/pedida-de-mano/3.jpg',
@@ -115,26 +125,23 @@ const EVENTOS: Evento[] = [
       'Arco floral iluminado',
       'Camino de velas y alfombra',
       'Letrero de neón',
-      'CONFIRMAR: ¿qué más lleva el montaje?',
+      'Mobiliario',
     ],
     personalizaciones: [
       'Colores de las flores',
-      'PENDIENTE: ¿el texto del letrero se puede cambiar?',
+      'El montaje se adapta al lugar que elijas',
     ],
     notas: [
-      'PENDIENTE: con cuántos días de anticipación se reserva',
+      'El tiempo con el que hay que reservar depende del tamaño del montaje: escribinos con tu fecha y te decimos.',
     ],
   },
   {
-    // CONFIRMAR: segun la duena, bodas lleva decoracion y mobiliario pero NO
-    // sonido ni comida.
     id: 'evt_boda',
     nombre: 'Bodas',
     slug: 'boda',
     tipo: 'celebracion',
-    descripcion: 'Ambientación completa para la recepción: drapeado, alfombra, mobiliario vestido y señalización. Nos acoplamos al estilo y los colores de la boda.',
-    precioDesde: 0,          // PENDIENTE
-    capacidad: 0,            // PENDIENTE
+    modalidad: 'a-medida',
+    descripcion: 'Ambientación completa para la recepción: drapeado, alfombra, cartel de bienvenida y mobiliario vestido. Nos acoplamos al estilo y los colores de la boda, y podemos agregar todo lo que quieran.',
     imagenUrl: 'assets/img/eventos/boda/1.jpg',
     galeria: [
       'assets/img/eventos/boda/2.jpg',
@@ -143,26 +150,30 @@ const EVENTOS: Evento[] = [
     ],
     incluye: [
       'Decoración y drapeado',
-      'Mesas y sillas con mantelería',
-      'CONFIRMAR: alfombra y cartel de bienvenida',
-    ],
-    noIncluye: [
+      'Alfombra y cartel de bienvenida',
+      'Mobiliario y mantelería',
+      'Vajilla',
       'Comida',
-      'Sonido',
+      'Disco y sonido',
+      'Letras 3D y letreros',
     ],
     personalizaciones: [
-      'Colores y estilo',
-      'PENDIENTE: qué más se puede ajustar',
+      'Colores y estilo de la boda',
+      'Se puede agregar todo lo que quieran',
+    ],
+    notas: [
+      'El tiempo con el que hay que reservar depende del tamaño del evento: escribinos con tu fecha y te decimos.',
     ],
   },
   {
-    // Datos reales confirmados por la duena.
+    // El unico con precio propio: el jardin se alquila. La decoracion no va
+    // dentro de ese precio.
     id: 'evt_jardin_1',
     nombre: 'Jardín 1',
     slug: 'jardin-1',
     tipo: 'lugar',
-    descripcion: 'Jardín para eventos de 100 a 150 personas, con área techada y grama. Incluye mobiliario, cocina, baño y refrigeradores para las bebidas, así que no hay que conseguir nada por aparte.',
-    precioDesde: 0,          // PENDIENTE: precio de alquiler
+    modalidad: 'alquiler',
+    descripcion: 'Jardín para eventos de 100 a 150 personas, con área techada y grama. El alquiler ya trae mobiliario, cocina, baño y refrigeradores para las bebidas, así que no hay que conseguir nada por aparte.',
     capacidad: 150,
     imagenUrl: 'assets/img/eventos/jardin-1/1.jpg',
     galeria: [
@@ -171,27 +182,28 @@ const EVENTOS: Evento[] = [
       'assets/img/eventos/jardin-1/4.jpg',
     ],
     incluye: [
-      'Capacidad de 100 a 150 personas',
+      // La capacidad ya sale en su propia seccion del dialogo, no se repite.
       'Mobiliario',
       'Cocina',
       'Baño',
       'Refrigeradores para bebidas',
     ],
     personalizaciones: [
-      'PENDIENTE: qué se puede ajustar',
+      'Decoración y montaje a la medida, cotizado aparte del alquiler',
     ],
     notas: [
-      'PENDIENTE: con cuántos días de anticipación se reserva',
+      'Sujeto a disponibilidad: escribinos con tu fecha y la revisamos.',
+      'El jardín tiene su propio precio de alquiler; la decoración va por aparte.',
     ],
   },
   {
     id: 'evt_graduacion',
     nombre: 'PENDIENTE: Graduaciones',
     slug: 'graduacion',
+    modalidad: 'a-medida',
     tipo: 'celebracion',
     borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: describir el montaje para promociones y grupos. Faltan fotos en assets/img/eventos/graduacion/',
-    precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
     imagenUrl: 'assets/img/eventos/graduacion/1.jpg',
     galeria: [
@@ -206,10 +218,10 @@ const EVENTOS: Evento[] = [
     id: 'evt_jardin_2',
     nombre: 'PENDIENTE: Jardín 2',
     slug: 'jardin-2',
+    modalidad: 'alquiler',
     tipo: 'lugar',
     borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: describir el segundo jardín y en qué se diferencia del primero. Faltan fotos en assets/img/eventos/jardin-2/',
-    precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
     imagenUrl: 'assets/img/eventos/jardin-2/1.jpg',
     galeria: [
@@ -224,10 +236,10 @@ const EVENTOS: Evento[] = [
     id: 'evt_mobiliario',
     nombre: 'PENDIENTE: Mobiliario y decoración',
     slug: 'mobiliario',
+    modalidad: 'a-medida',
     tipo: 'servicio',
     borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: para quien ya tiene el lugar. Mencionar mamparas, letreros y letras 3D. Faltan fotos en assets/img/eventos/mobiliario/',
-    precioDesde: 0,          // PENDIENTE
     imagenUrl: 'assets/img/eventos/mobiliario/1.jpg',
     galeria: [
       'assets/img/eventos/mobiliario/2.jpg',

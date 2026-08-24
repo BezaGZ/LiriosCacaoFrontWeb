@@ -18,11 +18,26 @@ import { Id } from '../base.models';
  */
 export type TipoEvento = 'lugar' | 'celebracion' | 'servicio';
 
+/**
+ * Como se cobra. Esto cambia lo que la pagina PROMETE, no solo como se ve:
+ *
+ *  - 'alquiler'  el lugar tiene un precio propio y lo que trae va incluido en
+ *                ese precio. Lo demas (decoracion, comida) se cotiza aparte.
+ *
+ *  - 'a-medida'  no existe un paquete cerrado. El evento se arma con lo que
+ *                el cliente elija y cada servicio tiene su propio precio.
+ *
+ * La distincion importa porque decir "Incluye" en un montaje a medida es una
+ * promesa que el negocio no hace: ahi la lista es de lo que SE PUEDE incluir.
+ */
+export type ModalidadEvento = 'alquiler' | 'a-medida';
+
 export interface Evento {
   id: Id;
   nombre: string;
   slug: string;
   tipo: TipoEvento;
+  modalidad: ModalidadEvento;
   /**
    * true mientras el paquete no tenga fotos o datos reales.
    *
@@ -32,8 +47,13 @@ export interface Evento {
    */
   borrador?: boolean;
   descripcion: string;
-  /** Precio de partida. El final se cotiza. */
-  precioDesde: number;
+  /**
+   * Precio de partida, solo cuando existe uno de verdad (el alquiler de un
+   * jardin). En los montajes a medida NO se pone: el precio depende de cuanto
+   * se arme, y un "desde" mal calibrado espanta o decepciona. Sin valor, el
+   * dialogo simplemente no muestra precio.
+   */
+  precioDesde?: number;
   /** Foto de portada: la que sale en la tarjeta del catalogo. */
   imagenUrl: string;
   /**
@@ -46,6 +66,10 @@ export interface Evento {
   galeria?: string[];
   /** Personas que caben, cuando el paquete incluye un lugar. */
   capacidad?: number;
+  /**
+   * Con modalidad 'alquiler' es lo que viene en el precio.
+   * Con 'a-medida' es lo que SE PUEDE incluir, cada cosa cotizada aparte.
+   */
   incluye: string[];
   /**
    * Lo que NO va en el paquete.

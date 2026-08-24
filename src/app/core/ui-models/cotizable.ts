@@ -8,7 +8,7 @@
 export interface ItemCotizable {
   nombre: string;
   descripcion: string;
-  /** Precio a mostrar. En eventos es un "desde". */
+  /** Precio a mostrar. Un 0 significa "sin precio" y no se pinta nada. */
   precio: number;
   /** true cuando el precio es orientativo y el final se cotiza. */
   esDesde?: boolean;
@@ -24,6 +24,12 @@ export interface ItemCotizable {
   usaCuestionario?: boolean;
   /** Personas que caben, cuando aplica. */
   capacidad?: number;
+  /**
+   * Con modalidad 'alquiler' (o sin modalidad) la lista se titula "Incluye".
+   * Con 'a-medida' se titula "Podemos incluir" y se agrega la aclaracion de
+   * que cada servicio se cotiza por separado.
+   */
+  modalidad?: 'alquiler' | 'a-medida';
   incluye: string[];
   /**
    * Lo que NO va en el paquete.
