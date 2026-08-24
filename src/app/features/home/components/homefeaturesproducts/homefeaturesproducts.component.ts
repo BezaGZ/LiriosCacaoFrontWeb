@@ -84,6 +84,11 @@ export class HomefeaturesproductsComponent {
    * Se ejecuta cuando el usuario hace clic en el ícono de carrito de una tarjeta.
    * Recibe el producto (con el topping seleccionado) desde el ProductCardComponent.
    */
+  /** Evita que Angular reutilice tarjetas entre productos distintos. */
+  trackPorId(_indice: number, product: ProductCardVM): string {
+    return product.id;
+  }
+
   handleAddToCart(product: ProductCardVM): void {
     const { fruta, chocolate, toppings } = product.data.chocofruta;
     const topPrincipal = toppings[0];

@@ -188,3 +188,11 @@
     font-size: 1.25rem;
   }
 }
+
+// "Desde Q350" en los productos que se cotizan: el "Desde" va mas discreto
+// que la cifra, para que el precio siga siendo lo que se lee primero.
+.product-price-desde {
+  font-size: 0.78em;
+  font-weight: 400;
+  opacity: 0.75;
+}

@@ -1,32 +1,34 @@
 <div class="product-card">
   <div class="product-image-container" (click)="emitCustomize()">
     <img
-      [src]="currentImageUrls.base"
-      (error)="onImageError($event)"
+      [src]="imagenFallo ? placeholder : currentImageUrls.base"
+      (error)="onImageError()"
       [alt]="product.title"
       class="product-image"
     />
     <img
-      *ngIf="currentImageUrls.topping"
+      *ngIf="currentImageUrls.topping && !capaFallo && !imagenFallo"
       [src]="currentImageUrls.topping"
-      (error)="onLayerError($event)"
+      (error)="onLayerError()"
       alt=""
       class="product-image product-overlay"
     />
 
-    <!-- Botón de WhatsApp para flores -->
+    <!-- Lo que se cotiza (flores, eventos) abre WhatsApp -->
     <button
-      *ngIf="product.category === 'flor'"
+      *ngIf="seCotiza"
       class="whatsapp-btn"
+      [attr.aria-label]="'Consultar ' + product.title + ' por WhatsApp'"
       (click)="emitWhatsApp($event)"
     >
       <i class="pi pi-whatsapp"></i>
     </button>
 
-    <!-- Botón de carrito para otros productos -->
+    <!-- Lo que se compra en línea va al carrito -->
     <button
-      *ngIf="product.category !== 'flor'"
+      *ngIf="!seCotiza"
       class="add-to-cart-btn"
+      [attr.aria-label]="'Agregar ' + product.title + ' al carrito'"
       (click)="emitAddToCart($event)"
     >
       <i class="pi pi-shopping-cart"></i>
@@ -35,6 +37,11 @@
 
   <div class="product-info">
     <h3 class="product-title">{{ product.title }}</h3>
-    <p class="product-price">{{ product.price | currency }}</p>
+    <p class="product-price">
+      <ng-container *ngIf="tienePrecio; else consultar">
+        <span *ngIf="precioEsDesde" class="product-price-desde">Desde </span>{{ product.price | currency }}
+      </ng-container>
+      <ng-template #consultar>Consultar precio</ng-template>
+    </p>
   </div>
 </div>

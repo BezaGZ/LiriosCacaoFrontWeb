@@ -1,0 +1,131 @@
+<p-dialog
+  [visible]="visible"
+  (visibleChange)="onVisibilityChange($event)"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [dismissableMask]="true"
+  [blockScroll]="true"
+  [breakpoints]="{ '768px': '100vw' }"
+  [style]="{ width: '600px', maxWidth: '100vw', height: '100vh', maxHeight: '100vh' }"
+  styleClass="uber-dialog"
+  [contentStyle]="{ padding: '0' }"
+>
+  <ng-template pTemplate="header">
+    <div class="flex items-center justify-between w-full px-4">
+      <button
+        pButton
+        icon="pi pi-arrow-left"
+        class="p-button-text p-button-rounded p-button-sm text-[#452317]"
+        [attr.aria-label]="mostrandoCuestionario ? 'Volver al detalle' : 'Cerrar'"
+        (click)="mostrandoCuestionario ? volverAlDetalle() : close()"
+      ></button>
+      <span class="font-semibold text-[#452317] text-lg">
+        {{ mostrandoCuestionario ? 'Cotizar evento' : item?.nombre }}
+      </span>
+      <div style="width: 40px;"></div>
+    </div>
+  </ng-template>
+
+  <div *ngIf="item && !mostrandoCuestionario" class="uber-dialog-content">
+    <div class="preview-section">
+      <div class="preview-image-container">
+        <!-- Sin fotos todavia: el placeholder de marca, una sola vez -->
+        <img *ngIf="!fotos.length" [src]="placeholder" [alt]="item.nombre" class="preview-image" />
+
+        <img
+          *ngFor="let foto of fotos; let i = index"
+          [src]="foto"
+          [alt]="item.nombre + ' — foto ' + (i + 1)"
+          [hidden]="i !== fotoActiva"
+          (error)="onFotoError(foto)"
+          class="preview-image"
+        />
+      </div>
+
+      <!-- Miniaturas: solo si hay mas de una foto -->
+      <div class="galeria-miniaturas" *ngIf="tieneGaleria">
+        <button
+          *ngFor="let foto of fotos; let i = index"
+          type="button"
+          class="miniatura"
+          [class.activa]="i === fotoActiva"
+          [attr.aria-label]="'Ver foto ' + (i + 1) + ' de ' + fotos.length"
+          [attr.aria-current]="i === fotoActiva ? 'true' : null"
+          (click)="verFoto(i)"
+        >
+          <img [src]="foto" alt="" aria-hidden="true" />
+        </button>
+      </div>
+      <!-- Un precio en 0 significa que todavia no se ha definido: mejor no
+           mostrar "Q0.00", que parece gratis. -->
+      <div class="preview-price" *ngIf="item.precio > 0">
+        <span *ngIf="item.esDesde" class="text-sm font-normal">Desde </span>{{ item.precio | currency }}
+      </div>
+    </div>
+
+    <div class="sections-container">
+      <div class="section">
+        <h3 class="section-title">Descripción</h3>
+        <p class="flor-description">{{ item.descripcion }}</p>
+      </div>
+
+      <div class="section" *ngIf="item.capacidad">
+        <h3 class="section-title">Capacidad</h3>
+        <p class="flor-description">Hasta {{ item.capacidad }} personas</p>
+      </div>
+
+      <div class="section" *ngIf="item.incluye.length">
+        <h3 class="section-title">Incluye</h3>
+        <ul class="flor-list">
+          <li *ngFor="let linea of item.incluye">{{ linea }}</li>
+        </ul>
+      </div>
+
+      <div class="section" *ngIf="item.noIncluye?.length">
+        <h3 class="section-title">No incluye</h3>
+        <ul class="flor-list no-incluye">
+          <li *ngFor="let linea of item.noIncluye">{{ linea }}</li>
+        </ul>
+      </div>
+
+      <div class="section" *ngIf="item.personalizaciones.length">
+        <h3 class="section-title">Opciones personalizables</h3>
+        <ul class="flor-list personalizaciones">
+          <li *ngFor="let opcion of item.personalizaciones">{{ opcion }}</li>
+        </ul>
+      </div>
+
+      <div *ngIf="item.notas && item.notas.length > 0" class="section">
+        <h3 class="section-title">Notas</h3>
+        <ul class="flor-list notas">
+          <li *ngFor="let nota of item.notas">{{ nota }}</li>
+        </ul>
+      </div>
+
+      <div style="height: 80px;"></div>
+    </div>
+  </div>
+
+  <!-- Cuestionario: reemplaza al detalle, no se abre otro dialogo encima -->
+  <div *ngIf="item && mostrandoCuestionario" class="uber-dialog-content">
+    <div class="sections-container">
+      <app-cotizador-evento [paquete]="item.nombre"></app-cotizador-evento>
+      <div style="height: 40px;"></div>
+    </div>
+  </div>
+
+  <!--
+    El footer solo aparece en el detalle. El cuestionario trae sus propios
+    botones (enviar y "prefiero solo escribir"), y dos botones de WhatsApp en
+    la misma pantalla confundirian.
+  -->
+  <ng-template pTemplate="footer">
+    <div class="uber-footer" *ngIf="!mostrandoCuestionario">
+      <button pButton class="whatsapp-btn-footer" (click)="openWhatsApp()">
+        <i class="pi pi-whatsapp"></i>
+        <span>{{ item?.usaCuestionario ? 'Cotizar por WhatsApp' : 'Consultar por WhatsApp' }}</span>
+      </button>
+    </div>
+  </ng-template>
+</p-dialog>

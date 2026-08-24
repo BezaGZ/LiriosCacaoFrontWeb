@@ -1,0 +1,45 @@
+FOTOS DE EVENTOS
+================
+
+Cada paquete tiene su carpeta. Las fotos van numeradas: 1.jpg, 2.jpg, ...
+
+    quinceanos/    hasta 6   <- portafolio
+    graduacion/    hasta 6   <- portafolio
+    cumpleanos/    hasta 6   <- portafolio
+    jardin-1/      hasta 4   <- el lugar
+    jardin-2/      hasta 4   <- el lugar
+    mobiliario/    hasta 4
+
+LA FOTO 1 ES LA MAS IMPORTANTE: es la que sale en la tarjeta del catalogo
+y la primera del visor. Que sea la mejor que tengas.
+
+Hay dos formas de usar la galeria, segun el paquete:
+
+  PORTAFOLIO (15 anos, graduacion, cumpleanos)
+  Fotos de FIESTAS DISTINTAS. Aqui no se vende un lugar, se vende
+  experiencia: mientras mas variedad de montajes, mas convence.
+
+  EL LUGAR (jardin-1, jardin-2)
+  Fotos del MISMO lugar en angulos distintos:
+      1.jpg  montado y completo   <- portada
+      2.jpg  vacio, para que se vea el tamano
+      3.jpg  un detalle: letras 3D, mampara, centro de mesa
+      4.jpg  con gente
+
+Faltan fotos? No pasa nada: las que no existan se saltan solas, y si no
+hay ninguna sale "Foto proximamente".
+
+Quieres mas de 6? Se puede, no hay limite en el codigo. Solo hay que
+agregar la linea en evento.seed.ts.
+
+DESPUES DE COPIARLAS, CORRE ESTO:
+
+    python3 scripts/optimizar-imagenes.py
+
+Sin ese paso una foto de celular pesa 5 MB y el sitio se vuelve lentisimo
+en datos moviles. El script las deja en ~50 KB sin que se note.
+
+Consejos:
+  - Horizontal u ovalada; las tarjetas son cuadradas y recortan menos.
+  - Con gente si se puede: transmite el tamano real del lugar.
+  - Buena luz. Una foto oscura de un jardin bonito lo hace ver feo.

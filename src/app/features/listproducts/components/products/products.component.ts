@@ -14,11 +14,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ProductCardComponent } from '@features/product-card/product-card.component';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
 import { CartService } from '@features/cart/cart.service';
-import { CHOCOFRUTA_SEED, HELADO_SEED, Flor } from '@core/domain';
+import { CHOCOFRUTA_SEED, HELADO_SEED } from '@core/domain';
 import { calcularPrecioUnitarioChocofruta } from '@core/domain/chocofruta/chocofruta.logic';
 import { calcularPrecioUnitarioHelado } from '@core/domain/helado/helado.logic';
 import { buildLayeredImagePaths, imgHeladoPaleta, IMG_PLACEHOLDER } from '@core/utils/image-resolver';
-import { FlorDialogComponent } from '../flor-dialog/flor-dialog.component';
+import { CotizacionDialogComponent } from '../cotizacion-dialog/cotizacion-dialog.component';
+import { ItemCotizable } from '@core/ui-models/cotizable';
 import { CartConfirmationService } from '@features/cart/cart-confirmation.service';
 import { tituloChocofruta, tituloHelado } from '@core/utils/product-title';
 
@@ -28,10 +29,21 @@ import { tituloChocofruta, tituloHelado } from '@core/utils/product-title';
   imports: [
     CommonModule, FormsModule, AnimateOnScrollModule, ButtonModule, DialogModule,
     CheckboxModule, DividerModule, DropdownModule,
-    ProductCardComponent, FlorDialogComponent
+    ProductCardComponent, CotizacionDialogComponent
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
+  /**
+   * El HTML prerenderizado se genera para /productos SIN filtro, o sea con los
+   * 28 productos. Al abrir /productos?category=evento el cliente re-renderiza
+   * con 7, y en ese baile Angular reutiliza tarjetas: los errores de carga de
+   * las fotos que faltan llegaban tarde y marcaban como "sin foto" a productos
+   * que si tenian. Con ngSkipHydration esta lista se dibuja de cero.
+   *
+   * No afecta al SEO: el HTML prerenderizado sigue trayendo todos los
+   * productos para el crawler.
+   */
+  host: { 'ngSkipHydration': 'true' },
 })
 export class ProductsComponent {
   private readonly cartConfirmation = inject(CartConfirmationService);
@@ -74,17 +86,36 @@ export class ProductsComponent {
   // 2. Haz HELADO_SEED accesible para el HTML
   protected readonly HELADO_SEED = HELADO_SEED;
 
-  // --- Estado del diálogo de Flores ---
-  florDialogVisible = false;
-  selectedFlor: Flor | null = null;
+  // --- Estado del diálogo de cotización (flores y eventos) ---
+  cotizacionDialogVisible = false;
+  selectedCotizable: ItemCotizable | null = null;
+
+  /** Categorías que se cotizan por WhatsApp en vez de agregarse al carrito. */
+  private readonly SE_COTIZAN = ['flor', 'evento'];
+
+  private esCotizable(product: ProductCardVM): boolean {
+    return this.SE_COTIZAN.includes(product.category);
+  }
+
+  private abrirCotizacion(product: ProductCardVM): void {
+    this.selectedCotizable = product.data?.cotizable ?? null;
+    this.cotizacionDialogVisible = true;
+  }
 
   // --- MANEJADORES DE EVENTOS ---
 
+  /**
+   * Sin trackBy, Angular reutiliza los nodos del *ngFor al cambiar de
+   * categoria y mezcla el estado de una tarjeta con el producto de otra.
+   */
+  trackPorId(_indice: number, product: ProductCardVM): string {
+    return product.id;
+  }
+
   handleCustomize(product: ProductCardVM): void {
-    // Para flores, mostrar el diálogo específico de flores
-    if (product.category === 'flor') {
-      this.selectedFlor = product.data.flor;
-      this.florDialogVisible = true;
+    // Flores y eventos no se personalizan en línea: se cotizan.
+    if (this.esCotizable(product)) {
+      this.abrirCotizacion(product);
       return;
     }
 
@@ -282,11 +313,10 @@ export class ProductsComponent {
     (event.target as HTMLImageElement).style.display = 'none';
   }
 
-  // Maneja el clic en el botón de WhatsApp para flores
+  /** Clic en el botón de WhatsApp de una tarjeta que se cotiza. */
   handleWhatsApp(product: ProductCardVM): void {
-    if (product.category === 'flor') {
-      this.selectedFlor = product.data.flor;
-      this.florDialogVisible = true;
+    if (this.esCotizable(product)) {
+      this.abrirCotizacion(product);
     }
   }
 }

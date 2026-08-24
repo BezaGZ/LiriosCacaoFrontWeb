@@ -1,0 +1,149 @@
+:host {
+  display: block;
+  padding: 1rem 1.25rem 1.5rem;
+}
+
+.campo {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.campo-titulo {
+  display: block;
+  padding: 0;
+  margin-bottom: 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #452317;
+}
+
+.pista {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: #9a8579;
+}
+
+// --- chips seleccionables ---
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.55rem 0.9rem;
+  border: 1.5px solid #e8ddd4;
+  border-radius: 999px;
+  background: #fff;
+  color: #452317;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+
+  &:hover { border-color: #c9b6a6; }
+
+  &.activo {
+    border-color: #452317;
+    background: #fef9f5;
+    font-weight: 600;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #452317;
+    outline-offset: 2px;
+  }
+}
+
+.chip-check { font-size: 0.7rem; }
+
+// --- entradas de texto ---
+.entrada {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid #e8ddd4;
+  border-radius: 0.65rem;
+  font-size: 0.95rem;
+  color: #452317;
+  background: #fff;
+
+  &::placeholder { color: #b8a597; }
+
+  &:focus {
+    outline: none;
+    border-color: #452317;
+  }
+
+  &:disabled {
+    background: #f6f2ee;
+    color: #b8a597;
+  }
+}
+
+.casilla {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  font-size: 0.875rem;
+  color: #6b5546;
+  cursor: pointer;
+
+  input { width: 1rem; height: 1rem; accent-color: #452317; }
+}
+
+// --- acciones ---
+.acciones {
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.boton-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: #25D366;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+
+  &:hover:not(:disabled) { background: #1ea952; }
+
+  &:disabled {
+    background: #d8d8d8;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #452317;
+    outline-offset: 2px;
+  }
+}
+
+.aviso {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+  color: #9a8579;
+}
+
+.boton-texto {
+  margin-top: 0.9rem;
+  border: 0;
+  background: none;
+  color: #6b5546;
+  font-size: 0.875rem;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover { color: #452317; }
+}

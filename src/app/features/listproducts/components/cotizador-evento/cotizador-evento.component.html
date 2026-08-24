@@ -1,0 +1,124 @@
+<form class="cotizador" (ngSubmit)="enviar()" novalidate>
+
+  <!-- 1. Ocasión (obligatoria) -->
+  <fieldset class="campo">
+    <legend class="campo-titulo">¿Qué estás celebrando?</legend>
+    <div class="chips">
+      <button
+        *ngFor="let o of ocasiones"
+        type="button"
+        class="chip"
+        [class.activo]="ocasion === o.id"
+        [attr.aria-pressed]="ocasion === o.id"
+        (click)="elegirOcasion(o.id)"
+      >{{ o.etiqueta }}</button>
+    </div>
+  </fieldset>
+
+  <!-- 2. Qué necesita (obligatoria; manda sobre lo que sigue) -->
+  <fieldset class="campo">
+    <legend class="campo-titulo">
+      ¿Qué necesitas? <span class="pista">puedes marcar varias</span>
+    </legend>
+    <div class="chips">
+      <button
+        *ngFor="let n of necesidades"
+        type="button"
+        class="chip"
+        [class.activo]="estaMarcado(n.id)"
+        [attr.aria-pressed]="estaMarcado(n.id)"
+        (click)="alternar(n.id)"
+      >
+        <i class="pi pi-check chip-check" *ngIf="estaMarcado(n.id)"></i>
+        {{ n.etiqueta }}
+      </button>
+    </div>
+  </fieldset>
+
+  <!-- 3. Personas: solo si pidió lugar, mobiliario o comida -->
+  <div class="campo" *ngIf="preguntarPersonas">
+    <label class="campo-titulo" for="cot-personas">
+      ¿Para cuántas personas? <span class="pista">opcional</span>
+    </label>
+    <input
+      id="cot-personas"
+      type="number"
+      inputmode="numeric"
+      min="1"
+      max="2000"
+      class="entrada"
+      placeholder="Ej: 120"
+      [(ngModel)]="personas"
+      name="personas"
+    />
+  </div>
+
+  <!-- 4. Fecha -->
+  <div class="campo">
+    <label class="campo-titulo" for="cot-fecha">
+      ¿Para cuándo? <span class="pista">opcional</span>
+    </label>
+    <input
+      id="cot-fecha"
+      type="date"
+      class="entrada"
+      [(ngModel)]="fecha"
+      name="fecha"
+      [disabled]="sinFecha"
+    />
+    <label class="casilla">
+      <input type="checkbox" [(ngModel)]="sinFecha" name="sinFecha" />
+      <span>Aún no tengo la fecha</span>
+    </label>
+  </div>
+
+  <!-- Condicional: menú -->
+  <div class="campo" *ngIf="preguntarMenu">
+    <label class="campo-titulo" for="cot-menu">
+      ¿Algo especial del menú? <span class="pista">opcional</span>
+    </label>
+    <input
+      id="cot-menu"
+      type="text"
+      class="entrada"
+      placeholder="Ej: sin mariscos, una opción vegetariana"
+      [(ngModel)]="menu"
+      name="menu"
+    />
+  </div>
+
+  <!-- Condicional: colores o tema -->
+  <div class="campo" *ngIf="preguntarColores">
+    <label class="campo-titulo" for="cot-colores">
+      ¿Colores o tema? <span class="pista">opcional</span>
+    </label>
+    <input
+      id="cot-colores"
+      type="text"
+      class="entrada"
+      placeholder="Ej: blanco con dorado"
+      [(ngModel)]="colores"
+      name="colores"
+    />
+  </div>
+
+  <div class="acciones">
+    <button
+      type="submit"
+      class="boton-whatsapp"
+      [disabled]="!puedeEnviar"
+    >
+      <i class="pi pi-whatsapp"></i>
+      <span>Enviar por WhatsApp</span>
+    </button>
+
+    <p class="aviso" *ngIf="!puedeEnviar">
+      Marca la ocasión y al menos una cosa que necesites.
+    </p>
+
+    <!-- Salida para quien no quiere llenar nada -->
+    <button type="button" class="boton-texto" (click)="soloEscribir()">
+      Prefiero solo escribir
+    </button>
+  </div>
+</form>

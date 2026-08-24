@@ -22,6 +22,7 @@ Uso:
 Requiere Pillow:  pip3 install Pillow
 """
 
+import io
 import sys
 import pathlib
 from PIL import Image
@@ -40,6 +41,7 @@ EXCEPCIONES = {
 }
 
 COLORES = 256
+CALIDAD_JPEG = 82
 EXTENSIONES = {'.png', '.jpg', '.jpeg'}
 
 
@@ -59,29 +61,45 @@ def optimizar(ruta: pathlib.Path, simular: bool) -> tuple[int, int]:
                 Image.LANCZOS,
             )
 
-        paleta = im.quantize(
+        # El formato correcto depende de lo que sea la imagen:
+        #
+        #   Producto recortado (chocofrutas, flores, logos) -> PNG con paleta.
+        #   Usan transparencia de verdad y son dibujos con pocos colores, asi
+        #   que 256 colores les queda perfecto y pesa poquisimo.
+        #
+        #   Fotografia (eventos, jardines) -> JPEG.
+        #   No tienen transparencia y tienen miles de colores y degradados.
+        #   Forzarlas a 256 colores las hace pesar el triple y ademas se
+        #   marcan bandas en los cielos y las paredes.
+        transparente = im.getchannel('A').getextrema()[0] < 255
+
+    buf = io.BytesIO()
+
+    if transparente:
+        im.quantize(
             colors=COLORES,
             method=Image.FASTOCTREE,
             dither=Image.FLOYDSTEINBERG,
+        ).save(buf, 'PNG', optimize=True)
+    else:
+        im.convert('RGB').save(
+            buf, 'JPEG', quality=CALIDAD_JPEG, optimize=True, progressive=True,
         )
 
-    if simular:
-        # Se comprime en memoria para poder reportar el tamano resultante.
-        import io
-        buf = io.BytesIO()
-        paleta.save(buf, 'PNG', optimize=True)
-        return antes, buf.tell()
-
-    destino = ruta.with_suffix(ruta.suffix + '.tmp')
-    paleta.save(destino, 'PNG', optimize=True)
-    despues = destino.stat().st_size
+    # Se comprime EN MEMORIA y solo se escribe si de verdad quedo mas chica.
+    # Asi no quedan archivos .tmp regados si el proceso se interrumpe, y no
+    # hace falta borrar nada (util en entornos donde borrar esta restringido).
+    despues = buf.tell()
 
     if despues >= antes:
         # Ya estaba optimizada: no vale la pena reescribirla.
-        destino.unlink()
         return antes, antes
 
-    destino.replace(ruta)
+    if simular:
+        print(f'  {rel:58} {antes/1024:8.0f} KB -> {despues/1024:6.0f} KB')
+        return antes, despues
+
+    ruta.write_bytes(buf.getvalue())
     print(f'  {rel:58} {antes/1024:8.0f} KB -> {despues/1024:6.0f} KB'
           f'   ({w0}x{h0} -> {max(1, round(w0 * min(1, max_lado / max(w0, h0))))}px)')
     return antes, despues

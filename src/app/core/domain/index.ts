@@ -10,7 +10,11 @@ export * from './helado/helado.models';
 // Exporta los modelos de flor
 export * from './flor/flor.models';
 
+// Exporta los modelos de evento
+export * from './evento/evento.models';
+
 // Las exportaciones de los 'seeds' (datos)
 export * from './chocofruta/chocofruta.seed';
 export * from './helado/helados.seed';
 export * from './flor/flor.seed';
+export * from './evento/evento.seed';

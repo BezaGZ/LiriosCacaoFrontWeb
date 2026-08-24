@@ -10,7 +10,7 @@
 
   <div class="flex flex-wrap justify-center gap-3 px-2">
     <app-product-card
-      *ngFor="let product of products"
+      *ngFor="let product of products; trackBy: trackPorId"
       pAnimateOnScroll
       enterClass="animate-enter fade-in-10 slide-in-from-b-8 animate-duration-1000"
       [product]="product"
