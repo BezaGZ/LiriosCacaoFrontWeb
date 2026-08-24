@@ -21,19 +21,31 @@
   }
 }
 
-// Forzar colores para modo claro en radio buttons
+/*
+  Colores de los radio buttons.
+
+  Ojo: esto antes apuntaba a `.p-radiobutton-box.p-highlight`, pero PrimeNG 19
+  ya no usa `.p-highlight`: marca el estado en la raiz con
+  `.p-radiobutton.p-radiobutton-checked`. Por eso la regla no aplicaba nunca y
+  el circulo seleccionado se veia igual de vacio que el otro: lo unico que
+  distinguia la opcion activa era el borde de la tarjeta.
+*/
 :host ::ng-deep .p-radiobutton {
   .p-radiobutton-box {
-    border-color: #e8e8e8 !important;
+    border-color: #d0d0d0 !important;
     background: #ffffff !important;
+  }
 
-    &.p-highlight {
-      border-color: #452317 !important;
-      background: #452317 !important;
-    }
+  &.p-radiobutton-checked .p-radiobutton-box {
+    border-color: #452317 !important;
+    background: #452317 !important;
 
     .p-radiobutton-icon {
-      background-color: #ffffff !important;
+      background: #ffffff !important;
+      width: 0.625rem;
+      height: 0.625rem;
+      visibility: visible;
+      transform: none;
     }
   }
 }
