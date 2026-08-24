@@ -290,9 +290,38 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1rem;
+  padding: 3rem 1.5rem 4rem;
   text-align: center;
-  min-height: 300px;
+}
+
+// Boton para salir del carrito vacio hacia el catalogo.
+.empty-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.875rem 1.75rem;
+  border-radius: 2rem;
+  background: #452317;
+  color: #ffffff !important;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(69, 35, 23, 0.25);
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: #5a2f1e;
+    box-shadow: 0 5px 14px rgba(69, 35, 23, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  i {
+    font-size: 0.875rem;
+  }
 }
 
 .empty-icon {

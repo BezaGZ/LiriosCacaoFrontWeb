@@ -1,34 +1,31 @@
-// Horizontal Pill Categories
+// Categorias en pildoras
 .categories-container {
   background: #FFF8F1;
   padding: 0;
 }
 
+/*
+  Antes esto era `overflow-x: auto` con `flex-shrink: 0`: en un movil de 390px
+  la cuarta pildora quedaba cortada a media palabra ("Floristeri") y eso se lee
+  como un bug, no como "hay mas". Como solo hay 5 categorias, se envuelven en
+  dos filas y se ven todas.
+*/
 .categories-scroll {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  overflow-x: auto;
   padding: 0.5rem 0;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .category-pill {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
   border: 2px solid #e8e8e8;
   border-radius: 2rem;
-  padding: 0.625rem 1.25rem;
+  padding: 0.5rem 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(69, 35, 23, 0.04);
@@ -57,7 +54,7 @@
 }
 
 .category-name {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #452317 !important;
   white-space: nowrap;

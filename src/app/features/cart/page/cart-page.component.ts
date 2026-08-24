@@ -4,7 +4,7 @@ import {InputNumber} from "primeng/inputnumber";
 import {InputText} from "primeng/inputtext";
 import {RadioButton} from "primeng/radiobutton";
 import {FormsModule} from "@angular/forms";
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Title, Meta} from '@angular/platform-browser';
 import {CartService} from '@features/cart/cart.service';
 import {CartItem} from '@features/cart/cart.models';
@@ -22,7 +22,8 @@ import {abrirWhatsApp} from '@core/config/contacto.config';
     NgForOf,
     NgIf,
     RadioButton,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',

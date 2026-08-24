@@ -8,6 +8,25 @@ import {Router} from '@angular/router';
   selector: 'app-homecategories',
   imports: [CommonModule, CardModule, AnimateOnScrollModule],
   templateUrl: './homecategories.component.html',
+  /*
+    No se usa `grid grid-cols-2` de Tailwind aqui: PrimeFlex tambien define
+    una clase `.grid` (display:flex) y termina ganando, asi que la cuadricula
+    se rompia y las tarjetas quedaban una debajo de otra. Con una clase propia
+    del componente no hay colision.
+  */
+  styles: [`
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .cat-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+      }
+    }
+  `],
 })
 export class HomeCategoriesComponent {
   constructor(private router: Router) {}
