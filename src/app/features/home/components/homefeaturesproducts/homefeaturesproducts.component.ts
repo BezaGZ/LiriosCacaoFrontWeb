@@ -69,11 +69,15 @@ export class HomefeaturesproductsComponent {
    */
   handleCustomize(product: ProductCardVM): void {
     if (!product.customizable) return;
-    const { fruta, chocolate, toppings } = product.data.chocofruta;
+    // Si la tarjeta llega sin su seleccion, mejor no hacer nada que
+    // reventar con "cannot read property of undefined".
+    const cf = product.data.chocofruta;
+    if (!cf) return;
+    const { fruta, chocolate, toppings } = cf;
 
     this.selectedFrutaSlug = fruta.slug;
     this.selectedChocolateSlug = chocolate.colorSlug;
-    this.selectedToppingsIds = toppings.map((t: any) => t.id);
+    this.selectedToppingsIds = toppings.map(t => t.id);
     this.dobleChocolate = false; // Siempre se reinicia al abrir
 
     this.dialogVisible = true;
@@ -90,7 +94,11 @@ export class HomefeaturesproductsComponent {
   }
 
   handleAddToCart(product: ProductCardVM): void {
-    const { fruta, chocolate, toppings } = product.data.chocofruta;
+    // Si la tarjeta llega sin su seleccion, mejor no hacer nada que
+    // reventar con "cannot read property of undefined".
+    const cf = product.data.chocofruta;
+    if (!cf) return;
+    const { fruta, chocolate, toppings } = cf;
     const topPrincipal = toppings[0];
     const paths = buildLayeredImagePaths(fruta.nombre, chocolate.nombre, topPrincipal?.nombre);
 

@@ -18,7 +18,6 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/LiriosCacaoFrontend",
-
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -100,7 +99,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           }
         },
         "prerender": {
@@ -165,4 +165,3 @@
     "analytics": "38e77383-90a3-4a13-b679-8b821eedaf16"
   }
 }
-

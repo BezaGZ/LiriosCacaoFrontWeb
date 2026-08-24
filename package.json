@@ -6,11 +6,12 @@
     "start": "ng serve",
     "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false",
     "dev:ssr": "ng run LiriosCacaoFrontend:serve-ssr",
     "serve:ssr": "node dist/LiriosCacaoFrontend/server/server.mjs",
     "build:ssr": "ng build && ng run LiriosCacaoFrontend:server",
-    "prerender": "ng run LiriosCacaoFrontend:prerender"
+    "prerender": "ng run LiriosCacaoFrontend:prerender",
+    "test:watch": "ng test"
   },
   "private": true,
   "dependencies": {

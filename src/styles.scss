@@ -8,3 +8,33 @@
 :root {
   color-scheme: light;
 }
+
+// --- Aviso de "producto agregado" ---
+//
+// Va en bottom-center. En top-center el recuadro caia sobre la segunda fila de
+// tarjetas y tapaba el boton de agregar: quien queria un segundo producto
+// tenia que cerrar el aviso primero.
+//
+// pointer-events deja que los clics atraviesen el CONTENEDOR (que ocupa una
+// franja completa de la pantalla aunque el aviso sea chico); solo el recuadro
+// en si sigue siendo clicable, para que sus botones funcionen.
+.toast-sin-bloqueo {
+  pointer-events: none;
+
+  .p-toast-message {
+    pointer-events: auto;
+  }
+
+  // En movil hay barra de navegacion fija abajo (80px); sin esto el aviso
+  // queda encima de ella.
+  //
+  // Va con !important porque PrimeNG fija bottom: 20px en su propia regla de
+  // .p-toast y le gana a esta clase. Es de los pocos casos donde se justifica:
+  // el valor correcto depende de un elemento nuestro (la barra inferior) que
+  // la libreria no conoce.
+  bottom: calc(88px + env(safe-area-inset-bottom)) !important;
+
+  @media (min-width: 768px) {
+    bottom: 1.5rem !important;
+  }
+}

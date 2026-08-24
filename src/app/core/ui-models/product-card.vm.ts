@@ -1,3 +1,5 @@
+import { ProductData } from './product-data';
+
 export type ProductCategory = 'chocofruta' | 'helado' | 'flor' | 'evento';
 
 export interface ProductCardVM {
@@ -6,7 +8,7 @@ export interface ProductCardVM {
   title: string;
   price: number;
   customizable?: boolean;
-  data?: any;
+  data: ProductData;
   imageUrls: {
     base: string;
     topping?: string;

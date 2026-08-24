@@ -130,18 +130,21 @@ export class ProductsComponent {
     this.dobleChocolate = false;
     this.extraChocolateHelado = false;
 
-    if (product.category === 'chocofruta') {
-      const { fruta, chocolate, toppings } = product.data.chocofruta;
-      this.selectedFrutaSlug = fruta.slug;
-      this.selectedChocolateSlug = chocolate.colorSlug;
-      this.selectedToppingsIds = toppings.map((t: any) => t.id);
+    // El guard no es burocracia: si algun dia una tarjeta llega sin su
+    // seleccion, antes se caia con "cannot read property of undefined" al
+    // abrir el dialogo. Ahora simplemente no lo abre.
+    const cf = product.data.chocofruta;
+    if (product.category === 'chocofruta' && cf) {
+      this.selectedFrutaSlug = cf.fruta.slug;
+      this.selectedChocolateSlug = cf.chocolate.colorSlug;
+      this.selectedToppingsIds = cf.toppings.map(t => t.id);
     }
 
-    if (product.category === 'helado') {
-      const { sabor, chocolate, toppings } = product.data.helado;
-      this.selectedSaborId = sabor.id;
-      this.selectedChocolateSlug = chocolate?.colorSlug;
-      this.selectedToppingsIds = toppings.map((t: any) => t.id);
+    const helado = product.data.helado;
+    if (product.category === 'helado' && helado) {
+      this.selectedSaborId = helado.sabor.id;
+      this.selectedChocolateSlug = helado.chocolate?.colorSlug;
+      this.selectedToppingsIds = helado.toppings.map(t => t.id);
     }
 
     this.dialogVisible = true;

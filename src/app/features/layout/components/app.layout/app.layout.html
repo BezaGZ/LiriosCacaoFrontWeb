@@ -13,8 +13,18 @@
   <!-- Toast general -->
   <p-toast></p-toast>
 
-  <!-- Toast personalizado para confirmación de carrito -->
-  <p-toast key="cart-confirm" position="top-center" [style]="{marginTop: '80px'}">
+  <!--
+    Toast de confirmación del carrito.
+
+    Va abajo y no arriba: en top-center el recuadro caía justo encima de la
+    segunda fila de tarjetas y tapaba el botón de agregar. Ningún truco de CSS
+    arregla que una caja visible tape lo que hay debajo — había que moverla.
+
+    Y la clase 'toast-sin-bloqueo' hace dos cosas: deja que los clics
+    atraviesen el contenedor (que ocupa una franja completa aunque el aviso sea
+    chico) y lo levanta por encima de la barra inferior del móvil.
+  -->
+  <p-toast key="cart-confirm" position="bottom-center" styleClass="toast-sin-bloqueo">
     <ng-template let-message pTemplate="message">
       <div class="flex flex-col gap-3 p-4" style="min-width: 300px;">
         <div class="flex items-start gap-3">

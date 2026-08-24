@@ -1,30 +1,30 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
 
-
+/*
+ * Esta prueba venia generada por el CLI y comprobaba `app.title`, una
+ * propiedad que este componente nunca tuvo: fallaba al compilar y bloqueaba
+ * TODA la suite. Se reemplaza por algo que si dice la verdad.
+ *
+ * AppComponent inserta los datos estructurados y mantiene el canonical, asi
+ * que lo que importa aqui es que arranque sin reventar.
+ */
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('se crea', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it(`should have the 'LiriosCacaoFrontend' title`, () => {
+  it('arranca sin lanzar errores', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('LiriosCacaoFrontend');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, LiriosCacaoFrontend');
+    expect(() => fixture.detectChanges()).not.toThrow();
   });
 });

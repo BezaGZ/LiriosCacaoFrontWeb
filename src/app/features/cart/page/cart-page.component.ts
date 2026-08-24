@@ -103,7 +103,7 @@ export class CartPageComponent implements OnInit {
         lines.push(`   Fruta: ${cf.fruta.nombre}`);
         lines.push(`   Chocolate: ${cf.chocolate.nombre}`);
         if (cf.toppings && cf.toppings.length > 0) {
-          const toppingsText = cf.toppings.map((t: any) => {
+          const toppingsText = cf.toppings.map(t => {
             // Si es líneas de chocolate y tiene sabor, mostrarlo
             if (t.id === 'top_lineaschocolate' && cf.lineasChocolateSlug) {
               const chocLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === cf.lineasChocolateSlug);
@@ -123,7 +123,7 @@ export class CartPageComponent implements OnInit {
           lines.push(`   Chocolate: ${h.chocolate.nombre}`);
         }
         if (h.toppings && h.toppings.length > 0) {
-          const toppingsText = h.toppings.map((t: any) => {
+          const toppingsText = h.toppings.map(t => {
             if (t.id === 'top_lineaschocolate' && h.lineasChocolateSlug) {
               const chocLineas = CHOCOFRUTA_SEED.chocolates.find(c => c.colorSlug === h.lineasChocolateSlug);
               return chocLineas ? `Líneas de chocolate ${chocLineas.nombre}` : t.nombre;

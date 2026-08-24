@@ -1,4 +1,5 @@
 import { ProductCategory } from '@core/ui-models/product-card.vm';
+import { ProductData } from '@core/ui-models/product-data';
 
 // El tipo de item del carrito puede ser CUALQUIER categoría de producto.
 export type CartItemKind = ProductCategory;
@@ -13,8 +14,7 @@ export interface CartItem {
     base: string;
     topping?: string;
   };
-  // 'data' es genérico para guardar la selección de cualquier producto.
-  data: any;
+  data: ProductData;
   /**
    * Huella de la configuración exacta del item.
    * Dos items solo se fusionan si su huella coincide, de modo que
@@ -27,10 +27,10 @@ export interface CartItem {
 /** Datos que necesita el carrito para crear un item nuevo. */
 export type NewCartItem = Omit<CartItem, 'id' | 'configKey'>;
 
-function idsOrdenados(lista: any[] | undefined): string {
+function idsOrdenados(lista: { id: string }[] | undefined): string {
   if (!lista?.length) return '';
   return lista
-    .map(x => String(x?.id ?? ''))
+    .map(x => x.id)
     .sort()
     .join('+');
 }
