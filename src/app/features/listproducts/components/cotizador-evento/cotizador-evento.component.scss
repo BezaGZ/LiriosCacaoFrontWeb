@@ -146,24 +146,35 @@
 }
 
 .boton-texto {
-  margin-top: 0.9rem;
-  border: 0;
-  background: none;
+  // Boton de contorno, no enlace subrayado: un enlace de texto casi nadie lo
+  // ve. Pero va con contorno y no relleno a proposito, para que se lea como
+  // la opcion secundaria: si compitiera con el verde, la gente se saltaria el
+  // formulario y llegarian consultas sin fecha ni cantidad de personas.
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.85rem;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid #d9c8ba;
+  border-radius: 0.75rem;
+  background: #fff;
   color: #6b5546;
-  font-size: 0.875rem;
-  text-decoration: underline;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
   cursor: pointer;
-  // Con nombres largos ("Mobiliario y decoración") el texto se parte en dos
-  // lineas; asi queda centrado y con aire en vez de pegado al borde.
-  max-width: 22rem;
-  line-height: 1.45;
-  padding: 0.25rem 0.5rem;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
 
-  &:hover { color: #452317; }
+  &:hover {
+    border-color: #452317;
+    background: #fdf8f4;
+    color: #452317;
+  }
 
   &:focus-visible {
     outline: 2px solid #452317;
     outline-offset: 2px;
-    border-radius: 0.25rem;
   }
 }
+
