@@ -38,7 +38,7 @@ export class AppTopbar implements OnDestroy {
   readonly categorias: CategoriaNav[] = [
     { id: 'chocofruta', nombre: 'Chocofrutas', icono: 'chocofruta' },
     { id: 'helado',     nombre: 'Helados',     icono: 'helados' },
-    { id: 'flor',       nombre: 'Floristería', icono: 'floristeria' },
+    { id: 'flor',       nombre: 'Floristería', icono: 'floristeria', ruta: '/floristeria' },
     { id: 'evento',     nombre: 'Eventos',     icono: 'eventos', ruta: '/eventos' },
   ];
 

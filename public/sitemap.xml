@@ -59,6 +59,19 @@
     </image:image>
   </url>
 
+  <!-- Floristeria: pagina propia con entrada por ocasion -->
+  <url>
+    <loc>https://www.liriosycacao.com/floristeria</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.liriosycacao.com/assets/img/flores/bouquetgirasolfloral.PNG</image:loc>
+      <image:title>Floristería en Chiquimula: ramos de rosas, girasoles y fresas con chocolate</image:title>
+      <image:caption>Arreglos florales con tarjeta de dedicatoria, entrega en Chiquimula</image:caption>
+    </image:image>
+  </url>
+
   <!-- Eventos: pagina propia, ya no es un filtro del catalogo -->
   <url>
     <loc>https://www.liriosycacao.com/eventos</loc>

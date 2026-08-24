@@ -62,9 +62,10 @@ export class HomeCategoriesComponent {
     {
       icon: 'pi-sparkles',
       title: 'Floristería',
-      desc: 'Arreglos florales para toda ocasión',
+      desc: 'Ramos, cajitas y fresas con chocolate',
       color: '#C71585',
-      slug: 'flor'
+      slug: 'flor',
+      ruta: '/floristeria'
     },
     {
       icon: 'pi-star-fill',
