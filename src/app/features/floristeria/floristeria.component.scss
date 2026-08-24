@@ -19,12 +19,12 @@ $crema-alt:  #FFF3E6;
   grid-template-columns: 1fr;
   gap: 1.25rem;
   align-items: center;
-  padding: 2rem 1.5rem 1.5rem;
+  padding: 1.5rem 1.5rem 1rem;
   max-width: 72rem;
   margin: 0 auto;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1.15fr 1fr;
+    grid-template-columns: 1.1fr 1fr;
     gap: 2.5rem;
     padding: 3rem 3rem 2rem;
   }
@@ -41,10 +41,10 @@ $crema-alt:  #FFF3E6;
 
 .hero-titulo {
   color: $cafe !important;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  line-height: 1.18;
-  margin: 0 0 0.75rem;
+  line-height: 1.2;
+  margin: 0 0 0.5rem;
   // Sin max-width el titular se estira demasiado en escritorio y se lee peor.
   max-width: 18ch;
 
@@ -56,8 +56,8 @@ $crema-alt:  #FFF3E6;
 .hero-bajada {
   color: $cafe-suave !important;
   font-size: 0.9375rem;
-  line-height: 1.55;
-  margin: 0 0 1.25rem;
+  line-height: 1.5;
+  margin: 0 0 1rem;
   max-width: 34rem;
 
   @media (min-width: 768px) {
@@ -86,14 +86,23 @@ $crema-alt:  #FFF3E6;
   }
 }
 
+/*
+  En MOVIL no hay foto de portada, y es a proposito.
+
+  Con ella el primer producto empezaba en y=748 sobre una pantalla de 844:
+  habia que hacer scroll de casi una pantalla entera para ver una sola flor.
+  Y la foto era un recorte de los mismos que salen en la rejilla 300px mas
+  abajo, o sea que costaba media pantalla para ensenar dos veces lo mismo.
+
+  En movil la rejilla de productos ES la portada. La foto vuelve desde tablet,
+  donde el hero cabe al lado del texto sin empujar nada.
+*/
 .hero-foto-caja {
-  // En movil la foto va debajo y contenida, para no empujar el catalogo
-  // fuera de la pantalla.
-  height: 13rem;
-  order: 2;
+  display: none;
 
   @media (min-width: 768px) {
-    height: 20rem;
+    display: block;
+    height: 22rem;
   }
 }
 
@@ -108,7 +117,7 @@ $crema-alt:  #FFF3E6;
 /* ===================== OCASIONES ===================== */
 
 .ocasiones {
-  padding: 0.5rem 1.5rem 1.5rem;
+  padding: 0.25rem 1.5rem 1.25rem;
   max-width: 72rem;
   margin: 0 auto;
 
@@ -118,10 +127,10 @@ $crema-alt:  #FFF3E6;
 }
 
 .ocasiones-titulo {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 800;
   color: $cafe !important;
-  margin: 0 0 0.875rem;
+  margin: 0 0 0.75rem;
 }
 
 /*
@@ -184,10 +193,20 @@ $crema-alt:  #FFF3E6;
   margin-top: 1px;
 }
 
+// Solo aparece cuando hay un filtro puesto: un chip "Ver todo" permanente
+// gastaba una fila entera de las tres que ocupaban los chips en movil.
+.chip-quitar {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.375rem;
+  background: $crema-alt;
+  border-color: transparent;
+}
+
 /* ===================== SECCIONES ===================== */
 
 .seccion {
-  padding: 2rem 1.5rem;
+  padding: 1.25rem 1.5rem 2rem;
   max-width: 72rem;
   margin: 0 auto;
 

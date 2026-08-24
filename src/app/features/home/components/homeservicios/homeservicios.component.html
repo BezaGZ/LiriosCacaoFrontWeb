@@ -1,0 +1,27 @@
+<section class="servicios">
+  <div class="servicios-cabecera">
+    <h2 class="servicios-titulo">De un detalle a la fiesta completa</h2>
+    <p class="servicios-bajada">
+      Nos acoplamos a lo que necesites, desde un ramo hasta el evento entero.
+    </p>
+  </div>
+
+  <div class="servicios-rejilla">
+    <a
+      *ngFor="let s of servicios"
+      [routerLink]="s.ruta"
+      class="servicio"
+    >
+      <div class="servicio-foto-caja">
+        <img [src]="s.imagenUrl" [alt]="s.alt" class="servicio-foto" loading="lazy" />
+      </div>
+
+      <div class="servicio-cuerpo">
+        <h3 class="servicio-titulo">{{ s.titulo }}</h3>
+        <p class="servicio-desc">{{ s.descripcion }}</p>
+        <p class="servicio-dato">{{ s.dato }}</p>
+        <span class="servicio-enlace">{{ s.enlace }} →</span>
+      </div>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,144 @@
+$cafe:       #452317;
+$cafe-suave: #704727;
+$crema:      #FFF8F1;
+$crema-alt:  #FFF3E6;
+
+.servicios {
+  background: $crema;
+  padding: 3rem 1.5rem;
+
+  @media (min-width: 768px) {
+    padding: 4rem 3rem;
+  }
+}
+
+.servicios-cabecera {
+  max-width: 72rem;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.servicios-titulo {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: $cafe !important;
+  margin: 0 0 0.5rem;
+  line-height: 1.2;
+
+  @media (min-width: 768px) {
+    font-size: 2.25rem;
+  }
+}
+
+.servicios-bajada {
+  font-size: 0.9375rem;
+  color: $cafe-suave !important;
+  margin: 0 auto;
+  max-width: 34rem;
+
+  @media (min-width: 768px) {
+    font-size: 1.0625rem;
+  }
+}
+
+/*
+  Una columna en movil, no dos: estas tarjetas llevan foto de ambiente y tres
+  lineas de texto. Partidas a la mitad de 390px no se lee ni la foto ni el
+  texto. Aqui el objetivo es que se entienda, no que quepan.
+*/
+.servicios-rejilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  max-width: 72rem;
+  margin: 0 auto;
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+}
+
+.servicio {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(69, 35, 23, 0.07);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(69, 35, 23, 0.14);
+    transform: translateY(-3px);
+
+    .servicio-enlace { color: $cafe !important; }
+  }
+
+  &:active { transform: scale(0.995); }
+}
+
+.servicio-foto-caja {
+  // Relacion fija: las fotos son de origen distinto (un recorte de producto y
+  // dos fotos reales de eventos) y sin esto las tres tarjetas quedarian de
+  // alturas diferentes.
+  aspect-ratio: 4 / 3;
+  background: $crema-alt;
+  overflow: hidden;
+}
+
+.servicio-foto {
+  width: 100%;
+  height: 100%;
+  // cover aqui si: son fotos de ambiente que deben llenar el cuadro. El
+  // recorte de flores tambien funciona porque al recortarlo se va el podio y
+  // queda el ramo.
+  object-fit: cover;
+  display: block;
+}
+
+.servicio-cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem 1.25rem 1.375rem;
+}
+
+.servicio-titulo {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: $cafe !important;
+  margin: 0 0 0.5rem;
+}
+
+.servicio-desc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: $cafe-suave !important;
+  margin: 0 0 0.875rem;
+  // flex: 1 empuja el dato y el enlace al fondo, para que las tres tarjetas
+  // los tengan alineados aunque las descripciones midan distinto.
+  flex: 1;
+}
+
+// El dato concreto es lo que convence: "hasta 150 personas" pesa mas que
+// cualquier adjetivo.
+.servicio-dato {
+  display: inline-block;
+  align-self: flex-start;
+  background: $crema-alt;
+  color: $cafe !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3125rem 0.75rem;
+  border-radius: 1rem;
+  margin: 0 0 0.875rem;
+}
+
+.servicio-enlace {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: $cafe-suave !important;
+  transition: color 0.2s ease;
+}

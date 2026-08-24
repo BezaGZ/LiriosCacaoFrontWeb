@@ -175,11 +175,14 @@ const EVENTOS: Evento[] = [
     modalidad: 'alquiler',
     descripcion: 'Jardín para eventos de 100 a 150 personas, con área techada y grama. El alquiler ya trae mobiliario, cocina, baño y refrigeradores para las bebidas, así que no hay que conseguir nada por aparte.',
     capacidad: 150,
-    imagenUrl: 'assets/img/eventos/jardin-1/1.jpg',
+    // De portada va la 4 (grama, luces, cielo), no la 1: el patio empedrado
+    // vacio ensena el espacio pero no invita. La 1 pasa a la galeria, donde
+    // sigue siendo util para quien quiere ver el lugar completo.
+    imagenUrl: 'assets/img/eventos/jardin-1/4.jpg',
     galeria: [
       'assets/img/eventos/jardin-1/2.jpg',
       'assets/img/eventos/jardin-1/3.jpg',
-      'assets/img/eventos/jardin-1/4.jpg',
+      'assets/img/eventos/jardin-1/1.jpg',
     ],
     incluye: [
       // La capacidad ya sale en su propia seccion del dialogo, no se repite.

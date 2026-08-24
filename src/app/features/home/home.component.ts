@@ -5,12 +5,14 @@ import {
   HomefeaturesproductsComponent
 } from '@features/home/components/homefeaturesproducts/homefeaturesproducts.component';
 import {HomecontactComponent} from '@features/home/components/homecontact/homecontact.component';
+import {HomeserviciosComponent} from '@features/home/components/homeservicios/homeservicios.component';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   imports: [
     HomewelcomeComponent,
+    HomeserviciosComponent,
     HomeCategoriesComponent,
     HomefeaturesproductsComponent,
     HomecontactComponent

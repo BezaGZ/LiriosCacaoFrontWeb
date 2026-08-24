@@ -48,13 +48,6 @@
 
     <div class="ocasiones-chips">
       <button
-        type="button"
-        class="chip"
-        [class.activo]="!ocasionActiva"
-        (click)="quitarFiltro()"
-      >Ver todo</button>
-
-      <button
         *ngFor="let o of ocasiones"
         type="button"
         class="chip"
@@ -66,6 +59,15 @@
         <!-- La fecha es el gancho: recuerda que el dia se acerca -->
         <span class="chip-fecha" *ngIf="o.fecha">{{ o.fecha }}</span>
       </button>
+
+      <!-- Salida del filtro. Los chips ya se apagan al volver a tocarlos,
+           asi que esto solo hace falta cuando hay uno puesto. -->
+      <button
+        *ngIf="ocasionActiva"
+        type="button"
+        class="chip chip-quitar"
+        (click)="quitarFiltro()"
+      >Ver todo ✕</button>
     </div>
   </section>
 
