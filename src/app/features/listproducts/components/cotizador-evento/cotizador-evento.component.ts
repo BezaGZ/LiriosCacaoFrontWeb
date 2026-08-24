@@ -100,10 +100,27 @@ export class CotizadorEventoComponent {
     abrirWhatsApp(this.construirMensaje());
   }
 
+  /**
+   * Texto del enlace de salida.
+   *
+   * Nombra el paquete porque el mensaje que se manda TAMBIEN lo nombra: decir
+   * solo "prefiero escribir" no dejaba claro que la consulta ya iba dirigida a
+   * este paquete.
+   *
+   * Empieza con "Solo quiero" a proposito. El boton verde arranca gris y
+   * deshabilitado, asi que si este enlace sonara a accion principal la gente
+   * se saltaria el formulario, que es justo lo que se quiere evitar.
+   */
+  get textoSalida(): string {
+    return this.paquete
+      ? `Solo quiero preguntar por ${this.paquete}`
+      : 'Solo quiero escribir';
+  }
+
   /** Salida para quien no quiere llenar nada. */
   soloEscribir(): void {
     const base = this.paquete
-      ? `¡Hola! Me interesa *${this.paquete}*. Quisiera más información.`
+      ? `¡Hola! Quiero cotizar *${this.paquete}*. ¿Me pueden dar más información?`
       : '¡Hola! Quiero cotizar un evento.';
     abrirWhatsApp(base);
   }

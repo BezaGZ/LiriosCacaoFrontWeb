@@ -153,6 +153,17 @@
   font-size: 0.875rem;
   text-decoration: underline;
   cursor: pointer;
+  // Con nombres largos ("Mobiliario y decoración") el texto se parte en dos
+  // lineas; asi queda centrado y con aire en vez de pegado al borde.
+  max-width: 22rem;
+  line-height: 1.45;
+  padding: 0.25rem 0.5rem;
 
   &:hover { color: #452317; }
+
+  &:focus-visible {
+    outline: 2px solid #452317;
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
 }
