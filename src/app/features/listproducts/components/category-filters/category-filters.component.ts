@@ -19,7 +19,10 @@ export class CategoryFiltersComponent {
     { id: 'chocofruta', name: 'Chocofrutas' },
     { id: 'helado', name: 'Helados' },
     { id: 'flor', name: 'Floristería' },
-    { id: 'evento', name: 'Eventos' },
+    // Eventos ya no vive aqui: tiene su propia pagina en /eventos. Dejarlo
+    // tambien como chip era una segunda puerta a lo mismo, y la peor de las
+    // dos: mostraba una quinceanera completa con la misma tarjeta que una
+    // chocofruta de Q7.
   ];
 
   selectCategory(categoryId: string) {

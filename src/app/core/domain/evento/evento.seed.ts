@@ -34,6 +34,7 @@ const EVENTOS: Evento[] = [
     id: 'evt_cumpleanos',
     nombre: 'Cumpleaños temáticos',
     slug: 'cumpleanos',
+    tipo: 'celebracion',
     descripcion: 'Montamos el cumpleaños completo con la temática que elijas: desde Minions o Mario Bros para los niños, hasta montajes elegantes para adultos. Arco de globos, mampara, números iluminados y mobiliario vestido.',
     precioDesde: 0,          // PENDIENTE: precio de partida
     capacidad: 0,            // PENDIENTE: hasta cuántas personas
@@ -73,6 +74,7 @@ const EVENTOS: Evento[] = [
     id: 'evt_quinceanos',
     nombre: '15 años',
     slug: 'quinceanos',
+    tipo: 'celebracion',
     descripcion: 'Arco iluminado con globos en tus colores, letras de 15 gigantes encendidas y montaje completo. Lo armamos en jardín o en salón, y se ve espectacular de noche.',
     precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
@@ -101,6 +103,7 @@ const EVENTOS: Evento[] = [
     id: 'evt_pedida_mano',
     nombre: 'Pedida de mano',
     slug: 'pedida-de-mano',
+    tipo: 'celebracion',
     descripcion: 'Montaje íntimo para pedir matrimonio: camino de velas, alfombra, arco floral iluminado y letrero de neón. Preparamos todo para que solo tengas que llegar con ella.',
     precioDesde: 0,          // PENDIENTE
     imagenUrl: 'assets/img/eventos/pedida-de-mano/1.jpg',
@@ -128,6 +131,7 @@ const EVENTOS: Evento[] = [
     id: 'evt_boda',
     nombre: 'Bodas',
     slug: 'boda',
+    tipo: 'celebracion',
     descripcion: 'Ambientación completa para la recepción: drapeado, alfombra, mobiliario vestido y señalización. Nos acoplamos al estilo y los colores de la boda.',
     precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
@@ -156,6 +160,7 @@ const EVENTOS: Evento[] = [
     id: 'evt_jardin_1',
     nombre: 'Jardín 1',
     slug: 'jardin-1',
+    tipo: 'lugar',
     descripcion: 'Jardín para eventos de 100 a 150 personas, con área techada y grama. Incluye mobiliario, cocina, baño y refrigeradores para las bebidas, así que no hay que conseguir nada por aparte.',
     precioDesde: 0,          // PENDIENTE: precio de alquiler
     capacidad: 150,
@@ -183,6 +188,8 @@ const EVENTOS: Evento[] = [
     id: 'evt_graduacion',
     nombre: 'PENDIENTE: Graduaciones',
     slug: 'graduacion',
+    tipo: 'celebracion',
+    borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: describir el montaje para promociones y grupos. Faltan fotos en assets/img/eventos/graduacion/',
     precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
@@ -199,6 +206,8 @@ const EVENTOS: Evento[] = [
     id: 'evt_jardin_2',
     nombre: 'PENDIENTE: Jardín 2',
     slug: 'jardin-2',
+    tipo: 'lugar',
+    borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: describir el segundo jardín y en qué se diferencia del primero. Faltan fotos en assets/img/eventos/jardin-2/',
     precioDesde: 0,          // PENDIENTE
     capacidad: 0,            // PENDIENTE
@@ -215,6 +224,8 @@ const EVENTOS: Evento[] = [
     id: 'evt_mobiliario',
     nombre: 'PENDIENTE: Mobiliario y decoración',
     slug: 'mobiliario',
+    tipo: 'servicio',
+    borrador: true,     // faltan fotos y datos
     descripcion: 'PENDIENTE: para quien ya tiene el lugar. Mencionar mamparas, letreros y letras 3D. Faltan fotos en assets/img/eventos/mobiliario/',
     precioDesde: 0,          // PENDIENTE
     imagenUrl: 'assets/img/eventos/mobiliario/1.jpg',
@@ -230,3 +241,16 @@ const EVENTOS: Evento[] = [
 export const EVENTOS_SEED: CatalogoEventos = {
   eventos: EVENTOS,
 };
+
+/**
+ * Los paquetes que si se ensenan al publico.
+ *
+ * Todo lo que este en borrador (sin fotos ni datos reales) se queda fuera:
+ * es preferible una pagina corta y completa que una larga con huecos.
+ */
+export const EVENTOS_PUBLICADOS: Evento[] = EVENTOS.filter(e => !e.borrador);
+
+/** Los publicados de un tipo, en el orden del seed. */
+export function eventosPorTipo(tipo: Evento['tipo']): Evento[] {
+  return EVENTOS_PUBLICADOS.filter(e => e.tipo === tipo);
+}

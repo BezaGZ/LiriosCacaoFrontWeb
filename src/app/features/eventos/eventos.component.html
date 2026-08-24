@@ -1,0 +1,172 @@
+<div class="pagina-eventos">
+
+  <!-- ================= 1. HERO ================= -->
+  <!--
+    Lo unico que tiene que hacer esta seccion es decir, en una linea, lo que
+    el sitio no decia en ningun lado: que aqui se organiza el evento completo.
+  -->
+  <header class="hero">
+    <img *ngIf="fotoHero" [src]="fotoHero" alt="" aria-hidden="true" class="hero-foto" />
+    <div class="hero-velo"></div>
+
+    <div class="hero-texto">
+      <p class="hero-kicker">Lirios y Cacao · Chiquimula</p>
+      <h1 class="hero-titulo">Organizamos tu evento completo</h1>
+      <p class="hero-bajada">
+        Jardín, mobiliario, decoración, comida y sonido. Todo en un solo lugar,
+        sin que tengas que conseguir nada por aparte.
+      </p>
+
+      <button type="button" class="boton-principal" (click)="abrirCuestionario()">
+        Cotizar mi evento
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= 2. LOS JARDINES ================= -->
+  <!--
+    Va antes que las celebraciones a proposito: tener lugar propio es lo que
+    la competencia no tiene. Es el argumento mas fuerte de la pagina.
+  -->
+  <section class="seccion" *ngIf="jardines.length">
+    <h2 class="seccion-titulo">Nuestros jardines</h2>
+    <p class="seccion-bajada">
+      Lugar propio para tu celebración, con todo lo necesario ya instalado.
+    </p>
+
+    <article
+      *ngFor="let jardin of jardines; trackBy: trackPorId"
+      class="jardin"
+      (click)="abrirPaquete(jardin)"
+      (keydown.enter)="abrirPaquete(jardin)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="'Ver ' + jardin.nombre"
+    >
+      <div class="jardin-foto-caja">
+        <img [src]="jardin.imagenUrl" [alt]="jardin.nombre" class="jardin-foto" />
+        <span class="jardin-fotos-badge">{{ totalFotos(jardin) }} fotos</span>
+      </div>
+
+      <div class="jardin-cuerpo">
+        <h3 class="jardin-nombre">{{ jardin.nombre }}</h3>
+
+        <p class="jardin-capacidad" *ngIf="jardin.capacidad">
+          Hasta {{ jardin.capacidad }} personas
+        </p>
+
+        <p class="jardin-desc">{{ jardin.descripcion }}</p>
+
+        <ul class="jardin-incluye" *ngIf="jardin.incluye.length">
+          <li *ngFor="let cosa of jardin.incluye">{{ cosa }}</li>
+        </ul>
+
+        <span class="jardin-cta">Ver fotos y cotizar</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ================= 3. QUE CUBRIMOS ================= -->
+  <!--
+    Para quien ya tiene el lugar resuelto y solo necesita una parte. Es la
+    frase de posicionamiento del negocio, no la lista de un paquete.
+  -->
+  <section class="seccion franja">
+    <h2 class="seccion-titulo">Todo en un solo lugar</h2>
+    <p class="seccion-bajada">
+      Nos acoplamos a lo que necesites: el evento entero o solo una parte.
+    </p>
+
+    <ul class="cubrimos">
+      <li *ngFor="let cosa of queCubrimos" class="cubrimos-item">{{ cosa }}</li>
+    </ul>
+  </section>
+
+  <!-- ================= 4. CELEBRACIONES ================= -->
+  <!--
+    Fotos reales de eventos ya hechos. Aqui la foto vende sola, asi que la
+    tarjeta es casi toda imagen y el texto es minimo.
+  -->
+  <section class="seccion" *ngIf="celebraciones.length">
+    <h2 class="seccion-titulo">Lo que organizamos</h2>
+    <p class="seccion-bajada">
+      Fotos de celebraciones que ya montamos. Tocá una para ver más.
+    </p>
+
+    <div class="celebraciones">
+      <article
+        *ngFor="let evento of celebraciones; trackBy: trackPorId"
+        class="celebracion"
+        (click)="abrirPaquete(evento)"
+        (keydown.enter)="abrirPaquete(evento)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Ver ' + evento.nombre"
+      >
+        <div class="celebracion-foto-caja">
+          <img [src]="evento.imagenUrl" [alt]="evento.nombre" class="celebracion-foto" />
+          <span class="celebracion-fotos-badge">{{ totalFotos(evento) }} fotos</span>
+        </div>
+        <h3 class="celebracion-nombre">{{ evento.nombre }}</h3>
+      </article>
+    </div>
+  </section>
+
+  <!-- Servicios sueltos (mobiliario, decoracion) cuando tengan contenido -->
+  <section class="seccion" *ngIf="servicios.length">
+    <h2 class="seccion-titulo">Servicios por separado</h2>
+    <div class="celebraciones">
+      <article
+        *ngFor="let servicio of servicios; trackBy: trackPorId"
+        class="celebracion"
+        (click)="abrirPaquete(servicio)"
+        (keydown.enter)="abrirPaquete(servicio)"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Ver ' + servicio.nombre"
+      >
+        <div class="celebracion-foto-caja">
+          <img [src]="servicio.imagenUrl" [alt]="servicio.nombre" class="celebracion-foto" />
+        </div>
+        <h3 class="celebracion-nombre">{{ servicio.nombre }}</h3>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 5. CIERRE ================= -->
+  <section class="cierre">
+    <h2 class="cierre-titulo">¿Contamos tu fecha?</h2>
+    <p class="cierre-texto">
+      Respondé cuatro preguntas y te pasamos la cotización por WhatsApp.
+    </p>
+    <button type="button" class="boton-principal" (click)="abrirCuestionario()">
+      Cotizar mi evento
+    </button>
+    <a routerLink="/productos" class="cierre-enlace">Ver también chocofrutas y flores</a>
+  </section>
+</div>
+
+<!-- Detalle de un paquete: el mismo dialogo que usan las flores. -->
+<app-cotizacion-dialog
+  [(visible)]="dialogoVisible"
+  [item]="itemSeleccionado"
+></app-cotizacion-dialog>
+
+<!-- Cuestionario general, sin paquete de origen. -->
+<p-dialog
+  [(visible)]="cuestionarioVisible"
+  [modal]="true"
+  [dismissableMask]="true"
+  [draggable]="false"
+  [resizable]="false"
+  header="Cotizar mi evento"
+  styleClass="dialogo-cuestionario"
+  [breakpoints]="{ '960px': '92vw' }"
+  [style]="{ width: '520px' }"
+>
+  <app-cotizador-evento
+    *ngIf="cuestionarioVisible"
+    [paquete]="null"
+    (cancelar)="cerrarCuestionario()"
+  ></app-cotizador-evento>
+</p-dialog>

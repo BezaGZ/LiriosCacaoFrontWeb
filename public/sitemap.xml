@@ -59,15 +59,16 @@
     </image:image>
   </url>
 
+  <!-- Eventos: pagina propia, ya no es un filtro del catalogo -->
   <url>
-    <loc>https://www.liriosycacao.com/productos?category=evento</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <loc>https://www.liriosycacao.com/eventos</loc>
+    <lastmod>2026-08-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
     <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/categories/eventos.png</image:loc>
-      <image:title>Detalles para Eventos: Cumpleaños, Bodas, 15 Años</image:title>
-      <image:caption>Especialistas en eventos en Chiquimula</image:caption>
+      <image:loc>https://www.liriosycacao.com/assets/img/eventos/boda/1.jpg</image:loc>
+      <image:title>Organización de eventos en Chiquimula: bodas, 15 años, cumpleaños</image:title>
+      <image:caption>Jardín, mobiliario, decoración, comida y sonido en Chiquimula</image:caption>
     </image:image>
   </url>
 

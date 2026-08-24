@@ -11,10 +11,26 @@ import { Id } from '../base.models';
  * se conversan por WhatsApp en vez de comprarse en linea, y comparten el mismo
  * dialogo (ItemCotizable).
  */
+/**
+ * Que clase de paquete es. Sirve para agrupar la pagina /eventos sin adivinar
+ * por el slug: los lugares arriba (son el diferenciador), las celebraciones
+ * despues y los servicios sueltos al final.
+ */
+export type TipoEvento = 'lugar' | 'celebracion' | 'servicio';
+
 export interface Evento {
   id: Id;
   nombre: string;
   slug: string;
+  tipo: TipoEvento;
+  /**
+   * true mientras el paquete no tenga fotos o datos reales.
+   *
+   * Un paquete en borrador NO se muestra al publico: una tarjeta vacia que
+   * dice "PENDIENTE" cuesta mas credibilidad de lo que suma tenerla ahi.
+   * Se pone en false cuando el contenido este listo.
+   */
+  borrador?: boolean;
   descripcion: string;
   /** Precio de partida. El final se cotiza. */
   precioDesde: number;

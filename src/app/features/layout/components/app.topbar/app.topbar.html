@@ -24,13 +24,13 @@
       </a>
 
       <a *ngFor="let cat of categorias"
-         routerLink="/productos" [queryParams]="{ category: cat.id }"
-         [attr.aria-current]="currentCategory === cat.id ? 'page' : null"
+         [routerLink]="enlaceDe(cat)" [queryParams]="parametrosDe(cat)"
+         [attr.aria-current]="esActiva(cat) ? 'page' : null"
          class="flex flex-col items-center cursor-pointer relative text-[#452317]
                 transition transform hover:scale-110 hover:text-[#704727]">
         <img [src]="'assets/icons/' + cat.icono + '.svg'" alt="" aria-hidden="true" class="w-5 h-5 mb-1" />
         <span class="text-sm">{{ cat.nombre }}</span>
-        <div *ngIf="currentCategory === cat.id" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
+        <div *ngIf="esActiva(cat)" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-10 h-0.5 bg-[#452317] rounded-full"></div>
       </a>
     </nav>
 
@@ -66,8 +66,8 @@
     </a>
 
     <a *ngFor="let cat of categorias"
-       routerLink="/productos" [queryParams]="{ category: cat.id }"
-       [attr.aria-current]="currentCategory === cat.id ? 'page' : null"
+       [routerLink]="enlaceDe(cat)" [queryParams]="parametrosDe(cat)"
+       [attr.aria-current]="esActiva(cat) ? 'page' : null"
        class="flex flex-col items-center cursor-pointer relative text-[#452317]
               transition transform duration-200
               hover:scale-110 hover:-translate-y-1
@@ -75,7 +75,7 @@
       <img [src]="'assets/icons/' + cat.icono + '.svg'" alt="" aria-hidden="true"
            class="w-5 h-5 mb-1 transition-transform duration-200" />
       <span class="text-xs">{{ cat.nombre }}</span>
-      <div *ngIf="currentCategory === cat.id" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
+      <div *ngIf="esActiva(cat)" class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-[#452317] rounded-full"></div>
     </a>
 
     <a routerLink="/carrito"

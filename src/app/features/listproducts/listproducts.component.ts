@@ -6,7 +6,7 @@ import { CategoryFiltersComponent } from '../listproducts/components/category-fi
 import { SearchBarComponent } from '../listproducts/components/search-bar/search-bar.component';
 import { ALL_PRODUCTS } from '../../core/products/all-products';
 import { ProductCardVM } from '@core/ui-models/product-card.vm';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { matchesSearch } from '@core/utils/text';
 import { SeoService } from '@core/services/seo.service';
 
@@ -18,8 +18,10 @@ import { SeoService } from '@core/services/seo.service';
     ProductsComponent,
     CategoryFiltersComponent,
     SearchBarComponent,
+    RouterLink,
   ],
   templateUrl: './listproducts.component.html',
+  styleUrl: './listproducts.component.scss',
 })
 export class ListproductsComponent implements OnInit {
   readonly route = inject(ActivatedRoute);

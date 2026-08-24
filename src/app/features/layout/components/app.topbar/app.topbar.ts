@@ -10,6 +10,11 @@ interface CategoriaNav {
   nombre: string;
   /** nombre del archivo en assets/icons, sin extension */
   icono: string;
+  /**
+   * Ruta propia, para las secciones que ya no son un filtro del catalogo.
+   * Si no viene, la entrada apunta a /productos?category=<id>.
+   */
+  ruta?: string;
 }
 
 @Component({
@@ -34,10 +39,11 @@ export class AppTopbar implements OnDestroy {
     { id: 'chocofruta', nombre: 'Chocofrutas', icono: 'chocofruta' },
     { id: 'helado',     nombre: 'Helados',     icono: 'helados' },
     { id: 'flor',       nombre: 'Floristería', icono: 'floristeria' },
-    { id: 'evento',     nombre: 'Eventos',     icono: 'eventos' },
+    { id: 'evento',     nombre: 'Eventos',     icono: 'eventos', ruta: '/eventos' },
   ];
 
   currentCategory: string | null = null;
+  currentPath: string | null = null;
   isHome = false;
   isCart = false;
 
@@ -60,11 +66,31 @@ export class AppTopbar implements OnDestroy {
     const urlTree = this.router.parseUrl(this.router.url);
     const path = urlTree.root.children['primary']?.segments[0]?.path;
 
+    this.currentPath = path ?? null;
     this.isHome = !path;
     this.isCart = path === 'carrito';
     this.currentCategory = path === 'productos'
       ? (urlTree.queryParams['category'] || null)
       : null;
+  }
+
+  /**
+   * Una entrada esta activa por su ruta propia (Eventos) o por el filtro
+   * del catalogo (el resto).
+   */
+  esActiva(cat: CategoriaNav): boolean {
+    return cat.ruta
+      ? cat.ruta === '/' + (this.currentPath ?? '')
+      : this.currentCategory === cat.id;
+  }
+
+  /** A donde apunta cada entrada del menu. */
+  enlaceDe(cat: CategoriaNav): string {
+    return cat.ruta ?? '/productos';
+  }
+
+  parametrosDe(cat: CategoriaNav): Record<string, string> {
+    return cat.ruta ? {} : { category: cat.id };
   }
 
   get cartItemCount(): number {

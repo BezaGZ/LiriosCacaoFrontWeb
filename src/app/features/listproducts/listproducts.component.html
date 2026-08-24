@@ -13,6 +13,19 @@
     </app-category-filters>
   </div>
 
+  <!--
+    Los eventos ya no son una categoria del catalogo, asi que hace falta una
+    puerta visible hacia su pagina. Va arriba de la cuadricula porque quien
+    busca un jardin no va a hacer scroll entre chocofrutas para encontrarlo.
+  -->
+  <a routerLink="/eventos" class="banda-eventos">
+    <span class="banda-eventos-texto">
+      <strong>¿Organizás un evento?</strong>
+      Jardín, mobiliario, decoración, comida y sonido.
+    </span>
+    <span class="banda-eventos-flecha" aria-hidden="true">→</span>
+  </a>
+
   <!-- Productos -->
   <div class="flex-1">
     <app-products [products]="filteredProducts"></app-products>
