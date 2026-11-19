@@ -1,0 +1,70 @@
+@use 'mixins' as m;
+
+// Fondo hueso y no crema: la tira tiene que despegarse de la fotografia de
+// arriba sin necesidad de una linea gruesa.
+.tira {
+  padding: var(--lc-e-5) var(--lc-margen-x);
+  background: var(--lc-hueso);
+  border-block-end: 1px solid var(--lc-linea);
+}
+
+.lista {
+  display: grid;
+  gap: var(--lc-e-4);
+
+  @include m.contenedor;
+
+  // En telefono va en una sola columna: a dos columnas "Entrega a domicilio"
+  // se parte en dos renglones y la tira se lee a saltos.
+  @media (width >= 34rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--lc-e-5);
+  }
+
+  @media (width >= 56rem) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--lc-e-3);
+
+    // La divisoria es borde de inicio en todas menos la primera, y no borde de
+    // final en todas: asi no queda una linea suelta colgando al final.
+    @media (width >= 56rem) {
+      padding-inline: clamp(1rem, -1rem + 3.2vw, 2rem);
+
+      &:first-child { padding-inline-start: 0; }
+      &:last-child { padding-inline-end: 0; }
+      & + li { border-inline-start: 1px solid var(--lc-linea); }
+    }
+  }
+}
+
+.icono {
+  flex: none;
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: none;
+  stroke: var(--lc-acento-flor);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.titulo {
+  display: block;
+  color: var(--lc-texto);
+  font-size: .9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.detalle {
+  display: block;
+  color: var(--lc-texto-tenue);
+  font-size: .8125rem;
+  line-height: 1.5;
+}

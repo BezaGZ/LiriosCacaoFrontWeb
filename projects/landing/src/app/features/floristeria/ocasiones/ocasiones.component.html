@@ -14,16 +14,19 @@
     </p>
 
     <ul class="lista" [lcRevelar]="130">
-      @for (ocasion of ocasiones; track ocasion.id) {
+      @for (ocasion of conFecha; track ocasion.id) {
         <li>
           <a [href]="enlace(ocasion)" rel="noopener">
             <span class="etiqueta">{{ ocasion.etiqueta }}</span>
-            @if (ocasion.fecha) {
-              <span class="fecha">{{ ocasion.fecha }}</span>
-            }
+            <span class="fecha">{{ ocasion.fecha }}</span>
           </a>
         </li>
       }
     </ul>
+
+    <!-- Va en un solo renglón a propósito: Angular colapsa los saltos de línea
+         de la plantilla en un espacio, y partido quedarían espacios sueltos
+         antes de cada coma y antes del punto final. -->
+    <p class="tambien" [lcRevelar]="190">También armamos para@for (parte of otras; track parte.ocasion.id) {<span>{{ parte.separador }}</span><a class="enlace" [href]="enlace(parte.ocasion)" rel="noopener">{{ parte.texto }}</a>}.</p>
   </div>
 </section>

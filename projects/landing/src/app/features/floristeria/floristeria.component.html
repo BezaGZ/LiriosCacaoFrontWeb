@@ -8,6 +8,10 @@
   </div>
 </header>
 
+<!-- La tira va pegada a la portada: son las dudas que alguien trae encima
+     cuando acaba de llegar, no las que le quedan a media página. -->
+<lc-tira-datos [datos]="c.detalles" />
+
 <section class="entrada">
   <div class="marco">
     <p class="parrafo">{{ c.entrada }}</p>
@@ -24,18 +28,6 @@
       </li>
     }
   </ul>
-</section>
-
-<section class="detalles" aria-labelledby="lc-detalles">
-  <h2 id="lc-detalles" class="visualmente-oculto">Precios y entrega</h2>
-  <dl>
-    @for (dato of c.detalles; track dato.rotulo) {
-      <div>
-        <dt>{{ dato.rotulo }}</dt>
-        <dd>{{ dato.valor }}</dd>
-      </div>
-    }
-  </dl>
 </section>
 
 <lc-ocasiones />

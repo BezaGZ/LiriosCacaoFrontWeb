@@ -36,7 +36,33 @@ export class OcasionesComponent {
   private readonly whatsapp = inject(WhatsappService);
   private readonly esNavegador = isPlatformBrowser(inject(PLATFORM_ID));
 
-  protected readonly ocasiones = OCASIONES;
+  /**
+   * Las que caen un día fijo del calendario, EN ORDEN DE CALENDARIO. Son las
+   * que de verdad venden, así que son las que llevan el peso visual; y
+   * ordenadas por fecha la lista se lee como un año, no como el orden en que
+   * se nos fueron ocurriendo.
+   */
+  protected readonly conFecha = OCASIONES.filter(
+    (o): o is Ocasion & { mes: number; dia: number } =>
+      o.mes !== undefined && o.dia !== undefined,
+  ).sort((a, b) => a.mes - b.mes || a.dia - b.dia);
+
+  /**
+   * Las que no tienen fecha. Van en una línea corrida debajo: "Solo porque sí"
+   * no puede pesar lo mismo que el Día de la Madre.
+   *
+   * El separador se calcula aquí y no en la plantilla porque ahí habría que
+   * meterlo entre llaves de control de flujo, donde los espacios en blanco no
+   * se comportan como uno espera.
+   */
+  protected readonly otras = OCASIONES.filter((o) => o.mes === undefined).map(
+    (ocasion, indice, todas) => ({
+      ocasion,
+      texto: ocasion.etiqueta.toLocaleLowerCase('es'),
+      // Coma entre todas menos las dos últimas, que se unen con "y".
+      separador: indice === 0 ? ' ' : indice === todas.length - 1 ? ' y ' : ', ',
+    }),
+  );
 
   /** La ocasión próxima, o null si no hay ninguna cerca. */
   protected readonly proxima: Ocasion | null = this.esNavegador

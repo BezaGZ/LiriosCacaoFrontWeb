@@ -96,10 +96,11 @@ export const FLORISTERIA = {
     // Directo y sin adorno a propósito: así es como la gente lo escribe en
     // Google, y es de lejos la búsqueda que más visitas trae al sitio.
     titulo: 'Floristería en Chiquimula',
+    // Una sola idea. Antes repetía la entrega y la anticipación, que ya están
+    // en la tira de arriba, y el párrafo se leía como un volante.
     entrada:
-      'Ramos, canastas y arreglos florales para toda ocasión. Armamos el ' +
-      'mismo día con lo que hay fresco en el mercado, y entregamos a ' +
-      'domicilio en Chiquimula.',
+      'Armamos su arreglo el mismo día, con flor fresca, y se lo llevamos a ' +
+      'domicilio. Todos llevan tarjeta con su dedicatoria escrita a mano.',
     foto: {
       src: 'assets/fotos/canasta-flores.jpg',
       alt: 'Canasta de flores variadas con listón rosado sobre una mesa de mármol',
@@ -129,11 +130,13 @@ export const FLORISTERIA = {
         esProducto: false,
       },
     ],
+    // Las cuatro preguntas que alguien hace antes de escribir. El título es la
+    // respuesta; el detalle, el matiz. Van en la tira pegada a la portada.
     detalles: [
-      { rotulo: 'Desde', valor: 'Q100' },
-      { rotulo: 'Entrega', valor: 'A domicilio en Chiquimula' },
-      { rotulo: 'Anticipación', valor: 'De uno a dos días' },
-      { rotulo: 'Pago', valor: 'Efectivo o tarjeta' },
+      { icono: 'precio', titulo: 'Desde Q100', detalle: 'Ramos, canastas y arreglos' },
+      { icono: 'entrega', titulo: 'Entrega a domicilio', detalle: 'En Chiquimula' },
+      { icono: 'calendario', titulo: 'Uno a dos días', detalle: 'De anticipación' },
+      { icono: 'pago', titulo: 'Efectivo o tarjeta', detalle: 'Las dos formas de pago' },
     ],
     cierre: {
       titulo: '¿Para cuándo lo necesita?',

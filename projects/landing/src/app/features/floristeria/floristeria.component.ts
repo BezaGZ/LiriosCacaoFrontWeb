@@ -4,6 +4,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
+import { TiraDatosComponent } from '../../shared/components/tira-datos/tira-datos.component';
 import { OcasionesComponent } from './ocasiones/ocasiones.component';
 import { FLORISTERIA, NEGOCIO } from '../../contenido/sitio';
 
@@ -19,7 +20,7 @@ const RUTA = '/floristeria';
  */
 @Component({
   selector: 'lc-floristeria',
-  imports: [NgOptimizedImage, RevelarDirective, OcasionesComponent],
+  imports: [NgOptimizedImage, RevelarDirective, TiraDatosComponent, OcasionesComponent],
   templateUrl: './floristeria.component.html',
   styleUrl: './floristeria.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
