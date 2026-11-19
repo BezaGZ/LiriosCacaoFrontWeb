@@ -1,0 +1,11 @@
+// La barra superior va posicionada de forma absoluta sobre la portada, asi que
+// el documento necesita ser el marco de referencia.
+:host {
+  position: relative;
+  display: block;
+  min-height: 100dvh;
+}
+
+main:focus {
+  outline: none;
+}

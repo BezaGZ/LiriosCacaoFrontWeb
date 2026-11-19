@@ -1,0 +1,93 @@
+// ---------------------------------------------------------------------------
+//  Tokens de Lirios y Cacao
+//
+//  Son variables CSS, no de SCSS, a proposito: viven en tiempo de ejecucion,
+//  se ven en las herramientas del navegador y se pueden cambiar sin recompilar.
+//  Ningun componente escribe un color, un tamano de letra ni un espacio a mano.
+// ---------------------------------------------------------------------------
+
+:root {
+  // ------------------------------------------------------------ paleta cruda
+  --lc-crema:        #efe7dc;  // fondo principal
+  --lc-crema-hondo:  #e8dfd2;  // bandas que se separan del fondo
+  --lc-hueso:        #fbf7f1;  // texto sobre fotografia
+  --lc-cafe:         #5a3628;  // marca y texto principal
+  --lc-cafe-suave:   #6e4f40;  // texto corrido
+  --lc-cafe-tenue:   #8a6b59;  // pie y notas al margen
+  --lc-burdeos:      #723c42;  // acento de floristeria
+  --lc-azul:         #395e7c;  // acento de eventos y jardin
+  --lc-tinta:        #1e110c;  // base de los velos sobre fotografia
+
+  // -------------------------------------------------------------- por funcion
+  //  Los componentes usan ESTAS, no las de arriba. Si manana cambia el cafe,
+  //  se cambia en un solo lugar.
+  --lc-fondo:          var(--lc-crema);
+  --lc-fondo-alt:      var(--lc-crema-hondo);
+  --lc-texto:          var(--lc-cafe);
+  --lc-texto-suave:    var(--lc-cafe-suave);
+  --lc-texto-tenue:    var(--lc-cafe-tenue);
+  --lc-linea:          rgb(90 54 40 / 16%);
+  --lc-linea-tenue:    rgb(90 54 40 / 10%);
+  --lc-acento-flor:    var(--lc-burdeos);
+  --lc-acento-evento:  var(--lc-azul);
+
+  // Sobre fotografia el contraste se invierte.
+  --lc-sobre-foto:        var(--lc-hueso);
+  --lc-sobre-foto-suave:  rgb(251 247 241 / 82%);
+  --lc-sobre-foto-tenue:  rgb(251 247 241 / 62%);
+
+  // Velos. El de arriba existe para que el menu se lea sobre CUALQUIER foto,
+  // incluso donde esta clara; no es decoracion.
+  --lc-velo-superior: linear-gradient(
+    180deg,
+    rgb(30 17 12 / 58%) 0%,
+    rgb(30 17 12 / 20%) 60%,
+    rgb(30 17 12 / 0%) 100%
+  );
+  --lc-velo-inferior: linear-gradient(
+    0deg,
+    rgb(30 17 12 / 86%) 0%,
+    rgb(30 17 12 / 36%) 52%,
+    rgb(30 17 12 / 4%) 100%
+  );
+
+  // ---------------------------------------------------------------- tipografia
+  --lc-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --lc-sans:  Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  // Escala fluida: crece con la pantalla sin saltos ni media queries sueltas.
+  --lc-t-display:  clamp(2.625rem, 1.55rem + 4.8vw, 4.625rem);
+  --lc-t-titulo:   clamp(2rem, 1.4rem + 2.7vw, 2.875rem);
+  --lc-t-sub:      clamp(1.5rem, 1.25rem + 1.1vw, 1.8125rem);
+  --lc-t-cuerpo-g: clamp(1rem, .96rem + .2vw, 1.0625rem);
+  --lc-t-cuerpo:   .96875rem;
+  --lc-t-chico:    .875rem;
+  --lc-t-kicker:   .625rem;
+
+  --lc-alto-display: 1.06;
+  --lc-alto-titulo:  1.14;
+  --lc-alto-cuerpo:  1.82;
+
+  // --------------------------------------------------------------- espaciado
+  --lc-e-1: .25rem;
+  --lc-e-2: .5rem;
+  --lc-e-3: .75rem;
+  --lc-e-4: 1rem;
+  --lc-e-5: 1.5rem;
+  --lc-e-6: 2rem;
+  --lc-e-7: 3rem;
+  --lc-e-8: 4rem;
+  --lc-e-9: 6rem;
+
+  // Ritmo de la pagina.
+  --lc-seccion-y:   clamp(3.5rem, 2rem + 5.6vw, 6.5rem);
+  --lc-margen-x:    clamp(1.375rem, .4rem + 3.3vw, 3.5rem);
+  --lc-ancho-max:   75rem;
+  --lc-ancho-texto: 38rem;
+  --lc-alto-barra:  clamp(3.75rem, 3rem + 2.4vw, 5.25rem);
+
+  // ------------------------------------------------------------------- varios
+  --lc-transicion:  480ms cubic-bezier(.22, .61, .36, 1);
+  --lc-transicion-corta: 200ms ease;
+  --lc-toque:       2.75rem;  // 44px: minimo para un objetivo tactil
+}

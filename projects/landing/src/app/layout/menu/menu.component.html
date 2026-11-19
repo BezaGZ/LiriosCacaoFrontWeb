@@ -1,0 +1,51 @@
+<div
+  class="panel"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú principal"
+  [class.abierto]="abierto()"
+  [attr.inert]="abierto() ? null : ''">
+
+  <div class="cima">
+    <a class="marca" routerLink="/" (click)="cerrar.emit()">{{ negocio.nombre }}</a>
+
+    <button
+      #botonCerrar
+      type="button"
+      class="cerrar"
+      aria-label="Cerrar menú"
+      (click)="cerrar.emit()">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <nav class="rutas" aria-label="Principal">
+    <ul>
+      @for (enlace of navegacion; track enlace.ruta) {
+        <li>
+          <a
+            [routerLink]="enlace.ruta"
+            routerLinkActive="activo"
+            [routerLinkActiveOptions]="{ exact: enlace.ruta === '/' }"
+            (click)="cerrar.emit()">{{ enlace.texto }}</a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="base">
+    <p class="rotulo">Pedidos del día</p>
+    <p class="nota">Chocofrutas y helados con precio fijo, catálogo y carrito.</p>
+    <a class="app" [href]="negocio.app">app.liriosycacao.com&nbsp;→</a>
+
+    <p class="rotulo rotulo-redes">Escríbanos</p>
+    <ul class="redes">
+      @for (red of redes; track red.texto) {
+        <li><a [href]="red.ruta" rel="noopener">{{ red.texto }}</a></li>
+      }
+    </ul>
+
+    <p class="pie">{{ negocio.ciudad }} · desde {{ negocio.desde }}</p>
+  </div>
+</div>

@@ -198,6 +198,11 @@
             "prerender": true,
             "ssr": {
               "entry": "projects/landing/src/server.ts"
+            },
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/landing/src/estilos"
+              ]
             }
           },
           "configurations": {
@@ -205,16 +210,26 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "400kB",
+                  "maximumError": "700kB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": {
+                  "inline": false
+                }
+              }
             },
             "development": {
               "optimization": false,
@@ -257,7 +272,13 @@
             "styles": [
               "projects/landing/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/landing/src/estilos"
+              ]
+            },
+            "karmaConfig": "karma.conf.js"
           }
         }
       }

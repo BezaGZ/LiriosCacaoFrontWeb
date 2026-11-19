@@ -1,0 +1,109 @@
+// ---------------------------------------------------------------------------
+//  Mezclas compartidas.
+//  Solo lo que se repite de verdad; una mezcla que se usa una vez es un estilo
+//  escondido en otro archivo.
+// ---------------------------------------------------------------------------
+
+/// Relleno vertical y horizontal estandar de una seccion de la pagina.
+@mixin seccion {
+  padding: var(--lc-seccion-y) var(--lc-margen-x);
+}
+
+/// Centra el contenido y le pone techo de ancho.
+@mixin contenedor {
+  max-width: var(--lc-ancho-max);
+  margin-inline: auto;
+}
+
+/// Ancho comodo de lectura: entre 45 y 75 caracteres por linea.
+@mixin columna-texto {
+  max-width: var(--lc-ancho-texto);
+}
+
+/// El rotulo chiquito en versalitas que abre cada seccion.
+@mixin kicker {
+  font-family: var(--lc-sans);
+  font-size: var(--lc-t-kicker);
+  font-weight: 600;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/// Titular en serif.
+@mixin display($tam: var(--lc-t-titulo), $peso: 400) {
+  font-family: var(--lc-serif);
+  font-size: $tam;
+  font-weight: $peso;
+  line-height: var(--lc-alto-titulo);
+  letter-spacing: -.005em;
+}
+
+/// Texto corrido.
+@mixin cuerpo($tam: var(--lc-t-cuerpo)) {
+  font-family: var(--lc-sans);
+  font-size: $tam;
+  line-height: var(--lc-alto-cuerpo);
+  color: var(--lc-texto-suave);
+}
+
+/// Fotografia que llena su contenedor sin deformarse.
+@mixin foto-llena {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/// Capa de velo sobre una fotografia.
+@mixin velo($degradado) {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: $degradado;
+  pointer-events: none;
+}
+
+/// Anillo de foco visible. Nunca quitar el foco sin reemplazarlo.
+@mixin foco {
+  &:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 3px;
+  }
+}
+
+/// Objetivo tactil minimo de 44 px.
+@mixin tactil {
+  min-width: var(--lc-toque);
+  min-height: var(--lc-toque);
+}
+
+/// Enlace subrayado fino, el que usamos al cierre de cada seccion.
+@mixin enlace-fino($color: currentcolor) {
+  display: inline-block;
+  color: $color;
+  font-family: var(--lc-sans);
+  font-size: var(--lc-t-chico);
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-decoration: none;
+  border-bottom: 1px solid currentcolor;
+  padding-bottom: 3px;
+  transition: opacity var(--lc-transicion-corta);
+
+  &:hover { opacity: .7; }
+
+  @include foco;
+}
+
+/// Solo para lectores de pantalla.
+@mixin solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

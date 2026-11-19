@@ -1,0 +1,25 @@
+<section class="portada">
+  <picture>
+    <source media="(max-width: 47.9375rem)" [srcset]="c.foto.movil">
+    <img
+      [src]="c.foto.escritorio"
+      [alt]="c.foto.alt"
+      fetchpriority="high"
+      decoding="async">
+  </picture>
+
+  <div class="texto">
+    <p class="kicker">{{ c.kicker }}</p>
+    <h1 class="titular">{{ c.titulo }}</h1>
+    <p class="entrada">{{ c.entrada }}</p>
+
+    <div class="acciones">
+      <a class="principal" [routerLink]="c.accionPrincipal.ruta">
+        {{ c.accionPrincipal.texto }}
+      </a>
+      <a class="secundaria" [href]="c.accionSecundaria.ruta">
+        {{ c.accionSecundaria.texto }}&nbsp;→
+      </a>
+    </div>
+  </div>
+</section>

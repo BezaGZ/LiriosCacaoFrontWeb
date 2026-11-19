@@ -1,1 +1,127 @@
-/* You can add global styles to this file, and also import other style files */
+// ---------------------------------------------------------------------------
+//  Estilos globales de liriosycacao.com
+//
+//  Aqui solo va lo que es verdad para TODA la pagina. Cualquier cosa que sea
+//  de un componente vive en el .scss de ese componente.
+// ---------------------------------------------------------------------------
+
+@use 'tokens';
+
+// ------------------------------------------------------- base del documento
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--lc-fondo);
+  color: var(--lc-texto);
+  font-family: var(--lc-sans);
+  font-size: var(--lc-t-cuerpo);
+  line-height: var(--lc-alto-cuerpo);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// El menu abierto bloquea el desplazamiento de atras.
+body.lc-sin-scroll {
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, p, figure, blockquote {
+  margin: 0;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img, picture, video, svg {
+  max-width: 100%;
+}
+
+a { color: inherit; }
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+// -------------------------------------------------------------------- foco
+
+// Nadie debe perder de vista donde esta parado al navegar con teclado.
+:focus-visible {
+  outline: 2px solid var(--lc-acento-evento);
+  outline-offset: 3px;
+}
+
+// -------------------------------------------------------- saltar al contenido
+
+.lc-saltar {
+  position: absolute;
+  top: var(--lc-e-3);
+  left: var(--lc-e-3);
+  z-index: 100;
+  padding: var(--lc-e-3) var(--lc-e-5);
+  background: var(--lc-fondo);
+  color: var(--lc-texto);
+  font-size: var(--lc-t-chico);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-250%);
+  transition: transform var(--lc-transicion-corta);
+
+  &:focus-visible { transform: translateY(0); }
+}
+
+// ---------------------------------------------------------- revelar al scroll
+
+// El estado oculto SOLO se aplica cuando hay JavaScript. La clase .lc-js la
+// pone un script en linea en el index antes de pintar. Asi, si el script falla
+// o el visitante lo tiene apagado, el contenido se ve completo: nunca una
+// pagina en blanco por culpa de una animacion.
+.lc-js .lc-revelar {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--lc-transicion),
+    transform var(--lc-transicion);
+}
+
+.lc-js .lc-revelar.lc-visible {
+  opacity: 1;
+  transform: none;
+}
+
+// --------------------------------------------------------- menos movimiento
+
+// Para quien lo pide: hay personas con trastornos vestibulares a las que el
+// movimiento al desplazarse les produce mareo real. No es una preferencia
+// estetica.
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .lc-js .lc-revelar {
+    opacity: 1;
+    transform: none;
+  }
+}

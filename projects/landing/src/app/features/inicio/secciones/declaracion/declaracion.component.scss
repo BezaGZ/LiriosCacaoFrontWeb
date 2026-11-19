@@ -1,0 +1,40 @@
+@use 'mixins' as m;
+
+.declaracion {
+  text-align: center;
+
+  @include m.seccion;
+}
+
+.kicker {
+  margin-bottom: var(--lc-e-5);
+  color: var(--lc-acento-flor);
+
+  @include m.kicker;
+}
+
+.frase {
+  margin: 0 auto var(--lc-e-6);
+  max-width: 24ch;
+  font-family: var(--lc-serif);
+  font-size: var(--lc-t-titulo);
+  font-weight: 300;
+  line-height: 1.38;
+  letter-spacing: -.005em;
+  text-wrap: balance;
+}
+
+.regla {
+  width: 3.5rem;
+  height: 1px;
+  margin: 0 auto var(--lc-e-5);
+  background: var(--lc-linea);
+  border: 0;
+}
+
+.nota {
+  margin-inline: auto;
+
+  @include m.cuerpo;
+  @include m.columna-texto;
+}

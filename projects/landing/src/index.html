@@ -1,11 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Landing</title>
+  <title>Lirios y Cacao — Flores, chocofrutas y eventos en Chiquimula</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Arreglos florales, chocofrutas y helados artesanales, y la produccion completa de su evento con jardin propio. Chiquimula, Guatemala.">
+  <meta name="theme-color" content="#efe7dc">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Marca la pagina como "con JavaScript" ANTES de pintar. De esto depende
+       que el contenido se vea completo si el script falla: ver styles.scss. -->
+  <script>document.documentElement.classList.add('lc-js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap">
+
+  <!-- Google Analytics: la misma propiedad que la app. Para separar landing de
+       app se usa la dimension "hostname" dentro de GA4. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TQQY5JLX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-62TQQY5JLX');
+  </script>
 </head>
 <body>
   <app-root></app-root>

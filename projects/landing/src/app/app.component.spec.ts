@@ -1,29 +1,32 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('monta la estructura de la pagina', () => {
+    const fijo = TestBed.createComponent(AppComponent);
+    fijo.detectChanges();
+    const raiz: HTMLElement = fijo.nativeElement;
+
+    expect(raiz.querySelector('lc-encabezado')).withContext('encabezado').toBeTruthy();
+    expect(raiz.querySelector('main#contenido')).withContext('contenido').toBeTruthy();
+    expect(raiz.querySelector('lc-pie')).withContext('pie').toBeTruthy();
   });
 
-  it(`should have the 'landing' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('landing');
-  });
+  it('ofrece saltar al contenido antes que cualquier otro enlace', () => {
+    const fijo = TestBed.createComponent(AppComponent);
+    fijo.detectChanges();
+    const primero = (fijo.nativeElement as HTMLElement).querySelector('a');
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, landing');
+    // Quien navega con teclado debe poder brincarse el menu en cada pagina.
+    expect(primero?.getAttribute('href')).toBe('#contenido');
   });
 });

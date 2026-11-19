@@ -1,0 +1,36 @@
+<footer class="pie">
+  <div class="cuerpo">
+    <div class="quienes">
+      <p class="marca">{{ negocio.nombre }}</p>
+      <p class="nota">{{ negocio.descripcion }}</p>
+    </div>
+
+    <div class="columnas">
+      <div>
+        <p class="rotulo">{{ pie.titulo }}</p>
+        <ul>
+          @for (enlace of pie.enlaces; track enlace.ruta) {
+            <li><a [routerLink]="enlace.ruta">{{ enlace.texto }}</a></li>
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="rotulo">Contacto</p>
+        <ul>
+          @for (red of redes; track red.texto) {
+            <li><a [href]="red.ruta" rel="noopener">{{ red.texto }}</a></li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="firma">
+    <p>© {{ anio }} {{ negocio.nombre }}</p>
+    <p>
+      {{ pie.creditoTexto }}
+      <a [href]="pie.creditoRuta" rel="noopener">{{ pie.creditoMarca }}</a>
+    </p>
+  </div>
+</footer>

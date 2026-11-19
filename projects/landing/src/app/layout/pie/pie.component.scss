@@ -1,0 +1,77 @@
+@use 'mixins' as m;
+
+.pie {
+  padding: var(--lc-e-8) var(--lc-margen-x) var(--lc-e-6);
+  background: var(--lc-fondo);
+}
+
+.cuerpo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--lc-e-7);
+  padding-bottom: var(--lc-e-6);
+  border-bottom: 1px solid var(--lc-linea);
+
+  @include m.contenedor;
+}
+
+.quienes { max-width: 20rem; }
+
+.marca {
+  margin-bottom: var(--lc-e-3);
+  font-family: var(--lc-serif);
+  font-size: 1.3125rem;
+  font-weight: 500;
+}
+
+.nota {
+  color: var(--lc-texto-suave);
+  font-size: var(--lc-t-chico);
+  line-height: 1.75;
+}
+
+.columnas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lc-e-7) var(--lc-e-9);
+}
+
+.rotulo {
+  margin-bottom: var(--lc-e-4);
+  color: var(--lc-texto-suave);
+
+  @include m.kicker;
+}
+
+ul li + li { margin-top: .625rem; }
+
+ul a {
+  font-size: var(--lc-t-chico);
+  text-decoration: none;
+  transition: opacity var(--lc-transicion-corta);
+
+  &:hover { opacity: .68; }
+
+  @include m.foco;
+}
+
+.firma {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--lc-e-2) var(--lc-e-5);
+  padding-top: var(--lc-e-5);
+  color: var(--lc-texto-tenue);
+  font-size: .78125rem;
+
+  @include m.contenedor;
+
+  a {
+    text-decoration: none;
+    color: var(--lc-texto);
+    border-bottom: 1px solid var(--lc-linea);
+
+    @include m.foco;
+  }
+}

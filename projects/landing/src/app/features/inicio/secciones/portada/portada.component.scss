@@ -1,0 +1,148 @@
+@use 'mixins' as m;
+
+.portada {
+  position: relative;
+  min-height: clamp(30rem, 24rem + 26vh, 47.5rem);
+  display: flex;
+  isolation: isolate;
+}
+
+picture,
+img {
+  position: absolute;
+  inset: 0;
+}
+
+img { @include m.foto-llena; }
+
+// Velo de abajo hacia arriba en telefono. Es mas oscuro que el velo normal a
+// proposito: la foto vertical trae el neon "Quieres casarte conmigo?" justo a
+// la altura del titular, y dos textos encimados no se leen ninguno. Aqui la
+// legibilidad le gana a la foto.
+.portada::before {
+  @include m.velo(
+    linear-gradient(
+      0deg,
+      rgb(30 17 12 / 92%) 0%,
+      rgb(30 17 12 / 78%) 42%,
+      rgb(30 17 12 / 50%) 68%,
+      rgb(30 17 12 / 22%) 100%
+    )
+  );
+
+  z-index: 1;
+}
+
+@media (width >= 48rem) {
+  .portada::before {
+    background: linear-gradient(
+      90deg,
+      rgb(30 17 12 / 80%) 0%,
+      rgb(30 17 12 / 62%) 34%,
+      rgb(30 17 12 / 12%) 62%,
+      rgb(30 17 12 / 0%) 100%
+    );
+  }
+}
+
+// Velo de arriba: lo que hace legible la barra superior sobre cualquier foto.
+.portada::after {
+  @include m.velo(var(--lc-velo-superior));
+
+  inset-block-end: auto;
+  height: 10.625rem;
+  z-index: 2;
+}
+
+.texto {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 40rem;
+  // Apretado en telefono para que asome la franja crema de la seccion
+  // siguiente: una portada que llena la pantalla entera no deja pista de que
+  // haya algo mas abajo, y mucha gente no desplaza.
+  padding:
+    calc(var(--lc-alto-barra) + var(--lc-e-5))
+    var(--lc-margen-x)
+    var(--lc-e-6);
+  color: var(--lc-sobre-foto);
+
+  @media (width >= 48rem) {
+    justify-content: center;
+    padding-block: calc(var(--lc-alto-barra) + var(--lc-e-7)) var(--lc-e-7);
+  }
+}
+
+.kicker {
+  margin-bottom: var(--lc-e-4);
+  color: var(--lc-sobre-foto-tenue);
+
+  @include m.kicker;
+}
+
+.titular {
+  margin-bottom: var(--lc-e-4);
+  font-family: var(--lc-serif);
+  font-size: var(--lc-t-display);
+  font-weight: 300;
+  line-height: var(--lc-alto-display);
+  letter-spacing: -.005em;
+  text-wrap: balance;
+}
+
+.entrada {
+  margin-bottom: var(--lc-e-5);
+  max-width: 29rem;
+
+  color: var(--lc-sobre-foto-suave);
+  font-size: var(--lc-t-cuerpo-g);
+  line-height: 1.78;
+
+  @media (width >= 48rem) { margin-bottom: var(--lc-e-6); }
+}
+
+.acciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lc-e-4);
+
+  @media (width >= 30rem) {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--lc-e-6);
+  }
+}
+
+.principal {
+  padding: 1rem 2rem;
+  background: var(--lc-crema);
+  color: var(--lc-cafe);
+  font-size: var(--lc-t-chico);
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-align: center;
+  text-decoration: none;
+  transition: background var(--lc-transicion-corta);
+
+  &:hover { background: var(--lc-hueso); }
+
+  @include m.foco;
+}
+
+.secundaria {
+  color: var(--lc-sobre-foto);
+  font-size: var(--lc-t-chico);
+  letter-spacing: .03em;
+  text-align: center;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(251 247 241 / 50%);
+  padding-bottom: 3px;
+  align-self: center;
+
+  @media (width >= 30rem) { align-self: auto; }
+
+  @include m.foco;
+}
