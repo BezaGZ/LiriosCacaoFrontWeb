@@ -1,0 +1,32 @@
+// Configuracion del Worker que sirve la LANDING (www.liriosycacao.com).
+//
+// Cloudflare ya no deja crear proyectos de Pages en esta cuenta, asi que la
+// landing se publica como un Worker de assets estaticos: no hay codigo de
+// servidor, solo la carpeta compilada. El panel ejecuta
+// `npm run build:landing` y despues `npx wrangler deploy`, que lee este
+// archivo.
+//
+// OJO: `wrangler deploy` sin mas apunta SIEMPRE aqui, o sea a la landing. Si
+// algun dia la app tambien pasa a Workers, necesita su propio archivo y el
+// comando tiene que llevar `-c wrangler.app.jsonc`.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Tiene que coincidir EXACTO con el nombre del Worker en el panel. Si no
+  // coincide, wrangler no actualiza este: crea otro con ese nombre.
+  "name": "lirioscacaofrontweb",
+  "compatibility_date": "2026-11-01",
+
+  "assets": {
+    "directory": "./dist/landing/browser",
+
+    // Las cuatro paginas se generan al compilar, cada una con su index.html,
+    // asi que una URL que no esta aqui tampoco existe en la aplicacion.
+    //
+    // La alternativa, "single-page-application", devolveria la portada con
+    // codigo 200 para CUALQUIER direccion inventada. Google lo llama soft 404
+    // y le resta confianza al sitio entero: paginas que no existen
+    // respondiendo que si existen.
+    "not_found_handling": "404-page"
+  }
+}
