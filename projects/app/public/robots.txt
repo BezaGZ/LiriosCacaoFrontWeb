@@ -1,14 +1,13 @@
-# robots.txt para www.liriosycacao.com
+# robots.txt de app.liriosycacao.com (catalogo y carrito)
+#
+# El sitio principal es www.liriosycacao.com y tiene su propio robots.txt.
+# Aqui solo se habla de este subdominio.
 
-# Permitir a todos los robots rastrear el sitio
 User-agent: *
 Allow: /
 
-# Bloquear rutas administrativas o temporales
+# El carrito es de cada visitante: no hay nada que indexar.
+Disallow: /carrito
 Disallow: /test
 
-# Sitemap
-Sitemap: https://www.liriosycacao.com/sitemap.xml
-
-# Crawl delay (opcional, recomendado para sitios grandes)
-Crawl-delay: 1
+Sitemap: https://app.liriosycacao.com/sitemap.xml

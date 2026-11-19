@@ -33,10 +33,12 @@ describe('SeoService', () => {
     expect(canonical()).toBe(`${NEGOCIO.sitio}/floristeria`);
   });
 
-  it('la raíz no queda con barra de más', () => {
+  // La raíz lleva barra, una sola. Es la forma que escribe el sitemap, y
+  // dejarlas iguales evita tener dos escrituras de la misma URL dando vueltas.
+  it('la raíz queda con una sola barra', () => {
     seo.aplicar({ titulo: 'T', descripcion: 'D', ruta: '/' });
 
-    expect(canonical()).toBe(NEGOCIO.sitio);
+    expect(canonical()).toBe(`${NEGOCIO.sitio}/`);
   });
 
   it('og:url acompaña al canonical', () => {

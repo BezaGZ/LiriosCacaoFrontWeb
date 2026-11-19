@@ -1,0 +1,6 @@
+# El dominio canonico es www: es el que declaran los canonical y el sitemap.
+# Sin esto, el sitio responderia igual en liriosycacao.com y en
+# www.liriosycacao.com, y Google los trataria como dos sitios distintos.
+https://liriosycacao.com/*  https://www.liriosycacao.com/:splat  301!
+http://liriosycacao.com/*   https://www.liriosycacao.com/:splat  301!
+http://www.liriosycacao.com/*  https://www.liriosycacao.com/:splat  301!

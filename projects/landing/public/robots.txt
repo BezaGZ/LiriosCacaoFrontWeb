@@ -1,0 +1,9 @@
+# robots.txt de www.liriosycacao.com (el sitio principal)
+#
+# El catalogo con carrito vive en app.liriosycacao.com y tiene su propio
+# robots.txt. Este archivo solo habla de este dominio.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.liriosycacao.com/sitemap.xml

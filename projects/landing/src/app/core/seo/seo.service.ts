@@ -48,10 +48,17 @@ export class SeoService {
     this.datosEstructurados(datos.jsonLd);
   }
 
-  /** `/floristeria` → `https://www.liriosycacao.com/floristeria` */
+  /**
+   * `/floristeria` → `https://www.liriosycacao.com/floristeria`
+   *
+   * La raíz conserva su barra: así el canonical y el sitemap escriben la
+   * portada igual, y no queda una diferencia que haya que explicar luego.
+   */
   urlAbsoluta(ruta: string): string {
-    const limpia = ruta === '/' ? '' : ruta.replace(/\/+$/, '');
-    return `${NEGOCIO.sitio}${limpia.startsWith('/') || limpia === '' ? limpia : `/${limpia}`}`;
+    if (ruta === '/') return `${NEGOCIO.sitio}/`;
+
+    const limpia = ruta.replace(/\/+$/, '');
+    return `${NEGOCIO.sitio}${limpia.startsWith('/') ? limpia : `/${limpia}`}`;
   }
 
   private canonical(url: string): void {

@@ -1,8 +1,28 @@
 import { Injectable, Inject, Renderer2, RendererFactory2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-/** Dominio canonico del sitio. Sin barra final. */
-export const SITIO = 'https://www.liriosycacao.com';
+/** Donde vive ESTA aplicacion: el catalogo y el carrito. Sin barra final. */
+export const SITIO = 'https://app.liriosycacao.com';
+
+/** El sitio principal, donde vive la landing. Sin barra final. */
+export const SITIO_PRINCIPAL = 'https://www.liriosycacao.com';
+
+/**
+ * Paginas que existen aqui Y en la landing.
+ *
+ * Siguen funcionando, porque aqui llevan catalogo y carrito, pero le ceden a
+ * la landing la busqueda: su canonical apunta alla. Sin esto las dos compiten
+ * por "floristeria chiquimula", Google reparte la fuerza entre ambas y puede
+ * quedarse con la que menos conviene.
+ *
+ * /sobrenosotros NO esta en la lista a proposito: la landing todavia no tiene
+ * su pagina equivalente, y un canonical hacia una URL que no existe es peor
+ * que no tener canonical.
+ */
+const CEDIDAS: Readonly<Record<string, string>> = {
+  '/floristeria': '/floristeria',
+  '/eventos': '/servicios',
+};
 
 /**
  * Servicio de SEO tecnico: canonical y datos estructurados JSON-LD.
@@ -37,7 +57,14 @@ export class SeoService {
    * @param ruta ruta absoluta del sitio, p.ej. '/productos?category=flor'
    */
   setCanonical(ruta: string): void {
-    const href = `${SITIO}${ruta === '/' ? '/' : ruta}`;
+    // La busqueda del mapa va sin parametros: /productos?category=flor es la
+    // misma pagina que /productos para efectos de a quien le toca el canonical.
+    const sinParametros = ruta.split('?')[0];
+    const cedida = CEDIDAS[sinParametros];
+
+    const href = cedida
+      ? `${SITIO_PRINCIPAL}${cedida}`
+      : `${SITIO}${ruta === '/' ? '/' : ruta}`;
     let link = this.doc.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
 
     if (!link) {

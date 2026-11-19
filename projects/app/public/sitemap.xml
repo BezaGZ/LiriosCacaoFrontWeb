@@ -1,105 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <!-- Página Principal -->
+<!--
+  Solo lo que esta app tiene que ganar por si misma: el catalogo de
+  chocofrutas y helados.
+
+  /floristeria, /eventos y /sobrenosotros existen aqui y siguen funcionando,
+  pero su canonical apunta a www: la version que Google debe indexar es la de
+  la landing. Listarlas aqui seria pedir que indexe algo que a la vez le
+  decimos que no indexe.
+
+  Ojo: en un comentario XML no se pueden escribir dos guiones seguidos.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.liriosycacao.com/</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>daily</changefreq>
+    <loc>https://app.liriosycacao.com/</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/img/logo.png</image:loc>
-      <image:title>Lirio y Cacao - Chocofrutas, Florería y Helados Chiquimula</image:title>
-      <image:caption>Chocofrutas artesanales, florería y helados en Chiquimula</image:caption>
-    </image:image>
   </url>
 
-  <!-- Productos -->
   <url>
-    <loc>https://www.liriosycacao.com/productos</loc>
-    <lastmod>2025-10-30</lastmod>
+    <loc>https://app.liriosycacao.com/productos</loc>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- Productos por categoría -->
   <url>
-    <loc>https://www.liriosycacao.com/productos?category=chocofruta</loc>
-    <lastmod>2025-10-30</lastmod>
+    <loc>https://app.liriosycacao.com/productos?category=chocofruta</loc>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/categories/chocofruta.png</image:loc>
-      <image:title>Chocofrutas: Chocofresas, Chocobananos, Choco Uvas</image:title>
-      <image:caption>Chocofrutas artesanales en Chiquimula</image:caption>
-    </image:image>
   </url>
 
   <url>
-    <loc>https://www.liriosycacao.com/productos?category=helado</loc>
-    <lastmod>2025-10-30</lastmod>
+    <loc>https://app.liriosycacao.com/productos?category=helado</loc>
+    <lastmod>2026-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/categories/helados.png</image:loc>
-      <image:title>Helados Artesanales en Chiquimula</image:title>
-      <image:caption>Paletas de helado con ingredientes naturales</image:caption>
-    </image:image>
-  </url>
-
-  <!--
-    /productos?category=flor NO va en el sitemap, a proposito.
-
-    Muestra los mismos 9 arreglos que /floristeria, y tener las dos URLs aqui
-    las pone a competir por la misma busqueda: Google reparte la fuerza entre
-    ambas y puede quedarse con la peor, la que no tiene filtro por ocasion ni
-    aviso de temporada.
-
-    La pagina sigue existiendo y funcionando (el chip del catalogo y el
-    buscador la usan); solo deja de presentarse como pagina a indexar.
-
-    Ojo: en un comentario XML no se pueden escribir dos guiones seguidos.
-  -->
-
-  <!-- Floristeria: pagina propia con entrada por ocasion -->
-  <url>
-    <loc>https://www.liriosycacao.com/floristeria</loc>
-    <lastmod>2026-08-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/img/flores/bouquetgirasolfloral.PNG</image:loc>
-      <image:title>Floristería en Chiquimula: ramos de rosas, girasoles y fresas con chocolate</image:title>
-      <image:caption>Arreglos florales con tarjeta de dedicatoria, entrega en Chiquimula</image:caption>
-    </image:image>
-  </url>
-
-  <!-- Eventos: pagina propia, ya no es un filtro del catalogo -->
-  <url>
-    <loc>https://www.liriosycacao.com/eventos</loc>
-    <lastmod>2026-08-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.liriosycacao.com/assets/img/eventos/boda/1.jpg</image:loc>
-      <image:title>Organización de eventos en Chiquimula: bodas, 15 años, cumpleaños</image:title>
-      <image:caption>Jardín, mobiliario, decoración, comida y sonido en Chiquimula</image:caption>
-    </image:image>
-  </url>
-
-  <!-- Sobre Nosotros -->
-  <url>
-    <loc>https://www.liriosycacao.com/sobrenosotros</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Carrito -->
-  <url>
-    <loc>https://www.liriosycacao.com/carrito</loc>
-    <lastmod>2025-10-30</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>

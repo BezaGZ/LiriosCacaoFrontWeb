@@ -1,6 +1,3 @@
-# Redirigir todo el tráfico de liriosycacao.com a www.liriosycacao.com
-https://liriosycacao.com/* https://www.liriosycacao.com/:splat 301!
-http://liriosycacao.com/* https://www.liriosycacao.com/:splat 301!
-
-# También forzar HTTPS para www
-http://www.liriosycacao.com/* https://www.liriosycacao.com/:splat 301!
+# Las reglas del dominio raiz se fueron al proyecto de la landing, que es
+# quien sirve liriosycacao.com. Este proyecto solo responde en
+# app.liriosycacao.com, donde no hay nada que redirigir.
