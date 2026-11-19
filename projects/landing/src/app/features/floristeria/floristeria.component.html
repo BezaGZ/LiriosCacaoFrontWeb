@@ -1,12 +1,8 @@
-<!-- Encabezado con foto detrás, igual que el resto del sitio: la barra
-     superior va encima y necesita el velo para leerse. -->
-<header class="portada">
-  <img [ngSrc]="c.foto.src" [alt]="c.foto.alt" fill priority sizes="100vw">
-  <div class="texto">
-    <p class="kicker">{{ c.kicker }}</p>
-    <h1 class="titulo">{{ c.titulo }}</h1>
-  </div>
-</header>
+<lc-portada-pagina
+  [kicker]="c.kicker"
+  [titulo]="c.titulo"
+  [foto]="c.foto"
+  [miga]="c.miga" />
 
 <!-- La tira va pegada a la portada: son las dudas que alguien trae encima
      cuando acaba de llegar, no las que le quedan a media página. -->
@@ -15,6 +11,32 @@
 <section class="entrada">
   <div class="marco">
     <p class="parrafo">{{ c.entrada }}</p>
+  </div>
+</section>
+
+<!-- Los arreglos van aquí, pegados a la entrada: antes de leer nada, lo
+     primero que aparece es flor. -->
+<section class="arreglos" aria-labelledby="lc-arreglos">
+  <div class="marco">
+    <h2 id="lc-arreglos" class="arreglos-titulo" lcRevelar>{{ c.arreglosTitulo }}</h2>
+
+    <ul class="tira">
+      @for (arreglo of c.arreglos; track arreglo.titulo) {
+        <li [lcRevelar]="80 + $index * 70">
+          <a [href]="porArreglo(arreglo.titulo)" rel="noopener">
+            <!-- Sin recuadro: son recortes con fondo transparente, y meterlos
+                 en una caja les dibuja un borde que la foto no tiene. Lo único
+                 que llevan detrás es un halo que los asienta. -->
+            <span class="pozo">
+              <img [ngSrc]="arreglo.foto.src" [alt]="arreglo.foto.alt" fill sizes="(min-width: 48rem) 25vw, 50vw">
+            </span>
+            <span class="nombre">{{ arreglo.titulo }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+
+    <p class="arreglos-nota" [lcRevelar]="400">{{ c.arreglosNota }}</p>
   </div>
 </section>
 
@@ -32,10 +54,8 @@
 
 <lc-ocasiones />
 
-<section class="cierre">
-  <h2 class="cierre-titulo" lcRevelar>{{ c.cierre.titulo }}</h2>
-  <p class="cierre-texto" [lcRevelar]="80">{{ c.cierre.texto }}</p>
-  <p [lcRevelar]="150">
-    <a class="boton" [href]="enlaceWhatsapp" rel="noopener">{{ c.cierre.boton }}</a>
-  </p>
-</section>
+<lc-cierre
+  [titulo]="c.cierre.titulo"
+  [parrafos]="c.cierre.parrafos"
+  [boton]="c.cierre.boton"
+  [enlace]="enlaceWhatsapp" />

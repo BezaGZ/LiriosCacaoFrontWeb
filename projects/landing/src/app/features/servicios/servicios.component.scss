@@ -1,0 +1,93 @@
+@use 'mixins' as m;
+
+.visualmente-oculto { @include m.solo-lectores; }
+
+// Tres pixeles de separacion y no un margen: las fotos casi se tocan, que es
+// lo que hace que el mosaico se lea como una superficie y no como tarjetas.
+.mosaico {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (width >= 40rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (width >= 64rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.tesela {
+  position: relative;
+  display: block;
+  height: clamp(15rem, 11rem + 16vw, 23rem);
+  overflow: hidden;
+  text-decoration: none;
+  isolation: isolate;
+
+  img {
+    object-fit: cover;
+    transition: transform 900ms cubic-bezier(.22, .61, .36, 1);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      0deg,
+      rgb(30 17 12 / 84%) 0%,
+      rgb(30 17 12 / 30%) 42%,
+      rgb(30 17 12 / 4%) 100%
+    );
+    transition: opacity var(--lc-transicion);
+  }
+
+  &:hover img { transform: scale(1.04); }
+
+  @include m.foco;
+}
+
+.rotulo {
+  position: absolute;
+  inset-inline: var(--lc-e-6);
+  inset-block-end: var(--lc-e-5);
+  z-index: 2;
+  color: var(--lc-sobre-foto);
+
+  strong {
+    display: block;
+    margin-bottom: var(--lc-e-1);
+    font-family: var(--lc-serif);
+    font-size: 1.6875rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  span {
+    display: block;
+    color: var(--lc-sobre-foto-suave);
+    font-size: .8125rem;
+    line-height: 1.6;
+  }
+}
+
+// El rotulo aparece al pasar el cursor SOLO donde hay cursor de verdad. La
+// consulta es por el puntero y no por el ancho: una tableta ancha pero tactil
+// no tiene como hacer hover, y ahi el rotulo tiene que quedarse fijo.
+// El foco del teclado lo revela igual que el cursor.
+@media (hover: hover) and (pointer: fine) {
+  .tesela::after { opacity: .5; }
+
+  .tesela .rotulo {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--lc-transicion), transform var(--lc-transicion);
+  }
+
+  .tesela:hover::after,
+  .tesela:focus-visible::after { opacity: 1; }
+
+  .tesela:hover .rotulo,
+  .tesela:focus-visible .rotulo {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,83 @@
+@use 'mixins' as m;
+
+.portada {
+  position: relative;
+  display: flex;
+  min-height: clamp(19rem, 15rem + 17vw, 28rem);
+  isolation: isolate;
+
+  img { @include m.foto-llena; }
+
+  &::before {
+    @include m.velo(var(--lc-velo-inferior));
+
+    z-index: 1;
+  }
+
+  // El velo de arriba existe para que la barra de navegacion se lea sobre
+  // CUALQUIER foto, incluso donde esta clara. No es decoracion.
+  &::after {
+    @include m.velo(var(--lc-velo-superior));
+
+    inset-block-end: auto;
+    height: 10.625rem;
+    z-index: 2;
+  }
+}
+
+.texto {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding:
+    calc(var(--lc-alto-barra) + var(--lc-e-6))
+    var(--lc-margen-x)
+    var(--lc-e-8);
+  color: var(--lc-sobre-foto);
+  text-align: center;
+}
+
+.kicker {
+  margin-bottom: var(--lc-e-4);
+  color: var(--lc-sobre-foto-tenue);
+
+  @include m.kicker;
+}
+
+.titulo {
+  max-width: 20ch;
+  font-family: var(--lc-serif);
+  font-size: var(--lc-t-display);
+  font-weight: 300;
+  line-height: var(--lc-alto-display);
+  letter-spacing: -.005em;
+  text-wrap: balance;
+}
+
+.miga {
+  position: absolute;
+  inset-block-end: var(--lc-e-5);
+  inset-inline: 0;
+  z-index: 3;
+  color: var(--lc-sobre-foto-tenue);
+  font-size: .8125rem;
+  letter-spacing: .02em;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    transition: color var(--lc-transicion-corta);
+
+    &:hover { color: var(--lc-sobre-foto); }
+
+    @include m.foco;
+  }
+
+  span { margin-inline: var(--lc-e-2); }
+
+  .actual { margin-inline-start: 0; }
+}

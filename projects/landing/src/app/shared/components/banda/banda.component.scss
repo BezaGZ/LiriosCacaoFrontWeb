@@ -1,0 +1,113 @@
+@use 'mixins' as m;
+
+:host {
+  --acento: var(--lc-acento-flor);
+
+  display: block;
+}
+
+:host(.acento-evento) { --acento: var(--lc-acento-evento); }
+
+.banda {
+  display: flex;
+  flex-direction: column;
+  border-block-start: 1px solid var(--lc-linea);
+
+  @media (width >= 48rem) {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+// En telefono la foto va SIEMPRE arriba, invertida o no: alternar el orden en
+// una sola columna no se percibe como ritmo, solo descoloca.
+:host(.invertida) .banda {
+  @media (width >= 48rem) { flex-direction: row-reverse; }
+}
+
+.foto {
+  position: relative;
+  height: clamp(18rem, 12rem + 26vw, 22rem);
+  // Recorta el sobrante del acercamiento con el que entra la foto.
+  overflow: hidden;
+
+  @media (width >= 48rem) {
+    flex: 0 0 52%;
+    height: auto;
+    min-height: 34rem;
+  }
+
+  img { @include m.foto-llena; }
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--lc-seccion-y) var(--lc-margen-x);
+
+  @media (width >= 48rem) {
+    flex: 1;
+    padding-inline: clamp(2.5rem, 1rem + 4vw, 4.5rem);
+  }
+}
+
+.kicker {
+  margin-bottom: var(--lc-e-5);
+  color: var(--acento);
+
+  @include m.kicker;
+}
+
+.titulo {
+  margin-bottom: var(--lc-e-5);
+  max-width: 16ch;
+  text-wrap: balance;
+
+  @include m.display;
+}
+
+.parrafo {
+  margin-bottom: var(--lc-e-4);
+
+  @include m.cuerpo;
+  @include m.columna-texto;
+}
+
+// Lista compacta de tres datos. Es mas chica que la tira de la cabecera a
+// proposito: aqui acompana al texto, no abre la pagina.
+.datos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-block: var(--lc-e-5);
+  max-width: 26rem;
+  border-block-start: 1px solid var(--lc-linea);
+  border-block-end: 1px solid var(--lc-linea);
+
+  div { padding-block: var(--lc-e-4); }
+
+  div + div {
+    padding-inline-start: var(--lc-e-4);
+    border-inline-start: 1px solid var(--lc-linea);
+  }
+
+  dt {
+    margin-bottom: var(--lc-e-1);
+    color: var(--lc-texto-suave);
+
+    @include m.kicker;
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--lc-serif);
+    font-size: 1.375rem;
+    line-height: 1.25;
+  }
+}
+
+.accion {
+  margin-block-start: var(--lc-e-4);
+
+  a { @include m.enlace-fino(var(--acento)); }
+}

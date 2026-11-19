@@ -1,0 +1,48 @@
+@use 'mixins' as m;
+
+.visualmente-oculto { @include m.solo-lectores; }
+
+.incluimos {
+  background: var(--lc-fondo-alt);
+  border-block-start: 1px solid var(--lc-linea);
+
+  @include m.seccion;
+}
+
+.marco { @include m.contenedor; }
+
+.rejilla {
+  display: grid;
+  gap: var(--lc-e-7) var(--lc-e-6);
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (width >= 34rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (width >= 62rem) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.icono {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: var(--lc-e-4);
+  fill: none;
+  stroke: var(--lc-acento-evento);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rotulo {
+  margin-bottom: var(--lc-e-3);
+  color: var(--lc-texto);
+
+  @include m.kicker;
+}
+
+.texto { @include m.cuerpo(var(--lc-t-chico)); }
+
+.accion {
+  margin-block-start: var(--lc-e-8);
+
+  a { @include m.enlace-fino(var(--lc-acento-evento)); }
+}

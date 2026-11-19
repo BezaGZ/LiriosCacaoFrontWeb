@@ -2,9 +2,17 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { PortadaComponent } from './secciones/portada/portada.component';
 import { DeclaracionComponent } from './secciones/declaracion/declaracion.component';
-import { FloristeriaBandaComponent } from './secciones/floristeria/floristeria.component';
+import { IncluimosComponent } from './secciones/incluimos/incluimos.component';
+import { AppBandaComponent } from './secciones/app/app.component';
+import { BandaComponent } from '../../shared/components/banda/banda.component';
 import { SeoService } from '../../core/seo/seo.service';
-import { NEGOCIO, PORTADA } from '../../contenido/sitio';
+import {
+  FLORISTERIA,
+  JARDIN,
+  NEGOCIO,
+  PORTADA,
+  SERVICIOS,
+} from '../../contenido/sitio';
 
 /**
  * La portada del sitio.
@@ -15,12 +23,22 @@ import { NEGOCIO, PORTADA } from '../../contenido/sitio';
  */
 @Component({
   selector: 'lc-inicio',
-  imports: [PortadaComponent, DeclaracionComponent, FloristeriaBandaComponent],
+  imports: [
+    PortadaComponent,
+    DeclaracionComponent,
+    BandaComponent,
+    IncluimosComponent,
+    AppBandaComponent,
+  ],
   templateUrl: './inicio.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InicioComponent {
   private readonly seo = inject(SeoService);
+
+  protected readonly floristeria = FLORISTERIA.banda;
+  protected readonly eventos = SERVICIOS.banda;
+  protected readonly jardin = JARDIN.banda;
 
   constructor() {
     this.seo.aplicar({

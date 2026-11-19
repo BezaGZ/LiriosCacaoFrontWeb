@@ -1,0 +1,62 @@
+@use 'mixins' as m;
+
+// El acento llega como clase en el elemento anfitrion y se resuelve a una
+// variable local. Asi el resto de la hoja habla de "el acento" y no de flores
+// ni de eventos, y agregar una tercera linea de negocio es una linea mas.
+:host {
+  --acento: var(--lc-acento-flor);
+
+  display: block;
+}
+
+:host(.acento-evento) { --acento: var(--lc-acento-evento); }
+
+.cierre {
+  background: var(--lc-fondo-alt);
+  border-block-start: 1px solid var(--lc-linea);
+  text-align: center;
+
+  @include m.seccion;
+}
+
+.marco { @include m.contenedor; }
+
+.kicker {
+  margin-bottom: var(--lc-e-4);
+  color: var(--acento);
+
+  @include m.kicker;
+}
+
+.titulo {
+  margin: 0 auto var(--lc-e-4);
+  max-width: 20ch;
+  font-weight: 300;
+  text-wrap: balance;
+
+  @include m.display(var(--lc-t-titulo), 300);
+}
+
+.parrafo {
+  margin: 0 auto var(--lc-e-5);
+
+  @include m.cuerpo;
+  @include m.columna-texto;
+}
+
+.boton {
+  display: inline-block;
+  margin-top: var(--lc-e-2);
+  padding: 1rem 2.25rem;
+  background: var(--acento);
+  color: var(--lc-hueso);
+  font-size: var(--lc-t-chico);
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-decoration: none;
+  transition: opacity var(--lc-transicion-corta);
+
+  &:hover { opacity: .9; }
+
+  @include m.foco;
+}

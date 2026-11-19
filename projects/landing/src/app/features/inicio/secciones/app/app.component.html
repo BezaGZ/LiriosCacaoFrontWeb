@@ -1,0 +1,13 @@
+<section class="app" aria-labelledby="lc-app">
+  <div class="marco">
+    <div class="texto">
+      <p class="kicker" lcRevelar>{{ c.kicker }}</p>
+      <h2 id="lc-app" class="titulo" [lcRevelar]="70">{{ c.titulo }}</h2>
+      <p class="parrafo" [lcRevelar]="130">{{ c.texto }}</p>
+    </div>
+
+    <p class="accion" [lcRevelar]="190">
+      <a [href]="c.url" rel="noopener">{{ c.boton }}&nbsp;&rarr;</a>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+<lc-portada-pagina
+  [kicker]="c.kicker"
+  [titulo]="c.titulo"
+  [foto]="c.foto"
+  [miga]="c.miga" />
+
+<h2 class="visualmente-oculto">Lo que montamos</h2>
+
+<!-- El mosaico va a sangre, sin margen lateral: las fotos casi se tocan y la
+     página se lee como una sola superficie, no como tarjetas sueltas. -->
+<section class="mosaico">
+  @for (tesela of teselas; track tesela.titulo) {
+    @if (tesela.ruta) {
+      <a class="tesela" [routerLink]="tesela.ruta">
+        <ng-container [ngTemplateOutlet]="contenido" [ngTemplateOutletContext]="{ $implicit: tesela }" />
+      </a>
+    } @else {
+      <a class="tesela" [href]="tesela.enlace" rel="noopener">
+        <ng-container [ngTemplateOutlet]="contenido" [ngTemplateOutletContext]="{ $implicit: tesela }" />
+      </a>
+    }
+  }
+</section>
+
+<!-- La tesela se ve igual lleve adentro una ruta o un enlace de WhatsApp, así
+     que su contenido se declara una sola vez. -->
+<ng-template #contenido let-tesela>
+  <img
+    [ngSrc]="tesela.foto.src"
+    [alt]="tesela.foto.alt"
+    fill
+    sizes="(min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw">
+  <span class="rotulo">
+    <strong>{{ tesela.titulo }}</strong>
+    <span>{{ tesela.texto }}</span>
+  </span>
+</ng-template>
+
+<lc-cierre
+  acento="evento"
+  [kicker]="c.cierre.kicker"
+  [titulo]="c.cierre.titulo"
+  [parrafos]="c.cierre.parrafos"
+  [boton]="c.cierre.boton"
+  [enlace]="enlaceWhatsapp" />

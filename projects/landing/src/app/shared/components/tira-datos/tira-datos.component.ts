@@ -5,7 +5,13 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * un nombre que no existe, el compilador lo detiene en vez de dejar el hueco
  * en blanco en produccion.
  */
-export type IconoDato = 'precio' | 'entrega' | 'calendario' | 'pago';
+export type IconoDato =
+  | 'precio'
+  | 'entrega'
+  | 'calendario'
+  | 'pago'
+  | 'personas'
+  | 'techo';
 
 export interface Dato {
   readonly icono: IconoDato;

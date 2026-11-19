@@ -4,7 +4,9 @@ import { NgOptimizedImage } from '@angular/common';
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
+import { PortadaPaginaComponent } from '../../shared/components/portada-pagina/portada-pagina.component';
 import { TiraDatosComponent } from '../../shared/components/tira-datos/tira-datos.component';
+import { CierreComponent } from '../../shared/components/cierre/cierre.component';
 import { OcasionesComponent } from './ocasiones/ocasiones.component';
 import { FLORISTERIA, NEGOCIO } from '../../contenido/sitio';
 
@@ -20,7 +22,14 @@ const RUTA = '/floristeria';
  */
 @Component({
   selector: 'lc-floristeria',
-  imports: [NgOptimizedImage, RevelarDirective, TiraDatosComponent, OcasionesComponent],
+  imports: [
+    NgOptimizedImage,
+    RevelarDirective,
+    PortadaPaginaComponent,
+    TiraDatosComponent,
+    OcasionesComponent,
+    CierreComponent,
+  ],
   templateUrl: './floristeria.component.html',
   styleUrl: './floristeria.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +40,11 @@ export class FloristeriaComponent {
 
   protected readonly c = FLORISTERIA.pagina;
   protected readonly enlaceWhatsapp = this.whatsapp.porFlores();
+
+  /** El mensaje ya trae el nombre del arreglo: no hay nada que descifrar. */
+  protected porArreglo(nombre: string): string {
+    return this.whatsapp.porArreglo(nombre);
+  }
 
   constructor() {
     this.seo.aplicar({

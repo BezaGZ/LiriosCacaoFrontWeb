@@ -1,0 +1,35 @@
+<section class="banda">
+  <div class="foto">
+    <img
+      lcFoto
+      [ngSrc]="foto().src"
+      [alt]="foto().alt"
+      [style.object-position]="foto().enfoque ?? null"
+      fill
+      sizes="(min-width: 48rem) 52vw, 100vw">
+  </div>
+
+  <div class="texto">
+    <p class="kicker" lcRevelar>{{ kicker() }}</p>
+    <h2 class="titulo" [lcRevelar]="80">{{ titulo() }}</h2>
+
+    @for (parrafo of parrafos(); track $index) {
+      <p class="parrafo" [lcRevelar]="130 + $index * 60">{{ parrafo }}</p>
+    }
+
+    @if (datos().length) {
+      <dl class="datos" [lcRevelar]="200">
+        @for (dato of datos(); track dato.rotulo) {
+          <div>
+            <dt>{{ dato.rotulo }}</dt>
+            <dd>{{ dato.valor }}</dd>
+          </div>
+        }
+      </dl>
+    }
+
+    <p class="accion" [lcRevelar]="260">
+      <a [routerLink]="enlace().ruta">{{ enlace().texto }}</a>
+    </p>
+  </div>
+</section>

@@ -12,6 +12,18 @@ export const routes: Routes = [
       import('./features/inicio/inicio.component').then((m) => m.InicioComponent),
   },
   {
+    path: 'servicios',
+    loadComponent: () =>
+      import('./features/servicios/servicios.component').then(
+        (m) => m.ServiciosComponent,
+      ),
+  },
+  {
+    path: 'jardin',
+    loadComponent: () =>
+      import('./features/jardin/jardin.component').then((m) => m.JardinComponent),
+  },
+  {
     path: 'floristeria',
     loadComponent: () =>
       import('./features/floristeria/floristeria.component').then(

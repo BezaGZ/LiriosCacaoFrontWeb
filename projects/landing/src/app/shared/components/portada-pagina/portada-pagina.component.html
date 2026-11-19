@@ -1,0 +1,20 @@
+<header class="portada">
+  <img
+    [ngSrc]="foto().src"
+    [alt]="foto().alt"
+    [style.object-position]="foto().enfoque ?? null"
+    fill
+    priority
+    sizes="100vw">
+
+  <div class="texto">
+    <p class="kicker">{{ kicker() }}</p>
+    <h1 class="titulo">{{ titulo() }}</h1>
+  </div>
+
+  <nav class="miga" aria-label="Ruta">
+    <a routerLink="/">Inicio</a>
+    <span aria-hidden="true">/</span>
+    <span class="actual" aria-current="page">{{ miga() }}</span>
+  </nav>
+</header>

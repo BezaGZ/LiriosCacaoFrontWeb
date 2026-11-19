@@ -33,6 +33,14 @@ export class WhatsappService {
     );
   }
 
+  /** Para el alquiler del jardín: la fecha es lo primero que hay que saber. */
+  porJardin(): string {
+    return this.enlace(
+      'Hola, quisiera consultar la disponibilidad del jardín. Le comparto ' +
+        'la fecha y cuántas personas somos.',
+    );
+  }
+
   /** Para un evento: pedimos lo mínimo que hace útil la primera respuesta. */
   porEvento(ocasion?: string): string {
     const que = ocasion ? ` para ${ocasion}` : '';

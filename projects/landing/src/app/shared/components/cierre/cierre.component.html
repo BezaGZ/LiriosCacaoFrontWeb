@@ -1,0 +1,17 @@
+<section class="cierre">
+  <div class="marco">
+    @if (kicker(); as texto) {
+      <p class="kicker" lcRevelar>{{ texto }}</p>
+    }
+
+    <h2 class="titulo" [lcRevelar]="60">{{ titulo() }}</h2>
+
+    @for (parrafo of parrafos(); track $index) {
+      <p class="parrafo" [lcRevelar]="110 + $index * 60">{{ parrafo }}</p>
+    }
+
+    <p [lcRevelar]="110 + parrafos().length * 60">
+      <a class="boton" [href]="enlace()" rel="noopener">{{ boton() }}</a>
+    </p>
+  </div>
+</section>

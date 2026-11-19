@@ -21,8 +21,12 @@
     gap: var(--lc-e-5);
   }
 
+  // Columnas automaticas y no un numero fijo: la tira lleva tres datos en el
+  // jardin y cuatro en floristeria, y asi reparte el ancho sola.
   @media (width >= 56rem) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-columns: none;
     gap: 0;
   }
 

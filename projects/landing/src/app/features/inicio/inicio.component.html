@@ -1,5 +1,33 @@
 <lc-portada />
 <lc-declaracion />
-<lc-floristeria-banda />
 
-<!-- Siguientes: eventos · lo que incluimos · jardin · la app -->
+<!-- Las tres franjas alternan el lado de la foto. Sin alternar, la portada se
+     lee como un catálogo: tres fichas iguales una debajo de otra. -->
+<lc-banda
+  [kicker]="floristeria.kicker"
+  [titulo]="floristeria.titulo"
+  [parrafos]="floristeria.parrafos"
+  [enlace]="floristeria.enlace"
+  [foto]="floristeria.foto" />
+
+<lc-banda
+  acento="evento"
+  [invertida]="true"
+  [kicker]="eventos.kicker"
+  [titulo]="eventos.titulo"
+  [parrafos]="eventos.parrafos"
+  [enlace]="eventos.enlace"
+  [foto]="eventos.foto" />
+
+<lc-incluimos />
+
+<lc-banda
+  acento="evento"
+  [kicker]="jardin.kicker"
+  [titulo]="jardin.titulo"
+  [parrafos]="jardin.parrafos"
+  [datos]="jardin.datos"
+  [enlace]="jardin.enlace"
+  [foto]="jardin.foto" />
+
+<lc-app-banda />
