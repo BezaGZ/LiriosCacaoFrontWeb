@@ -4,6 +4,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
+import { OcasionesComponent } from './ocasiones/ocasiones.component';
 import { FLORISTERIA, NEGOCIO } from '../../contenido/sitio';
 
 const RUTA = '/floristeria';
@@ -18,7 +19,7 @@ const RUTA = '/floristeria';
  */
 @Component({
   selector: 'lc-floristeria',
-  imports: [NgOptimizedImage, RevelarDirective],
+  imports: [NgOptimizedImage, RevelarDirective, OcasionesComponent],
   templateUrl: './floristeria.component.html',
   styleUrl: './floristeria.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,7 +57,7 @@ export class FloristeriaComponent {
       url: this.seo.urlAbsoluta(RUTA),
       image: this.seo.urlAbsoluta(`/${this.c.foto.src}`),
       telephone: `+${NEGOCIO.whatsapp}`,
-      priceRange: 'Q130+',
+      priceRange: 'Q100+',
       address: {
         '@type': 'PostalAddress',
         streetAddress: d.calle,

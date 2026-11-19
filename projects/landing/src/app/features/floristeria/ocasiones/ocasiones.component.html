@@ -1,0 +1,29 @@
+<section class="ocasiones" aria-labelledby="lc-ocasiones">
+  <div class="marco">
+    @if (proxima) {
+      <p class="temporada">
+        <span class="cuando">{{ aviso }}</span>
+        <span class="dia">{{ proxima.fecha }}</span>
+      </p>
+    }
+
+    <h2 id="lc-ocasiones" class="titulo" lcRevelar>¿Para qué ocasión?</h2>
+    <p class="entrada" [lcRevelar]="70">
+      Escoja y le escribimos con opciones. Si no está la suya, pregúntenos:
+      armamos para lo que sea.
+    </p>
+
+    <ul class="lista" [lcRevelar]="130">
+      @for (ocasion of ocasiones; track ocasion.id) {
+        <li>
+          <a [href]="enlace(ocasion)" rel="noopener">
+            <span class="etiqueta">{{ ocasion.etiqueta }}</span>
+            @if (ocasion.fecha) {
+              <span class="fecha">{{ ocasion.fecha }}</span>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

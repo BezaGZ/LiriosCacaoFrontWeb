@@ -83,7 +83,7 @@ export const FLORISTERIA = {
       'Entrega a domicilio en Chiquimula o recoge en el local. Reserve con ' +
         'uno o dos días según el tamaño del arreglo.',
     ],
-    enlace: { texto: 'Ver arreglos — desde Q130', ruta: '/floristeria' },
+    enlace: { texto: 'Ver arreglos — desde Q100', ruta: '/floristeria' },
     foto: {
       src: 'assets/fotos/ramo-mesa-madera.jpg',
       alt: 'Ramo envuelto en papel kraft sobre una mesa de madera, junto a una taza y una tarjeta',
@@ -118,6 +118,10 @@ export const FLORISTERIA = {
         texto: 'Fresas cubiertas de chocolate, armadas como un ramo.',
       },
       {
+        titulo: 'Pasteles de fresa',
+        texto: 'Torre de fresas con chocolate y letrero personalizado.',
+      },
+      {
         titulo: 'Tarjeta de dedicatoria',
         texto: 'Escrita a mano y incluida en todos los arreglos.',
         // No es algo que se venda aparte, así que no entra como producto en
@@ -126,7 +130,7 @@ export const FLORISTERIA = {
       },
     ],
     detalles: [
-      { rotulo: 'Desde', valor: 'Q130' },
+      { rotulo: 'Desde', valor: 'Q100' },
       { rotulo: 'Entrega', valor: 'A domicilio en Chiquimula' },
       { rotulo: 'Anticipación', valor: 'De uno a dos días' },
       { rotulo: 'Pago', valor: 'Efectivo o tarjeta' },
@@ -143,7 +147,7 @@ export const FLORISTERIA = {
       descripcion:
         'Floristería en Chiquimula: ramos, canastas y arreglos florales para ' +
         'toda ocasión, con tarjeta de dedicatoria y entrega a domicilio. ' +
-        'Desde Q130.',
+        'Desde Q100.',
     },
   },
 } as const;
