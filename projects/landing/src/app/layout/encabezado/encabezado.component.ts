@@ -6,10 +6,10 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { MenuComponent } from '../menu/menu.component';
-import { NEGOCIO } from '../../contenido/sitio';
+import { NAVEGACION, NEGOCIO } from '../../contenido/sitio';
 
 /**
  * Barra superior. Va ENCIMA de la fotografia de portada, sin fondo propio.
@@ -18,19 +18,23 @@ import { NEGOCIO } from '../../contenido/sitio';
  * pinta sobre su foto. Una pagina sin foto arriba necesitaria su propio fondo
  * oscuro, o esta barra no se leeria.
  *
- * "Pedir en linea" queda FUERA del menu a proposito. Esconder la navegacion
- * detras de las tres lineas cuesta visitas a lo que se esconde, y ese es el
- * unico enlace que no se puede permitir esconder.
+ * De 64rem hacia arriba los enlaces van a la vista y la hamburguesa
+ * desaparece: esconder la navegacion cuesta visitas a lo que se esconde, y en
+ * escritorio no hay razon para pagar ese precio. Abajo de eso manda la
+ * hamburguesa, que ahi si hace falta.
+ *
+ * "Pedir en linea" nunca se esconde, en ningun tamano: es el enlace que cobra.
  */
 @Component({
   selector: 'lc-encabezado',
-  imports: [RouterLink, MenuComponent],
+  imports: [RouterLink, RouterLinkActive, MenuComponent],
   templateUrl: './encabezado.component.html',
   styleUrl: './encabezado.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EncabezadoComponent {
   protected readonly negocio = NEGOCIO;
+  protected readonly navegacion = NAVEGACION;
   protected readonly abierto = signal(false);
 
   private readonly disparador =

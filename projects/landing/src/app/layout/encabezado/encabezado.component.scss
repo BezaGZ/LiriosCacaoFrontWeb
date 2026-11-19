@@ -29,6 +29,44 @@
   display: flex;
   align-items: center;
   gap: var(--lc-e-5);
+
+  @media (width >= 64rem) { gap: var(--lc-e-7); }
+}
+
+// ------------------------------------------------- enlaces de pantalla grande
+
+.enlaces {
+  display: none;
+
+  @media (width >= 64rem) { display: block; }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: var(--lc-e-6);
+  }
+
+  a {
+    display: inline-block;
+    padding-block: var(--lc-e-2);
+    color: var(--lc-sobre-foto-suave);
+    font-size: .8125rem;
+    letter-spacing: .04em;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color var(--lc-transicion-corta), border-color var(--lc-transicion-corta);
+
+    &:hover { color: var(--lc-sobre-foto); }
+
+    @include m.foco;
+  }
+
+  // La página actual se marca con la línea, no solo con el color: un cambio de
+  // tono solo no lo distingue quien no separa bien los colores.
+  .activo {
+    color: var(--lc-sobre-foto);
+    border-bottom-color: currentcolor;
+  }
 }
 
 .pedir {
@@ -79,4 +117,7 @@
     &:nth-child(2) { opacity: 0; }
     &:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
   }
+
+  // En escritorio no existe: los enlaces ya están a la vista.
+  @media (width >= 64rem) { display: none; }
 }

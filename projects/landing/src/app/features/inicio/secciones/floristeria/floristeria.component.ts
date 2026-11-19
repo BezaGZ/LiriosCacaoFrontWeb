@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { RevelarDirective } from '../../../../shared/directives/revelar.directive';
+import { FotoDirective } from '../../../../shared/directives/foto.directive';
 import { FLORISTERIA } from '../../../../contenido/sitio';
 
 /**
@@ -15,7 +16,7 @@ import { FLORISTERIA } from '../../../../contenido/sitio';
  */
 @Component({
   selector: 'lc-floristeria-banda',
-  imports: [NgOptimizedImage, RouterLink, RevelarDirective],
+  imports: [NgOptimizedImage, RouterLink, RevelarDirective, FotoDirective],
   templateUrl: './floristeria.component.html',
   styleUrl: './floristeria.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

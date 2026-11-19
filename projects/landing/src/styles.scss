@@ -103,6 +103,22 @@ button {
   transform: none;
 }
 
+// Las fotografías entran distinto al texto: más lento y con un acercamiento
+// muy leve que se asienta. El contenedor necesita overflow: hidden para que
+// el sobrante del acercamiento no se desborde.
+.lc-js .lc-foto {
+  opacity: 0;
+  transform: scale(1.045);
+  transition:
+    opacity 900ms ease,
+    transform 1300ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.lc-js .lc-foto.lc-visible {
+  opacity: 1;
+  transform: none;
+}
+
 // --------------------------------------------------------- menos movimiento
 
 // Para quien lo pide: hay personas con trastornos vestibulares a las que el
@@ -120,7 +136,8 @@ button {
     scroll-behavior: auto !important;
   }
 
-  .lc-js .lc-revelar {
+  .lc-js .lc-revelar,
+  .lc-js .lc-foto {
     opacity: 1;
     transform: none;
   }

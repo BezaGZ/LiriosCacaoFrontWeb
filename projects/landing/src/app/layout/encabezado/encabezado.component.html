@@ -2,6 +2,22 @@
   <a class="marca" routerLink="/">{{ negocio.nombre }}</a>
 
   <div class="acciones">
+    <!-- En pantalla grande los enlaces van a la vista: lo que se esconde
+         detrás de las tres líneas recibe menos visitas, y aquí hay espacio
+         de sobra para cinco. De tableta hacia abajo manda la hamburguesa. -->
+    <nav class="enlaces" aria-label="Principal">
+      <ul>
+        @for (enlace of navegacion; track enlace.ruta) {
+          <li>
+            <a
+              [routerLink]="enlace.ruta"
+              routerLinkActive="activo"
+              [routerLinkActiveOptions]="{ exact: enlace.ruta === '/' }">{{ enlace.texto }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
     <a class="pedir" [href]="negocio.app">Pedir en línea</a>
 
     <button

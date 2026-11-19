@@ -13,6 +13,8 @@
 
 .foto {
   position: relative;
+  // Recorta el sobrante del acercamiento con el que entra la foto.
+  overflow: hidden;
   height: clamp(18rem, 12rem + 26vw, 22rem);
 
   @media (width >= 48rem) {
