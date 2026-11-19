@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Solo las paginas que EXISTEN. Listar una que todavia no esta construida
-  (/nosotros) le dice a Google que vaya por algo que va a devolver la portada,
-  y eso rebaja la confianza en el resto del sitemap.
+  Solo las paginas que EXISTEN. Listar una que no esta construida le dice a
+  Google que vaya por algo que va a devolver la portada, y eso rebaja la
+  confianza en el resto del sitemap.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -33,5 +33,12 @@
     <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.liriosycacao.com/nosotros</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

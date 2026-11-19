@@ -51,8 +51,7 @@ export const NAVEGACION: readonly Enlace[] = [
 export const REDES: readonly Enlace[] = [
   { texto: 'WhatsApp', ruta: `https://wa.me/${NEGOCIO.whatsapp}`, externo: true },
   { texto: 'Instagram', ruta: 'https://www.instagram.com/lirios_ycacao/', externo: true },
-  // TODO: falta la direccion de la pagina de Facebook.
-  { texto: 'Facebook', ruta: '#', externo: true },
+  { texto: 'Facebook', ruta: 'https://www.facebook.com/Liriosycacao', externo: true },
 ];
 
 export const PORTADA = {
@@ -492,4 +491,90 @@ export const APP = {
   // esta memorizando un dominio, esta decidiendo si toca o no.
   boton: 'Ir a la aplicación',
   url: 'https://app.liriosycacao.com',
+} as const;
+
+export const NOSOTROS = {
+  kicker: 'Nosotros',
+  titulo: 'Un negocio de Chiquimula',
+  miga: 'Nosotros',
+  foto: {
+    src: 'assets/fotos/pastel-fresas-chocolate.jpg',
+    alt: 'Pastel de fresas cubiertas de chocolate sobre una base dorada',
+    enfoque: 'center 40%',
+  },
+  entrada:
+    'Empezamos en 2020, y hoy hacemos cuatro cosas que tienen algo en ' +
+    'común: todas son para un día que alguien quiere recordar.',
+  /**
+   * Los bloques de prosa, en orden.
+   *
+   * El de "Cómo empezó" está copiado casi palabra por palabra de la página
+   * que ya existía en la aplicación. Es el homenaje de una familia a alguien
+   * que ya no está: reescribirlo en otra voz no nos toca.
+   */
+  bloques: [
+    {
+      titulo: 'Cómo empezó',
+      parrafos: [
+        'La historia de Lirios y Cacao comenzó con una chispa de inspiración ' +
+          'de Karelle Castillo, un deseo de crear algo único que representara ' +
+          'la riqueza de nuestra tierra. Pero una idea, por más brillante que ' +
+          'sea, necesita un alma para florecer.',
+        'Esa alma fue Danissa Castillo. Con su apoyo incondicional y su ' +
+          'visión, transformó un sueño en un proyecto tangible. Aunque ya no ' +
+          'esté físicamente con nosotros, su espíritu y su memoria son el ' +
+          'ingrediente secreto en cada una de nuestras creaciones. Lirios y ' +
+          'Cacao es nuestro homenaje a su legado, un legado de amor, fuerza y ' +
+          'dulzura.',
+      ],
+    },
+    {
+      titulo: 'Qué hacemos',
+      parrafos: [
+        'Arreglos florales para cualquier ocasión. Chocofrutas y helados ' +
+          'artesanales, que son lo de todos los días. Y la producción ' +
+          'completa de eventos, con nuestro propio jardín.',
+        'No subcontratamos el lugar ni la decoración: los arcos, el neón, las ' +
+          'letras iluminadas y el mobiliario son equipo nuestro. Por eso ' +
+          'podemos ajustar un presupuesto sin bajar la calidad — lo que ' +
+          'cambia es qué incluye, no de dónde sale.',
+        'Nuestros chocolates saborizados son el corazón de la propuesta: cada ' +
+          'sabor está pensado para sorprender.',
+      ],
+    },
+    {
+      titulo: 'Dónde estamos',
+      parrafos: [
+        '5a Calle y 2a Avenida, Chiquimula. Entregamos a domicilio dentro de ' +
+          'la ciudad.',
+      ],
+    },
+  ],
+  /**
+   * Los dos mapas que de verdad usa la gente aqui. Van como enlaces y no como
+   * un mapa incrustado: un iframe de Google carga sus propios scripts y sus
+   * cookies en una pagina que no los necesita para nada.
+   */
+  mapas: [
+    {
+      texto: 'Abrir en Google Maps',
+      ruta: 'https://www.google.com/maps/search/?api=1&query=14.79906,-89.5510',
+    },
+    {
+      texto: 'Abrir en Waze',
+      ruta: 'https://waze.com/ul?ll=14.79906,-89.5510&navigate=yes',
+    },
+  ],
+  cierre: {
+    titulo: '¿Hablamos?',
+    parrafos: ['Escríbanos por WhatsApp. Respondemos el mismo día.'],
+    boton: 'Escribir por WhatsApp',
+  },
+  seo: {
+    titulo: 'Sobre Lirios y Cacao | Flores, chocofrutas y eventos en Chiquimula',
+    descripcion:
+      'Quiénes somos: un negocio de Chiquimula que desde 2020 hace arreglos ' +
+      'florales, chocofrutas y helados artesanales, y la producción completa ' +
+      'de eventos con jardín propio.',
+  },
 } as const;

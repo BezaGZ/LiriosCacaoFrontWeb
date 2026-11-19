@@ -107,3 +107,21 @@
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/// El lirio de la marca.
+///
+/// Va como MASCARA y no como imagen: asi toma el color del texto que tiene al
+/// lado y sirve igual sobre fotografia, donde es hueso, que en el pie, donde
+/// es cafe. Una sola imagen en vez de una por color.
+///
+/// El trazo del original es muy fino: por debajo de unos 40 px se deshace, asi
+/// que el minimo razonable es 2.5rem.
+@mixin lirio($alto: 2.5rem) {
+  display: inline-block;
+  flex: none;
+  width: calc(#{$alto} * .776);  // la proporcion real del dibujo
+  height: $alto;
+  background-color: currentcolor;
+  mask: url('/assets/marca/lirio.png') center / contain no-repeat;
+  -webkit-mask: url('/assets/marca/lirio.png') center / contain no-repeat;
+}

@@ -1,0 +1,31 @@
+<lc-portada-pagina
+  [kicker]="c.kicker"
+  [titulo]="c.titulo"
+  [foto]="c.foto"
+  [miga]="c.miga" />
+
+<section class="prosa">
+  <div class="marco">
+    <p class="entrada" lcRevelar>{{ c.entrada }}</p>
+
+    @for (bloque of c.bloques; track bloque.titulo) {
+      <h2 class="titulo" lcRevelar>{{ bloque.titulo }}</h2>
+
+      @for (parrafo of bloque.parrafos; track $index) {
+        <p class="parrafo" [lcRevelar]="40 + $index * 50">{{ parrafo }}</p>
+      }
+    }
+
+    <p class="mapas" [lcRevelar]="80">
+      @for (mapa of c.mapas; track mapa.ruta) {
+        <a [href]="mapa.ruta" rel="noopener" target="_blank">{{ mapa.texto }}</a>
+      }
+    </p>
+  </div>
+</section>
+
+<lc-cierre
+  [titulo]="c.cierre.titulo"
+  [parrafos]="c.cierre.parrafos"
+  [boton]="c.cierre.boton"
+  [enlace]="enlaceWhatsapp" />

@@ -19,10 +19,16 @@
 .quienes { max-width: 20rem; }
 
 .marca {
+  display: flex;
+  align-items: center;
+  gap: var(--lc-e-3);
   margin-bottom: var(--lc-e-3);
   font-family: var(--lc-serif);
   font-size: 1.3125rem;
   font-weight: 500;
+
+  // En el pie puede ir mas grande: hay sitio y no compite con nada.
+  .lirio { @include m.lirio(3rem); }
 }
 
 .nota {

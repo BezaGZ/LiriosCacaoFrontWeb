@@ -1,5 +1,11 @@
 <header class="barra">
-  <a class="marca" routerLink="/">{{ negocio.nombre }}</a>
+  <!-- El lirio va como decoracion y no como <img>: el nombre del negocio ya
+       esta escrito al lado, asi que repetirlo en un texto alternativo le hace
+       decir dos veces lo mismo a quien usa lector de pantalla. -->
+  <a class="marca" routerLink="/">
+    <span class="lirio" aria-hidden="true"></span>
+    {{ negocio.nombre }}
+  </a>
 
   <div class="acciones">
     <!-- En pantalla grande los enlaces van a la vista: lo que se esconde

@@ -30,5 +30,12 @@ export const routes: Routes = [
         (m) => m.FloristeriaComponent,
       ),
   },
+  {
+    path: 'nosotros',
+    loadComponent: () =>
+      import('./features/nosotros/nosotros.component').then(
+        (m) => m.NosotrosComponent,
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];

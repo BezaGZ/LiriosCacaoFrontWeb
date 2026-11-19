@@ -14,6 +14,9 @@
 }
 
 .marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lc-e-3);
   font-family: var(--lc-serif);
   font-size: clamp(1.1875rem, 1rem + .6vw, 1.5rem);
   font-weight: 500;
@@ -23,6 +26,8 @@
   white-space: nowrap;
 
   @include m.foco;
+
+  .lirio { @include m.lirio; }
 }
 
 .acciones {

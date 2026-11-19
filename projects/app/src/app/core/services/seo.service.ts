@@ -15,13 +15,11 @@ export const SITIO_PRINCIPAL = 'https://www.liriosycacao.com';
  * por "floristeria chiquimula", Google reparte la fuerza entre ambas y puede
  * quedarse con la que menos conviene.
  *
- * /sobrenosotros NO esta en la lista a proposito: la landing todavia no tiene
- * su pagina equivalente, y un canonical hacia una URL que no existe es peor
- * que no tener canonical.
  */
 const CEDIDAS: Readonly<Record<string, string>> = {
   '/floristeria': '/floristeria',
   '/eventos': '/servicios',
+  '/sobrenosotros': '/nosotros',
 };
 
 /**

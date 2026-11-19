@@ -1,0 +1,47 @@
+@use 'mixins' as m;
+
+.prosa {
+  padding-inline: var(--lc-margen-x);
+
+  @include m.seccion;
+}
+
+// Columna angosta y no el ancho del sitio: esto es para leerse de corrido, y
+// un renglon de 75rem obliga al ojo a buscar donde empieza el siguiente.
+.marco {
+  margin-inline: auto;
+  max-width: 46rem;
+}
+
+.entrada {
+  margin-bottom: var(--lc-e-7);
+
+  @include m.cuerpo(var(--lc-t-cuerpo-g));
+}
+
+.titulo {
+  margin-bottom: var(--lc-e-4);
+  font-family: var(--lc-serif);
+  font-size: var(--lc-t-sub);
+  font-weight: 400;
+
+  // El margen de arriba va en el titulo y no en el parrafo de encima para que
+  // el primero de la pagina no arrastre un hueco que nadie le pidio.
+  &:not(:first-of-type) { margin-top: var(--lc-e-8); }
+}
+
+.parrafo {
+  margin-bottom: var(--lc-e-4);
+
+  @include m.cuerpo;
+  @include m.columna-texto;
+}
+
+.mapas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lc-e-5);
+  margin-top: var(--lc-e-6);
+
+  a { @include m.enlace-fino(var(--lc-acento-evento)); }
+}
