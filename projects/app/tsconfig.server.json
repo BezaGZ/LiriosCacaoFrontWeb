@@ -1,8 +1,8 @@
-/* To learn more about this file, see: https://angular.dev/reference/configs/tsconfig. */
+/* Configuración del servidor SSR de app.liriosycacao.com */
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/server",
+    "outDir": "../../out-tsc/server",
     "target": "es2022",
     "module": "esnext",
     "types": ["node"]

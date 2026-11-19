@@ -3,15 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build --configuration=production",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
-    "dev:ssr": "ng run LiriosCacaoFrontend:serve-ssr",
-    "serve:ssr": "node dist/LiriosCacaoFrontend/server/server.mjs",
-    "build:ssr": "ng build && ng run LiriosCacaoFrontend:server",
-    "prerender": "ng run LiriosCacaoFrontend:prerender",
-    "test:watch": "ng test"
+    "start": "ng serve app",
+    "start:landing": "ng serve landing --port 4300",
+    "build": "ng build app --configuration=production",
+    "build:landing": "ng build landing --configuration=production",
+    "watch": "ng build app --watch --configuration development",
+    "test": "ng test app --watch=false",
+    "test:watch": "ng test app",
+    "serve:ssr": "node dist/app/server/server.mjs",
+    "prerender": "ng run app:prerender",
+    "serve:ssr:landing": "node dist/landing/server/server.mjs"
   },
   "private": true,
   "dependencies": {

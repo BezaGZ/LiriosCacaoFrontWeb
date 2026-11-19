@@ -1,0 +1,25 @@
+/* Configuración de la aplicación app.liriosycacao.com */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/app",
+    "types": [
+      "node"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["app/*"],
+      "@core/*": ["app/core/*"],
+      "@shared/*": ["app/shared/*"],
+      "@features/*": ["app/features/*"]
+    }
+  },
+  "files": [
+    "src/main.ts",
+    "src/main.server.ts",
+    "src/server.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

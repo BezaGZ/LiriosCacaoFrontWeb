@@ -3,42 +3,42 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "LiriosCacaoFrontend": {
+    "app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/app",
+      "sourceRoot": "projects/app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/LiriosCacaoFrontend",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+            "outputPath": "dist/app",
+            "index": "projects/app/src/index.html",
+            "browser": "projects/app/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "projects/app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "projects/app/public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/app/src/styles.scss"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
+            "server": "projects/app/src/main.server.ts",
             "prerender": true,
             "ssr": {
-              "entry": "src/server.ts"
+              "entry": "projects/app/src/server.ts"
             }
           },
           "configurations": {
@@ -56,7 +56,7 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "ngsw-config.json"
+              "serviceWorker": "projects/app/ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -70,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LiriosCacaoFrontend:build:production"
+              "buildTarget": "app:build:production"
             },
             "development": {
-              "buildTarget": "LiriosCacaoFrontend:build:development"
+              "buildTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -88,16 +88,16 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "tsconfig.spec.json",
+            "tsConfig": "projects/app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "projects/app/public"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "projects/app/src/styles.scss"
             ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
@@ -117,12 +117,12 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "LiriosCacaoFrontend:build:production",
-              "serverTarget": "LiriosCacaoFrontend:server:production"
+              "buildTarget": "app:build:production",
+              "serverTarget": "app:server:production"
             },
             "development": {
-              "buildTarget": "LiriosCacaoFrontend:build:development",
-              "serverTarget": "LiriosCacaoFrontend:server:development"
+              "buildTarget": "app:build:development",
+              "serverTarget": "app:server:development"
             }
           },
           "defaultConfiguration": "production"
@@ -131,10 +131,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LiriosCacaoFrontend:build:production"
+              "buildTarget": "app:build:production"
             },
             "development": {
-              "buildTarget": "LiriosCacaoFrontend:build:development"
+              "buildTarget": "app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -142,9 +142,9 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/LiriosCacaoFrontend/server",
-            "main": "src/main.server.ts",
-            "tsConfig": "tsconfig.server.json",
+            "outputPath": "dist/app/server",
+            "main": "projects/app/src/main.server.ts",
+            "tsConfig": "projects/app/tsconfig.server.json",
             "inlineStyleLanguage": "scss"
           },
           "configurations": {
@@ -161,9 +161,112 @@
           "defaultConfiguration": "production"
         }
       }
+    },
+    "landing": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/landing",
+      "sourceRoot": "projects/landing/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/landing",
+            "index": "projects/landing/src/index.html",
+            "browser": "projects/landing/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/landing/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/landing/public"
+              }
+            ],
+            "styles": [
+              "projects/landing/src/styles.scss"
+            ],
+            "scripts": [],
+            "server": "projects/landing/src/main.server.ts",
+            "prerender": true,
+            "ssr": {
+              "entry": "projects/landing/src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "landing:build:production"
+            },
+            "development": {
+              "buildTarget": "landing:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/landing/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/landing/public"
+              }
+            ],
+            "styles": [
+              "projects/landing/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   },
   "cli": {
-    "analytics": "38e77383-90a3-4a13-b679-8b821eedaf16"
+    "analytics": "38e77383-90a3-4a13-b679-8b821eedaf16",
+    "schematicCollections": [
+      "@schematics/angular"
+    ]
   }
 }
