@@ -1,0 +1,47 @@
+<!-- Encabezado con foto detrás, igual que el resto del sitio: la barra
+     superior va encima y necesita el velo para leerse. -->
+<header class="portada">
+  <img [ngSrc]="c.foto.src" [alt]="c.foto.alt" fill priority sizes="100vw">
+  <div class="texto">
+    <p class="kicker">{{ c.kicker }}</p>
+    <h1 class="titulo">{{ c.titulo }}</h1>
+  </div>
+</header>
+
+<section class="entrada">
+  <div class="marco">
+    <p class="parrafo">{{ c.entrada }}</p>
+  </div>
+</section>
+
+<section class="hacemos" aria-labelledby="lc-hacemos">
+  <h2 id="lc-hacemos" class="visualmente-oculto">Lo que hacemos</h2>
+  <ul class="lista">
+    @for (item of c.queHacemos; track item.titulo) {
+      <li [lcRevelar]="$index * 70">
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.texto }}</p>
+      </li>
+    }
+  </ul>
+</section>
+
+<section class="detalles" aria-labelledby="lc-detalles">
+  <h2 id="lc-detalles" class="visualmente-oculto">Precios y entrega</h2>
+  <dl>
+    @for (dato of c.detalles; track dato.rotulo) {
+      <div>
+        <dt>{{ dato.rotulo }}</dt>
+        <dd>{{ dato.valor }}</dd>
+      </div>
+    }
+  </dl>
+</section>
+
+<section class="cierre">
+  <h2 class="cierre-titulo" lcRevelar>{{ c.cierre.titulo }}</h2>
+  <p class="cierre-texto" [lcRevelar]="80">{{ c.cierre.texto }}</p>
+  <p [lcRevelar]="150">
+    <a class="boton" [href]="enlaceWhatsapp" rel="noopener">{{ c.cierre.boton }}</a>
+  </p>
+</section>
