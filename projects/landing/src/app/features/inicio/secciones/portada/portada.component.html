@@ -8,12 +8,14 @@
       decoding="async">
   </picture>
 
+  <!-- Igual que en las paginas interiores: la foto entra instantanea porque
+       es la que mide el LCP; el texto encima es el que se desvanece. -->
   <div class="texto">
-    <p class="kicker">{{ c.kicker }}</p>
-    <h1 class="titular">{{ c.titulo }}</h1>
-    <p class="entrada">{{ c.entrada }}</p>
+    <p class="kicker" lcRevelar>{{ c.kicker }}</p>
+    <h1 class="titular" [lcRevelar]="90">{{ c.titulo }}</h1>
+    <p class="entrada" [lcRevelar]="180">{{ c.entrada }}</p>
 
-    <div class="acciones">
+    <div class="acciones" [lcRevelar]="260">
       <a class="principal" [routerLink]="c.accionPrincipal.ruta">
         {{ c.accionPrincipal.texto }}
       </a>

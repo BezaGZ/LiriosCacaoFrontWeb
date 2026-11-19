@@ -40,9 +40,18 @@ export const NAVEGACION: readonly Enlace[] = [
   { texto: 'Nosotros', ruta: '/nosotros' },
 ];
 
+/**
+ * Las redes, con sus enlaces de verdad.
+ *
+ * El de WhatsApp se arma con el numero de arriba para que no haya dos sitios
+ * donde cambiarlo. Va sin mensaje escrito a proposito: en el pie el visitante
+ * puede venir a preguntar cualquier cosa, no solo a pedir flores; los botones
+ * que si tienen contexto son los de cada seccion.
+ */
 export const REDES: readonly Enlace[] = [
-  { texto: 'WhatsApp', ruta: '#', externo: true },
-  { texto: 'Instagram', ruta: '#', externo: true },
+  { texto: 'WhatsApp', ruta: `https://wa.me/${NEGOCIO.whatsapp}`, externo: true },
+  { texto: 'Instagram', ruta: 'https://www.instagram.com/lirios_ycacao/', externo: true },
+  // TODO: falta la direccion de la pagina de Facebook.
   { texto: 'Facebook', ruta: '#', externo: true },
 ];
 
@@ -215,7 +224,7 @@ export const PIE = {
   ] as readonly Enlace[],
   creditoTexto: 'Hecho por',
   creditoMarca: 'Kaxbe',
-  creditoRuta: '#',
+  creditoRuta: 'https://www.kaxbe.com',
 } as const;
 
 export const SERVICIOS = {
@@ -392,7 +401,7 @@ export const JARDIN = {
       {
         icono: 'mobiliario',
         titulo: 'Mobiliario',
-        texto: 'Mesas y sillas, con su mantelería puesta.',
+        texto: 'Mesas y sillas para todos sus invitados.',
       },
       {
         icono: 'cocina',
@@ -461,7 +470,7 @@ export const INCLUIMOS = {
     {
       icono: 'mesa',
       titulo: 'Mesa puesta',
-      texto: 'Mobiliario, vajilla, mantelería, y cocina y baños equipados.',
+      texto: 'Mobiliario, vajilla, y cocina y baños equipados.',
     },
     {
       icono: 'sonido',

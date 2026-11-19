@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common';
 
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
+import { FotoDirective } from '../../shared/directives/foto.directive';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
 import { PortadaPaginaComponent } from '../../shared/components/portada-pagina/portada-pagina.component';
 import { TiraDatosComponent } from '../../shared/components/tira-datos/tira-datos.component';
@@ -24,6 +25,7 @@ const RUTA = '/floristeria';
   selector: 'lc-floristeria',
   imports: [
     NgOptimizedImage,
+    FotoDirective,
     RevelarDirective,
     PortadaPaginaComponent,
     TiraDatosComponent,

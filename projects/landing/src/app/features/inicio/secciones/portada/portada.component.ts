@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import { RevelarDirective } from '../../../../shared/directives/revelar.directive';
+
 import { PORTADA } from '../../../../contenido/sitio';
 
 /**
@@ -17,7 +19,7 @@ import { PORTADA } from '../../../../contenido/sitio';
  */
 @Component({
   selector: 'lc-portada',
-  imports: [RouterLink],
+  imports: [RouterLink, RevelarDirective],
   templateUrl: './portada.component.html',
   styleUrl: './portada.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

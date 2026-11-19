@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
+import { RevelarDirective } from '../../directives/revelar.directive';
+
 export interface FotoPortada {
   readonly src: string;
   readonly alt: string;
@@ -28,7 +30,7 @@ export interface FotoPortada {
  */
 @Component({
   selector: 'lc-portada-pagina',
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, RouterLink, RevelarDirective],
   templateUrl: './portada-pagina.component.html',
   styleUrl: './portada-pagina.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

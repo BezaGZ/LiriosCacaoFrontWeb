@@ -11,11 +11,11 @@
 <section class="mosaico">
   @for (tesela of teselas; track tesela.titulo) {
     @if (tesela.ruta) {
-      <a class="tesela" [routerLink]="tesela.ruta">
+      <a class="tesela" [lcRevelar]="$index * 60" [routerLink]="tesela.ruta">
         <ng-container [ngTemplateOutlet]="contenido" [ngTemplateOutletContext]="{ $implicit: tesela }" />
       </a>
     } @else {
-      <a class="tesela" [href]="tesela.enlace" rel="noopener">
+      <a class="tesela" [lcRevelar]="$index * 60" [href]="tesela.enlace" rel="noopener">
         <ng-container [ngTemplateOutlet]="contenido" [ngTemplateOutletContext]="{ $implicit: tesela }" />
       </a>
     }
@@ -26,6 +26,7 @@
      que su contenido se declara una sola vez. -->
 <ng-template #contenido let-tesela>
   <img
+    lcFoto
     [ngSrc]="tesela.foto.src"
     [alt]="tesela.foto.alt"
     fill

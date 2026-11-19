@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
+import { FotoDirective } from '../../shared/directives/foto.directive';
+import { RevelarDirective } from '../../shared/directives/revelar.directive';
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
 import { PortadaPaginaComponent } from '../../shared/components/portada-pagina/portada-pagina.component';
@@ -23,6 +25,8 @@ const RUTA = '/servicios';
     NgOptimizedImage,
     NgTemplateOutlet,
     RouterLink,
+    FotoDirective,
+    RevelarDirective,
     PortadaPaginaComponent,
     CierreComponent,
   ],
