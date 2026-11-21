@@ -1,6 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Catalogo, Categoria, Producto } from '@core/catalogo/catalogo.models';
 import { FUENTE_CATALOGO } from '@core/catalogo/catalogo.fuente';
 import { itemPaquete, itemSimple } from '@core/catalogo/catalogo.carrito';
@@ -27,6 +27,7 @@ export class CatalogoComponent {
   private readonly fuente = inject(FUENTE_CATALOGO);
   private readonly carrito = inject(CartService);
   private readonly router = inject(Router);
+  private readonly ruta = inject(ActivatedRoute);
 
   readonly datos = signal<Catalogo | null>(null);
   readonly filtro = signal('todos');
@@ -36,6 +37,14 @@ export class CatalogoComponent {
     // La fuente es asincrona desde hoy aunque los datos esten quemados: asi
     // el dia del backend no hay que volver asincrona esta pantalla.
     this.fuente.obtener().then(c => this.datos.set(c));
+
+    // El inicio abre el catalogo ya filtrado (?cat=) o ya buscando (?q=).
+    // Va suscrito y no leido del snapshot porque desde el propio catalogo se
+    // puede navegar a otra categoria sin que el componente se vuelva a crear.
+    this.ruta.queryParamMap.subscribe(p => {
+      this.filtro.set(p.get('cat') ?? 'todos');
+      this.busca.set(p.get('q') ?? '');
+    });
   }
 
   readonly categorias = computed<readonly Categoria[]>(() => {
@@ -57,10 +66,18 @@ export class CatalogoComponent {
     if (!c || this.mostrandoPaquetes()) return [];
 
     const q = this.busca().trim().toLowerCase();
+
+    // El orden lo manda `categorias.orden`, no el id. Ordenar por id es
+    // alfabetico, y alfabeticamente los cafes van primero: el catalogo
+    // abria con ocho productos que todavia no se pueden comprar.
+    const porCategoria = new Map(c.categorias.map(x => [x.id, x.orden]));
+
     return [...c.productos]
       .filter(p => this.filtro() === 'todos' || p.categoriaId === this.filtro())
       .filter(p => !q || `${p.nombre} ${p.descripcion}`.toLowerCase().includes(q))
-      .sort((a, b) => a.categoriaId.localeCompare(b.categoriaId) || a.orden - b.orden);
+      .sort((a, b) =>
+        (porCategoria.get(a.categoriaId) ?? 99) - (porCategoria.get(b.categoriaId) ?? 99)
+        || a.orden - b.orden);
   });
 
   /** La categoría que se está mirando no tiene nada, y eso es un dato. */

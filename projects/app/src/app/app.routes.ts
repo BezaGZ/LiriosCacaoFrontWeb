@@ -9,7 +9,7 @@ export const routes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./features/home/home.component').then((m) => m.HomeComponent),
+          import('./features/inicio/inicio.component').then((m) => m.InicioComponent),
       },
       {
         path: 'sobrenosotros',
@@ -22,25 +22,25 @@ export const routes: Routes = [
           import('./features/catalogo/catalogo.component').then((m) => m.CatalogoComponent),
       },
       {
-        // El configurador. Solo lo abren los productos que tienen
-        // configuradorId; los demas entran al carrito desde la tarjeta.
-        path: 'producto/:slug',
-        loadComponent: () =>
-          import('./features/producto/producto.component').then((m) => m.ProductoComponent),
-      },
-      {
         path: 'carrito',
         loadComponent: () =>
           import('./features/carrito/carrito.component').then((m) => m.CarritoComponent),
-      },
-      {
-        // El cierre es un flujo, no una seccion: se abre encima y se cierra.
-        path: 'pedido',
-        loadComponent: () =>
-          import('./features/pedido/pedido.component').then((m) => m.PedidoComponent),
       }
     ],
+  },
 
+  // Flujos: se abren ENCIMA del cascaron y se cierran. No llevan barra de
+  // pestanas ni barra de pedido, porque las suyas propias ya ocupan el pie y
+  // tres barras apiladas abajo no caben en un telefono.
+  {
+    path: 'producto/:slug',
+    loadComponent: () =>
+      import('./features/producto/producto.component').then((m) => m.ProductoComponent),
+  },
+  {
+    path: 'pedido',
+    loadComponent: () =>
+      import('./features/pedido/pedido.component').then((m) => m.PedidoComponent),
   },
 
 

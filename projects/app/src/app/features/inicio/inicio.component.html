@@ -1,0 +1,147 @@
+<div class="entrega">
+  <lc-icono nombre="pin" [tamano]="19" [grosor]="1.7" />
+  <span class="donde">
+    <span class="etq">Entregar en</span>
+    <span class="lugar">Chiquimula</span>
+  </span>
+</div>
+
+<label class="solo-lectores" for="buscar-inicio">Buscar productos</label>
+<div class="buscar">
+  <lc-icono nombre="lupa" [tamano]="16" [grosor]="1.9" />
+  <input
+    id="buscar-inicio"
+    type="search"
+    placeholder="Chocofrutas, helados, café…"
+    (change)="buscar($any($event.target).value)"
+  >
+</div>
+
+<!-- Las categorías se arrastran y la última se corta en el borde: ese
+     pedacito que asoma dice «hay más» sin ponerle flechas. -->
+<div class="categorias" role="list" aria-label="Categorías">
+  @for (c of categorias(); track c.id) {
+    <button type="button" class="categoria" role="listitem" (click)="verCategoria(c.id)">
+      <span class="disco">
+        <lc-icono [nombre]="icono(c.slug)" [tamano]="32" [grosor]="1.4" />
+      </span>
+      <span class="txt">{{ c.nombre }}</span>
+    </button>
+  }
+</div>
+
+@if (destacados().length) {
+  <div class="seccion">
+    <h2>Lo más pedido</h2>
+    <button type="button" (click)="verTodo()">Ver todo</button>
+  </div>
+
+  <div class="fila" role="list">
+    @for (p of destacados(); track p.id) {
+      <article class="tarjeta" role="listitem">
+        <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p)">
+          @if (p.imagen) { <img [src]="p.imagen" [alt]="p.nombre" loading="lazy"> }
+          @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
+        </button>
+        <div class="texto">
+          <h3>{{ p.nombre }}</h3>
+          <p>{{ p.descripcion }}</p>
+          <div class="pie">
+            <span class="precio">{{ p.precio | currency }}</span>
+            <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p)">
+              <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+            </button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+}
+
+@if (paquetes().length) {
+  <div class="seccion">
+    <span>
+      <h2>Paquetes</h2>
+      <p class="sub">Para compartir o regalar</p>
+    </span>
+  </div>
+
+  <div class="fila" role="list">
+    @for (q of paquetes(); track q.id) {
+      <article class="paquete" role="listitem">
+        <div class="cima">
+          @if (q.sello) { <span class="sello">{{ q.sello }}</span> }
+          @for (f of fotosDe(q.categoriaId); track f) {
+            <img [src]="f" alt="" loading="lazy">
+          }
+        </div>
+        <div class="texto">
+          <h3>{{ q.nombre }}</h3>
+          <p>{{ q.descripcion }}</p>
+          <div class="pie">
+            @if (q.precio !== null) {
+              <span class="precio">{{ q.precio | currency }}</span>
+            } @else {
+              <span class="sin-precio">Sin precio</span>
+            }
+            <button
+              type="button"
+              class="agregar"
+              [disabled]="q.precio === null"
+              [attr.aria-label]="'Agregar ' + q.nombre"
+              (click)="agregarPaquete(q)"
+            >
+              <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+            </button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+}
+
+@if (cafes().length) {
+  <div class="seccion">
+    <span>
+      <h2>Café frío</h2>
+      <p class="sub">Vaso de 16 oz</p>
+    </span>
+    <button type="button" (click)="verCategoria('cat_bebida')">Ver todo</button>
+  </div>
+
+  <div class="listado">
+    @for (p of cafes(); track p.id) {
+      <article class="renglon">
+        <span class="mini">
+          @if (p.imagen) { <img [src]="p.imagen" [alt]="p.nombre" loading="lazy"> }
+        </span>
+        <span class="tx">
+          <span class="nombre">{{ p.nombre }}</span>
+          <span class="detalle">{{ p.descripcion }}</span>
+          @if (p.precio !== null) {
+            <span class="precio chico">{{ p.precio | currency }}</span>
+          } @else {
+            <span class="sin-precio">Sin precio</span>
+          }
+        </span>
+        <button
+          type="button"
+          class="agregar"
+          [disabled]="p.precio === null"
+          [attr.aria-label]="'Agregar ' + p.nombre"
+          (click)="tocar(p)"
+        >
+          <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+        </button>
+      </article>
+    }
+  </div>
+}
+
+<div class="aviso">
+  <lc-icono nombre="whatsapp" [tamano]="18" [grosor]="1.7" />
+  <p>
+    Aquí no se paga. Se arma el pedido y usted lo manda por WhatsApp;
+    el cobro y la hora se acuerdan en la conversación.
+  </p>
+</div>

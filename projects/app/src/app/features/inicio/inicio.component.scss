@@ -1,0 +1,370 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  padding-bottom: 16px;
+  font-family: var(--lc-sans);
+}
+
+.solo-lectores { @include solo-lectores; }
+
+/* ------------------------------------------------------------- entrega -- */
+/* Lo primero que una app de pedidos necesita saber. Va arriba del buscador
+   porque decide si el resto de la pantalla sirve de algo. */
+.entrega {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 4px 11px;
+  color: var(--lc-acento);
+  @include margen-lateral;
+
+  .donde { flex: 1; min-width: 0; }
+
+  .etq {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--lc-texto-tenue);
+  }
+
+  .lugar {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--lc-texto-fuerte);
+  }
+}
+
+.buscar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 44px;
+  padding-inline: 15px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio-chico);
+  box-shadow: var(--lc-sombra-apoyada);
+  color: var(--lc-texto-tenue);
+  @include margen-lateral;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    /* Por debajo de 16px, Safari en iPhone acerca la pantalla al enfocar. */
+    font-size: 16px;
+    color: var(--lc-texto);
+    outline: none;
+  }
+}
+
+/* ---------------------------------------------------------- categorías -- */
+.categorias {
+  margin-top: 14px;
+  padding-block: 2px 6px;
+  @include margen-lateral;
+  @include fila-arrastrable;
+}
+
+.categoria {
+  flex: none;
+  width: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+
+  .disco {
+    display: grid;
+    place-items: center;
+    width: 66px;
+    height: 66px;
+    background: var(--lc-superficie);
+    border-radius: var(--lc-pildora);
+    box-shadow: var(--lc-sombra-tarjeta);
+    color: var(--lc-acento);
+    @include presion(.93);
+  }
+
+  .txt {
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--lc-texto);
+  }
+}
+
+/* ------------------------------------------------------------ secciones -- */
+.seccion {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 16px 9px;
+  @include margen-lateral;
+
+  h2 {
+    margin: 0;
+    font-family: var(--lc-serif);
+    font-size: 21px;
+    font-weight: 500;
+    color: var(--lc-texto-fuerte);
+  }
+
+  .sub {
+    margin: 1px 0 0;
+    font-size: 11.5px;
+    color: var(--lc-texto-suave);
+  }
+
+  button {
+    flex: none;
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--lc-acento);
+    cursor: pointer;
+  }
+}
+
+.fila {
+  padding-block: 2px 6px;
+  @include margen-lateral;
+  @include fila-arrastrable;
+}
+
+/* -------------------------------------------------------------- tarjeta -- */
+/* Ancha, con la foto arriba y el texto a la izquierda. La cuadrada centrada
+   se lee como catálogo web; esta se lee como app de pedidos. */
+.tarjeta {
+  flex: none;
+  width: 252px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  @include tarjeta(var(--lc-radio-grande));
+  @include realce;
+}
+
+.foto {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 140px;
+  padding: 0;
+  border: 0;
+  background: var(--lc-hueco);
+  cursor: pointer;
+  @include presion(.97);
+
+  img {
+    position: absolute;
+    inset: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    object-fit: contain;
+  }
+}
+
+.sello {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  padding: 4px 9px;
+  background: var(--lc-acento);
+  color: var(--lc-sobre-acento);
+  border-radius: var(--lc-pildora);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 9px 13px 13px;
+
+  h3 {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--lc-texto-fuerte);
+  }
+
+  p {
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: var(--lc-texto-suave);
+  }
+}
+
+.pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.precio {
+  font-family: var(--lc-serif);
+  font-size: 19px;
+  color: var(--lc-texto-fuerte);
+  font-variant-numeric: tabular-nums;
+
+  &.chico { font-size: 16px; }
+}
+
+.sin-precio {
+  font-size: 12px;
+  color: var(--lc-texto-tenue);
+}
+
+.agregar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--lc-pildora);
+  background: var(--lc-acento);
+  color: var(--lc-sobre-acento);
+  box-shadow: 0 3px 10px rgb(114 60 66 / 32%);
+  cursor: pointer;
+  @include presion(.86);
+
+  &:disabled {
+    background: var(--lc-hueco);
+    color: var(--lc-texto-tenue);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+/* ------------------------------------------------------------- paquetes -- */
+/* Más ancha que la tarjeta normal porque lo que se vende es el conjunto, y
+   la portada lo arma con los recortes que ya existen. */
+.paquete {
+  flex: none;
+  width: 286px;
+  overflow: hidden;
+  @include tarjeta(var(--lc-radio-grande));
+  @include realce;
+}
+
+.cima {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: 118px;
+  padding: 10px 14px 0;
+  background: var(--lc-hueco);
+
+  img {
+    height: 98px;
+    max-width: 31%;
+    object-fit: contain;
+  }
+}
+
+/* -------------------------------------------------------------- renglón -- */
+.listado {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  @include margen-lateral;
+}
+
+.renglon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px 9px 9px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio);
+  box-shadow: var(--lc-sombra-apoyada);
+
+  .mini {
+    position: relative;
+    flex: none;
+    width: 60px;
+    height: 60px;
+    background: var(--lc-hueco);
+    border-radius: var(--lc-radio-chico);
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      inset: 4px;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
+      object-fit: contain;
+    }
+  }
+
+  .tx {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .nombre {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lc-texto-fuerte);
+  }
+
+  .detalle {
+    font-size: 11.5px;
+    color: var(--lc-texto-suave);
+  }
+}
+
+/* ---------------------------------------------------------------- aviso -- */
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 18px;
+  padding: 13px 15px;
+  background: rgb(57 94 124 / 9%);
+  border-radius: var(--lc-radio);
+  color: var(--lc-azul);
+  margin-inline: var(--lc-margen);
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  lc-icono { flex: none; margin-top: 1px; }
+}
+
+/* ----------------------------------------------------------- escritorio -- */
+@media (width >= 48rem) {
+  .tarjeta { width: 268px; }
+  .paquete { width: 320px; }
+  .listado { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+}
