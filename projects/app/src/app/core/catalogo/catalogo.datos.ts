@@ -51,7 +51,7 @@ export const PRODUCTOS: readonly Producto[] = [
   // Solo banano, pina y sandia tienen fotografia en el repositorio. Las demas
   // llevan null hasta que exista el archivo: nada apunta a una ruta vacia.
   { id: 'prod_manzana', categoriaId: 'cat_chocofruta', slug: 'chocomanzana', nombre: 'Chocomanzana',
-    descripcion: 'Manzana cubierta de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomanzana'),
+    descripcion: 'Trozos de manzana cubiertos de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomanzana'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 1, disponible: true },
 
   { id: 'prod_fresa', categoriaId: 'cat_chocofruta', slug: 'chocofresa', nombre: 'Chocofresa',
@@ -59,16 +59,16 @@ export const PRODUCTOS: readonly Producto[] = [
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 2, disponible: true },
 
   { id: 'prod_pina', categoriaId: 'cat_chocofruta', slug: 'chocopina', nombre: 'Chocopiña',
-    descripcion: 'Piña fresca cubierta de chocolate', precio: BASE_CHOCOFRUTA,
+    descripcion: 'Trozos de piña fresca cubiertos de chocolate', precio: BASE_CHOCOFRUTA,
     imagen: foto('chocopina'),
     configuradorId: 'cfg_chocofruta', sello: 'Más pedido', destacado: true, orden: 3, disponible: true },
 
   { id: 'prod_melon', categoriaId: 'cat_chocofruta', slug: 'chocomelon', nombre: 'Chocomelón',
-    descripcion: 'Melón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelon'),
+    descripcion: 'Trozos de melón cubiertos de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelon'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 4, disponible: true },
 
   { id: 'prod_melocoton', categoriaId: 'cat_chocofruta', slug: 'chocomelocoton', nombre: 'Chocomelocotón',
-    descripcion: 'Melocotón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelocoton'),
+    descripcion: 'Trozos de melocotón cubiertos de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelocoton'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 5, disponible: true },
 
   { id: 'prod_banano', categoriaId: 'cat_chocofruta', slug: 'chocobanano', nombre: 'Chocobanano',
@@ -77,7 +77,7 @@ export const PRODUCTOS: readonly Producto[] = [
     configuradorId: 'cfg_chocofruta', sello: '', destacado: true, orden: 6, disponible: true },
 
   { id: 'prod_sandia', categoriaId: 'cat_chocofruta', slug: 'chocosandia', nombre: 'Chocosandía',
-    descripcion: 'Sandía cubierta de chocolate', precio: BASE_CHOCOFRUTA,
+    descripcion: 'Trozos de sandía cubiertos de chocolate', precio: BASE_CHOCOFRUTA,
     imagen: foto('chocosandia'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: true, orden: 7, disponible: true },
 
