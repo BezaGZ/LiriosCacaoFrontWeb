@@ -58,18 +58,18 @@
   <div class="rejilla" role="list">
     @for (p of destacados(); track p.id) {
       <article class="tarjeta" role="listitem">
-        <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
-          @if (p.imagen) { <img [src]="p.imagen" [alt]="p.nombre" loading="lazy"> }
-          @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
-        </button>
+        <div class="marco">
+          <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
+            @if (p.imagen) { <img [src]="p.imagen" [alt]="p.nombre" loading="lazy"> }
+            @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
+          </button>
+          <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
+            <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+          </button>
+        </div>
         <div class="texto">
           <h3>{{ p.nombre }}</h3>
-          <div class="pie">
-            <span class="precio">{{ p.precio | currency }}</span>
-            <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
-              <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
-            </button>
-          </div>
+          <span class="precio">{{ p.precio | currency }}</span>
         </div>
       </article>
     }

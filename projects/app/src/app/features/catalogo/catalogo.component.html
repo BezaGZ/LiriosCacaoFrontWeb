@@ -80,40 +80,44 @@
     @if (productos().length) {
       <div class="rejilla">
         @for (p of productos(); track p.id) {
+          <!-- Sin descripcion: en una chocofruta repite el nombre. "Chocopina"
+               ya dice pina y chocolate, y esa linea costaba dos renglones por
+               tarjeta en una rejilla de 29. La descripcion sigue estando en la
+               pantalla del producto, que es donde se decide. -->
           <article class="tarjeta">
-            <button
-              type="button"
-              class="foto"
-              [attr.aria-label]="p.configuradorId ? 'Armar ' + p.nombre : 'Agregar ' + p.nombre"
-              (click)="tocar(p, $event)"
-            >
-              @if (p.imagen) {
-                <img [src]="p.imagen" [alt]="p.nombre" loading="lazy">
-              } @else {
-                <span class="sin-foto"><lc-icono [nombre]="icono('chocofrutas')" [tamano]="34" [grosor]="1.3" /></span>
-              }
-              @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
-            </button>
+            <div class="marco">
+              <button
+                type="button"
+                class="foto"
+                [attr.aria-label]="p.configuradorId ? 'Armar ' + p.nombre : 'Agregar ' + p.nombre"
+                (click)="tocar(p, $event)"
+              >
+                @if (p.imagen) {
+                  <img [src]="p.imagen" [alt]="p.nombre" loading="lazy">
+                } @else {
+                  <span class="sin-foto"><lc-icono [nombre]="icono('chocofrutas')" [tamano]="34" [grosor]="1.3" /></span>
+                }
+                @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
+              </button>
+
+              <button
+                type="button"
+                class="agregar"
+                [disabled]="p.precio === null"
+                [attr.aria-label]="(p.configuradorId ? 'Armar ' : 'Agregar ') + p.nombre"
+                (click)="tocar(p, $event)"
+              >
+                <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+              </button>
+            </div>
 
             <div class="texto">
               <h2>{{ p.nombre }}</h2>
-              <p>{{ p.descripcion }}</p>
-              <div class="pie">
-                @if (p.precio !== null) {
-                  <span class="precio">{{ p.precio | currency }}</span>
-                } @else {
-                  <span class="sin-precio">Sin precio</span>
-                }
-                <button
-                  type="button"
-                  class="agregar"
-                  [disabled]="p.precio === null"
-                  [attr.aria-label]="(p.configuradorId ? 'Armar ' : 'Agregar ') + p.nombre"
-                  (click)="tocar(p, $event)"
-                >
-                  <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
-                </button>
-              </div>
+              @if (p.precio !== null) {
+                <span class="precio">{{ p.precio | currency }}</span>
+              } @else {
+                <span class="sin-precio">Sin precio</span>
+              }
             </div>
           </article>
         }

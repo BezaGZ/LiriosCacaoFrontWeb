@@ -189,6 +189,12 @@
   @include realce;
 }
 
+/* El marco deja que el boton de agregar se pose sobre la foto sin anidar un
+   boton dentro de otro. Solo lo usa la rejilla de destacados. */
+.rejilla .marco {
+  position: relative;
+}
+
 .foto {
   position: relative;
   display: block;
@@ -229,9 +235,10 @@
 
   h3 {
     margin: 0;
+    min-width: 0;
     font-size: 13.5px;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.35;
     color: var(--lc-texto-fuerte);
   }
 
@@ -241,6 +248,23 @@
     line-height: 1.45;
     color: var(--lc-texto-suave);
   }
+}
+
+/* En la rejilla el boton se posa sobre la foto; en los paquetes, que son
+   anchos, se queda el pie normal. Nombre y precio van apilados: con
+   "Chocomanzana" y "Q9.00" no caben en una linea de 170px. */
+.rejilla .texto {
+  gap: 2px;
+  padding: 10px 12px 12px;
+}
+
+.rejilla .precio { line-height: 1.15; }
+
+.rejilla .agregar {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  z-index: 2;
 }
 
 .pie {
