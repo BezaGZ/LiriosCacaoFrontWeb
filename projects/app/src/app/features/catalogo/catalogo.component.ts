@@ -5,6 +5,7 @@ import { Catalogo, Categoria, Producto } from '@core/catalogo/catalogo.models';
 import { FUENTE_CATALOGO } from '@core/catalogo/catalogo.fuente';
 import { itemPaquete, itemSimple } from '@core/catalogo/catalogo.carrito';
 import { CartService } from '@features/cart/cart.service';
+import { matchesSearch } from '@core/utils/text';
 import { Icono, NombreIcono } from '@ui/icono/icono';
 
 /** El icono que le toca a cada categoría, por su slug. */
@@ -74,7 +75,9 @@ export class CatalogoComponent {
 
     return [...c.productos]
       .filter(p => this.filtro() === 'todos' || p.categoriaId === this.filtro())
-      .filter(p => !q || `${p.nombre} ${p.descripcion}`.toLowerCase().includes(q))
+      // matchesSearch quita acentos y exige TODAS las palabras: asi
+      // "pina" encuentra Chocopiña y "paleta vino" encuentra la paleta.
+      .filter(p => !q || matchesSearch(`${p.nombre} ${p.descripcion}`, q))
       .sort((a, b) =>
         (porCategoria.get(a.categoriaId) ?? 99) - (porCategoria.get(b.categoriaId) ?? 99)
         || a.orden - b.orden);

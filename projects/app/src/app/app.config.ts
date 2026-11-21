@@ -2,11 +2,7 @@ import {routes} from './app.routes';
 import { ApplicationConfig, isDevMode, LOCALE_ID, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEsGt from '@angular/common/locales/es-GT';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
 import {provideRouter, withViewTransitions} from '@angular/router';
-import {MessageService} from 'primeng/api';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
 import { PROVEEDOR_CATALOGO_QUEMADO } from '@core/catalogo/catalogo.fuente';
@@ -26,16 +22,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     { provide: LOCALE_ID, useValue: 'es-GT' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'GTQ' },
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: { // <-- AÑADE ESTE OBJETO 'options'
-          darkMode: 'light' // <-- AÑADE ESTA LÍNEA PARA FORZAR EL MODO CLARO
-        }
-      },
-
-    }),
     // Las transiciones entre pantallas las hace el navegador con la View
     // Transitions API: el router le pide el cambio y el navegador anima
     // de un estado al otro. La foto del producto lleva
@@ -47,7 +33,7 @@ export const appConfig: ApplicationConfig = {
     // backend se cambia esta sola linea y ninguna pantalla se entera.
     PROVEEDOR_CATALOGO_QUEMADO,
 
-    MessageService, provideClientHydration(withEventReplay()), provideServiceWorker('ngsw-worker.js', {
+    provideClientHydration(withEventReplay()), provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
           })

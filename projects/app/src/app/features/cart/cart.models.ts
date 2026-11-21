@@ -63,7 +63,7 @@ export function buildConfigKey(item: NewCartItem): string {
       `lineas:${helado.lineasChocolateSlug ?? ''}`
     );
   } else {
-    // Flores, eventos y cualquier producto no personalizable.
+    // Bebidas y cualquier otro producto sin configuracion.
     partes.push(`titulo:${item.title}`);
   }
 

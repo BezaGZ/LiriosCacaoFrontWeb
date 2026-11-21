@@ -1,9 +1,5 @@
 @use "tailwindcss";
-@use "primeicons/primeicons.css";
-@use "primeflex/primeflex.css";
-@use "app/features/layout/styles/layout.scss";
 @use "estilos/tokens";
-@plugin "tailwindcss-primeui";
 
 // Modo claro y NADA MAS.
 //
@@ -23,39 +19,16 @@ body {
   margin: 0;
 }
 
+// El fondo va tambien en el body y no solo en el cascaron: durante la
+// transicion entre pantallas el navegador deja ver lo que hay detras, y sin
+// esto asoma el blanco del documento.
+body {
+  background: var(--lc-fondo);
+}
+
 app-root {
   display: block;
   height: 100%;
-}
-
-// --- Aviso de "producto agregado" ---
-//
-// Va en bottom-center. En top-center el recuadro caia sobre la segunda fila de
-// tarjetas y tapaba el boton de agregar: quien queria un segundo producto
-// tenia que cerrar el aviso primero.
-//
-// pointer-events deja que los clics atraviesen el CONTENEDOR (que ocupa una
-// franja completa de la pantalla aunque el aviso sea chico); solo el recuadro
-// en si sigue siendo clicable, para que sus botones funcionen.
-.toast-sin-bloqueo {
-  pointer-events: none;
-
-  .p-toast-message {
-    pointer-events: auto;
-  }
-
-  // En movil hay barra de navegacion fija abajo (80px); sin esto el aviso
-  // queda encima de ella.
-  //
-  // Va con !important porque PrimeNG fija bottom: 20px en su propia regla de
-  // .p-toast y le gana a esta clase. Es de los pocos casos donde se justifica:
-  // el valor correcto depende de un elemento nuestro (la barra inferior) que
-  // la libreria no conoce.
-  bottom: calc(88px + env(safe-area-inset-bottom)) !important;
-
-  @media (min-width: 768px) {
-    bottom: 1.5rem !important;
-  }
 }
 
 // --- Transiciones entre pantallas -----------------------------------------

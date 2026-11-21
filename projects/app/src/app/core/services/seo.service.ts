@@ -17,8 +17,6 @@ export const SITIO_PRINCIPAL = 'https://www.liriosycacao.com';
  *
  */
 const CEDIDAS: Readonly<Record<string, string>> = {
-  '/floristeria': '/floristeria',
-  '/eventos': '/servicios',
   '/sobrenosotros': '/nosotros',
 };
 

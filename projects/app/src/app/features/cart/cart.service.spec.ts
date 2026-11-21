@@ -22,8 +22,9 @@ function chocofruta(precio: number, toppings: any[], dobleChocolate = false): Ne
   return { kind: 'chocofruta', title: 'ChocoFresa', qty: 1, unitPrice: precio, imageUrls: { base: 'x' }, data };
 }
 
-function flor(nombre: string, precio: number): NewCartItem {
-  return { kind: 'flor', title: nombre, qty: 1, unitPrice: precio, imageUrls: { base: 'y' }, data: {} };
+/** Producto simple: sin configuracion, se distingue solo por el nombre. */
+function bebida(nombre: string, precio: number): NewCartItem {
+  return { kind: 'bebida', title: nombre, qty: 1, unitPrice: precio, imageUrls: { base: 'y' }, data: {} };
 }
 
 describe('CartService', () => {
@@ -69,10 +70,10 @@ describe('CartService', () => {
     expect(cart.items.length).toBe(2);
   });
 
-  it('las flores se distinguen por nombre', () => {
-    cart.add(flor('Cajita rosal', 200));
-    cart.add(flor('Cajita rosal', 200));
-    cart.add(flor('Cajita fresita', 150));
+  it('las bebidas se distinguen por nombre', () => {
+    cart.add(bebida('Café frío', 200));
+    cart.add(bebida('Café frío', 200));
+    cart.add(bebida('Café caramelo', 150));
 
     expect(cart.items.length).toBe(2);
     expect(cart.total).toBe(200 * 2 + 150);
@@ -98,7 +99,7 @@ describe('CartService', () => {
 
   it('remove y clear vacian el carrito', () => {
     cart.add(chocofruta(7, [oreo]));
-    cart.add(flor('Cajita rosal', 200));
+    cart.add(bebida('Café frío', 200));
 
     cart.remove(cart.items[0].id);
     expect(cart.items.length).toBe(1);
@@ -120,7 +121,7 @@ describe('CartService', () => {
   it('el total suma precio por cantidad de todas las lineas', () => {
     cart.add(chocofruta(7, [oreo]));
     cart.inc(cart.items[0].id);
-    cart.add(flor('Cajita rosal', 200));
+    cart.add(bebida('Café frío', 200));
 
     expect(cart.count).toBe(3);
     expect(cart.total).toBe(7 * 2 + 200);
