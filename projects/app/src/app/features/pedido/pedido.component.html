@@ -1,0 +1,119 @@
+<div class="cuerpo">
+
+  <div class="titulo">
+    <button type="button" class="atras" (click)="volver()" aria-label="Volver al pedido">
+      <lc-icono nombre="atras" [tamano]="20" [grosor]="1.9" />
+    </button>
+    <h1>¿A dónde lo llevamos?</h1>
+  </div>
+
+  <p class="nota">
+    No se paga aquí. Con estos datos armamos el mensaje y usted lo manda:
+    la hora y el cobro se acuerdan en la conversación.
+  </p>
+
+  <div class="ficha">
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        type="text"
+        autocomplete="name"
+        placeholder="Su nombre"
+        [value]="datos().nombre"
+        (input)="nombre($any($event.target).value)"
+      >
+    </div>
+
+    <div class="campo">
+      <span class="lab" id="lab-entrega">Entrega</span>
+      <div class="opciones" role="radiogroup" aria-labelledby="lab-entrega">
+        <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'domicilio'"
+                (click)="entrega('domicilio')">A domicilio</button>
+        <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'recoger'"
+                (click)="entrega('recoger')">Recoger</button>
+      </div>
+    </div>
+
+    @if (datos().entrega === 'domicilio') {
+      <div class="campo">
+        <label for="direccion">Dirección o referencia</label>
+        <textarea
+          id="direccion"
+          rows="2"
+          autocomplete="street-address"
+          placeholder="Calle, zona, punto de referencia"
+          (input)="direccion($any($event.target).value)"
+        >{{ datos().direccion }}</textarea>
+      </div>
+    }
+
+    <div class="campo">
+      <span class="lab" id="lab-cuando">¿Para cuándo?</span>
+      <div class="opciones" role="radiogroup" aria-labelledby="lab-cuando">
+        <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'hoy'"
+                (click)="momento('hoy')">Hoy</button>
+        <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'manana'"
+                (click)="momento('manana')">Mañana</button>
+      </div>
+    </div>
+
+    <div class="campo" [class.ultimo]="datos().pago !== 'efectivo'">
+      <span class="lab" id="lab-pago">Pago</span>
+      <div class="opciones" role="radiogroup" aria-labelledby="lab-pago">
+        <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'efectivo'"
+                (click)="pago('efectivo')">Efectivo</button>
+        <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'tarjeta'"
+                (click)="pago('tarjeta')">Tarjeta</button>
+      </div>
+    </div>
+
+    @if (datos().pago === 'efectivo') {
+      <div class="campo ultimo">
+        <label for="cambio">¿Con cuánto paga? <em>opcional</em></label>
+        <input
+          id="cambio"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="1"
+          placeholder="Para llevarle el cambio listo"
+          [value]="datos().cambio ?? ''"
+          (input)="cambio($any($event.target).value)"
+        >
+      </div>
+    }
+  </div>
+
+  <div class="cuenta">
+    <div class="fila">
+      <span>{{ piezas() === 1 ? '1 producto' : piezas() + ' productos' }}</span>
+      <span>{{ subtotal() | currency }}</span>
+    </div>
+    @if (envio() > 0) {
+      <div class="fila"><span>Envío a domicilio</span><span>{{ envio() | currency }}</span></div>
+    }
+    <div class="suma"><b>Total</b><i>{{ total() | currency }}</i></div>
+  </div>
+
+  <span class="etiqueta">Esto es lo que se envía</span>
+  <div class="mensaje"><p>{{ mensaje() }}</p></div>
+
+  <button type="button" class="copiar" (click)="copiar()">
+    <lc-icono nombre="copiar" [tamano]="15" [grosor]="1.7" />
+    {{ copiado() ? 'Copiado' : 'Copiar el mensaje' }}
+  </button>
+
+  <button type="button" class="olvidar" (click)="olvidar()">Borrar mis datos guardados</button>
+
+  <div class="acciones">
+    @if (falta(); as pendiente) {
+      <p class="falta">{{ pendiente }}</p>
+    }
+    <button type="button" class="enviar" [disabled]="falta() !== null" (click)="enviar()">
+      <lc-icono nombre="whatsapp" [tamano]="18" [grosor]="1.8" />
+      Enviar por WhatsApp
+    </button>
+  </div>
+
+</div>

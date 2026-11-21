@@ -1,0 +1,85 @@
+<div class="cuerpo">
+
+  @if (items().length) {
+    <h1>Su pedido</h1>
+
+    <ul class="lineas">
+      @for (i of items(); track i.id) {
+        <li class="linea">
+          <!-- Lo que asoma al deslizar. aria-hidden porque el botón de quitar
+               de la propia línea ya hace esto y es el que usa el teclado. -->
+          <span class="fondo" aria-hidden="true">
+            <lc-icono nombre="menos" [tamano]="18" [grosor]="2.2" />
+            Quitar
+          </span>
+
+          <div
+            class="tarjeta"
+            [style.transform]="'translateX(' + desplazamiento(i) + 'px)'"
+            [class.sin-animar]="arrastrando() === i.id"
+            (pointerdown)="empezar($event, i)"
+            (pointermove)="mover($event, i)"
+            (pointerup)="soltar(i)"
+            (pointercancel)="soltar(i)"
+          >
+            <span class="mini">
+              @if (i.imageUrls.base) {
+                <img [src]="i.imageUrls.base" alt="" loading="lazy">
+              }
+            </span>
+
+            <span class="texto">
+              <span class="nombre">{{ i.title }}</span>
+              <span class="importe">{{ i.unitPrice * i.qty | currency }}</span>
+              <span class="unitario">{{ i.qty }} × {{ i.unitPrice | currency }}</span>
+            </span>
+
+            <span class="contador">
+              <button type="button" (click)="menos(i)" [attr.aria-label]="'Quitar uno de ' + i.title">
+                <lc-icono nombre="menos" [tamano]="13" [grosor]="2.6" />
+              </button>
+              <span class="n">{{ i.qty }}</span>
+              <button type="button" (click)="mas(i)" [attr.aria-label]="'Agregar uno de ' + i.title">
+                <lc-icono nombre="mas" [tamano]="13" [grosor]="2.6" />
+              </button>
+            </span>
+          </div>
+        </li>
+      }
+    </ul>
+
+    <a class="sumar" routerLink="/productos">
+      <lc-icono nombre="mas" [tamano]="15" [grosor]="2.3" />
+      Agregar más
+    </a>
+
+    <div class="aviso">
+      <lc-icono nombre="camion" [tamano]="18" [grosor]="1.6" />
+      <p>Entrega a domicilio en Chiquimula. Se coordina por WhatsApp al confirmar.</p>
+    </div>
+
+    <div class="cuenta">
+      <div class="fila">
+        <span>{{ piezas() === 1 ? '1 producto' : piezas() + ' productos' }}</span>
+        <span>{{ total() | currency }}</span>
+      </div>
+      <div class="fila"><span>Entrega</span><span>Se calcula al confirmar</span></div>
+      <div class="suma"><b>Total</b><i>{{ total() | currency }}</i></div>
+    </div>
+
+    <div class="acciones">
+      <button type="button" class="principal" (click)="continuar()">
+        <span>Continuar</span>
+        <span class="monto">{{ total() | currency }}</span>
+      </button>
+    </div>
+  } @else {
+    <div class="vacio">
+      <lc-icono nombre="carrito" [tamano]="42" [grosor]="1.3" />
+      <p class="titulo">Todavía no hay nada</p>
+      <p class="sub">Agregue algo del catálogo para armar el pedido.</p>
+      <a class="principal angosto" routerLink="/productos">Ver el catálogo</a>
+    </div>
+  }
+
+</div>

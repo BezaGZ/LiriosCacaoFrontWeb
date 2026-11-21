@@ -346,7 +346,8 @@ export const AJUSTES: readonly Ajuste[] = [
   { clave: 'moneda', valor: 'GTQ' },
   { clave: 'locale', valor: 'es-GT' },
   { clave: 'zona_entrega', valor: 'Chiquimula' },
-  { clave: 'whatsapp', valor: '[NUMERO]' },
+  { clave: 'whatsapp', valor: '50245827110' },
+  { clave: 'envio_domicilio', valor: '7' },
   { clave: 'vaso_bebida', valor: '16 oz' },
 ];
 

@@ -1,0 +1,258 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  font-family: var(--lc-sans);
+}
+
+.cuerpo {
+  padding-block: 4px 16px;
+  @include margen-lateral;
+}
+
+h1 {
+  margin: 0 0 14px;
+  font-family: var(--lc-serif);
+  font-size: 25px;
+  font-weight: 500;
+  color: var(--lc-texto-fuerte);
+}
+
+/* -------------------------------------------------------------- líneas -- */
+.lineas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* El recorte deja ver el fondo rojo solo mientras la tarjeta se corre. */
+.linea {
+  position: relative;
+  border-radius: var(--lc-radio);
+  overflow: hidden;
+}
+
+.fondo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  padding-right: 20px;
+  background: #9c3b3b;
+  color: #fbf7f1;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.tarjeta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px 9px 9px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio);
+  box-shadow: var(--lc-sombra-apoyada);
+  /* Deja pasar el desplazamiento vertical de la página y se queda solo con
+     el horizontal, que es el que usa el gesto. */
+  touch-action: pan-y;
+  transition: transform var(--lc-calma) ease;
+
+  /* Mientras el dedo manda, la transición estorba: el movimiento tiene que
+     ir pegado al dedo, no llegar 220 ms tarde. */
+  &.sin-animar { transition: none; }
+}
+
+.mini {
+  position: relative;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  background: var(--lc-hueco);
+  border-radius: var(--lc-radio-chico);
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    inset: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    object-fit: contain;
+  }
+}
+
+.texto {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  .nombre {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--lc-texto-fuerte);
+  }
+
+  .importe {
+    margin-top: 2px;
+    font-family: var(--lc-serif);
+    font-size: 17px;
+    color: var(--lc-texto-fuerte);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .unitario {
+    font-size: 11px;
+    color: var(--lc-texto-suave);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.contador {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px;
+  background: var(--lc-fondo);
+  border-radius: var(--lc-pildora);
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: var(--lc-pildora);
+    background: none;
+    color: var(--lc-texto);
+    cursor: pointer;
+    @include presion(.86);
+  }
+
+  .n {
+    min-width: 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* --------------------------------------------------------------- resto -- */
+.sumar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  margin-top: 12px;
+  background: var(--lc-superficie);
+  border: 1px dashed rgb(114 60 66 / 30%);
+  border-radius: var(--lc-radio);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lc-acento);
+  text-decoration: none;
+  @include presion(.98);
+}
+
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 12px;
+  padding: 13px 16px;
+  background: rgb(57 94 124 / 9%);
+  border-radius: var(--lc-radio);
+  color: var(--lc-azul);
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  lc-icono { flex: none; margin-top: 1px; }
+}
+
+.cuenta {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio-grande);
+  box-shadow: var(--lc-sombra-apoyada);
+
+  .fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 0;
+    font-size: 12.5px;
+    color: var(--lc-texto-suave);
+
+    span:last-child { font-variant-numeric: tabular-nums; }
+  }
+
+  .suma {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 9px;
+    padding-top: 10px;
+    border-top: 1px solid var(--lc-linea-tenue);
+
+    b { font-size: 12.5px; color: var(--lc-texto-fuerte); }
+
+    i {
+      font-style: normal;
+      font-family: var(--lc-serif);
+      font-size: 24px;
+      color: var(--lc-texto-fuerte);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+.acciones { margin-top: 14px; }
+
+.principal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 50px;
+  padding-inline: 18px;
+  border: 0;
+  border-radius: var(--lc-radio);
+  background: var(--lc-acento);
+  color: var(--lc-sobre-acento);
+  box-shadow: 0 5px 18px rgb(114 60 66 / 30%);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  @include presion(.98);
+
+  .monto { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  &.angosto { display: inline-flex; width: auto; }
+}
+
+.vacio {
+  margin-top: 56px;
+  text-align: center;
+  color: var(--lc-texto-tenue);
+
+  .titulo { margin: 10px 0 0; font-size: 14px; font-weight: 600; color: var(--lc-texto-fuerte); }
+  .sub { margin: 4px 0 18px; font-size: 12.5px; color: var(--lc-texto-suave); }
+}

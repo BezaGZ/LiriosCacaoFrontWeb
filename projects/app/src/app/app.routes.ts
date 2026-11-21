@@ -31,7 +31,13 @@ export const routes: Routes = [
       {
         path: 'carrito',
         loadComponent: () =>
-          import('./features/cart/page/cart-page.component').then((m) => m.CartPageComponent),
+          import('./features/carrito/carrito.component').then((m) => m.CarritoComponent),
+      },
+      {
+        // El cierre es un flujo, no una seccion: se abre encima y se cierra.
+        path: 'pedido',
+        loadComponent: () =>
+          import('./features/pedido/pedido.component').then((m) => m.PedidoComponent),
       }
     ],
 

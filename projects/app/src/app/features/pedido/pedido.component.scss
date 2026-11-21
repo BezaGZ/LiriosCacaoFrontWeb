@@ -1,0 +1,260 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  font-family: var(--lc-sans);
+}
+
+.cuerpo {
+  padding-block: 4px 16px;
+  @include margen-lateral;
+}
+
+.titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  h1 {
+    margin: 0;
+    font-family: var(--lc-serif);
+    font-size: 23px;
+    font-weight: 500;
+    color: var(--lc-texto-fuerte);
+  }
+}
+
+.atras {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-left: -9px;
+  border: 0;
+  border-radius: var(--lc-pildora);
+  background: none;
+  color: var(--lc-texto);
+  cursor: pointer;
+  @include presion(.9);
+}
+
+.nota {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--lc-texto-suave);
+}
+
+/* --------------------------------------------------------------- ficha -- */
+.ficha {
+  padding: 15px 16px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio-grande);
+  box-shadow: var(--lc-sombra-apoyada);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 13px;
+
+  &.ultimo { margin-bottom: 0; }
+
+  label,
+  .lab {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--lc-texto-suave);
+
+    em {
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      font-size: 11px;
+      color: var(--lc-texto-tenue);
+    }
+  }
+
+  input,
+  textarea {
+    padding: 12px 15px;
+    border: 0;
+    border-radius: var(--lc-radio-chico);
+    background: var(--lc-fondo);
+    font: inherit;
+    /* 16px o menos y Safari en iPhone acerca la pantalla al enfocar. */
+    font-size: 16px;
+    color: var(--lc-texto);
+    resize: none;
+  }
+
+  input { padding-block: 0; height: 48px; }
+}
+
+.opciones {
+  display: flex;
+  gap: 7px;
+
+  button {
+    flex: 1;
+    min-height: 46px;
+    border: 0;
+    border-radius: var(--lc-radio-chico);
+    background: var(--lc-fondo);
+    font: inherit;
+    font-size: 12.5px;
+    color: var(--lc-texto-suave);
+    cursor: pointer;
+    @include presion(.96);
+
+    &[aria-checked='true'] {
+      background: var(--lc-acento);
+      color: var(--lc-sobre-acento);
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgb(114 60 66 / 28%);
+    }
+  }
+}
+
+/* --------------------------------------------------------------- cuenta -- */
+.cuenta {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio-grande);
+  box-shadow: var(--lc-sombra-apoyada);
+
+  .fila {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 3px 0;
+    font-size: 12.5px;
+    color: var(--lc-texto-suave);
+
+    span:last-child { font-variant-numeric: tabular-nums; }
+  }
+
+  .suma {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 9px;
+    padding-top: 10px;
+    border-top: 1px solid var(--lc-linea-tenue);
+
+    b { font-size: 12.5px; color: var(--lc-texto-fuerte); }
+
+    i {
+      font-style: normal;
+      font-family: var(--lc-serif);
+      font-size: 24px;
+      color: var(--lc-texto-fuerte);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+}
+
+/* -------------------------------------------------------------- mensaje -- */
+.etiqueta {
+  display: block;
+  margin: 18px 0 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--lc-texto-suave);
+}
+
+/* Lo que se muestra sale de la misma función que lo que se manda, así que
+   no pueden decir cosas distintas. */
+.mensaje {
+  padding: 14px 16px;
+  background: rgb(57 94 124 / 9%);
+  border-radius: var(--lc-radio-grande);
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--lc-azul);
+    white-space: pre-line;
+  }
+}
+
+.copiar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 9px;
+  border: 0;
+  border-radius: var(--lc-radio-chico);
+  background: var(--lc-superficie);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--lc-acento);
+  cursor: pointer;
+  @include presion(.98);
+}
+
+.olvidar {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 6px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--lc-texto-tenue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------------ acciones -- */
+.acciones { margin-top: 16px; }
+
+.falta {
+  margin: 0 0 8px;
+  text-align: center;
+  font-size: 12px;
+  color: #9c3b3b;
+}
+
+.enviar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: var(--lc-radio);
+  background: var(--lc-verde);
+  color: #fff;
+  box-shadow: 0 6px 20px rgb(31 159 74 / 30%);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  @include presion(.98);
+
+  &:disabled {
+    background: var(--lc-hueco);
+    color: var(--lc-texto-tenue);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
