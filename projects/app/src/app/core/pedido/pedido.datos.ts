@@ -95,10 +95,13 @@ export function leerEntrega(): DatosEntrega {
       direccion: texto(d.direccion),
       entrega: esUno(d.entrega, ['domicilio', 'recoger'] as const, 'domicilio'),
       pago: esUno(d.pago, ['efectivo', 'tarjeta'] as const, 'efectivo'),
-      // El momento NO se restaura: "hoy" guardado la semana pasada seria
-      // mentira, y es lo unico de aqui que caduca en horas.
+      // Ni el momento ni el cambio se restauran, y por la misma razon: no
+      // son costumbres, son datos de UN pedido. "Hoy" guardado la semana
+      // pasada seria mentira, y "con cuanto paga" es el billete que la
+      // persona trae en la mano hoy. Que apareciera "Q50" de la vez
+      // anterior solo sirve para que alguien lo mande sin darse cuenta.
       momento: 'hoy',
-      cambio: Number.isFinite(d.cambio) ? (d.cambio as number) : null,
+      cambio: null,
     };
   } catch {
     return descartar(store);
@@ -110,7 +113,14 @@ export function guardarEntrega(datos: DatosEntrega): void {
   if (!store) return;
 
   try {
-    const g: Guardado = { version: VERSION, guardadoEn: Date.now(), datos };
+    // Se guarda solo lo que es costumbre. El momento y el cambio se
+    // descartan aqui ademas de al leer: no tiene sentido tener escrito en el
+    // telefono de alguien con cuanto pago la vez pasada.
+    const g: Guardado = {
+      version: VERSION,
+      guardadoEn: Date.now(),
+      datos: { ...datos, momento: 'hoy', cambio: null },
+    };
     store.setItem(CLAVE, JSON.stringify(g));
   } catch {
     // Cuota llena o escritura bloqueada: el pedido sigue funcionando, solo
