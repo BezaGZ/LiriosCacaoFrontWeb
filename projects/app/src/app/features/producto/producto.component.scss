@@ -23,7 +23,9 @@
   position: absolute;
   inset: 0 0 auto;
   height: 300px;
-  background: radial-gradient(120% 90% at 50% 20%, #fbf7f1 0%, #efe7dc 58%, #e6dace 100%);
+  /* Los tonos del hueco, no los del panel: el heroe es el fondo contra el
+     que se recorta la fotografia, y la hoja va encima de el. */
+  background: radial-gradient(120% 90% at 50% 20%, #f3e9db 0%, #e9dfd1 58%, #ded0bd 100%);
 
   img {
     position: absolute;

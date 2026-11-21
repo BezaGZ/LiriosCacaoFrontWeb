@@ -13,9 +13,15 @@
 
 :root {
   // ------------------------------------------------------------ paleta cruda
-  --lc-crema:       #efe7dc;  // fondo de la aplicacion
-  --lc-panel:       #fbf7f1;  // tarjetas, hojas, barras
-  --lc-hueco:       #f4ece1;  // el espacio detras de una fotografia
+  //
+  //  Los tres primeros son UN SOLO crema a tres distancias, y el orden
+  //  importa: `hueco` es mas OSCURO que `panel`, no mas claro. Asi la
+  //  fotografia queda hundida y la tarjeta encima de ella; al reves (que es
+  //  como estaba) los tres tonos se separaban menos de 7% y al sol de la
+  //  calle se aplanaban en una sola superficie sin tarjetas.
+  --lc-crema:       #e9dfd1;  // fondo de la aplicacion
+  --lc-panel:       #fffdfa;  // tarjetas, hojas, barras
+  --lc-hueco:       #ece1d2;  // el espacio detras de una fotografia
   --lc-tinta:       #2a180f;  // titulos
   --lc-cafe:        #5a3628;  // texto corrido
   --lc-cafe-suave:  #8a6b59;  // texto secundario
@@ -40,7 +46,7 @@
   // ----------------------------------------------------------------- sombras
   //  Tres niveles y no mas. Cada uno dice a que distancia esta el elemento.
   --lc-sombra-apoyada: 0 1px 2px rgb(42 24 15 / 6%);
-  --lc-sombra-tarjeta: 0 1px 2px rgb(42 24 15 / 5%), 0 6px 16px rgb(42 24 15 / 7%);
+  --lc-sombra-tarjeta: 0 1px 2px rgb(42 24 15 / 6%), 0 8px 20px rgb(42 24 15 / 10%);
   --lc-sombra-flotante: 0 2px 6px rgb(42 24 15 / 8%), 0 12px 32px rgb(42 24 15 / 16%);
 
   // --------------------------------------------------------------- tipografia
