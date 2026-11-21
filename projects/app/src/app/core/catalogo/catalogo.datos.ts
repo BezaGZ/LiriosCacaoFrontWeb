@@ -109,7 +109,7 @@ export const PRODUCTOS: readonly Producto[] = [
     configuradorId: null, sello: '', destacado: false, orden: 4, disponible: true },
 
   { id: 'prod_pal_naranja', categoriaId: 'cat_helado', slug: 'paleta-naranja', nombre: 'Paleta de naranja',
-    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecananranja_botella'),
+    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecanaranja_botella'),
     configuradorId: null, sello: '', destacado: false, orden: 5, disponible: true },
 
   { id: 'prod_pal_melocoton', categoriaId: 'cat_helado', slug: 'paleta-melocoton', nombre: 'Paleta de melocotón',
@@ -148,7 +148,7 @@ export const PRODUCTOS: readonly Producto[] = [
     configuradorId: null, sello: '', destacado: false, orden: 1, disponible: false },
 
   { id: 'prod_beb_caramel', categoriaId: 'cat_bebida', slug: 'caramel-kiss', nombre: 'Caramel Kiss',
-    descripcion: 'Dulce · 16 oz', precio: null, imagen: foto('cafecaramelkids'),
+    descripcion: 'Dulce · 16 oz', precio: null, imagen: foto('cafecaramelkiss'),
     configuradorId: null, sello: '', destacado: false, orden: 2, disponible: false },
 
   { id: 'prod_beb_chocomood', categoriaId: 'cat_bebida', slug: 'chocolate-mood', nombre: 'Chocolate Mood',

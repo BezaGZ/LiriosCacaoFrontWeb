@@ -122,7 +122,9 @@
   padding-bottom: 4px;
   font-size: 10px;
   font-weight: 500;
-  color: var(--lc-texto-tenue);
+  /* `suave` y no `tenue`: a 10px el tono tenue no llega al contraste minimo,
+     y estas etiquetas son la navegacion de la aplicacion. */
+  color: var(--lc-texto-suave);
   text-decoration: none;
 
   .caja {

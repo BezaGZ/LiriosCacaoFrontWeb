@@ -25,6 +25,9 @@
   --lc-tinta:       #2a180f;  // titulos
   --lc-cafe:        #5a3628;  // texto corrido
   --lc-cafe-suave:  #8a6b59;  // texto secundario
+  //  `tenue` es para lo que NO se puede tocar: botones deshabilitados, texto
+  //  de marcador de posicion, iconos de pantalla vacia. No da el contraste
+  //  minimo para texto pequeno, asi que nada que haya que leer lo usa.
   --lc-cafe-tenue:  #a68e7a;  // deshabilitado y marcas de agua
   --lc-vino:        #723c42;  // acento: botones, activo, sellos
   --lc-azul:        #395e7c;  // avisos informativos
