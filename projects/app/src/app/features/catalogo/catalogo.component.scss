@@ -182,6 +182,23 @@
   }
 }
 
+/* La tarjeta de paquete conserva descripcion y pie: es ancha, va en lista y
+   no en rejilla, y ahi el texto si aporta algo. La rejilla no los usa. */
+.paquete .texto p {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--lc-texto-suave);
+}
+
+.pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 7px;
+}
+
 .precio {
   font-family: var(--lc-serif);
   font-size: 19px;
