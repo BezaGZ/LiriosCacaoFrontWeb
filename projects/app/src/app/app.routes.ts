@@ -19,7 +19,14 @@ export const routes: Routes = [
       {
         path: 'productos',
         loadComponent: () =>
-          import('./features/listproducts/listproducts.component').then((m) => m.ListproductsComponent),
+          import('./features/catalogo/catalogo.component').then((m) => m.CatalogoComponent),
+      },
+      {
+        // El configurador. Solo lo abren los productos que tienen
+        // configuradorId; los demas entran al carrito desde la tarjeta.
+        path: 'producto/:slug',
+        loadComponent: () =>
+          import('./features/producto/producto.component').then((m) => m.ProductoComponent),
       },
       {
         path: 'carrito',

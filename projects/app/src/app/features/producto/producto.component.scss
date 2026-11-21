@@ -1,0 +1,349 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  height: 100%;
+  font-family: var(--lc-sans);
+}
+
+.hoja {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* ---------------------------------------------------------------- héroe -- */
+/* La foto va a sangre por los lados. En una app el contenido llega al borde;
+   en una página siempre hay margen. */
+.heroe {
+  position: relative;
+  flex: none;
+  height: 252px;
+  background: radial-gradient(120% 90% at 50% 20%, #fbf7f1 0%, #efe7dc 58%, #e6dace 100%);
+
+  img {
+    position: absolute;
+    inset: 26px 70px;
+    width: calc(100% - 140px);
+    height: calc(100% - 52px);
+    object-fit: contain;
+  }
+}
+
+.flota {
+  position: absolute;
+  top: 14px;
+  left: max(16px, env(safe-area-inset-left, 0px));
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: var(--lc-pildora);
+  background: var(--lc-superficie);
+  box-shadow: 0 2px 8px rgb(42 24 15 / 14%);
+  color: var(--lc-texto);
+  cursor: pointer;
+  @include presion(.9);
+}
+
+.insignia {
+  position: absolute;
+  top: 18px;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  margin: 0;
+  padding: 0 13px 0 7px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-pildora);
+  box-shadow: 0 2px 8px rgb(42 24 15 / 12%);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--lc-texto-fuerte);
+
+  i {
+    width: 18px;
+    height: 18px;
+    border-radius: var(--lc-pildora);
+    box-shadow: inset 0 0 0 1px rgb(42 24 15 / 14%);
+  }
+}
+
+/* ---------------------------------------------------------------- panel -- */
+/* Sube sobre la foto. El asa dice que se puede arrastrar; el gesto en sí
+   llega en la fase 3. */
+.panel {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: -26px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-radio-hoja) var(--lc-radio-hoja) 0 0;
+  box-shadow: 0 -6px 28px rgb(42 24 15 / 12%);
+}
+
+.asa {
+  display: block;
+  width: 40px;
+  height: 4.5px;
+  margin: 10px auto 2px;
+  border-radius: var(--lc-pildora);
+  background: rgb(90 54 40 / 20%);
+}
+
+.contenido {
+  flex: 1;
+  padding-block: 6px 10px;
+  @include margen-lateral;
+
+  h1 {
+    margin: 0 0 2px;
+    font-family: var(--lc-serif);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--lc-texto-fuerte);
+  }
+}
+
+.intro {
+  margin: 0 0 16px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--lc-texto-suave);
+}
+
+.etiqueta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--lc-texto-suave);
+
+  em {
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 11px;
+    color: var(--lc-texto-tenue);
+  }
+}
+
+/* -------------------------------------------------------------- opciones -- */
+/* Lista con marca en vez de pastillas sueltas: se lee de corrido, el precio
+   de cada opción queda a la vista y cabe el nombre completo. */
+.lista {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  background: var(--lc-fondo);
+  border-radius: var(--lc-radio);
+  overflow: hidden;
+}
+
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 11px 13px;
+  border: 0;
+  border-bottom: 1px solid rgb(90 54 40 / 7%);
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--lc-prisa) ease;
+
+  &:last-child { border-bottom: 0; }
+  &:active { background: rgb(90 54 40 / 6%); }
+
+  .muestra {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--lc-pildora);
+    box-shadow: inset 0 0 0 1px rgb(42 24 15 / 14%);
+  }
+
+  .nombre {
+    flex: 1;
+    min-width: 0;
+    font-size: 13.5px;
+    color: var(--lc-texto-fuerte);
+  }
+
+  .delta {
+    flex: none;
+    font-size: 12px;
+    color: var(--lc-texto-suave);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .marca {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border-radius: var(--lc-pildora);
+    color: transparent;
+    box-shadow: inset 0 0 0 1.6px rgb(90 54 40 / 28%);
+
+    &.cuadro { border-radius: 7px; }
+  }
+
+  &[aria-checked='true'] .marca {
+    background: var(--lc-acento);
+    color: var(--lc-sobre-acento);
+    box-shadow: none;
+  }
+}
+
+/* Sangrado y con otro fondo para que se lea como hijo de la opción de
+   arriba y no como un grupo más. */
+.sub {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 11px 13px 13px 46px;
+  background: rgb(114 60 66 / 6%);
+  border-bottom: 1px solid rgb(90 54 40 / 7%);
+
+  .lab {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--lc-texto-suave);
+  }
+}
+
+.gotas {
+  display: flex;
+  gap: 8px;
+}
+
+.gota {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: var(--lc-pildora);
+  box-shadow: inset 0 0 0 1px rgb(42 24 15 / 14%);
+  cursor: pointer;
+  @include presion(.86);
+
+  &[aria-checked='true'] {
+    box-shadow: 0 0 0 2px var(--lc-superficie), 0 0 0 4px var(--lc-acento);
+  }
+}
+
+/* ------------------------------------------------------------- desglose -- */
+.desglose {
+  padding-top: 12px;
+  border-top: 1px solid var(--lc-linea-tenue);
+}
+
+.renglon {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 0;
+  font-size: 12px;
+  color: var(--lc-texto-suave);
+
+  span:last-child { font-variant-numeric: tabular-nums; }
+}
+
+/* ------------------------------------------------------------ acciones -- */
+.acciones {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding-block: 11px 14px;
+  background: var(--lc-superficie);
+  border-top: 1px solid var(--lc-linea-tenue);
+  @include margen-lateral(16px);
+}
+
+.contador {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--lc-fondo);
+  border-radius: var(--lc-pildora);
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: var(--lc-pildora);
+    background: none;
+    color: var(--lc-texto);
+    cursor: pointer;
+    @include presion(.86);
+  }
+
+  .n {
+    min-width: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.principal {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 50px;
+  padding-inline: 16px;
+  border: 0;
+  border-radius: var(--lc-radio);
+  background: var(--lc-acento);
+  color: var(--lc-sobre-acento);
+  box-shadow: 0 5px 18px rgb(114 60 66 / 30%);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  @include presion(.98);
+
+  .monto { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  &:disabled {
+    background: var(--lc-hueco);
+    color: var(--lc-texto-tenue);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.perdido {
+  margin-top: 56px;
+  text-align: center;
+  color: var(--lc-texto-tenue);
+
+  .titulo { margin: 10px 0 0; font-size: 14px; font-weight: 600; color: var(--lc-texto-fuerte); }
+  .sub { margin: 4px 0 0; font-size: 12.5px; color: var(--lc-texto-suave); }
+}

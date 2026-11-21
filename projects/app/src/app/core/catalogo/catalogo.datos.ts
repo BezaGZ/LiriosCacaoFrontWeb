@@ -330,7 +330,7 @@ export const PAQUETES: readonly Paquete[] = [
   { id: 'paq_ocho', slug: 'paquete-de-8', nombre: 'Paquete de 8',
     descripcion: '8 chocofrutas a elegir, en empaque premium',
     categoriaId: 'cat_chocofruta', cantidad: 8, desde: false, gratis: 0,
-    empaque: 'premium', precio: 80, sello: '', orden: 1, disponible: true },
+    empaque: 'premium', precio: 72, sello: '', orden: 1, disponible: true },
 
   { id: 'paq_fiesta', slug: 'paquete-fiesta', nombre: 'Paquete fiesta',
     descripcion: 'Desde 15 chocofrutas y la siguiente va gratis',

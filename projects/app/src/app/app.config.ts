@@ -9,6 +9,7 @@ import {provideRouter} from '@angular/router';
 import {MessageService} from 'primeng/api';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
+import { PROVEEDOR_CATALOGO_QUEMADO } from '@core/catalogo/catalogo.fuente';
 
 /**
  * Sin esto Angular usa el formato de Estados Unidos: los precios salian como
@@ -36,6 +37,11 @@ export const appConfig: ApplicationConfig = {
 
     }),
     provideRouter(routes),
+
+    // De donde salen los productos. Hoy los datos quemados; el dia del
+    // backend se cambia esta sola linea y ninguna pantalla se entera.
+    PROVEEDOR_CATALOGO_QUEMADO,
+
     MessageService, provideClientHydration(withEventReplay()), provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'

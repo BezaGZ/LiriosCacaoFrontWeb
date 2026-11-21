@@ -1,0 +1,136 @@
+<div class="encabezado">
+  <label class="solo-lectores" for="buscar">Buscar productos</label>
+  <div class="buscar">
+    <lc-icono nombre="lupa" [tamano]="16" [grosor]="1.9" />
+    <input
+      id="buscar"
+      type="search"
+      placeholder="Chocofrutas, helados, café…"
+      [value]="busca()"
+      (input)="escribir($any($event.target).value)"
+    >
+  </div>
+
+  <div class="chips" role="group" aria-label="Filtrar por categoría">
+    <button
+      type="button"
+      class="chip"
+      [class.activo]="filtro() === 'todos'"
+      [attr.aria-pressed]="filtro() === 'todos'"
+      (click)="elegirFiltro('todos')"
+    >Todos</button>
+
+    @for (c of categorias(); track c.id) {
+      <button
+        type="button"
+        class="chip"
+        [class.activo]="filtro() === c.id"
+        [attr.aria-pressed]="filtro() === c.id"
+        (click)="elegirFiltro(c.id)"
+      >
+        <lc-icono [nombre]="icono(c.slug)" [tamano]="15" [grosor]="1.6" />
+        {{ c.nombre }}
+      </button>
+    }
+  </div>
+</div>
+
+<div class="cuerpo">
+
+  @if (mostrandoPaquetes()) {
+    <p class="conteo">{{ paquetes().length }} paquetes · entrega en Chiquimula</p>
+    <div class="paquetes">
+      @for (q of paquetes(); track q.id) {
+        <article class="paquete">
+          <div class="cima">
+            @if (q.sello) { <span class="sello">{{ q.sello }}</span> }
+            @for (f of fotosDe(q.categoriaId); track f) {
+              <img [src]="f" alt="" loading="lazy">
+            }
+          </div>
+          <div class="texto">
+            <h2>{{ q.nombre }}</h2>
+            <p>{{ q.descripcion }}</p>
+            <div class="pie">
+              @if (q.precio !== null) {
+                <span class="precio">{{ q.precio | currency }}</span>
+              } @else {
+                <span class="sin-precio">Sin precio</span>
+              }
+              <button
+                type="button"
+                class="agregar"
+                [disabled]="q.precio === null"
+                [attr.aria-label]="'Agregar ' + q.nombre"
+                (click)="agregarPaquete(q.id)"
+              >
+                <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  } @else {
+    <p class="conteo">
+      {{ productos().length === 1 ? '1 producto' : productos().length + ' productos' }}
+      · entrega en Chiquimula
+    </p>
+
+    @if (productos().length) {
+      <div class="rejilla">
+        @for (p of productos(); track p.id) {
+          <article class="tarjeta">
+            <button
+              type="button"
+              class="foto"
+              [attr.aria-label]="p.configuradorId ? 'Armar ' + p.nombre : 'Agregar ' + p.nombre"
+              (click)="tocar(p)"
+            >
+              @if (p.imagen) {
+                <img [src]="p.imagen" [alt]="p.nombre" loading="lazy">
+              } @else {
+                <span class="sin-foto"><lc-icono [nombre]="icono('chocofrutas')" [tamano]="34" [grosor]="1.3" /></span>
+              }
+              @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
+            </button>
+
+            <div class="texto">
+              <h2>{{ p.nombre }}</h2>
+              <p>{{ p.descripcion }}</p>
+              <div class="pie">
+                @if (p.precio !== null) {
+                  <span class="precio">{{ p.precio | currency }}</span>
+                } @else {
+                  <span class="sin-precio">Sin precio</span>
+                }
+                <button
+                  type="button"
+                  class="agregar"
+                  [disabled]="p.precio === null"
+                  [attr.aria-label]="(p.configuradorId ? 'Armar ' : 'Agregar ') + p.nombre"
+                  (click)="tocar(p)"
+                >
+                  <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+                </button>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    } @else if (categoriaVacia(); as vacia) {
+      <div class="vacio">
+        <lc-icono [nombre]="icono(vacia.slug)" [tamano]="38" [grosor]="1.3" />
+        <p class="titulo">{{ vacia.nombre }}: todavía nada</p>
+        <p class="sub">La categoría está lista. Falta decidir qué va dentro.</p>
+      </div>
+    } @else {
+      <div class="vacio">
+        <lc-icono nombre="lupa" [tamano]="38" [grosor]="1.3" />
+        <p class="titulo">Nada con ese nombre</p>
+        <p class="sub">Pruebe con otra palabra.</p>
+      </div>
+    }
+  }
+
+</div>

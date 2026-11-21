@@ -68,9 +68,9 @@
 /// Sin margen lateral propio: lo pone quien la usa, para que la fila arranque
 /// alineada con los titulos y aun asi se corte en el borde derecho. Ese
 /// pedacito que asoma es lo que dice "hay mas" sin ponerle flechas.
-@mixin fila-arrastrable {
+@mixin fila-arrastrable($gap: 12px) {
   display: flex;
-  gap: 12px;
+  gap: $gap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding-left: var(--lc-margen);

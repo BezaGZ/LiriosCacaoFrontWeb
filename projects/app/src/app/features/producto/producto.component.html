@@ -1,0 +1,118 @@
+@if (producto(); as p) {
+  <div class="hoja">
+
+    <div class="heroe">
+      @if (p.imagen) {
+        <img [src]="p.imagen" [alt]="p.nombre">
+      }
+      <button type="button" class="flota" (click)="volver()" aria-label="Volver al catálogo">
+        <lc-icono nombre="atras" [tamano]="18" [grosor]="1.9" />
+      </button>
+
+      <!-- La foto solo existe en chocolate tradicional, así que el color
+           elegido se dice aquí y no depende de que haya fotografía. -->
+      @if (chocolate(); as ch) {
+        <p class="insignia">
+          <i [style.background]="ch.color"></i>{{ ch.nombre }}
+        </p>
+      }
+    </div>
+
+    <div class="panel">
+      <span class="asa" aria-hidden="true"></span>
+
+      <div class="contenido">
+        <h1>{{ p.nombre }}</h1>
+        <p class="intro">{{ p.descripcion }}.</p>
+
+        @for (gv of grupos(); track gv.grupo.id) {
+          <div class="etiqueta">
+            <span>{{ gv.grupo.nombre }}</span>
+            @if (gv.grupo.ayuda) { <em>{{ gv.grupo.ayuda }}</em> }
+          </div>
+
+          <div
+            class="lista"
+            [attr.role]="gv.grupo.tipo === 'uno' ? 'radiogroup' : 'group'"
+            [attr.aria-label]="gv.grupo.nombre"
+          >
+            @for (ov of gv.opciones; track ov.opcion.id) {
+              <button
+                type="button"
+                class="opcion"
+                [attr.role]="gv.grupo.tipo === 'uno' ? 'radio' : 'checkbox'"
+                [attr.aria-checked]="ov.elegida"
+                (click)="alternar(gv.grupo, ov.opcion)"
+              >
+                @if (ov.opcion.color) {
+                  <span class="muestra" [style.background]="ov.opcion.color"></span>
+                }
+                <span class="nombre">{{ ov.opcion.nombre }}</span>
+                <span class="delta">{{ ov.delta }}</span>
+                <span class="marca" [class.cuadro]="gv.grupo.tipo !== 'uno'">
+                  <lc-icono nombre="check" [tamano]="13" [grosor]="3" />
+                </span>
+              </button>
+
+              <!-- El sub-grupo aparece dentro de la lista, sangrado, y solo
+                   mientras la opción que lo abre siga elegida. -->
+              @if (ov.abre; as sub) {
+                <div class="sub">
+                  <span class="lab" [id]="'lab-' + sub.grupo.id">{{ sub.grupo.nombre }}</span>
+                  <div class="gotas" role="radiogroup" [attr.aria-labelledby]="'lab-' + sub.grupo.id">
+                    @for (sv of sub.opciones; track sv.opcion.id) {
+                      <button
+                        type="button"
+                        class="gota"
+                        role="radio"
+                        [attr.aria-checked]="sv.elegida"
+                        [attr.aria-label]="sv.opcion.nombre"
+                        [style.background]="sv.opcion.color"
+                        (click)="alternar(sub.grupo, sv.opcion)"
+                      ></button>
+                    }
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        }
+
+        <div class="desglose">
+          @for (d of detalle(); track d.texto) {
+            <div class="renglon"><span>{{ d.texto }}</span><span>{{ d.monto | currency }}</span></div>
+          }
+          @if (cantidad() > 1) {
+            <div class="renglon"><span>{{ cantidad() }} unidades</span><span>× {{ cantidad() }}</span></div>
+          }
+        </div>
+      </div>
+
+      <div class="acciones">
+        <div class="contador" role="group" aria-label="Cantidad">
+          <button type="button" (click)="menos()" aria-label="Quitar uno">
+            <lc-icono nombre="menos" [tamano]="14" [grosor]="2.6" />
+          </button>
+          <span class="n">{{ cantidad() }}</span>
+          <button type="button" (click)="mas()" aria-label="Agregar uno">
+            <lc-icono nombre="mas" [tamano]="14" [grosor]="2.6" />
+          </button>
+        </div>
+
+        <button type="button" class="principal" [disabled]="total() === null" (click)="agregar()">
+          <span>Agregar al pedido</span>
+          @if (total() !== null) {
+            <span class="monto">{{ total() | currency }}</span>
+          }
+        </button>
+      </div>
+    </div>
+
+  </div>
+} @else if (datos()) {
+  <div class="perdido">
+    <lc-icono nombre="lupa" [tamano]="38" [grosor]="1.3" />
+    <p class="titulo">Ese producto no existe</p>
+    <p class="sub">Puede que haya cambiado de nombre.</p>
+  </div>
+}

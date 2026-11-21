@@ -1,6 +1,8 @@
 import { ProductData } from './product-data';
 
-export type ProductCategory = 'chocofruta' | 'helado' | 'flor' | 'evento';
+// 'paquete' entra porque el carrito tambien guarda paquetes, que se venden
+// por cantidad y no por unidad.
+export type ProductCategory = 'chocofruta' | 'helado' | 'bebida' | 'paquete';
 
 export interface ProductCardVM {
   id: string;
