@@ -24,7 +24,11 @@
   --lc-hueco:       #ece1d2;  // el espacio detras de una fotografia
   --lc-tinta:       #2a180f;  // titulos
   --lc-cafe:        #5a3628;  // texto corrido
-  --lc-cafe-suave:  #8a6b59;  // texto secundario
+  //  Se oscurecio desde #8a6b59, que sobre el crema daba 3.7:1. Texto
+  //  secundario no quiere decir ilegible: son precios de extras, cantidades
+  //  de producto y subtitulos de seccion. Ahora da 4.6:1 sobre el fondo y
+  //  5.9:1 sobre una tarjeta.
+  --lc-cafe-suave:  #765e4e;  // texto secundario
   //  `tenue` es para lo que NO se puede tocar: botones deshabilitados, texto
   //  de marcador de posicion, iconos de pantalla vacia. No da el contraste
   //  minimo para texto pequeno, asi que nada que haya que leer lo usa.

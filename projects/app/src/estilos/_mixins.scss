@@ -29,6 +29,26 @@
   -webkit-mask: url('/assets/marca/lirio.png') center / contain no-repeat;
 }
 
+/// El area que alcanza un dedo.
+///
+/// El circulo de 32px se ve bien; lo que no funciona es que el area que
+/// responde al toque tambien mida 32. Esto la estira con un pseudo-elemento
+/// centrado, sin mover nada de sitio ni cambiar la composicion. Para un
+/// control que ya ocupa su sitio es mejor subirle el alto directamente.
+@mixin area-tactil($min: 44px) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, #{$min});
+    height: max(100%, #{$min});
+    transform: translate(-50%, -50%);
+  }
+}
+
 /// Respuesta al dedo.
 ///
 /// Una app responde al toque antes de que pase nada; una pagina espera a que

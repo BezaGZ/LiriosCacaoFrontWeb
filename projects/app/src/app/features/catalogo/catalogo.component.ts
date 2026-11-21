@@ -104,6 +104,16 @@ export class CatalogoComponent {
   }
 
   /**
+   * La salida de la busqueda sin resultados. Un callejon sin salida no es un
+   * estado vacio, es un error de diseno.
+   */
+  limpiar(): void {
+    this.busca.set('');
+    this.filtro.set('todos');
+    this.router.navigate([], { queryParams: {} });
+  }
+
+  /**
    * Un producto configurable abre su pantalla; uno simple entra al carrito de
    * una vez. Es la diferencia entre una chocofruta y una paleta, y sale del
    * dato (`configuradorId`), no de un `if` por categoría.

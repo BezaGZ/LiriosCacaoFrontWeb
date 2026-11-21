@@ -1,6 +1,6 @@
 <div class="encabezado">
   <label class="solo-lectores" for="buscar">Buscar productos</label>
-  <div class="buscar">
+  <label class="buscar" for="buscar">
     <lc-icono nombre="lupa" [tamano]="16" [grosor]="1.9" />
     <input
       id="buscar"
@@ -9,7 +9,7 @@
       [value]="busca()"
       (input)="escribir($any($event.target).value)"
     >
-  </div>
+  </label>
 
   <div class="chips" role="group" aria-label="Filtrar por categoría">
     <button
@@ -132,6 +132,7 @@
           <lc-icono nombre="lupa" [tamano]="38" [grosor]="1.3" />
           <p class="titulo">Nada con ese nombre</p>
           <p class="sub">Pruebe con otra palabra.</p>
+          <button type="button" class="salida" (click)="limpiar()">Ver todo el catálogo</button>
         </div>
       }
     }

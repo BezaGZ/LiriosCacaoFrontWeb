@@ -127,6 +127,7 @@ h1 {
   button {
     display: grid;
     place-items: center;
+    @include area-tactil;
     width: 30px;
     height: 30px;
     border: 0;

@@ -27,7 +27,7 @@
     font-weight: 600;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--lc-texto-tenue);
+    color: var(--lc-texto-suave);
   }
 
   .lugar {
@@ -131,11 +131,14 @@
     color: var(--lc-texto-suave);
   }
 
+  /* Relleno para los 44px del dedo, margen negativo para que la línea base
+     siga alineada con el título de la sección. */
   button {
     flex: none;
     border: 0;
     background: none;
-    padding: 0;
+    padding: 15px 8px;
+    margin: -15px -8px;
     font: inherit;
     font-size: 12px;
     font-weight: 500;
@@ -236,13 +239,14 @@
 
 .sin-precio {
   font-size: 12px;
-  color: var(--lc-texto-tenue);
+  color: var(--lc-texto-suave);
 }
 
 .agregar {
   flex: none;
   display: grid;
   place-items: center;
+  @include area-tactil;
   width: 32px;
   height: 32px;
   border: 0;

@@ -32,6 +32,7 @@
 .marca {
   display: flex;
   align-items: center;
+  min-height: 44px;
   gap: 9px;
   color: var(--lc-acento);
   text-decoration: none;

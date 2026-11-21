@@ -7,7 +7,7 @@
 </div>
 
 <label class="solo-lectores" for="buscar-inicio">Buscar productos</label>
-<div class="buscar">
+<label class="buscar" for="buscar-inicio">
   <lc-icono nombre="lupa" [tamano]="16" [grosor]="1.9" />
   <input
     id="buscar-inicio"
@@ -15,7 +15,7 @@
     placeholder="Chocofrutas, helados, café…"
     (change)="buscar($any($event.target).value)"
   >
-</div>
+</label>
 
 <!-- Las categorías se arrastran y la última se corta en el borde: ese
      pedacito que asoma dice «hay más» sin ponerle flechas. -->
