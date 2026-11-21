@@ -38,9 +38,9 @@
 .atras {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  margin-left: -9px;
+  width: 44px;
+  height: 44px;
+  margin-left: -12px;
   border: 0;
   border-radius: var(--lc-pildora);
   background: none;
@@ -94,7 +94,7 @@
       font-style: normal;
       font-weight: 400;
       font-size: 11.5px;
-      color: var(--lc-texto-tenue);
+      color: var(--lc-texto-suave);
     }
   }
 
@@ -128,13 +128,16 @@
 
   button {
     flex: 1;
-    min-height: 40px;
+    /* 44 es el minimo que alcanza un dedo sin fallar. */
+    min-height: 44px;
     border: 0;
     border-radius: var(--lc-pildora);
     background: none;
     font: inherit;
     font-size: 13.5px;
-    color: var(--lc-texto-suave);
+    /* El tono suave daba 3.8:1 sobre el hueco. Una opcion hay que poder
+       leerla para elegirla; esto no es texto de apoyo. */
+    color: var(--lc-texto);
     cursor: pointer;
     transition: background var(--lc-prisa) ease, color var(--lc-prisa) ease;
 
@@ -168,10 +171,13 @@
   font-size: 11.5px;
   color: var(--lc-texto-suave);
 
+  /* El relleno llega a los 44px de alto que necesita un dedo; el margen
+     negativo lo devuelve a su sitio para que la linea no se separe. */
   button {
     flex: none;
     border: 0;
-    padding: 0;
+    padding: 15px 6px;
+    margin: -15px -6px;
     background: none;
     font: inherit;
     font-size: 11.5px;
@@ -209,6 +215,9 @@
   justify-content: space-between;
   gap: 12px;
   width: 100%;
+  /* 44px: con el relleno solo llegaba a 43 y se quedaba un pelo corto del
+     minimo tactil. */
+  min-height: 44px;
   margin-top: 11px;
   padding: 13px 15px;
   border: 1px solid var(--lc-linea);
@@ -315,14 +324,18 @@
   color: #fff;
   box-shadow: 0 6px 20px rgb(31 159 74 / 30%);
   font: inherit;
-  font-size: 14.5px;
-  font-weight: 600;
+  /* 19px y 700 a proposito: el blanco sobre este verde da 3.4:1, suficiente
+     para texto grande pero no para texto normal. Subir el tamaño es mejor
+     que oscurecer el verde, que dejaria de parecer el de WhatsApp. Y el
+     boton principal de la pantalla merece ese tamaño igual. */
+  font-size: 19px;
+  font-weight: 700;
   cursor: pointer;
   @include presion(.98);
 
   &:disabled {
     background: var(--lc-hueco);
-    color: var(--lc-texto-tenue);
+    color: var(--lc-texto-suave);
     box-shadow: none;
     cursor: not-allowed;
   }
@@ -331,6 +344,10 @@
 /* ----------------------------------------------------------- escritorio -- */
 @media (width >= 48rem) {
   .cuerpo,
-  .barra,
   .titulo { max-width: 560px; margin-inline: auto; }
+
+  /* La barra no lleva ancho maximo: su fondo tiene que llegar a los dos
+     bordes o queda como una losa blanca flotando a media pantalla. Lo que se
+     limita es el contenido, con relleno. */
+  .barra { padding-inline: max(var(--lc-margen), calc((100% - 560px) / 2)); }
 }

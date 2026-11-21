@@ -18,6 +18,17 @@ body {
   margin: 0;
 }
 
+// Foco propio.
+//
+// Sin esto Chrome pinta su contorno ambar por omision, que sobre el crema se
+// lee como un error del sistema. Y es `:focus-visible`, no `:focus`: asi no
+// aparece al tocar con el dedo, solo al llegar con teclado, que es cuando
+// hace falta saber donde se esta.
+:focus-visible {
+  outline: 2px solid var(--lc-acento);
+  outline-offset: 2px;
+}
+
 // El fondo va tambien en el body y no solo en el cascaron: durante la
 // transicion entre pantallas el navegador deja ver lo que hay detras, y sin
 // esto asoma el blanco del documento.
