@@ -249,6 +249,19 @@ h1 {
   &.angosto { display: inline-flex; width: auto; }
 }
 
+/* El gesto no se descubre solo: quien no lo sabe nunca lo prueba. Va en voz
+   baja, una sola vez, encima de la cuenta. */
+.truco {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 12px 0 0;
+  font-size: 11.5px;
+  color: var(--lc-texto-suave);
+
+  lc-icono { flex: none; }
+}
+
 .vacio {
   margin-top: 56px;
   text-align: center;

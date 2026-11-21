@@ -3,15 +3,12 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { abrirWhatsApp } from '@core/config/contacto.config';
 import {
-  DatosEntrega, FormaPago, ModoEntrega, Momento,
+  DatosEntrega, ENVIO_DOMICILIO, FormaPago, ModoEntrega, Momento,
   guardarEntrega, leerEntrega, olvidarEntrega,
 } from '@core/pedido/pedido.datos';
 import { armarMensaje, faltaPara, ResumenPedido } from '@core/pedido/pedido.mensaje';
 import { CartService } from '@features/cart/cart.service';
 import { Icono } from '@ui/icono/icono';
-
-/** Lo que cuesta llevarlo. Es un número del negocio, no del código. */
-const ENVIO_DOMICILIO = 7;
 
 @Component({
   selector: 'lc-pedido',

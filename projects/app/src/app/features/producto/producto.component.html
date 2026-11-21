@@ -24,8 +24,19 @@
       </button>
 
       <div class="contenido" data-desplazable>
-        <h1>{{ p.nombre }}</h1>
+        <div class="encabeza">
+          <h1>{{ p.nombre }}</h1>
+          @if (p.precio !== null) {
+            <span class="base">Base {{ p.precio | currency }}</span>
+          }
+        </div>
         <p class="intro">{{ p.descripcion }}.</p>
+
+        <!-- Lo elegido, de un vistazo. Lo que se pierde al desplazar es
+             justamente esto, y es lo que hay que ver antes de agregar. -->
+        @if (resumen().length) {
+          <p class="resumen">{{ resumen().join(' · ') }}</p>
+        }
 
         @for (gv of grupos(); track gv.grupo.id) {
           <div class="etiqueta">

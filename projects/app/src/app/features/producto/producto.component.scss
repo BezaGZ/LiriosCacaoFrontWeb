@@ -139,6 +139,24 @@
 
   &::-webkit-scrollbar { display: none; }
 
+  .encabeza {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* El precio de partida, antes de tocar nada. Sin esto no se sabe de donde
+     sale el total hasta que ya se eligio todo. */
+  .base {
+    flex: none;
+    font-family: var(--lc-serif);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--lc-texto);
+    font-variant-numeric: tabular-nums;
+  }
+
   h1 {
     margin: 0 0 2px;
     font-family: var(--lc-serif);
@@ -148,8 +166,20 @@
   }
 }
 
+/* Lo elegido, en una linea. Es lo que se pierde de vista al desplazar por
+   los toppings, y es justo lo que hay que ver antes de agregar. */
+.resumen {
+  margin: 0 0 14px;
+  padding: 9px 13px;
+  background: var(--lc-hueco);
+  border-radius: var(--lc-radio-chico);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--lc-texto);
+}
+
 .intro {
-  margin: 0 0 16px;
+  margin: 0 0 10px;
   font-size: 12.5px;
   line-height: 1.6;
   color: var(--lc-texto-suave);

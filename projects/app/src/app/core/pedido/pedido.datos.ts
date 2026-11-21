@@ -11,6 +11,15 @@
  * datos guardados pueden ser viejos) para que la pantalla no se entere.
  */
 
+/**
+ * Lo que cuesta llevarlo.
+ *
+ * Vive aqui y no en la pantalla de cierre porque el inicio tambien lo
+ * ensena: que el envio aparezca al final, cuando el pedido ya esta armado,
+ * es la peor forma de decirlo.
+ */
+export const ENVIO_DOMICILIO = 7;
+
 export type ModoEntrega = 'domicilio' | 'recoger';
 export type FormaPago = 'efectivo' | 'tarjeta';
 export type Momento = 'hoy' | 'manana';

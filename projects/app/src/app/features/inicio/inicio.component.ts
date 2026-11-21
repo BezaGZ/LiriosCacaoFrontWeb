@@ -2,6 +2,7 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Catalogo, Categoria, Paquete, Producto } from '@core/catalogo/catalogo.models';
+import { ENVIO_DOMICILIO, ModoEntrega, guardarEntrega, leerEntrega } from '@core/pedido/pedido.datos';
 import { FUENTE_CATALOGO } from '@core/catalogo/catalogo.fuente';
 import { itemPaquete, itemSimple } from '@core/catalogo/catalogo.carrito';
 import { CartService } from '@features/cart/cart.service';
@@ -29,6 +30,10 @@ const ICONO_CATEGORIA: Readonly<Record<string, NombreIcono>> = {
   imports: [Icono, CurrencyPipe],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss',
+  // El selector de entrega sale de localStorage: en el servidor siempre
+  // diria "a domicilio" y al hidratar no coincidiria con lo que el navegador
+  // ya sabe.
+  host: { ngSkipHydration: 'true' },
 })
 export class InicioComponent {
   private readonly fuente = inject(FUENTE_CATALOGO);
@@ -37,9 +42,32 @@ export class InicioComponent {
 
   readonly datos = signal<Catalogo | null>(null);
 
+  /** Lo que cuesta llevarlo, para decirlo aqui y no al final. */
+  readonly envio = ENVIO_DOMICILIO;
+
+  readonly entrega = signal<ModoEntrega>(leerEntrega().entrega);
+
   constructor() {
     this.fuente.obtener().then(c => this.datos.set(c));
   }
+
+  /**
+   * Se guarda al momento, asi que el cierre abre con la eleccion ya hecha.
+   * Es la misma decision; preguntarla dos veces seria trabajo repetido.
+   */
+  elegirEntrega(modo: ModoEntrega): void {
+    this.entrega.set(modo);
+    guardarEntrega({ ...leerEntrega(), entrega: modo });
+  }
+
+  /**
+   * Cuantos productos lista el catalogo, para que el enlace lo diga.
+   *
+   * Cuenta TODOS y no solo los `disponible`: el catalogo tambien los muestra
+   * todos, y los ocho cafes sin precio salen ahi aunque no se puedan
+   * comprar. Si el enlace dijera 21 y el catalogo 29, uno de los dos miente.
+   */
+  readonly cuantos = computed(() => this.datos()?.productos.length ?? 0);
 
   readonly categorias = computed<readonly Categoria[]>(() => {
     const c = this.datos();
@@ -52,7 +80,10 @@ export class InicioComponent {
     if (!c) return [];
     return [...c.productos]
       .filter(p => p.destacado && p.disponible && p.precio !== null)
-      .sort((a, b) => a.orden - b.orden);
+      .sort((a, b) => a.orden - b.orden)
+      // Cuatro: lo que cabe en dos filas de la rejilla sin que el inicio se
+      // convierta en un segundo catalogo.
+      .slice(0, 4);
   });
 
   readonly paquetes = computed<readonly Paquete[]>(() => {

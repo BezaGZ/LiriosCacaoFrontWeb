@@ -7,6 +7,13 @@
       <span class="nombre">Lirios y Cacao</span>
     </a>
 
+    <!-- Donde se entrega vive en el cromo y no dentro del inicio: es cierto
+         en las cuatro pantallas y asi no se lo come el desplazamiento. -->
+    <span class="lugar">
+      <lc-icono nombre="pin" [tamano]="15" [grosor]="1.8" />
+      Chiquimula
+    </span>
+
     <!-- En escritorio no hay barra de pestañas, así que la navegación sube -->
     <nav class="nav-escritorio" aria-label="Secciones">
       @for (p of pestanas; track p.ruta) {

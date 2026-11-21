@@ -84,6 +84,26 @@ export class ProductoComponent {
     return desglose(c, linea);
   });
 
+  /**
+   * Lo que lleva armado, en una linea.
+   *
+   * Sin esto hay que desplazar hacia arriba para recordar que se eligio, y
+   * en un grupo largo de toppings eso pasa todo el tiempo. Sale de los
+   * grupos ya resueltos, asi que incluye los sub-grupos desplegados.
+   */
+  readonly resumen = computed<readonly string[]>(() => {
+    const nombres: string[] = [];
+    const recorrer = (gv: GrupoVista): void => {
+      for (const ov of gv.opciones) {
+        if (!ov.elegida) continue;
+        nombres.push(ov.opcion.nombre);
+        if (ov.abre) recorrer(ov.abre);
+      }
+    };
+    for (const gv of this.grupos()) recorrer(gv);
+    return nombres;
+  });
+
   /** El chocolate elegido, para la insignia sobre la foto. */
   readonly chocolate = computed<Opcion | null>(() => {
     const c = this.datos();

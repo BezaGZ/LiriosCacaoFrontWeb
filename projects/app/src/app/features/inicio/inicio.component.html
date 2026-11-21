@@ -1,14 +1,30 @@
-<div class="entrega">
-  <lc-icono nombre="pin" [tamano]="19" [grosor]="1.7" />
-  <span class="donde">
-    <span class="etq">Entregar en</span>
-    <span class="lugar">Chiquimula</span>
-  </span>
+<!-- La entrega es una decisión, no un dato. Y el Q7 se dice aquí, al
+     principio: descubrir el envío cuando el pedido ya está armado es la peor
+     forma de contarlo. Lo que se elija aquí llega ya puesto al cierre. -->
+<div class="entrega" role="radiogroup" aria-label="Forma de entrega">
+  <button
+    type="button"
+    role="radio"
+    [attr.aria-checked]="entrega() === 'domicilio'"
+    (click)="elegirEntrega('domicilio')"
+  >
+    <lc-icono nombre="camion" [tamano]="18" [grosor]="1.7" />
+    <span>A domicilio · {{ envio | currency }}</span>
+  </button>
+  <button
+    type="button"
+    role="radio"
+    [attr.aria-checked]="entrega() === 'recoger'"
+    (click)="elegirEntrega('recoger')"
+  >
+    <lc-icono nombre="pin" [tamano]="18" [grosor]="1.7" />
+    <span>Recoger en el local</span>
+  </button>
 </div>
 
 <label class="solo-lectores" for="buscar-inicio">Buscar productos</label>
 <label class="buscar" for="buscar-inicio">
-  <lc-icono nombre="lupa" [tamano]="16" [grosor]="1.9" />
+  <lc-icono nombre="lupa" [tamano]="17" [grosor]="1.9" />
   <input
     id="buscar-inicio"
     type="search"
@@ -22,8 +38,8 @@
 <div class="categorias" role="list" aria-label="Categorías">
   @for (c of categorias(); track c.id) {
     <button type="button" class="categoria" role="listitem" (click)="verCategoria(c.id)">
-      <span class="disco">
-        <lc-icono [nombre]="icono(c.slug)" [tamano]="32" [grosor]="1.4" />
+      <span class="azulejo">
+        <lc-icono [nombre]="icono(c.slug)" [tamano]="30" [grosor]="1.4" />
       </span>
       <span class="txt">{{ c.nombre }}</span>
     </button>
@@ -33,10 +49,13 @@
 @if (destacados().length) {
   <div class="seccion">
     <h2>Lo más pedido</h2>
-    <button type="button" (click)="verTodo()">Ver todo</button>
+    <button type="button" (click)="verTodo()">Ver los {{ cuantos() }}</button>
   </div>
 
-  <div class="fila" role="list">
+  <!-- Rejilla y no fila arrastrable: en una fila se ve producto y medio, y
+       el medio no se lee. Cuatro en rejilla se ven de un vistazo, y el resto
+       está a un toque en «Ver los 29». -->
+  <div class="rejilla" role="list">
     @for (p of destacados(); track p.id) {
       <article class="tarjeta" role="listitem">
         <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
@@ -45,7 +64,6 @@
         </button>
         <div class="texto">
           <h3>{{ p.nombre }}</h3>
-          <p>{{ p.descripcion }}</p>
           <div class="pie">
             <span class="precio">{{ p.precio | currency }}</span>
             <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
@@ -129,7 +147,7 @@
           class="agregar"
           [disabled]="p.precio === null"
           [attr.aria-label]="'Agregar ' + p.nombre"
-          (click)="tocar(p, $event)"
+          (click)="tocar(p)"
         >
           <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
         </button>

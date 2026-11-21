@@ -9,32 +9,47 @@
 .solo-lectores { @include solo-lectores; }
 
 /* ------------------------------------------------------------- entrega -- */
-/* Lo primero que una app de pedidos necesita saber. Va arriba del buscador
-   porque decide si el resto de la pantalla sirve de algo. */
+/* Lo primero que una app de pedidos necesita saber, y aqui es una decision y
+   no un rotulo: el modo elegido viaja al cierre. */
 .entrega {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-block: 4px 11px;
-  color: var(--lc-acento);
-  @include margen-lateral;
+  gap: 7px;
+  padding: 4px;
+  margin-bottom: 12px;
+  background: var(--lc-superficie);
+  border-radius: var(--lc-pildora);
+  box-shadow: var(--lc-sombra-apoyada);
+  margin-left: max(var(--lc-margen), env(safe-area-inset-left, 0px));
+  margin-right: max(var(--lc-margen), env(safe-area-inset-right, 0px));
 
-  .donde { flex: 1; min-width: 0; }
+  button {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding-inline: 8px;
+    border: 0;
+    border-radius: var(--lc-pildora);
+    background: none;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--lc-texto);
+    cursor: pointer;
+    transition: background var(--lc-prisa) ease, color var(--lc-prisa) ease;
 
-  .etq {
-    display: block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--lc-texto-suave);
-  }
+    span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    lc-icono { flex: none; }
 
-  .lugar {
-    display: block;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--lc-texto-fuerte);
+    &[aria-checked='true'] {
+      background: var(--lc-acento);
+      color: var(--lc-sobre-acento);
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgb(114 60 66 / 26%);
+    }
   }
 }
 
@@ -42,10 +57,10 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  height: 44px;
-  padding-inline: 15px;
+  height: 48px;
+  padding-inline: 17px;
   background: var(--lc-superficie);
-  border-radius: var(--lc-radio-chico);
+  border-radius: var(--lc-pildora);
   box-shadow: var(--lc-sombra-apoyada);
   color: var(--lc-texto-tenue);
   /* Margen y no `margen-lateral`: esa mezcla pone padding, que en una caja
@@ -87,13 +102,15 @@
   font: inherit;
   cursor: pointer;
 
-  .disco {
+  /* Azulejo y no disco: el cuadrado con esquina blanda deja mas sitio al
+     dibujo con el mismo ancho, y se lee como una ficha que se toca. */
+  .azulejo {
     display: grid;
     place-items: center;
-    width: 66px;
-    height: 66px;
+    width: 68px;
+    height: 68px;
     background: var(--lc-superficie);
-    border-radius: var(--lc-pildora);
+    border-radius: var(--lc-radio-grande);
     box-shadow: var(--lc-sombra-tarjeta);
     color: var(--lc-acento);
     @include presion(.93);
@@ -154,11 +171,17 @@
 }
 
 /* -------------------------------------------------------------- tarjeta -- */
-/* Ancha, con la foto arriba y el texto a la izquierda. La cuadrada centrada
-   se lee como catálogo web; esta se lee como app de pedidos. */
+/* Rejilla de dos y no fila arrastrable: en una fila se ve producto y medio,
+   y el medio no se lee. */
+.rejilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-block: 2px 4px;
+  @include margen-lateral;
+}
+
 .tarjeta {
-  flex: none;
-  width: 252px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -170,7 +193,7 @@
   position: relative;
   display: block;
   width: 100%;
-  height: 140px;
+  height: 124px;
   padding: 0;
   border: 0;
   background: var(--lc-hueco);
@@ -202,7 +225,7 @@
   display: flex;
   flex-direction: column;
   gap: 1px;
-  padding: 9px 13px 13px;
+  padding: 9px 12px 12px;
 
   h3 {
     margin: 0;
@@ -371,7 +394,7 @@
 
 /* ----------------------------------------------------------- escritorio -- */
 @media (width >= 48rem) {
-  .tarjeta { width: 268px; }
+  .rejilla { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
   .paquete { width: 320px; }
   .listado { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }

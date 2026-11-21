@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { CartService } from '@features/cart/cart.service';
+import { Icono } from '@ui/icono/icono';
 
 /** Una pestaña de la barra inferior. */
 interface Pestana {
@@ -32,7 +33,7 @@ interface Pestana {
 @Component({
   selector: 'lc-cascaron',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CurrencyPipe],
+  imports: [RouterOutlet, RouterLink, CurrencyPipe, Icono],
   templateUrl: './cascaron.html',
   styleUrl: './cascaron.scss',
   host: { ngSkipHydration: 'true' },
