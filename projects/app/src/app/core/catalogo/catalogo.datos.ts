@@ -39,29 +39,32 @@ export const CATEGORIAS: readonly Categoria[] = [
 const BASE_CHOCOFRUTA = 7;
 const BASE_PALETA = 8;
 
-/** Ruta de la foto base (chocolate tradicional) de las frutas fotografiadas. */
-const fotoFruta = (carpeta: string, archivo: string) =>
-  `assets/img/chocos/${carpeta}/${archivo}.png`;
+/**
+ * La foto de la tarjeta del catalogo. Viven todas juntas en una sola carpeta
+ * y con un solo nombre por producto, a diferencia de las de `capas`, que
+ * dependen de la combinacion de fruta y chocolate.
+ */
+const foto = (archivo: string) => `assets/img/productos/${archivo}.png`;
 
 export const PRODUCTOS: readonly Producto[] = [
   // --- Chocofrutas: las ocho de chocofruta.seed.ts -------------------------
   // Solo banano, pina y sandia tienen fotografia en el repositorio. Las demas
   // llevan null hasta que exista el archivo: nada apunta a una ruta vacia.
   { id: 'prod_manzana', categoriaId: 'cat_chocofruta', slug: 'chocomanzana', nombre: 'Chocomanzana',
-    descripcion: 'Manzana cubierta de chocolate', precio: BASE_CHOCOFRUTA, imagen: null,
+    descripcion: 'Manzana cubierta de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomanzana'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 1, disponible: true },
 
   { id: 'prod_fresa', categoriaId: 'cat_chocofruta', slug: 'chocofresa', nombre: 'Chocofresa',
-    descripcion: 'Fresa cubierta de chocolate', precio: BASE_CHOCOFRUTA, imagen: null,
+    descripcion: 'Fresa cubierta de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocofresa'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 2, disponible: true },
 
   { id: 'prod_pina', categoriaId: 'cat_chocofruta', slug: 'chocopina', nombre: 'Chocopiña',
     descripcion: 'Piña fresca cubierta de chocolate', precio: BASE_CHOCOFRUTA,
-    imagen: fotoFruta('pina', 'chocopinatradicional'),
+    imagen: foto('chocopina'),
     configuradorId: 'cfg_chocofruta', sello: 'Más pedido', destacado: true, orden: 3, disponible: true },
 
   { id: 'prod_melon', categoriaId: 'cat_chocofruta', slug: 'chocomelon', nombre: 'Chocomelón',
-    descripcion: 'Melón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: null,
+    descripcion: 'Melón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelon'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 4, disponible: true },
 
   { id: 'prod_melocoton', categoriaId: 'cat_chocofruta', slug: 'chocomelocoton', nombre: 'Chocomelocotón',
@@ -70,102 +73,102 @@ export const PRODUCTOS: readonly Producto[] = [
 
   { id: 'prod_banano', categoriaId: 'cat_chocofruta', slug: 'chocobanano', nombre: 'Chocobanano',
     descripcion: 'Banano cubierto de chocolate', precio: BASE_CHOCOFRUTA,
-    imagen: fotoFruta('banano', 'chocobananotradicional'),
+    imagen: foto('chocobanano'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: true, orden: 6, disponible: true },
 
   { id: 'prod_sandia', categoriaId: 'cat_chocofruta', slug: 'chocosandia', nombre: 'Chocosandía',
     descripcion: 'Sandía cubierta de chocolate', precio: BASE_CHOCOFRUTA,
-    imagen: fotoFruta('sandia', 'chocosandiatradicional'),
+    imagen: foto('chocosandia'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: true, orden: 7, disponible: true },
 
   { id: 'prod_uva', categoriaId: 'cat_chocofruta', slug: 'chocouva', nombre: 'Chocouva',
-    descripcion: 'Uvas cubiertas de chocolate', precio: BASE_CHOCOFRUTA, imagen: null,
+    descripcion: 'Uvas cubiertas de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocouva'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 8, disponible: true },
 
   // --- Paletas: doce ------------------------------------------------------
   // Las ocho propias mas los cuatro sabores de quetzalteca, que antes vivian
   // apretados en un solo producto y el cliente no podia pedir uno solo.
   { id: 'prod_pal_vino', categoriaId: 'cat_helado', slug: 'paleta-vino', nombre: 'Paleta de vino',
-    descripcion: 'Paleta de crema sabor vino', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema sabor vino', precio: BASE_PALETA, imagen: foto('heladovino'),
     configuradorId: null, sello: '', destacado: false, orden: 1, disponible: true },
 
   { id: 'prod_pal_tamarindo', categoriaId: 'cat_helado', slug: 'paleta-tamarindo', nombre: 'Paleta de tamarindo',
-    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecatamarindo_botella'),
     configuradorId: null, sello: '', destacado: false, orden: 2, disponible: true },
 
   { id: 'prod_pal_jamaica', categoriaId: 'cat_helado', slug: 'paleta-jamaica', nombre: 'Paleta de jamaica',
-    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecajamaica_botella'),
     configuradorId: null, sello: '', destacado: false, orden: 3, disponible: true },
 
   { id: 'prod_pal_mora', categoriaId: 'cat_helado', slug: 'paleta-mora', nombre: 'Paleta de mora',
-    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecamora_botella'),
     configuradorId: null, sello: '', destacado: false, orden: 4, disponible: true },
 
   { id: 'prod_pal_naranja', categoriaId: 'cat_helado', slug: 'paleta-naranja', nombre: 'Paleta de naranja',
-    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Sabores de quetzalteca', precio: BASE_PALETA, imagen: foto('heladoquetzaltecananranja_botella'),
     configuradorId: null, sello: '', destacado: false, orden: 5, disponible: true },
 
   { id: 'prod_pal_melocoton', categoriaId: 'cat_helado', slug: 'paleta-melocoton', nombre: 'Paleta de melocotón',
-    descripcion: 'Paleta de crema sabor melocotón', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema sabor melocotón', precio: BASE_PALETA, imagen: foto('heladomelocoton'),
     configuradorId: null, sello: '', destacado: false, orden: 6, disponible: true },
 
   { id: 'prod_pal_coctel', categoriaId: 'cat_helado', slug: 'paleta-coctel-frutas', nombre: 'Coctel de frutas',
-    descripcion: 'Paleta con trozos de fruta', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta con trozos de fruta', precio: BASE_PALETA, imagen: foto('heladococteldefrutas'),
     configuradorId: null, sello: '', destacado: false, orden: 7, disponible: true },
 
   { id: 'prod_pal_oreo', categoriaId: 'cat_helado', slug: 'paleta-oreo', nombre: 'Paleta de oreo',
-    descripcion: 'Paleta de crema con galleta oreo', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema con galleta oreo', precio: BASE_PALETA, imagen: foto('heladooreo'),
     configuradorId: null, sello: '', destacado: false, orden: 8, disponible: true },
 
   { id: 'prod_pal_cafe', categoriaId: 'cat_helado', slug: 'paleta-cafe-espreso', nombre: 'Paleta de café espreso',
-    descripcion: 'Paleta de crema sabor café', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema sabor café', precio: BASE_PALETA, imagen: foto('heladocafeexpreso'),
     configuradorId: null, sello: '', destacado: false, orden: 9, disponible: true },
 
   { id: 'prod_pal_chocolate', categoriaId: 'cat_helado', slug: 'paleta-chocolate', nombre: 'Paleta de chocolate',
-    descripcion: 'Paleta de crema de chocolate', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema de chocolate', precio: BASE_PALETA, imagen: foto('heladochocolate'),
     configuradorId: null, sello: '', destacado: false, orden: 10, disponible: true },
 
   { id: 'prod_pal_pina_colada', categoriaId: 'cat_helado', slug: 'paleta-pina-colada', nombre: 'Piña colada',
-    descripcion: 'Paleta de piña con coco', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de piña con coco', precio: BASE_PALETA, imagen: foto('heladopinacolada'),
     configuradorId: null, sello: '', destacado: false, orden: 11, disponible: true },
 
   { id: 'prod_pal_mania', categoriaId: 'cat_helado', slug: 'paleta-mania', nombre: 'Paleta de manía',
-    descripcion: 'Paleta de crema con manía', precio: BASE_PALETA, imagen: null,
+    descripcion: 'Paleta de crema con manía', precio: BASE_PALETA, imagen: foto('heladomania'),
     configuradorId: null, sello: '', destacado: false, orden: 12, disponible: true },
 
   // --- Bebidas: ocho cafes frios, vaso de 16 oz ---------------------------
   // Un solo tamano, asi que no llevan configurador: se agregan directo.
   // Sin precio todavia: por eso van en null y como no disponibles.
   { id: 'prod_beb_vanilla', categoriaId: 'cat_bebida', slug: 'vanilla-cloud', nombre: 'Vanilla Cloud',
-    descripcion: 'Suave · 16 oz', precio: null, imagen: null,
+    descripcion: 'Suave · 16 oz', precio: null, imagen: foto('cafevainillacloud'),
     configuradorId: null, sello: '', destacado: false, orden: 1, disponible: false },
 
   { id: 'prod_beb_caramel', categoriaId: 'cat_bebida', slug: 'caramel-kiss', nombre: 'Caramel Kiss',
-    descripcion: 'Dulce · 16 oz', precio: null, imagen: null,
+    descripcion: 'Dulce · 16 oz', precio: null, imagen: foto('cafecaramelkids'),
     configuradorId: null, sello: '', destacado: false, orden: 2, disponible: false },
 
   { id: 'prod_beb_chocomood', categoriaId: 'cat_bebida', slug: 'chocolate-mood', nombre: 'Chocolate Mood',
-    descripcion: 'Chocolatoso · 16 oz', precio: null, imagen: null,
+    descripcion: 'Chocolatoso · 16 oz', precio: null, imagen: foto('cafechocolatemood'),
     configuradorId: null, sello: '', destacado: false, orden: 3, disponible: false },
 
   { id: 'prod_beb_blackvelvet', categoriaId: 'cat_bebida', slug: 'black-velvet', nombre: 'Black Velvet',
-    descripcion: 'Intenso · 16 oz', precio: null, imagen: null,
+    descripcion: 'Intenso · 16 oz', precio: null, imagen: foto('cafeblackvelvet'),
     configuradorId: null, sello: '', destacado: false, orden: 4, disponible: false },
 
   { id: 'prod_beb_whiteromance', categoriaId: 'cat_bebida', slug: 'white-romance', nombre: 'White Romance',
-    descripcion: 'Cremoso · 16 oz', precio: null, imagen: null,
+    descripcion: 'Cremoso · 16 oz', precio: null, imagen: foto('cafewhiteromance'),
     configuradorId: null, sello: '', destacado: false, orden: 5, disponible: false },
 
   { id: 'prod_beb_hazelnut', categoriaId: 'cat_bebida', slug: 'hazelnut-dream', nombre: 'Hazelnut Dream',
-    descripcion: 'Tostado · 16 oz', precio: null, imagen: null,
+    descripcion: 'Tostado · 16 oz', precio: null, imagen: foto('cafehazelnutdream'),
     configuradorId: null, sello: '', destacado: false, orden: 6, disponible: false },
 
   { id: 'prod_beb_tentacion', categoriaId: 'cat_bebida', slug: 'dulce-tentacion', nombre: 'Dulce Tentación',
-    descripcion: 'Acaramelado · 16 oz', precio: null, imagen: null,
+    descripcion: 'Acaramelado · 16 oz', precio: null, imagen: foto('dulcetentacion'),
     configuradorId: null, sello: '', destacado: false, orden: 7, disponible: false },
 
   { id: 'prod_beb_pinkaffair', categoriaId: 'cat_bebida', slug: 'pink-affair', nombre: 'Pink Affair',
-    descripcion: 'Frutal · 16 oz', precio: null, imagen: null,
+    descripcion: 'Frutal · 16 oz', precio: null, imagen: foto('cafepinkaffair'),
     configuradorId: null, sello: '', destacado: false, orden: 8, disponible: false },
 ];
 
@@ -323,12 +326,12 @@ export const PAQUETES: readonly Paquete[] = [
   { id: 'paq_ocho', slug: 'paquete-de-8', nombre: 'Paquete de 8',
     descripcion: '8 chocofrutas a elegir, en empaque premium',
     categoriaId: 'cat_chocofruta', cantidad: 8, desde: false, gratis: 0,
-    empaque: 'premium', precio: null, sello: '', orden: 1, disponible: true },
+    empaque: 'premium', precio: 80, sello: '', orden: 1, disponible: true },
 
   { id: 'paq_fiesta', slug: 'paquete-fiesta', nombre: 'Paquete fiesta',
     descripcion: 'Desde 15 chocofrutas y la siguiente va gratis',
     categoriaId: 'cat_chocofruta', cantidad: 15, desde: true, gratis: 1,
-    empaque: '', precio: null, sello: '+1 gratis', orden: 2, disponible: true },
+    empaque: '', precio: 150, sello: '+1 gratis', orden: 2, disponible: true },
 ];
 
 // ---------------------------------------------------------------------------

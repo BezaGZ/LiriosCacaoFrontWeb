@@ -170,8 +170,10 @@ describe('integridad de las tablas', () => {
   });
 
   it('un producto con foto no deja la ruta vacia y uno sin foto no la inventa', () => {
+    const sinFoto = CATALOGO.productos.filter((p) => p.imagen === null);
+    expect(sinFoto.map((p) => p.id)).toEqual(['prod_melocoton']);
     const conFoto = CATALOGO.productos.filter((p) => p.imagen !== null);
-    expect(conFoto.map((p) => p.id).sort()).toEqual(['prod_banano', 'prod_pina', 'prod_sandia']);
-    for (const p of conFoto) expect(p.imagen).toMatch(/^assets\/.+\.png$/);
+    expect(conFoto.length).toBe(27);
+    for (const p of conFoto) expect(p.imagen).toMatch(/^assets\/img\/productos\/.+\.png$/);
   });
 });
