@@ -105,8 +105,9 @@ export class CatalogoComponent {
    * una vez. Es la diferencia entre una chocofruta y una paleta, y sale del
    * dato (`configuradorId`), no de un `if` por categoría.
    */
-  tocar(p: Producto): void {
+  tocar(p: Producto, ev?: Event): void {
     if (p.configuradorId !== null) {
+      this.marcarFoto(ev);
       this.router.navigate(['/producto', p.slug]);
       return;
     }
@@ -130,5 +131,27 @@ export class CatalogoComponent {
       .filter(p => p.categoriaId === categoriaId && p.imagen)
       .slice(0, 3)
       .map(p => p.imagen as string);
+  }
+
+  /**
+   * Le pone el nombre de transición a la foto que se acaba de tocar.
+   *
+   * Se escribe en el DOM directamente y no por `[style]` porque el navegador
+   * saca la foto del estado anterior en el mismo instante en que arranca la
+   * navegación: si esperara a que Angular pintara, llegaría tarde y la foto
+   * aparecería de golpe en vez de crecer.
+   *
+   * Solo puede haber UN elemento con cada nombre a la vez, por eso se marca
+   * la tocada y nada más.
+   */
+  private marcarFoto(ev?: Event): void {
+    const foto = (ev?.currentTarget as HTMLElement | undefined)
+      ?.closest('article')
+      ?.querySelector<HTMLElement>('img');
+    if (!foto) return;
+    foto.style.viewTransitionName = 'foto-producto';
+    // Se quita al volver: si se quedara puesto, la siguiente transición
+    // tendría dos elementos con el mismo nombre y no animaría ninguno.
+    setTimeout(() => (foto.style.viewTransitionName = ''), 600);
   }
 }

@@ -6,26 +6,30 @@
   font-family: var(--lc-sans);
 }
 
+/* Posición absoluta y no flujo normal: la hoja se mueve cambiando `top`, y
+   eso necesita un padre con altura definida contra el que medir. */
 .hoja {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* ---------------------------------------------------------------- héroe -- */
 /* La foto va a sangre por los lados. En una app el contenido llega al borde;
    en una página siempre hay margen. */
+/* Más alta que la posición de reposo de la hoja: al subirla se descubre
+   más foto, y al bajarla la foto sigue llenando el hueco. */
 .heroe {
-  position: relative;
-  flex: none;
-  height: 252px;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 300px;
   background: radial-gradient(120% 90% at 50% 20%, #fbf7f1 0%, #efe7dc 58%, #e6dace 100%);
 
   img {
     position: absolute;
-    inset: 26px 70px;
+    inset: 30px 70px 56px;
     width: calc(100% - 140px);
-    height: calc(100% - 52px);
+    height: calc(100% - 86px);
     object-fit: contain;
   }
 }
@@ -75,31 +79,61 @@
 /* ---------------------------------------------------------------- panel -- */
 /* Sube sobre la foto. El asa dice que se puede arrastrar; el gesto en sí
    llega en la fase 3. */
+/* `--hoja-top` lo escribe la directiva al arrastrar. El valor de aquí es la
+   posición de reposo, y también lo que se ve si el JavaScript no corre. */
 .panel {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--hoja-top, 226px);
+  bottom: 0;
   z-index: 2;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  margin-top: -26px;
   background: var(--lc-superficie);
   border-radius: var(--lc-radio-hoja) var(--lc-radio-hoja) 0 0;
   box-shadow: 0 -6px 28px rgb(42 24 15 / 12%);
+  /* La curva frena al final: así se siente que la hoja se asienta en vez de
+     chocar. Mientras el dedo manda, la directiva apaga esta transición. */
+  transition: top var(--lc-calma) cubic-bezier(.22, .61, .36, 1);
 }
 
+/* El asa es un botón de verdad: tocarla alterna las dos posiciones, que es
+   lo que queda para quien no puede arrastrar. */
 .asa {
-  display: block;
-  width: 40px;
-  height: 4.5px;
-  margin: 10px auto 2px;
-  border-radius: var(--lc-pildora);
-  background: rgb(90 54 40 / 20%);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 10px 0 4px;
+  border: 0;
+  background: none;
+  cursor: grab;
+  /* Sin esto el navegador empieza a desplazar antes de que el gesto arranque
+     y la hoja da un tirón. */
+  touch-action: none;
+
+  span {
+    display: block;
+    width: 40px;
+    height: 4.5px;
+    border-radius: var(--lc-pildora);
+    background: rgb(90 54 40 / 20%);
+  }
 }
 
 .contenido {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  /* Vertical sí, horizontal no: el horizontal es del gesto de la hoja. */
+  touch-action: pan-y;
   padding-block: 6px 10px;
   @include margen-lateral;
+
+  &::-webkit-scrollbar { display: none; }
 
   h1 {
     margin: 0 0 2px;
@@ -268,8 +302,7 @@
 
 /* ------------------------------------------------------------ acciones -- */
 .acciones {
-  position: sticky;
-  bottom: 0;
+  flex: none;
   display: flex;
   align-items: center;
   gap: 11px;

@@ -39,7 +39,7 @@
   <div class="fila" role="list">
     @for (p of destacados(); track p.id) {
       <article class="tarjeta" role="listitem">
-        <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p)">
+        <button type="button" class="foto" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
           @if (p.imagen) { <img [src]="p.imagen" [alt]="p.nombre" loading="lazy"> }
           @if (p.sello) { <span class="sello">{{ p.sello }}</span> }
         </button>
@@ -48,7 +48,7 @@
           <p>{{ p.descripcion }}</p>
           <div class="pie">
             <span class="precio">{{ p.precio | currency }}</span>
-            <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p)">
+            <button type="button" class="agregar" [attr.aria-label]="'Armar ' + p.nombre" (click)="tocar(p, $event)">
               <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
             </button>
           </div>
@@ -129,7 +129,7 @@
           class="agregar"
           [disabled]="p.precio === null"
           [attr.aria-label]="'Agregar ' + p.nombre"
-          (click)="tocar(p)"
+          (click)="tocar(p, $event)"
         >
           <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
         </button>

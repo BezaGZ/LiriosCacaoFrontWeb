@@ -5,7 +5,7 @@ import localeEsGt from '@angular/common/locales/es-GT';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
-import {provideRouter} from '@angular/router';
+import {provideRouter, withViewTransitions} from '@angular/router';
 import {MessageService} from 'primeng/api';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -36,7 +36,12 @@ export const appConfig: ApplicationConfig = {
       },
 
     }),
-    provideRouter(routes),
+    // Las transiciones entre pantallas las hace el navegador con la View
+    // Transitions API: el router le pide el cambio y el navegador anima
+    // de un estado al otro. La foto del producto lleva
+    // `view-transition-name`, asi que crece de la tarjeta a la pantalla
+    // en vez de aparecer de golpe.
+    provideRouter(routes, withViewTransitions()),
 
     // De donde salen los productos. Hoy los datos quemados; el dia del
     // backend se cambia esta sola linea y ninguna pantalla se entera.

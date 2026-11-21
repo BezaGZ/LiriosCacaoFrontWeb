@@ -3,7 +3,7 @@
 
     <div class="heroe">
       @if (p.imagen) {
-        <img [src]="p.imagen" [alt]="p.nombre">
+        <img [src]="p.imagen" [alt]="p.nombre" style="view-transition-name: foto-producto">
       }
       <button type="button" class="flota" (click)="volver()" aria-label="Volver al catálogo">
         <lc-icono nombre="atras" [tamano]="18" [grosor]="1.9" />
@@ -18,10 +18,12 @@
       }
     </div>
 
-    <div class="panel">
-      <span class="asa" aria-hidden="true"></span>
+    <div class="panel" lcHoja (cerrar)="volver()">
+      <button type="button" class="asa" data-asa [attr.aria-label]="'Expandir o contraer el panel'">
+        <span></span>
+      </button>
 
-      <div class="contenido">
+      <div class="contenido" data-desplazable>
         <h1>{{ p.nombre }}</h1>
         <p class="intro">{{ p.descripcion }}.</p>
 

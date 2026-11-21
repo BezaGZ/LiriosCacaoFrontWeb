@@ -85,7 +85,7 @@
               type="button"
               class="foto"
               [attr.aria-label]="p.configuradorId ? 'Armar ' + p.nombre : 'Agregar ' + p.nombre"
-              (click)="tocar(p)"
+              (click)="tocar(p, $event)"
             >
               @if (p.imagen) {
                 <img [src]="p.imagen" [alt]="p.nombre" loading="lazy">
@@ -109,7 +109,7 @@
                   class="agregar"
                   [disabled]="p.precio === null"
                   [attr.aria-label]="(p.configuradorId ? 'Armar ' : 'Agregar ') + p.nombre"
-                  (click)="tocar(p)"
+                  (click)="tocar(p, $event)"
                 >
                   <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
                 </button>
@@ -118,18 +118,22 @@
           </article>
         }
       </div>
-    } @else if (categoriaVacia(); as vacia) {
-      <div class="vacio">
-        <lc-icono [nombre]="icono(vacia.slug)" [tamano]="38" [grosor]="1.3" />
-        <p class="titulo">{{ vacia.nombre }}: todavía nada</p>
-        <p class="sub">La categoría está lista. Falta decidir qué va dentro.</p>
-      </div>
     } @else {
-      <div class="vacio">
-        <lc-icono nombre="lupa" [tamano]="38" [grosor]="1.3" />
-        <p class="titulo">Nada con ese nombre</p>
-        <p class="sub">Pruebe con otra palabra.</p>
-      </div>
+      <!-- `as` solo lo admite el @if primario, no un @else if: por eso el
+           segundo caso va anidado en vez de encadenado. -->
+      @if (categoriaVacia(); as vacia) {
+        <div class="vacio">
+          <lc-icono [nombre]="icono(vacia.slug)" [tamano]="38" [grosor]="1.3" />
+          <p class="titulo">{{ vacia.nombre }}: todavía nada</p>
+          <p class="sub">La categoría está lista. Falta decidir qué va dentro.</p>
+        </div>
+      } @else {
+        <div class="vacio">
+          <lc-icono nombre="lupa" [tamano]="38" [grosor]="1.3" />
+          <p class="titulo">Nada con ese nombre</p>
+          <p class="sub">Pruebe con otra palabra.</p>
+        </div>
+      }
     }
   }
 

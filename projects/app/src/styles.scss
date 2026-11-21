@@ -2,9 +2,8 @@
 @use "primeicons/primeicons.css";
 @use "primeflex/primeflex.css";
 @use "app/features/layout/styles/layout.scss";
-@plugin "tailwindcss-primeui";
-
 @use "estilos/tokens";
+@plugin "tailwindcss-primeui";
 
 // Modo claro y NADA MAS.
 //
@@ -56,5 +55,30 @@ app-root {
 
   @media (min-width: 768px) {
     bottom: 1.5rem !important;
+  }
+}
+
+// --- Transiciones entre pantallas -----------------------------------------
+//
+// El router las dispara con withViewTransitions(); esto solo ajusta el ritmo.
+// 220 ms es lo que tarda en leerse como movimiento sin hacerse esperar.
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .22s;
+}
+
+// La foto que crece de la tarjeta al producto. Sin esto el navegador la
+// desvanece como cualquier otra cosa en vez de moverla.
+::view-transition-group(foto-producto) {
+  animation-duration: .3s;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
+}
+
+// Quien pide menos movimiento no recibe ninguno: el cambio es instantaneo.
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

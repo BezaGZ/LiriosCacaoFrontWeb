@@ -6,6 +6,7 @@ import { FUENTE_CATALOGO } from '@core/catalogo/catalogo.fuente';
 import { desglose, gruposVisibles, opcionesDe, precioUnitario } from '@core/catalogo/catalogo.precio';
 import { itemConfigurado } from '@core/catalogo/catalogo.carrito';
 import { CartService } from '@features/cart/cart.service';
+import { Hoja } from '@ui/hoja/hoja';
 import { Icono } from '@ui/icono/icono';
 
 /** Un grupo con sus opciones ya resueltas, listo para dibujar. */
@@ -26,7 +27,7 @@ interface OpcionVista {
 @Component({
   selector: 'lc-producto',
   standalone: true,
-  imports: [Icono, CurrencyPipe],
+  imports: [Icono, Hoja, CurrencyPipe],
   templateUrl: './producto.component.html',
   styleUrl: './producto.component.scss',
 })
