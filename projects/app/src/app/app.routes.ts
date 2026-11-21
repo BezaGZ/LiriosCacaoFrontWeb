@@ -12,11 +12,6 @@ export const routes: Routes = [
           import('./features/inicio/inicio.component').then((m) => m.InicioComponent),
       },
       {
-        path: 'sobrenosotros',
-        loadComponent: () =>
-          import('./features/info/info.component').then((m) => m.InfoComponent),
-      },
-      {
         path: 'productos',
         loadComponent: () =>
           import('./features/catalogo/catalogo.component').then((m) => m.CatalogoComponent),

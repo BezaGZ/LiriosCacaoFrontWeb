@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // Datos estructurados del negocio: se insertan una sola vez y valen para
     // todo el sitio, asi cada pagina prerenderizada los lleva. Antes vivian en
-    // el componente Home, con lo cual /productos y /sobrenosotros no los tenian.
+    // el componente Home, con lo cual /productos y /carrito no los tenian.
     this.seo.insertLocalBusinessSchema();
     this.seo.insertOrganizationSchema();
 

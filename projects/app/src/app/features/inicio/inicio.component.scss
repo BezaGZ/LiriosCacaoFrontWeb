@@ -48,7 +48,10 @@
   border-radius: var(--lc-radio-chico);
   box-shadow: var(--lc-sombra-apoyada);
   color: var(--lc-texto-tenue);
-  @include margen-lateral;
+  /* Margen y no `margen-lateral`: esa mezcla pone padding, que en una caja
+     con fondo propio separa el texto pero deja el recuadro pegado al borde. */
+  margin-left: max(var(--lc-margen), env(safe-area-inset-left, 0px));
+  margin-right: max(var(--lc-margen), env(safe-area-inset-right, 0px));
 
   input {
     flex: 1;

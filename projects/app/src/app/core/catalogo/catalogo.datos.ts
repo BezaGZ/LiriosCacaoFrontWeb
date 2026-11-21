@@ -44,7 +44,7 @@ const BASE_PALETA = 10;
  * y con un solo nombre por producto, a diferencia de las de `capas`, que
  * dependen de la combinacion de fruta y chocolate.
  */
-const foto = (archivo: string) => `assets/img/productos/${archivo}.png`;
+const foto = (archivo: string) => `assets/img/productos/${archivo}.webp`;
 
 export const PRODUCTOS: readonly Producto[] = [
   // --- Chocofrutas: las ocho de chocofruta.seed.ts -------------------------

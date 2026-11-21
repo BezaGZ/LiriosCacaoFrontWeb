@@ -10,15 +10,15 @@ export const SITIO_PRINCIPAL = 'https://www.liriosycacao.com';
 /**
  * Paginas que existen aqui Y en la landing.
  *
- * Siguen funcionando, porque aqui llevan catalogo y carrito, pero le ceden a
- * la landing la busqueda: su canonical apunta alla. Sin esto las dos compiten
- * por "floristeria chiquimula", Google reparte la fuerza entre ambas y puede
- * quedarse con la que menos conviene.
+ * Las que estan aqui le ceden a la landing la busqueda: su canonical apunta
+ * alla. Sin esto las dos compiten por la misma consulta, Google reparte la
+ * fuerza entre ambas y puede quedarse con la que menos conviene.
  *
+ * Hoy esta vacio: /sobrenosotros se borro de la app porque ese contenido ya
+ * estaba completo en la landing. El mecanismo se queda porque la app va a
+ * volver a tener paginas que la landing tambien publique.
  */
-const CEDIDAS: Readonly<Record<string, string>> = {
-  '/sobrenosotros': '/nosotros',
-};
+const CEDIDAS: Readonly<Record<string, string>> = {};
 
 /**
  * Servicio de SEO tecnico: canonical y datos estructurados JSON-LD.
