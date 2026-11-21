@@ -9,6 +9,18 @@
   <meta name="robots" content="index, follow">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    Chrome en Android le genera un tema oscuro automatico (Auto Dark Theme) a
+    los sitios claros cuando el telefono esta en modo oscuro. No pide permiso:
+    invierte las fotos y rompe los contrastes, y los recortes sobre crema
+    quedarian sobre gris.
+
+    `only light` es el opt-out oficial. El `only` es la palabra que importa:
+    `light` a secas no basta. Va en el meta ademas del CSS porque asi el
+    navegador lo sabe antes de pintar y no hay parpadeo oscuro.
+  -->
+  <meta name="color-scheme" content="only light">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">

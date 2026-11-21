@@ -1,0 +1,228 @@
+@use 'mixins' as *;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* El armazón: alto completo, nada se desborda, y solo .panel se desplaza. */
+.cascaron {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--lc-fondo);
+  overflow: hidden;
+  font-family: var(--lc-sans);
+  color: var(--lc-texto);
+}
+
+/* ------------------------------------------------------------- cabecera -- */
+.cabecera {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+  background: var(--lc-fondo);
+  @include margen-lateral;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--lc-acento);
+  text-decoration: none;
+  @include presion(.97);
+}
+
+.lirio {
+  @include lirio(1.75rem);
+}
+
+.nombre {
+  font-family: var(--lc-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--lc-texto-fuerte);
+  white-space: nowrap;
+}
+
+/* En teléfono la navegación vive abajo; aquí arriba estorbaría. */
+.nav-escritorio { display: none; }
+
+/* --------------------------------------------------------------- panel -- */
+.panel {
+  @include panel-desplazable;
+}
+
+/* ------------------------------------------------------- barra de pedido - */
+/* Aparece sola al primer producto y mantiene el total a la vista sin tener
+   que entrar al carrito. */
+.barra-pedido {
+  flex: none;
+  padding: 4px 14px 10px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 50px;
+    padding-inline: 16px;
+    background: var(--lc-acento);
+    color: var(--lc-sobre-acento);
+    border-radius: var(--lc-radio);
+    box-shadow: 0 6px 20px rgb(114 60 66 / 30%);
+    text-decoration: none;
+    @include presion(.98);
+  }
+
+  .bolsa {
+    display: grid;
+    place-items: center;
+    min-width: 24px;
+    height: 24px;
+    padding-inline: 6px;
+    background: rgb(251 247 241 / 22%);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .texto { flex: 1; font-size: 14px; font-weight: 600; }
+
+  .monto {
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ------------------------------------------------------------ pestañas -- */
+/* De ancho completo y pegadas al borde, con pastilla detrás de la activa.
+   El padding de abajo suma el área segura para que no quede bajo la franja
+   del gesto de inicio del teléfono. */
+.pestanas {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--lc-superficie);
+  border-top: 1px solid var(--lc-linea-tenue);
+  padding-top: 7px;
+  padding-bottom: max(7px, env(safe-area-inset-bottom, 0px));
+}
+
+.pestana {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding-bottom: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--lc-texto-tenue);
+  text-decoration: none;
+
+  .caja {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 30px;
+    border-radius: var(--lc-pildora);
+    transition: background var(--lc-calma) ease;
+  }
+
+  svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &[aria-current='page'] {
+    color: var(--lc-acento);
+    font-weight: 700;
+
+    .caja { background: rgb(114 60 66 / 11%); }
+  }
+}
+
+.globo {
+  position: absolute;
+  top: -1px;
+  right: 8px;
+  min-width: 17px;
+  height: 17px;
+  padding-inline: 4px;
+  display: grid;
+  place-items: center;
+  background: var(--lc-acento);
+  color: var(--lc-sobre-acento);
+  border: 2px solid var(--lc-superficie);
+  border-radius: var(--lc-pildora);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.solo-lectores { @include solo-lectores; }
+
+/* ---------------------------------------------------------- escritorio -- */
+/* Con ratón la barra de abajo no tiene sentido: la navegación sube y la
+   aplicación deja de simular un teléfono. Es una plantilla con dos formas,
+   no dos aplicaciones. */
+@media (width >= 48rem) {
+  .cabecera {
+    gap: 28px;
+    padding-block: 16px;
+    box-shadow: var(--lc-sombra-apoyada);
+    background: var(--lc-superficie);
+  }
+
+  .nombre { font-size: 22px; }
+
+  .nav-escritorio {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .enlace {
+    padding: 9px 15px;
+    border-radius: var(--lc-pildora);
+    font-size: 13.5px;
+    color: var(--lc-texto-suave);
+    text-decoration: none;
+    transition: background var(--lc-calma) ease;
+
+    &[aria-current='page'] {
+      background: var(--lc-acento);
+      color: var(--lc-sobre-acento);
+      font-weight: 600;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover:not([aria-current='page']) { background: rgb(90 54 40 / 7%); }
+    }
+  }
+
+  .pestanas { display: none; }
+
+  .barra-pedido {
+    padding: 0;
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 30;
+    width: 280px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

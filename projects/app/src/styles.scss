@@ -4,9 +4,29 @@
 @use "app/features/layout/styles/layout.scss";
 @plugin "tailwindcss-primeui";
 
-// Forzar modo claro en todo el proyecto
+@use "estilos/tokens";
+
+// Modo claro y NADA MAS.
+//
+// `only light` no es lo mismo que `light`: el `only` le prohibe a Chrome de
+// Android aplicar su tema oscuro automatico. Con `light` a secas lo aplicaba
+// igual. Va junto al <meta name="color-scheme"> de index.html.
 :root {
-  color-scheme: light;
+  color-scheme: only light;
+}
+
+// El cascaron mide con `height: 100%`, asi que la cadena completa hasta el
+// body tiene que tener alto. Sin esto el panel no sabe hasta donde llega y la
+// barra de pestanas se va al final del contenido en vez de quedarse abajo.
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+app-root {
+  display: block;
+  height: 100%;
 }
 
 // --- Aviso de "producto agregado" ---

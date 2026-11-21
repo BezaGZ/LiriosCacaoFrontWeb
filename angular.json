@@ -39,6 +39,11 @@
             "prerender": true,
             "ssr": {
               "entry": "projects/app/src/server.ts"
+            },
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/app/src/estilos"
+              ]
             }
           },
           "configurations": {
@@ -100,7 +105,12 @@
               "projects/app/src/styles.scss"
             ],
             "scripts": [],
-            "karmaConfig": "karma.conf.js"
+            "karmaConfig": "karma.conf.js",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/app/src/estilos"
+              ]
+            }
           }
         },
         "prerender": {

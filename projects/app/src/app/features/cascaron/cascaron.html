@@ -1,0 +1,69 @@
+<div class="cascaron">
+
+  <!-- El cromo de arriba: no se desplaza nunca -->
+  <header class="cabecera">
+    <a class="marca" routerLink="/" aria-label="Lirios y Cacao, ir al inicio">
+      <span class="lirio" aria-hidden="true"></span>
+      <span class="nombre">Lirios y Cacao</span>
+    </a>
+
+    <!-- En escritorio no hay barra de pestañas, así que la navegación sube -->
+    <nav class="nav-escritorio" aria-label="Secciones">
+      @for (p of pestanas; track p.ruta) {
+        <a
+          [routerLink]="p.ruta"
+          [attr.aria-current]="activa(p.ruta) ? 'page' : null"
+          class="enlace"
+        >{{ p.texto }}</a>
+      }
+    </nav>
+  </header>
+
+  <!-- Lo único que se desplaza -->
+  <main class="panel">
+    <router-outlet></router-outlet>
+  </main>
+
+  @if (mostrarBarra) {
+    <div class="barra-pedido">
+      <a routerLink="/carrito">
+        <span class="bolsa">{{ piezas }}</span>
+        <span class="texto">Ver pedido</span>
+        <span class="monto">{{ total | currency }}</span>
+      </a>
+    </div>
+  }
+
+  <!-- Pegada al borde, de ancho completo. El carrito vive aquí -->
+  <nav class="pestanas" aria-label="Secciones">
+    @for (p of pestanas; track p.ruta) {
+      <a
+        class="pestana"
+        [routerLink]="p.ruta"
+        [attr.aria-current]="activa(p.ruta) ? 'page' : null"
+      >
+        <span class="caja">
+          @switch (p.icono) {
+            @case ('inicio') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 12v8.5h13V12"/></svg>
+            }
+            @case ('catalogo') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg>
+            }
+            @case ('carrito') {
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.5a2 2 0 0 0 2-1.6L20.5 8H6"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+            }
+          }
+          @if (p.icono === 'carrito' && piezas > 0) {
+            <span class="globo" aria-hidden="true">{{ piezas }}</span>
+          }
+        </span>
+        <span class="texto">{{ p.texto }}</span>
+        @if (p.icono === 'carrito' && piezas > 0) {
+          <span class="solo-lectores">, {{ piezas }} producto(s)</span>
+        }
+      </a>
+    }
+  </nav>
+
+</div>

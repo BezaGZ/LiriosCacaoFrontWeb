@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import {AppLayout} from '@features/layout/components/app.layout/app.layout';
+import { Cascaron } from '@features/cascaron/cascaron';
 
 export const routes: Routes = [
   {
     path: '',
-    component: AppLayout,
+    component: Cascaron,
     children: [
       {
         path: '',
@@ -20,16 +20,6 @@ export const routes: Routes = [
         path: 'productos',
         loadComponent: () =>
           import('./features/listproducts/listproducts.component').then((m) => m.ListproductsComponent),
-      },
-      {
-        path: 'floristeria',
-        loadComponent: () =>
-          import('./features/floristeria/floristeria.component').then((m) => m.FloristeriaComponent),
-      },
-      {
-        path: 'eventos',
-        loadComponent: () =>
-          import('./features/eventos/eventos.component').then((m) => m.EventosComponent),
       },
       {
         path: 'carrito',

@@ -1,0 +1,106 @@
+// ---------------------------------------------------------------------------
+//  Mezclas compartidas de la app.
+//
+//  Solo entra aqui lo que se repite en tres pantallas o mas. Lo que usa un
+//  solo componente se queda en el componente.
+// ---------------------------------------------------------------------------
+
+/// El margen lateral de la aplicacion.
+///
+/// Lleva max() con el area segura para que en un telefono con barra lateral
+/// del sistema (horizontal, o un plegable) el texto no quede debajo de ella.
+@mixin margen-lateral($base: var(--lc-margen)) {
+  padding-left: max(#{$base}, env(safe-area-inset-left, 0px));
+  padding-right: max(#{$base}, env(safe-area-inset-right, 0px));
+}
+
+/// El lirio de la marca.
+///
+/// Es una mascara y no una imagen: el dibujo toma `currentColor`, asi que el
+/// mismo archivo sirve sobre crema y sobre vino sin tener dos versiones.
+/// La proporcion .776 es la real del dibujo; no se redondea o sale aplastado.
+@mixin lirio($alto: 1.6rem) {
+  display: inline-block;
+  flex: none;
+  width: calc(#{$alto} * .776);
+  height: $alto;
+  background-color: currentcolor;
+  mask: url('/assets/marca/lirio.png') center / contain no-repeat;
+  -webkit-mask: url('/assets/marca/lirio.png') center / contain no-repeat;
+}
+
+/// Respuesta al dedo.
+///
+/// Una app responde al toque antes de que pase nada; una pagina espera a que
+/// el servidor conteste. Son 4% y 120 ms, y es de lo que mas se siente.
+@mixin presion($escala: .96) {
+  transition: transform var(--lc-prisa) ease;
+
+  &:active {
+    transform: scale($escala);
+  }
+}
+
+/// El levantar al pasar el raton.
+///
+/// Dentro de `hover` a proposito: en un telefono el navegador deja el estado
+/// pegado despues de tocar, y la tarjeta se queda levantada sin razon.
+@mixin realce {
+  @media (hover: hover) and (pointer: fine) {
+    transition: transform var(--lc-calma) ease, box-shadow var(--lc-calma) ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 2px 4px rgb(42 24 15 / 6%), 0 12px 26px rgb(42 24 15 / 10%);
+    }
+  }
+}
+
+/// Una superficie de tarjeta.
+@mixin tarjeta($radio: var(--lc-radio-grande)) {
+  background: var(--lc-superficie);
+  border-radius: $radio;
+  box-shadow: var(--lc-sombra-tarjeta);
+}
+
+/// Una fila que se arrastra de lado.
+///
+/// Sin margen lateral propio: lo pone quien la usa, para que la fila arranque
+/// alineada con los titulos y aun asi se corte en el borde derecho. Ese
+/// pedacito que asoma es lo que dice "hay mas" sin ponerle flechas.
+@mixin fila-arrastrable {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--lc-margen);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+  > * { scroll-snap-align: start; }
+}
+
+/// El panel que se desplaza dentro del cascaron.
+///
+/// `overscroll-behavior: contain` evita que al llegar al final el gesto se lo
+/// lleve la pagina de atras, que es lo que delata a una web disfrazada.
+@mixin panel-desplazable {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+/// Texto que se lee solo con lector de pantalla.
+@mixin solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

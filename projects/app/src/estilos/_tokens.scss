@@ -1,0 +1,66 @@
+// ---------------------------------------------------------------------------
+//  Tokens de la app de pedidos
+//
+//  Son variables CSS y no de SCSS a proposito: viven en tiempo de ejecucion,
+//  se ven en las herramientas del navegador y se cambian sin recompilar.
+//  Ningun componente escribe un color a mano.
+//
+//  La paleta es la misma de la landing. Se repite aqui en vez de importarse
+//  de `projects/landing` para que las dos aplicaciones puedan desplegarse por
+//  separado sin que un cambio en una restyle la otra sin aviso. Si cambia la
+//  marca, se cambia en los dos lugares, y eso es a proposito.
+// ---------------------------------------------------------------------------
+
+:root {
+  // ------------------------------------------------------------ paleta cruda
+  --lc-crema:       #efe7dc;  // fondo de la aplicacion
+  --lc-panel:       #fbf7f1;  // tarjetas, hojas, barras
+  --lc-hueco:       #f4ece1;  // el espacio detras de una fotografia
+  --lc-tinta:       #2a180f;  // titulos
+  --lc-cafe:        #5a3628;  // texto corrido
+  --lc-cafe-suave:  #8a6b59;  // texto secundario
+  --lc-cafe-tenue:  #a68e7a;  // deshabilitado y marcas de agua
+  --lc-vino:        #723c42;  // acento: botones, activo, sellos
+  --lc-azul:        #395e7c;  // avisos informativos
+  --lc-verde:       #1f9f4a;  // WhatsApp, y solo WhatsApp
+
+  // -------------------------------------------------------------- por funcion
+  //  Los componentes usan ESTAS. Si manana cambia el cafe, se cambia arriba.
+  --lc-fondo:        var(--lc-crema);
+  --lc-superficie:   var(--lc-panel);
+  --lc-texto:        var(--lc-cafe);
+  --lc-texto-fuerte: var(--lc-tinta);
+  --lc-texto-suave:  var(--lc-cafe-suave);
+  --lc-texto-tenue:  var(--lc-cafe-tenue);
+  --lc-acento:       var(--lc-vino);
+  --lc-sobre-acento: var(--lc-panel);
+  --lc-linea:        rgb(90 54 40 / 16%);
+  --lc-linea-tenue:  rgb(90 54 40 / 10%);
+
+  // ----------------------------------------------------------------- sombras
+  //  Tres niveles y no mas. Cada uno dice a que distancia esta el elemento.
+  --lc-sombra-apoyada: 0 1px 2px rgb(42 24 15 / 6%);
+  --lc-sombra-tarjeta: 0 1px 2px rgb(42 24 15 / 5%), 0 6px 16px rgb(42 24 15 / 7%);
+  --lc-sombra-flotante: 0 2px 6px rgb(42 24 15 / 8%), 0 12px 32px rgb(42 24 15 / 16%);
+
+  // --------------------------------------------------------------- tipografia
+  --lc-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --lc-sans:  Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  // ------------------------------------------------------------------ formas
+  --lc-radio-chico:  12px;
+  --lc-radio:        16px;
+  --lc-radio-grande: 22px;
+  --lc-radio-hoja:   26px;
+  --lc-pildora:      999px;
+
+  // ------------------------------------------------------------------ cromo
+  //  El alto de las barras fijas. Las pantallas lo necesitan para reservar
+  //  espacio, asi que vive aqui y no dentro del cascaron.
+  --lc-alto-pestanas: 60px;
+
+  // ------------------------------------------------------------------ ritmo
+  --lc-margen: 18px;   // el margen lateral de toda la aplicacion
+  --lc-prisa:  .12s;   // respuesta al dedo
+  --lc-calma:  .22s;   // transiciones de estado
+}
