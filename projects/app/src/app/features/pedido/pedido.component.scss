@@ -2,19 +2,29 @@
 
 :host {
   display: block;
+  height: 100%;
   font-family: var(--lc-sans);
 }
 
-.cuerpo {
-  padding-block: 4px 16px;
-  @include margen-lateral;
+/* Alto completo con el pie clavado: solo `.cuerpo` se desplaza. Si la
+   pantalla fuera de flujo normal, el total y el boton de enviar quedarian al
+   final del contenido y en un telefono casi nunca se ven sin desplazar. */
+.pantalla {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--lc-fondo);
+  color: var(--lc-texto);
 }
 
 .titulo {
+  flex: none;
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  padding-block: 6px 10px;
+  @include margen-lateral;
 
   h1 {
     margin: 0;
@@ -39,46 +49,51 @@
   @include presion(.9);
 }
 
-.nota {
-  margin: 0 0 14px;
-  font-size: 12.5px;
-  line-height: 1.65;
-  color: var(--lc-texto-suave);
+.cuerpo {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  padding-block: 2px 18px;
+  @include margen-lateral;
+
+  &::-webkit-scrollbar { display: none; }
 }
 
 /* --------------------------------------------------------------- ficha -- */
 .ficha {
-  padding: 15px 16px;
+  padding: 15px 16px 17px;
   background: var(--lc-superficie);
   border-radius: var(--lc-radio-grande);
   box-shadow: var(--lc-sombra-apoyada);
+
+  & + .ficha { margin-top: 11px; }
 }
 
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin-bottom: 13px;
+  gap: 7px;
 
-  &.ultimo { margin-bottom: 0; }
+  & + .campo { margin-top: 15px; }
 
+  /* Frase normal y no versalita: seis rotulos en MAYUSCULA ESPACIADA en
+     columna cansan la vista. Esa forma es para un rotulo de seccion, que
+     aparece una o dos veces por pantalla, no para cada campo. */
   label,
   .lab {
     display: flex;
     align-items: baseline;
-    gap: 7px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: var(--lc-texto-suave);
+    gap: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--lc-texto);
 
     em {
       font-style: normal;
-      font-weight: 500;
-      letter-spacing: 0;
-      text-transform: none;
-      font-size: 11px;
+      font-weight: 400;
+      font-size: 11.5px;
       color: var(--lc-texto-tenue);
     }
   }
@@ -88,46 +103,89 @@
     padding: 12px 15px;
     border: 0;
     border-radius: var(--lc-radio-chico);
-    background: var(--lc-fondo);
+    background: var(--lc-hueco);
     font: inherit;
     /* 16px o menos y Safari en iPhone acerca la pantalla al enfocar. */
     font-size: 16px;
-    color: var(--lc-texto);
+    color: var(--lc-texto-fuerte);
     resize: none;
+
+    &::placeholder { color: var(--lc-texto-tenue); }
   }
 
   input { padding-block: 0; height: 48px; }
 }
 
-.opciones {
+/* ---------------------------------------------------------- segmentado -- */
+/* Antes eran dos botones sueltos y el elegido se pintaba de vino. Tres pares
+   asi, apilados, pesaban tanto como el boton de enviar y competian con el.
+   Un segmentado dice lo mismo y deja el acento para una sola cosa. */
+.seg {
   display: flex;
-  gap: 7px;
+  padding: 3px;
+  background: var(--lc-hueco);
+  border-radius: var(--lc-pildora);
 
   button {
     flex: 1;
-    min-height: 46px;
+    min-height: 40px;
     border: 0;
-    border-radius: var(--lc-radio-chico);
-    background: var(--lc-fondo);
+    border-radius: var(--lc-pildora);
+    background: none;
     font: inherit;
-    font-size: 12.5px;
+    font-size: 13.5px;
     color: var(--lc-texto-suave);
     cursor: pointer;
-    @include presion(.96);
+    transition: background var(--lc-prisa) ease, color var(--lc-prisa) ease;
 
     &[aria-checked='true'] {
-      background: var(--lc-acento);
-      color: var(--lc-sobre-acento);
+      background: var(--lc-superficie);
+      color: var(--lc-texto-fuerte);
       font-weight: 600;
-      box-shadow: 0 3px 10px rgb(114 60 66 / 28%);
+      box-shadow: 0 1px 3px rgb(42 24 15 / 14%);
     }
+  }
+}
+
+/* La explicacion va pegada a la decision que la provoca, no en un parrafo
+   al principio que nadie lee. */
+.pista {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--lc-texto-suave);
+
+  b { font-weight: 600; color: var(--lc-texto); }
+}
+
+.guardado {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 15px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--lc-linea-tenue);
+  font-size: 11.5px;
+  color: var(--lc-texto-suave);
+
+  button {
+    flex: none;
+    border: 0;
+    padding: 0;
+    background: none;
+    font: inherit;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--lc-acento);
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 
 /* --------------------------------------------------------------- cuenta -- */
 .cuenta {
-  margin-top: 14px;
-  padding: 14px 16px;
+  margin-top: 11px;
+  padding: 13px 16px;
   background: var(--lc-superficie);
   border-radius: var(--lc-radio-grande);
   box-shadow: var(--lc-sombra-apoyada);
@@ -137,46 +195,44 @@
     justify-content: space-between;
     gap: 12px;
     padding: 3px 0;
-    font-size: 12.5px;
-    color: var(--lc-texto-suave);
+    font-size: 13px;
+    color: var(--lc-texto);
 
     span:last-child { font-variant-numeric: tabular-nums; }
-  }
-
-  .suma {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: 9px;
-    padding-top: 10px;
-    border-top: 1px solid var(--lc-linea-tenue);
-
-    b { font-size: 12.5px; color: var(--lc-texto-fuerte); }
-
-    i {
-      font-style: normal;
-      font-family: var(--lc-serif);
-      font-size: 24px;
-      color: var(--lc-texto-fuerte);
-      font-variant-numeric: tabular-nums;
-    }
   }
 }
 
 /* -------------------------------------------------------------- mensaje -- */
-.etiqueta {
-  display: block;
-  margin: 18px 0 8px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--lc-texto-suave);
+.plegable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-top: 11px;
+  padding: 13px 15px;
+  border: 1px solid var(--lc-linea);
+  border-radius: var(--lc-radio);
+  background: none;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--lc-texto);
+  cursor: pointer;
+
+  lc-icono {
+    color: var(--lc-texto-tenue);
+    transition: transform var(--lc-prisa) ease;
+  }
+
+  &.abierta lc-icono { transform: rotate(180deg); }
 }
 
-/* Lo que se muestra sale de la misma función que lo que se manda, así que
-   no pueden decir cosas distintas. */
+/* Lo que se muestra sale de la misma funcion que lo que se manda, asi que no
+   pueden decir cosas distintas. Las marcas de WhatsApp se pintan en negrita
+   en vez de enseñar los asteriscos, que al cliente le parecen texto roto. */
 .mensaje {
+  margin-top: 8px;
   padding: 14px 16px;
   background: rgb(57 94 124 / 9%);
   border-radius: var(--lc-radio-grande);
@@ -188,6 +244,8 @@
     color: var(--lc-azul);
     white-space: pre-line;
   }
+
+  b { font-weight: 700; }
 }
 
 .copiar {
@@ -196,8 +254,8 @@
   justify-content: center;
   gap: 7px;
   width: 100%;
-  min-height: 44px;
-  margin-top: 9px;
+  min-height: 42px;
+  margin-top: 12px;
   border: 0;
   border-radius: var(--lc-radio-chico);
   background: var(--lc-superficie);
@@ -209,28 +267,39 @@
   @include presion(.98);
 }
 
-.olvidar {
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  padding: 6px;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 11.5px;
-  color: var(--lc-texto-tenue);
-  text-decoration: underline;
-  cursor: pointer;
+/* ---------------------------------------------------------------- barra -- */
+.barra {
+  flex: none;
+  padding-block: 11px;
+  padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
+  background: var(--lc-superficie);
+  border-top: 1px solid var(--lc-linea-tenue);
+  box-shadow: 0 -6px 24px rgb(42 24 15 / 8%);
+  @include margen-lateral;
 }
 
-/* ------------------------------------------------------------ acciones -- */
-.acciones { margin-top: 16px; }
-
 .falta {
-  margin: 0 0 8px;
+  margin: 0 0 9px;
   text-align: center;
   font-size: 12px;
   color: #9c3b3b;
+}
+
+.tot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  b { font-size: 13px; font-weight: 600; color: var(--lc-texto); }
+
+  i {
+    font-style: normal;
+    font-family: var(--lc-serif);
+    font-size: 26px;
+    color: var(--lc-texto-fuerte);
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 .enviar {
@@ -257,4 +326,11 @@
     box-shadow: none;
     cursor: not-allowed;
   }
+}
+
+/* ----------------------------------------------------------- escritorio -- */
+@media (width >= 48rem) {
+  .cuerpo,
+  .barra,
+  .titulo { max-width: 560px; margin-inline: auto; }
 }

@@ -1,115 +1,153 @@
-<div class="cuerpo">
+<div class="pantalla">
 
-  <div class="titulo">
+  <header class="titulo">
     <button type="button" class="atras" (click)="volver()" aria-label="Volver al pedido">
       <lc-icono nombre="atras" [tamano]="20" [grosor]="1.9" />
     </button>
     <h1>¿A dónde lo llevamos?</h1>
-  </div>
+  </header>
 
-  <p class="nota">
-    No se paga aquí. Con estos datos armamos el mensaje y usted lo manda:
-    la hora y el cobro se acuerdan en la conversación.
-  </p>
+  <!-- Tres fichas y no una: quién, cuándo y cómo paga son tres preguntas
+       distintas. Seis campos iguales en una sola caja se leen como un
+       formulario de trámite, no como tres decisiones rápidas. -->
+  <div class="cuerpo">
 
-  <div class="ficha">
-    <div class="campo">
-      <label for="nombre">Nombre</label>
-      <input
-        id="nombre"
-        type="text"
-        autocomplete="name"
-        placeholder="Su nombre"
-        [value]="datos().nombre"
-        (input)="nombre($any($event.target).value)"
-      >
-    </div>
-
-    <div class="campo">
-      <span class="lab" id="lab-entrega">Entrega</span>
-      <div class="opciones" role="radiogroup" aria-labelledby="lab-entrega">
-        <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'domicilio'"
-                (click)="entrega('domicilio')">A domicilio</button>
-        <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'recoger'"
-                (click)="entrega('recoger')">Recoger</button>
-      </div>
-    </div>
-
-    @if (datos().entrega === 'domicilio') {
+    <section class="ficha">
       <div class="campo">
-        <label for="direccion">Dirección o referencia</label>
-        <textarea
-          id="direccion"
-          rows="2"
-          autocomplete="street-address"
-          placeholder="Calle, zona, punto de referencia"
-          (input)="direccion($any($event.target).value)"
-        >{{ datos().direccion }}</textarea>
-      </div>
-    }
-
-    <div class="campo">
-      <span class="lab" id="lab-cuando">¿Para cuándo?</span>
-      <div class="opciones" role="radiogroup" aria-labelledby="lab-cuando">
-        <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'hoy'"
-                (click)="momento('hoy')">Hoy</button>
-        <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'manana'"
-                (click)="momento('manana')">Mañana</button>
-      </div>
-    </div>
-
-    <div class="campo" [class.ultimo]="datos().pago !== 'efectivo'">
-      <span class="lab" id="lab-pago">Pago</span>
-      <div class="opciones" role="radiogroup" aria-labelledby="lab-pago">
-        <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'efectivo'"
-                (click)="pago('efectivo')">Efectivo</button>
-        <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'tarjeta'"
-                (click)="pago('tarjeta')">Tarjeta</button>
-      </div>
-    </div>
-
-    @if (datos().pago === 'efectivo') {
-      <div class="campo ultimo">
-        <label for="cambio">¿Con cuánto paga? <em>opcional</em></label>
+        <label for="nombre">Nombre</label>
         <input
-          id="cambio"
-          type="number"
-          inputmode="decimal"
-          min="0"
-          step="1"
-          placeholder="Para llevarle el cambio listo"
-          [value]="datos().cambio ?? ''"
-          (input)="cambio($any($event.target).value)"
+          id="nombre"
+          type="text"
+          autocomplete="name"
+          placeholder="Su nombre"
+          [value]="datos().nombre"
+          (input)="nombre($any($event.target).value)"
         >
       </div>
+
+      <div class="campo">
+        <span class="lab" id="lab-entrega">Entrega</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lab-entrega">
+          <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'domicilio'"
+                  (click)="entrega('domicilio')">A domicilio</button>
+          <button type="button" role="radio" [attr.aria-checked]="datos().entrega === 'recoger'"
+                  (click)="entrega('recoger')">Recoger</button>
+        </div>
+        @if (datos().entrega === 'domicilio') {
+          <p class="pista">{{ envioDomicilio | currency }} de envío dentro de Chiquimula.</p>
+        } @else {
+          <p class="pista">Lo recoge en el local. No se cobra envío.</p>
+        }
+      </div>
+
+      @if (datos().entrega === 'domicilio') {
+        <div class="campo">
+          <label for="direccion">Dirección o referencia</label>
+          <textarea
+            id="direccion"
+            rows="2"
+            autocomplete="street-address"
+            placeholder="Calle, zona, punto de referencia"
+            (input)="direccion($any($event.target).value)"
+          >{{ datos().direccion }}</textarea>
+        </div>
+      }
+
+      <!-- Aparece solo cuando ya hay algo escrito. Un boton fijo de borrar
+           datos al pie del cierre compite con Enviar y sugiere que los datos
+           salieron del telefono, que no es el caso. -->
+      @if (hayGuardado()) {
+        <p class="guardado">
+          Sus datos quedan en este teléfono para la próxima.
+          <button type="button" (click)="olvidar()">Borrar</button>
+        </p>
+      }
+    </section>
+
+    <section class="ficha">
+      <div class="campo">
+        <span class="lab" id="lab-cuando">¿Para cuándo?</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lab-cuando">
+          <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'hoy'"
+                  (click)="momento('hoy')">Hoy</button>
+          <button type="button" role="radio" [attr.aria-checked]="datos().momento === 'manana'"
+                  (click)="momento('manana')">Mañana</button>
+        </div>
+        <p class="pista">La hora exacta se acuerda por WhatsApp.</p>
+      </div>
+    </section>
+
+    <section class="ficha">
+      <div class="campo">
+        <span class="lab" id="lab-pago">Pago</span>
+        <div class="seg" role="radiogroup" aria-labelledby="lab-pago">
+          <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'efectivo'"
+                  (click)="pago('efectivo')">Efectivo</button>
+          <button type="button" role="radio" [attr.aria-checked]="datos().pago === 'tarjeta'"
+                  (click)="pago('tarjeta')">Tarjeta</button>
+        </div>
+        <p class="pista"><b>Aquí no se cobra nada.</b> El pago se hace al recibir el pedido.</p>
+      </div>
+
+      @if (datos().pago === 'efectivo') {
+        <div class="campo">
+          <label for="cambio">¿Con cuánto paga? <em>opcional</em></label>
+          <input
+            id="cambio"
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="1"
+            placeholder="Para llevarle el cambio listo"
+            [value]="datos().cambio ?? ''"
+            (input)="cambio($any($event.target).value)"
+          >
+        </div>
+      }
+    </section>
+
+    <section class="cuenta">
+      <div class="fila">
+        <span>{{ piezas() === 1 ? '1 producto' : piezas() + ' productos' }}</span>
+        <span>{{ subtotal() | currency }}</span>
+      </div>
+      @if (envio() > 0) {
+        <div class="fila"><span>Envío a domicilio</span><span>{{ envio() | currency }}</span></div>
+      }
+    </section>
+
+    <!-- Plegada por omision. Enseñar el mensaje baja el miedo a quien nunca
+         pidio asi, pero abierta se come media pantalla con asteriscos que al
+         cliente le parecen texto roto. -->
+    <button
+      type="button"
+      class="plegable"
+      [class.abierta]="verMensaje()"
+      [attr.aria-expanded]="verMensaje()"
+      (click)="alternarMensaje()"
+    >
+      <span>Ver el mensaje que se envía</span>
+      <lc-icono nombre="abajo" [tamano]="15" [grosor]="2" />
+    </button>
+
+    @if (verMensaje()) {
+      <div class="mensaje">
+        <p>@for (t of vista(); track $index) {@if (t.fuerte) {<b>{{ t.texto }}</b>} @else {{{ t.texto }}}}</p>
+        <button type="button" class="copiar" (click)="copiar()">
+          <lc-icono nombre="copiar" [tamano]="15" [grosor]="1.7" />
+          {{ copiado() ? 'Copiado' : 'Copiar el mensaje' }}
+        </button>
+      </div>
     }
   </div>
 
-  <div class="cuenta">
-    <div class="fila">
-      <span>{{ piezas() === 1 ? '1 producto' : piezas() + ' productos' }}</span>
-      <span>{{ subtotal() | currency }}</span>
-    </div>
-    @if (envio() > 0) {
-      <div class="fila"><span>Envío a domicilio</span><span>{{ envio() | currency }}</span></div>
-    }
-    <div class="suma"><b>Total</b><i>{{ total() | currency }}</i></div>
-  </div>
-
-  <span class="etiqueta">Esto es lo que se envía</span>
-  <div class="mensaje"><p>{{ mensaje() }}</p></div>
-
-  <button type="button" class="copiar" (click)="copiar()">
-    <lc-icono nombre="copiar" [tamano]="15" [grosor]="1.7" />
-    {{ copiado() ? 'Copiado' : 'Copiar el mensaje' }}
-  </button>
-
-  <button type="button" class="olvidar" (click)="olvidar()">Borrar mis datos guardados</button>
-
-  <div class="acciones">
+  <!-- El total vive aqui y no a media pantalla: es el numero que decide, y
+       tiene que estar a la vista en el momento de tocar Enviar. -->
+  <div class="barra">
     @if (falta(); as pendiente) {
       <p class="falta">{{ pendiente }}</p>
     }
+    <div class="tot"><b>Total</b><i>{{ total() | currency }}</i></div>
     <button type="button" class="enviar" [disabled]="falta() !== null" (click)="enviar()">
       <lc-icono nombre="whatsapp" [tamano]="18" [grosor]="1.8" />
       Enviar por WhatsApp

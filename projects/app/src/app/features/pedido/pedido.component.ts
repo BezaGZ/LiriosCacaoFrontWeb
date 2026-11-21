@@ -28,6 +28,10 @@ export class PedidoComponent {
 
   readonly datos = signal<DatosEntrega>(leerEntrega());
   readonly copiado = signal(false);
+  readonly verMensaje = signal(false);
+
+  /** Para la pista que va junto al selector de entrega. */
+  readonly envioDomicilio = ENVIO_DOMICILIO;
   private readonly version = signal(0);
 
   constructor() {
@@ -53,6 +57,32 @@ export class PedidoComponent {
 
   readonly mensaje = computed(() => armarMensaje(this.resumen()));
   readonly falta = computed(() => faltaPara(this.resumen()));
+
+  /**
+   * El mensaje partido para mostrarlo.
+   *
+   * WhatsApp marca la negrita con asteriscos. Mandarlos es correcto;
+   * enseñarlos no: al cliente le parecen texto roto. Se parte en tramos y la
+   * plantilla pinta en negrita los impares. Nada de innerHTML, que obliga a
+   * saltarse el saneador por un formato de dos caracteres.
+   */
+  readonly vista = computed<readonly { texto: string; fuerte: boolean }[]>(() =>
+    this.mensaje()
+      .split('*')
+      .map((texto, i) => ({ texto, fuerte: i % 2 === 1 }))
+      .filter(t => t.texto !== ''));
+
+  /**
+   * Si hay algo que borrar.
+   *
+   * El aviso solo aparece cuando ya hay datos escritos. Un boton fijo de
+   * borrar al pie compite con Enviar, y nadie llega a esta pantalla
+   * queriendo borrar: llega queriendo pedir.
+   */
+  readonly hayGuardado = computed(() => {
+    const d = this.datos();
+    return d.nombre.trim() !== '' || d.direccion.trim() !== '';
+  });
 
   // ------------------------------------------------------------- edición
 
@@ -83,6 +113,8 @@ export class PedidoComponent {
 
   volver(): void { this.ubicacion.back(); }
 
+  alternarMensaje(): void { this.verMensaje.update(v => !v); }
+
   // -------------------------------------------------------------- envío
 
   async copiar(): Promise<void> {
@@ -105,7 +137,7 @@ export class PedidoComponent {
     this.router.navigate(['/']);
   }
 
-  /** Para cuando el cliente quiere borrar lo guardado. */
+  /** Para cuando el cliente quiere borrar lo guardado en su telefono. */
   olvidar(): void {
     olvidarEntrega();
     this.datos.set(leerEntrega());
