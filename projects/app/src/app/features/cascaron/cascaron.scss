@@ -17,6 +17,21 @@
   color: var(--lc-texto);
 }
 
+/* ----------------------------------------------------------- escritorio -- */
+/* El contenido no se estira a lo ancho de un monitor.
+   Sin esto el buscador mide dos mil pixeles, las tarjetas se separan tanto
+   que dejan de leerse como rejilla y la aplicacion se ve como una pagina web
+   estirada, que es justamente lo que no es. El limite va en los hijos del
+   panel y no en el panel, para que la barra de desplazamiento siga pegada al
+   borde de la ventana. */
+@media (width >= 48rem) {
+  .panel > * {
+    display: block;
+    max-width: 62rem;
+    margin-inline: auto;
+  }
+}
+
 /* ------------------------------------------------------------- cabecera -- */
 .cabecera {
   flex: none;
