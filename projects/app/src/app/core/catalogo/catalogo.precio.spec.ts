@@ -31,29 +31,29 @@ const COCO: [string, string] = ['grp_toppings', 'opt_top_coco'];
 const DOBLE: [string, string] = ['grp_extra', 'opt_extra_doble'];
 
 describe('precio de la chocofruta', () => {
-  it('cobra Q7 con el chocolate tradicional y un topping', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS]))).toBe(7);
+  it('cobra Q9 con el chocolate tradicional y un topping', () => {
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS]))).toBe(9);
   });
 
-  it('cobra Q7 sin ningun topping: el incluido no es obligatorio', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL]))).toBe(7);
+  it('cobra Q9 sin ningun topping: el incluido no es obligatorio', () => {
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL]))).toBe(9);
   });
 
   it('suma Q1 por el chocolate de color', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [BLANCO, ANGELITOS]))).toBe(8);
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [BLANCO, ANGELITOS]))).toBe(10);
   });
 
   it('suma Q2 por cada topping despues del primero', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, OREO]))).toBe(9);
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, OREO, COCO]))).toBe(11);
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, OREO]))).toBe(11);
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, OREO, COCO]))).toBe(13);
   });
 
   it('suma Q2 por el doble chocolate', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, DOBLE]))).toBe(9);
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS, DOBLE]))).toBe(11);
   });
 
   it('acumula todos los recargos a la vez', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pina', [BLANCO, ANGELITOS, OREO, COCO, DOBLE]))).toBe(14);
+    expect(precioUnitario(CATALOGO, linea('prod_pina', [BLANCO, ANGELITOS, OREO, COCO, DOBLE]))).toBe(16);
   });
 
   it('no cobra por el color de las lineas: ese topping ya se pago', () => {
@@ -62,17 +62,17 @@ describe('precio de la chocofruta', () => {
       ['grp_toppings', 'opt_top_lineas'],
       ['grp_color_lineas', 'opt_choco_guinda'],
     ]);
-    expect(precioUnitario(CATALOGO, conLineas)).toBe(7);
+    expect(precioUnitario(CATALOGO, conLineas)).toBe(9);
   });
 
   it('multiplica por la cantidad', () => {
-    expect(precioLinea(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS], 3))).toBe(21);
+    expect(precioLinea(CATALOGO, linea('prod_pina', [TRADICIONAL, ANGELITOS], 3))).toBe(27);
   });
 });
 
 describe('productos sin configurador', () => {
-  it('la paleta cuesta Q8 y no acepta extras', () => {
-    expect(precioUnitario(CATALOGO, linea('prod_pal_vino', []))).toBe(8);
+  it('la paleta cuesta Q10 y no acepta extras', () => {
+    expect(precioUnitario(CATALOGO, linea('prod_pal_vino', []))).toBe(10);
   });
 
   it('un cafe sin precio devuelve null, nunca cero', () => {
@@ -81,7 +81,7 @@ describe('productos sin configurador', () => {
 
   it('avisa que el pedido tiene precios pendientes', () => {
     const pedido = [linea('prod_pal_vino', []), linea('prod_beb_vanilla', [])];
-    expect(precioPedido(CATALOGO, pedido)).toBe(8);
+    expect(precioPedido(CATALOGO, pedido)).toBe(10);
     expect(hayPreciosPendientes(CATALOGO, pedido)).toBe(true);
   });
 });
@@ -134,7 +134,7 @@ describe('integridad de las tablas', () => {
 
   it('tiene las 8 chocofrutas, 12 paletas y 8 bebidas', () => {
     const porCategoria = (c: string) => CATALOGO.productos.filter((p) => p.categoriaId === c).length;
-    expect(porCategoria('cat_chocofruta')).toBe(8);
+    expect(porCategoria('cat_chocofruta')).toBe(9);
     expect(porCategoria('cat_helado')).toBe(12);
     expect(porCategoria('cat_bebida')).toBe(8);
   });
@@ -171,9 +171,9 @@ describe('integridad de las tablas', () => {
 
   it('un producto con foto no deja la ruta vacia y uno sin foto no la inventa', () => {
     const sinFoto = CATALOGO.productos.filter((p) => p.imagen === null);
-    expect(sinFoto.map((p) => p.id)).toEqual(['prod_melocoton']);
+    expect(sinFoto.length).toBe(0);
     const conFoto = CATALOGO.productos.filter((p) => p.imagen !== null);
-    expect(conFoto.length).toBe(27);
+    expect(conFoto.length).toBe(29);
     for (const p of conFoto) expect(p.imagen).toMatch(/^assets\/img\/productos\/.+\.png$/);
   });
 });

@@ -36,8 +36,8 @@ export const CATEGORIAS: readonly Categoria[] = [
 // Hoja: productos
 // ---------------------------------------------------------------------------
 
-const BASE_CHOCOFRUTA = 7;
-const BASE_PALETA = 8;
+const BASE_CHOCOFRUTA = 9;
+const BASE_PALETA = 10;
 
 /**
  * La foto de la tarjeta del catalogo. Viven todas juntas en una sola carpeta
@@ -68,7 +68,7 @@ export const PRODUCTOS: readonly Producto[] = [
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 4, disponible: true },
 
   { id: 'prod_melocoton', categoriaId: 'cat_chocofruta', slug: 'chocomelocoton', nombre: 'Chocomelocotón',
-    descripcion: 'Melocotón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: null,
+    descripcion: 'Melocotón cubierto de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomelocoton'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 5, disponible: true },
 
   { id: 'prod_banano', categoriaId: 'cat_chocofruta', slug: 'chocobanano', nombre: 'Chocobanano',
@@ -84,6 +84,10 @@ export const PRODUCTOS: readonly Producto[] = [
   { id: 'prod_uva', categoriaId: 'cat_chocofruta', slug: 'chocouva', nombre: 'Chocouva',
     descripcion: 'Uvas cubiertas de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocouva'),
     configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 8, disponible: true },
+
+  { id: 'prod_mix', categoriaId: 'cat_chocofruta', slug: 'chocomix', nombre: 'Chocomix',
+    descripcion: 'Varias frutas cubiertas de chocolate', precio: BASE_CHOCOFRUTA, imagen: foto('chocomix'),
+    configuradorId: 'cfg_chocofruta', sello: '', destacado: false, orden: 9, disponible: true },
 
   // --- Paletas: doce ------------------------------------------------------
   // Las ocho propias mas los cuatro sabores de quetzalteca, que antes vivian
@@ -331,7 +335,7 @@ export const PAQUETES: readonly Paquete[] = [
   { id: 'paq_fiesta', slug: 'paquete-fiesta', nombre: 'Paquete fiesta',
     descripcion: 'Desde 15 chocofrutas y la siguiente va gratis',
     categoriaId: 'cat_chocofruta', cantidad: 15, desde: true, gratis: 1,
-    empaque: '', precio: 150, sello: '+1 gratis', orden: 2, disponible: true },
+    empaque: '', precio: 135, sello: '+1 gratis', orden: 2, disponible: true },
 ];
 
 // ---------------------------------------------------------------------------
