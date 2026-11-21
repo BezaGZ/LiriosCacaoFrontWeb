@@ -260,11 +260,23 @@
 
 .rejilla .precio { line-height: 1.15; }
 
-.rejilla .agregar {
+/* El boton se posa sobre la foto en las dos tarjetas: `.rejilla .marco` en
+   los destacados, `.cima` en los paquetes. El renglon de cafe no entra
+   aqui: ahi va en linea, al final de la fila. */
+.rejilla .agregar,
+.cima .agregar {
   position: absolute;
   right: 9px;
   bottom: 9px;
   z-index: 2;
+
+  /* Sobre la foto el apagado no puede ser del color del hueco: la foto
+     tambien lo es y el boton desaparecia. */
+  &:disabled {
+    background: var(--lc-superficie);
+    color: var(--lc-texto-tenue);
+    box-shadow: var(--lc-sombra-apoyada);
+  }
 }
 
 .pie {

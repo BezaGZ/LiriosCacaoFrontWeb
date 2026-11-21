@@ -163,32 +163,30 @@
   font-weight: 700;
 }
 
-/* Nombre arriba, precio debajo. En el mockup van en la misma linea, pero ahi
-   los nombres eran cortos y los precios sin decimales: "Chocomanzana" mas
-   "Q9.00" piden 191px en una tarjeta de 170 y se montan. Apilados siempre
-   caben, y lo que acorto la tarjeta de verdad fue quitar la descripcion. */
+/* ------------------------------------------------- tarjeta: base movil --
+   ESTO ES LA BASE Y LA COMPARTEN LAS DOS TARJETAS: la de producto en la
+   rejilla y la de paquete en lista. No se toca para arreglar nada de la
+   rejilla ni de escritorio; para eso estan `.rejilla ...` y las consultas de
+   medios de mas abajo. Ya rompio la tarjeta de paquete dos veces. */
 .texto {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 10px 13px 12px;
+  gap: 1px;
+  padding: 9px 13px 13px;
 
   h2 {
     margin: 0;
     font-size: 13.5px;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.3;
     color: var(--lc-texto-fuerte);
   }
-}
 
-/* La tarjeta de paquete conserva descripcion y pie: es ancha, va en lista y
-   no en rejilla, y ahi el texto si aporta algo. La rejilla no los usa. */
-.paquete .texto p {
-  margin: 0;
-  font-size: 11.5px;
-  line-height: 1.45;
-  color: var(--lc-texto-suave);
+  p {
+    margin: 0;
+    font-size: 11.5px;
+    color: var(--lc-texto-suave);
+  }
 }
 
 .pie {
@@ -202,21 +200,43 @@
 .precio {
   font-family: var(--lc-serif);
   font-size: 19px;
-  line-height: 1.15;
   color: var(--lc-texto-fuerte);
   font-variant-numeric: tabular-nums;
 }
 
+/* --------------------------------------------- tarjeta: solo la rejilla --
+   La de producto no lleva descripcion ni pie, y el boton se posa sobre la
+   foto. Todo acotado a `.rejilla` para no tocar la de paquete. */
+.rejilla .texto {
+  gap: 2px;
+  padding: 10px 13px 12px;
+
+  h2 { line-height: 1.35; }
+}
+
+.rejilla .precio { line-height: 1.15; }
+
 /* "Sin precio" y no Q0.00: no saber cuanto cuesta y salir gratis no son lo
    mismo, y confundirlos pone a cobrar de menos. */
-/* Solo dentro del marco de la rejilla. En la tarjeta de paquete `.agregar`
-   vive en el pie y no tiene ancestro posicionado: con `absolute` se anclaba
-   a la ventana y el boton aparecia flotando en la esquina de la pantalla. */
-.marco .agregar {
+/* El boton siempre se posa sobre la foto, en las dos tarjetas: `.marco` es
+   el de la rejilla, `.cima` el del paquete. Van nombrados y no sueltos
+   porque `.agregar` tambien lo usa el renglon de cafe, donde va en linea; y
+   porque sin ancestro posicionado `absolute` se ancla a la ventana y el
+   boton se va a la esquina de la pantalla. */
+.marco .agregar,
+.cima .agregar {
   position: absolute;
   right: 9px;
   bottom: 9px;
   z-index: 2;
+
+  /* Sobre la foto, el apagado no puede ser del color del hueco: la foto
+     tambien lo es y el boton desaparecia. */
+  &:disabled {
+    background: var(--lc-superficie);
+    color: var(--lc-texto-tenue);
+    box-shadow: var(--lc-sombra-apoyada);
+  }
 }
 
 .sin-precio {

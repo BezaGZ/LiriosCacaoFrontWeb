@@ -92,6 +92,15 @@
           @for (f of fotosDe(q.categoriaId); track f) {
             <img [src]="f" alt="" loading="lazy">
           }
+          <button
+            type="button"
+            class="agregar"
+            [disabled]="q.precio === null"
+            [attr.aria-label]="'Agregar ' + q.nombre"
+            (click)="agregarPaquete(q)"
+          >
+            <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
+          </button>
         </div>
         <div class="texto">
           <h3>{{ q.nombre }}</h3>
@@ -102,15 +111,6 @@
             } @else {
               <span class="sin-precio">Sin precio</span>
             }
-            <button
-              type="button"
-              class="agregar"
-              [disabled]="q.precio === null"
-              [attr.aria-label]="'Agregar ' + q.nombre"
-              (click)="agregarPaquete(q)"
-            >
-              <lc-icono nombre="mas" [tamano]="15" [grosor]="2.6" />
-            </button>
           </div>
         </div>
       </article>
