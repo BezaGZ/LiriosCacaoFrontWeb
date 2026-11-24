@@ -108,39 +108,95 @@
   padding: var(--lc-seccion-y) var(--lc-margen-x);
 }
 
-.lista {
+/* Foto alta a un lado, lista al otro. La foto no es decoracion: es la unica
+   que ensena el producto terminado junto a la lista de formatos. */
+.hacemos .marco {
   display: grid;
-  gap: var(--lc-e-6) var(--lc-e-7);
-  grid-template-columns: minmax(0, 1fr);
+  gap: var(--lc-e-6);
 
   @include m.contenedor;
 
-  @media (width >= 34rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (width >= 56rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (width >= 52rem) {
+    grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 4rem);
+    align-items: start;
+  }
+}
 
-  @media (width >= 72rem) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: var(--lc-e-6) var(--lc-e-6);
+/* En escritorio la foto se estira a lo que mida la lista: con proporcion
+   fija la lista la pasaba de largo y las ultimas formas quedaban colgando al
+   lado de nada. */
+.retrato {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+
+  img { @include m.foto-llena; }
+
+  @media (width >= 52rem) {
+    aspect-ratio: auto;
+    align-self: stretch;
+    height: 100%;
+    min-height: 22rem;
+  }
+}
+
+.hacemos .kicker {
+  margin-bottom: var(--lc-e-3);
+  color: var(--lc-acento-flor);
+
+  @include m.kicker;
+}
+
+.hacemos .titulo {
+  margin-bottom: var(--lc-e-3);
+  font-weight: 400;
+
+  @include m.display(var(--lc-t-sub));
+}
+
+.formas-entrada {
+  margin-bottom: var(--lc-e-6);
+
+  @include m.cuerpo;
+}
+
+/* Filas apretadas a proposito: son seis formatos de una linea cada uno, y
+   con aire de parrafo la lista se iba media pantalla por debajo de la foto. */
+.lista {
+  display: grid;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--lc-e-5);
+    padding-block: var(--lc-e-4);
+    border-block-start: 1px solid var(--lc-linea-tenue);
   }
 
-  li { padding-top: var(--lc-e-4); border-top: 1px solid var(--lc-linea); }
+  li:first-child { border-block-start: 0; padding-block-start: 0; }
+
+  .que { min-width: 0; }
 
   h3 {
-    margin-bottom: var(--lc-e-3);
+    margin-bottom: var(--lc-e-1);
     font-family: var(--lc-serif);
-    font-size: 1.4375rem;
+    font-size: clamp(1.1875rem, 1.1rem + .3vw, 1.375rem);
     font-weight: 400;
   }
 
-  p { @include m.cuerpo(var(--lc-t-chico)); }
+  p { margin: 0; @include m.cuerpo; }
 }
 
-
-/* El precio de arranque, debajo del nombre y antes de la descripcion: es lo
-   segundo que se mira despues del tipo de arreglo. */
+/* El precio a la derecha, alineado con el nombre: es lo segundo que se mira
+   despues del tipo de arreglo, y en columna se compara de un vistazo. */
 .lista .desde {
-  margin: var(--lc-e-2) 0 var(--lc-e-2);
+  flex: none;
+  margin: 0;
   color: var(--lc-acento-flor);
+  white-space: nowrap;
 
   @include m.kicker;
 }

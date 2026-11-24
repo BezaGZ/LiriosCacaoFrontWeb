@@ -125,3 +125,139 @@
   mask: url('/assets/marca/lirio.png') center / contain no-repeat;
   -webkit-mask: url('/assets/marca/lirio.png') center / contain no-repeat;
 }
+
+
+/// El formulario que arma un mensaje de WhatsApp.
+///
+/// Lo usan el de floristeria y el del jardin. Son dos formularios distintos
+/// con los mismos huesos, asi que el estilo vive aqui y cada uno le pasa su
+/// acento: burdeos las flores, azul el jardin.
+@mixin armador-wa($acento) {
+  .armador {
+    background: var(--lc-fondo-alt);
+    border-block-start: 1px solid var(--lc-linea);
+
+    @include seccion;
+  }
+
+  /* La tarjeta se separa del fondo porque aqui se HACE algo, no se lee. */
+  .tarjeta {
+    max-width: 44rem;
+    margin-inline: auto;
+    padding: clamp(1.75rem, 1rem + 3vw, 3rem);
+    background: var(--lc-hueso);
+    border: 1px solid var(--lc-linea-tenue);
+  }
+
+  .kicker {
+    margin-bottom: var(--lc-e-3);
+    color: #{$acento};
+
+    @include kicker;
+  }
+
+  .titulo {
+    margin-bottom: var(--lc-e-3);
+    font-weight: 400;
+
+    @include display(var(--lc-t-sub));
+  }
+
+  .entrada {
+    margin-bottom: var(--lc-e-6);
+
+    @include cuerpo;
+  }
+
+  .campo {
+    margin: 0 0 var(--lc-e-5);
+
+    label {
+      display: block;
+      margin-bottom: var(--lc-e-3);
+      color: var(--lc-texto);
+      font-size: var(--lc-t-chico);
+      font-weight: 600;
+    }
+
+    em {
+      font-style: normal;
+      font-weight: 400;
+      color: var(--lc-texto-tenue);
+    }
+  }
+
+  /* En telefono los campos van uno debajo de otro: dos desplegables lado a
+     lado en 375px dejan las etiquetas cortadas. */
+  .dos {
+    display: grid;
+    gap: var(--lc-e-5);
+
+    @media (width >= 34rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  select,
+  input {
+    width: 100%;
+    /* 44px: por debajo de eso el dedo falla. */
+    min-height: 2.75rem;
+    padding: .625rem .875rem;
+    background: var(--lc-crema);
+    border: 1px solid var(--lc-linea);
+    color: var(--lc-texto);
+    font-family: inherit;
+    /* 16px o el navegador del telefono acerca la pantalla al enfocar. */
+    font-size: 1rem;
+
+    @include foco;
+  }
+
+  /* Lo que se va a mandar, a la vista. El miedo a tocar un boton de WhatsApp
+     es no saber que sale a nombre de uno. */
+  .vista {
+    margin-block: var(--lc-e-6) var(--lc-e-5);
+    padding: var(--lc-e-5);
+    background: var(--lc-crema);
+
+    .rotulo {
+      margin-bottom: var(--lc-e-2);
+      color: var(--lc-texto-tenue);
+
+      @include kicker;
+    }
+
+    .texto {
+      margin: 0;
+
+      @include cuerpo;
+    }
+  }
+
+  .falta {
+    margin: 0 0 var(--lc-e-4);
+    color: #{$acento};
+    font-size: var(--lc-t-chico);
+  }
+
+  .enviar {
+    display: block;
+    padding: 1rem 2rem;
+    background: #{$acento};
+    color: var(--lc-hueso);
+    font-size: var(--lc-t-chico);
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-align: center;
+    text-decoration: none;
+
+    @include foco;
+
+    /* Sin `href` ya no es un enlace y el navegador no lo enfoca ni lo
+       activa; esto solo lo hace parecer lo que es. */
+    &.apagado {
+      background: var(--lc-crema);
+      color: var(--lc-texto-tenue);
+      cursor: not-allowed;
+    }
+  }
+}

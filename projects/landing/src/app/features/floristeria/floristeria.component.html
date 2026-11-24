@@ -40,27 +40,50 @@
   </div>
 </section>
 
+<!-- Lista con el precio a la derecha, no rejilla de cinco columnas: el
+     precio es lo segundo que se mira despues del tipo, y en columnas queda
+     perdido debajo del nombre. En lista se comparan de arriba abajo. -->
 <section class="hacemos" aria-labelledby="lc-hacemos">
-  <h2 id="lc-hacemos" class="visualmente-oculto">Lo que hacemos</h2>
-  <ul class="lista">
-    @for (item of c.queHacemos; track item.titulo) {
-      <li [lcRevelar]="$index * 70">
-        <h3>{{ item.titulo }}</h3>
-        <!-- Sin precio no se ensena ninguno: "pendiente" en una pagina
-             publica se lee como sitio a medio hacer. -->
-        @if (item.desde !== null) {
-          <p class="desde">Desde {{ item.desde | currency: 'GTQ' : 'symbol-narrow' : '1.0-0' }}</p>
+  <div class="marco">
+    <figure class="retrato" lcRevelar>
+      <img
+        lcFoto
+        [ngSrc]="c.foto.src"
+        [alt]="c.foto.alt"
+        fill
+        sizes="(min-width: 52rem) 38vw, 100vw">
+    </figure>
+
+    <div class="formas">
+      <p class="kicker" lcRevelar>Cinco formas de regalar</p>
+      <h2 id="lc-hacemos" class="titulo" [lcRevelar]="60">{{ c.formasTitulo }}</h2>
+      <p class="formas-entrada" [lcRevelar]="90">{{ c.entrada }}</p>
+
+      <ul class="lista">
+        @for (item of c.queHacemos; track item.titulo; let i = $index) {
+          <li [lcRevelar]="120 + i * 60">
+            <div class="que">
+              <h3>{{ item.titulo }}</h3>
+              <p>{{ item.texto }}</p>
+            </div>
+
+            <!-- La tarjeta dice "Incluida" y no se queda en blanco: en
+                 blanco se lee como precio que falta, no como regalo. -->
+            @if (item.desde !== null) {
+              <p class="desde">Desde {{ item.desde | currency: 'GTQ' : 'symbol-narrow' : '1.0-0' }}</p>
+            } @else if ($any(item).esProducto === false) {
+              <p class="desde">Incluida</p>
+            }
+          </li>
         }
-        <p>{{ item.texto }}</p>
-      </li>
-    }
-  </ul>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <lc-ocasiones />
 
-<lc-cierre
-  [titulo]="c.cierre.titulo"
-  [parrafos]="c.cierre.parrafos"
-  [boton]="c.cierre.boton"
-  [enlace]="enlaceWhatsapp" />
+<!-- Sustituye al cierre generico. Ese era un boton que abria un chat vacio, y
+     un chat vacio es donde se cae la mitad de la gente: hay que redactar
+     desde cero y decir que se quiere sin saber que hay. -->
+<lc-armador />

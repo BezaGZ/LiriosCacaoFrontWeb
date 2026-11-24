@@ -1,0 +1,5 @@
+@use 'mixins' as m;
+
+:host { display: block; }
+
+@include m.armador-wa(var(--lc-acento-evento));

@@ -7,7 +7,7 @@ import { FotoDirective } from '../../shared/directives/foto.directive';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
 import { PortadaPaginaComponent } from '../../shared/components/portada-pagina/portada-pagina.component';
 import { TiraDatosComponent } from '../../shared/components/tira-datos/tira-datos.component';
-import { CierreComponent } from '../../shared/components/cierre/cierre.component';
+import { ConsultaJardinComponent } from './consulta/consulta.component';
 import { JARDIN, NEGOCIO } from '../../contenido/sitio';
 
 const RUTA = '/jardin';
@@ -27,7 +27,7 @@ const RUTA = '/jardin';
     RevelarDirective,
     PortadaPaginaComponent,
     TiraDatosComponent,
-    CierreComponent,
+    ConsultaJardinComponent,
   ],
   templateUrl: './jardin.component.html',
   styleUrl: './jardin.component.scss',
@@ -38,7 +38,6 @@ export class JardinComponent {
   private readonly whatsapp = inject(WhatsappService);
 
   protected readonly c = JARDIN;
-  protected readonly enlaceWhatsapp = this.whatsapp.porJardin();
 
   constructor() {
     this.seo.aplicar({

@@ -1,0 +1,58 @@
+<section class="armador" aria-labelledby="lc-consulta">
+  <div class="tarjeta">
+    <p class="kicker">{{ c.kicker }}</p>
+    <h2 id="lc-consulta" class="titulo">{{ c.titulo }}</h2>
+    <p class="entrada">{{ c.entrada }}</p>
+
+    <p class="campo">
+      <label for="lc-fecha-jardin">1. Fecha tentativa</label>
+      <input
+        id="lc-fecha-jardin"
+        type="date"
+        [min]="minimo"
+        (change)="elegirFecha($any($event.target).value)">
+    </p>
+
+    <div class="dos">
+      <p class="campo">
+        <label for="lc-celebracion">2. ¿Qué celebra? <em>opcional</em></label>
+        <select
+          id="lc-celebracion"
+          (change)="elegirCelebracion($any($event.target).value)">
+          <option value="">Todavía no lo sé</option>
+          @for (x of c.celebraciones; track x.etiqueta) {
+            <option [value]="x.etiqueta">{{ x.etiqueta }}</option>
+          }
+        </select>
+      </p>
+
+      <p class="campo">
+        <label for="lc-invitados">3. ¿Cuántos son? <em>opcional</em></label>
+        <select
+          id="lc-invitados"
+          (change)="elegirInvitados($any($event.target).value)">
+          <option value="">Todavía no lo sé</option>
+          @for (r of c.invitados; track r) {
+            <option [value]="r">{{ r }}</option>
+          }
+        </select>
+      </p>
+    </div>
+
+    <div class="vista">
+      <p class="rotulo">Mensaje preparado</p>
+      <p class="texto">{{ mensaje() }}</p>
+    </div>
+
+    @if (falta(); as pendiente) {
+      <p class="falta">{{ pendiente }}</p>
+    }
+
+    <a
+      class="enviar"
+      [class.apagado]="falta() !== null"
+      [attr.aria-disabled]="falta() !== null"
+      [attr.href]="falta() ? null : enlace()"
+      rel="noopener">Consultar por WhatsApp</a>
+  </div>
+</section>

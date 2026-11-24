@@ -107,6 +107,10 @@ export const FLORISTERIA = {
     miga: 'Floristería',
     // Una sola idea. Antes repetía la entrega y la anticipación, que ya están
     // en la tira de arriba, y el párrafo se leía como un volante.
+    // Titular corto y entrada aparte: la entrada es un parrafo, y usandola
+    // de titular salian tres renglones de serif enorme que empujaban la
+    // lista fuera de la pantalla.
+    formasTitulo: 'Flor fresca, armada el mismo día',
     entrada:
       'Armamos su arreglo el mismo día, con flor fresca, y se lo llevamos a ' +
       'domicilio. Todos llevan tarjeta con su dedicatoria escrita a mano.',
@@ -117,11 +121,15 @@ export const FLORISTERIA = {
     queHacemos: [
       {
         titulo: 'Ramos',
+        // Como se escribe DENTRO de una frase: el catalogo dice "Ramos" pero
+        // el mensaje tiene que decir "quiero pedir un ramo".
+        enMensaje: 'un ramo',
         texto: 'Rosas, girasoles y flores de temporada, envueltos a mano.',
         desde: 100,
       },
       {
         titulo: 'Canastas y arreglos',
+        enMensaje: 'una canasta',
         texto: 'Para la casa, la oficina o para llevar al hospital.',
         desde: 150,
       },
@@ -129,16 +137,28 @@ export const FLORISTERIA = {
         // `null` y no cero: no saber cuanto cuesta y salir gratis no son lo
         // mismo. Sin precio, la linea no ensena ninguno.
         titulo: 'Bouquets de fresas',
+        enMensaje: 'un bouquet de fresas',
         texto: 'Fresas cubiertas de chocolate, armadas como un ramo.',
         desde: null,
       },
       {
+        titulo: 'Ramo de Hot Wheels',
+        enMensaje: 'un ramo de Hot Wheels',
+        texto: 'Carritos armados como ramo, para cumpleaños y Día del Padre.',
+        desde: null,
+      },
+      {
         titulo: 'Pasteles de fresa',
+        enMensaje: 'un pastel de fresa',
         texto: 'Torre de fresas con chocolate y letrero personalizado.',
         desde: null,
       },
       {
         titulo: 'Tarjeta de dedicatoria',
+        // Lo lleva aunque no se pida suelta: sin el campo, el tipo de la
+        // lista queda disparejo y quien lea la tabla no sabe si falta a
+        // proposito o por olvido.
+        enMensaje: 'una tarjeta de dedicatoria',
         texto: 'Escrita a mano y incluida en todos los arreglos.',
         desde: null,
         // No es algo que se venda aparte, así que no entra como producto en
@@ -425,14 +445,6 @@ export const JARDIN = {
         texto: 'Para las bebidas, sin alquilar aparte.',
       },
       {
-        icono: 'techo',
-        titulo: 'Dos áreas techadas',
-        texto: 'El patio y el rancho de teja, por si el día se pone lluvioso.',
-        // Va ancha y oscura: "¿y si llueve?" es la pregunta que decide un
-        // salon, y la respuesta no puede pesar lo mismo que los baños.
-        destacada: true,
-      },
-      {
         icono: 'sonido',
         titulo: 'Sonido',
         texto: 'Una bocina para la música y los discursos.',
@@ -441,6 +453,15 @@ export const JARDIN = {
         icono: 'parqueo',
         titulo: 'Parqueo',
         texto: 'En el lugar, para usted y sus invitados.',
+      },
+      {
+        icono: 'techo',
+        titulo: 'Dos áreas techadas',
+        texto: 'El patio y el rancho de teja, por si el día se pone lluvioso.',
+        // Ancha, oscura y LA ULTIMA: "¿y si llueve?" es la pregunta que
+        // decide un salon. Va al final porque ocupa la fila entera, y en
+        // medio de la rejilla dejaba un hueco al no caber en lo que sobra.
+        destacada: true,
       },
     ],
     nota:
@@ -505,6 +526,34 @@ export const JARDIN = {
         'su decoración y a quien quiera.',
     },
   ],
+
+  /**
+   * La consulta de disponibilidad. Las celebraciones llevan su forma de
+   * frase ("una boda") por lo mismo que los arreglos: en el desplegable se
+   * lee "Boda" y en el mensaje tiene que decir "para una boda".
+   */
+  consulta: {
+    kicker: 'Consulta de disponibilidad',
+    titulo: '¿Para qué fecha busca el jardín?',
+    entrada:
+      'Elija la fecha y le preparamos el mensaje. Usted lo revisa antes de ' +
+      'mandarlo, y le confirmamos el mismo día si está libre.',
+    celebraciones: [
+      { etiqueta: 'Boda', enMensaje: 'una boda' },
+      { etiqueta: 'Quince años', enMensaje: 'unos quince años' },
+      { etiqueta: 'Pedida de mano', enMensaje: 'una pedida de mano' },
+      { etiqueta: 'Cumpleaños', enMensaje: 'un cumpleaños' },
+      { etiqueta: 'Reunión familiar', enMensaje: 'una reunión familiar' },
+      { etiqueta: 'Otra celebración', enMensaje: 'una celebración' },
+    ],
+    // Hasta 150, que es la capacidad real. Prometer mas seria mentir en la
+    // primera pantalla de la conversacion.
+    invitados: [
+      'Hasta 50 personas',
+      'De 50 a 100 personas',
+      'De 100 a 150 personas',
+    ],
+  },
 
   cierre: {
     kicker: 'Disponibilidad',

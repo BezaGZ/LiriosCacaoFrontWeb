@@ -1,0 +1,66 @@
+<section class="armador" aria-labelledby="lc-armador">
+  <div class="tarjeta">
+    <p class="kicker">Pedido por WhatsApp</p>
+    <h2 id="lc-armador" class="titulo">¿Qué necesita y para cuándo?</h2>
+    <p class="entrada">
+      Elija lo que quiere y le preparamos el mensaje. Usted lo revisa antes
+      de mandarlo.
+    </p>
+
+    <!-- Desplegable y no fichas: son diez ocasiones, y en fichas se envuelven
+         en cuatro renglones desparejos que no se leen como una eleccion. Un
+         desplegable ademas empareja los tres campos. -->
+    <p class="campo">
+      <label for="lc-ocasion">1. ¿Para qué ocasión? <em>opcional</em></label>
+      <select
+        id="lc-ocasion"
+        (change)="elegirOcasion($any($event.target).value)">
+        <option value="">Sin ocasión en particular</option>
+        @for (o of ocasiones; track o.id) {
+          <option [value]="o.id" [selected]="ocasion() === o.id">{{ o.etiqueta }}</option>
+        }
+      </select>
+    </p>
+
+    <div class="dos">
+      <p class="campo">
+        <label for="lc-arreglo">2. Tipo de arreglo</label>
+        <select
+          id="lc-arreglo"
+          (change)="elegirArreglo($any($event.target).value)">
+          <option value="">Elija uno</option>
+          @for (a of arreglos; track a.titulo) {
+            <option [value]="a.titulo">{{ a.titulo }}</option>
+          }
+        </select>
+      </p>
+
+      <p class="campo">
+        <label for="lc-fecha">3. ¿Para cuándo? <em>opcional</em></label>
+        <input
+          id="lc-fecha"
+          type="date"
+          [min]="minimo"
+          (change)="elegirFecha($any($event.target).value)">
+      </p>
+    </div>
+
+    <!-- Lo que se va a mandar, a la vista. El miedo a tocar un botón de
+         WhatsApp es no saber qué va a salir a nombre de uno. -->
+    <div class="vista">
+      <p class="rotulo">Mensaje preparado</p>
+      <p class="texto">{{ mensaje() }}</p>
+    </div>
+
+    @if (falta(); as pendiente) {
+      <p class="falta">{{ pendiente }}</p>
+    }
+
+    <a
+      class="enviar"
+      [class.apagado]="falta() !== null"
+      [attr.aria-disabled]="falta() !== null"
+      [attr.href]="falta() ? null : enlace()"
+      rel="noopener">Pedir por WhatsApp</a>
+  </div>
+</section>

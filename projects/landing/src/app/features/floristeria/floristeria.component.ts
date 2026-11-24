@@ -7,7 +7,7 @@ import { FotoDirective } from '../../shared/directives/foto.directive';
 import { RevelarDirective } from '../../shared/directives/revelar.directive';
 import { PortadaPaginaComponent } from '../../shared/components/portada-pagina/portada-pagina.component';
 import { TiraDatosComponent } from '../../shared/components/tira-datos/tira-datos.component';
-import { CierreComponent } from '../../shared/components/cierre/cierre.component';
+import { ArmadorComponent } from './armador/armador.component';
 import { OcasionesComponent } from './ocasiones/ocasiones.component';
 import { FLORISTERIA, NEGOCIO } from '../../contenido/sitio';
 
@@ -31,7 +31,7 @@ const RUTA = '/floristeria';
     PortadaPaginaComponent,
     TiraDatosComponent,
     OcasionesComponent,
-    CierreComponent,
+    ArmadorComponent,
   ],
   templateUrl: './floristeria.component.html',
   styleUrl: './floristeria.component.scss',
@@ -42,7 +42,6 @@ export class FloristeriaComponent {
   private readonly whatsapp = inject(WhatsappService);
 
   protected readonly c = FLORISTERIA.pagina;
-  protected readonly enlaceWhatsapp = this.whatsapp.porFlores();
 
   /** El mensaje ya trae el nombre del arreglo: no hay nada que descifrar. */
   protected porArreglo(nombre: string): string {
