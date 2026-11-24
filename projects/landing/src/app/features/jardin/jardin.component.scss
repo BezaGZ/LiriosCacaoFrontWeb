@@ -201,3 +201,108 @@
   @include m.cuerpo;
   @include m.columna-texto;
 }
+
+
+/* --------------------------------------------------------- modalidades -- */
+/* Dos tarjetas, no una lista: la decision es entre A y B, y ponerlas lado a
+   lado es lo que hace que se comparen en vez de leerse una tras otra. */
+.modalidades {
+  background: var(--lc-fondo);
+  border-block-start: 1px solid var(--lc-linea-tenue);
+
+  @include m.seccion;
+}
+
+.modalidades .marco { @include m.contenedor; }
+
+.modalidades .titulo {
+  margin-bottom: var(--lc-e-7);
+  font-weight: 400;
+
+  @include m.display(var(--lc-t-titulo));
+}
+
+.opciones {
+  display: grid;
+  gap: var(--lc-e-5);
+
+  @media (min-width: 46rem) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--lc-e-6);
+  }
+}
+
+.opcion {
+  padding: var(--lc-e-6);
+  background: var(--lc-fondo-alt);
+  border: 1px solid var(--lc-linea-tenue);
+
+  .rotulo {
+    margin-bottom: var(--lc-e-3);
+    color: var(--lc-acento-evento);
+
+    @include m.kicker;
+  }
+
+  h3 {
+    margin: 0 0 var(--lc-e-4);
+    font-weight: 400;
+
+    @include m.display(var(--lc-t-sub));
+  }
+
+  .texto {
+    margin: 0;
+
+    @include m.cuerpo;
+  }
+}
+
+/* ----------------------------------------------------------- preguntas -- */
+/* Abiertas y no plegadas: una respuesta escondida no la lee nadie. En dos
+   columnas desde tableta para que la seccion no se vuelva una pared. */
+.preguntas {
+  background: var(--lc-fondo-alt);
+  border-block-start: 1px solid var(--lc-linea);
+
+  @include m.seccion;
+}
+
+.preguntas .marco { @include m.contenedor; }
+
+.preguntas .titulo {
+  margin-bottom: var(--lc-e-7);
+  font-weight: 400;
+
+  @include m.display(var(--lc-t-titulo));
+}
+
+.preguntas .lista {
+  display: grid;
+  gap: var(--lc-e-6);
+  margin: 0;
+
+  @media (min-width: 52rem) {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--lc-e-8);
+  }
+}
+
+.par {
+  padding-block-start: var(--lc-e-4);
+  border-block-start: 1px solid var(--lc-linea-tenue);
+
+  dt {
+    margin-bottom: var(--lc-e-3);
+    font-weight: 400;
+    color: var(--lc-texto);
+
+    @include m.display(var(--lc-t-sub));
+  }
+
+  dd {
+    margin: 0;
+
+    @include m.cuerpo;
+  }
+}

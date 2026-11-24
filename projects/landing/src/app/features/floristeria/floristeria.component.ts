@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 
 import { SeoService } from '../../core/seo/seo.service';
 import { WhatsappService } from '../../core/whatsapp/whatsapp.service';
@@ -24,6 +24,7 @@ const RUTA = '/floristeria';
 @Component({
   selector: 'lc-floristeria',
   imports: [
+    CurrencyPipe,
     NgOptimizedImage,
     FotoDirective,
     RevelarDirective,

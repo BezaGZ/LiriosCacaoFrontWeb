@@ -134,3 +134,13 @@
 
   p { @include m.cuerpo(var(--lc-t-chico)); }
 }
+
+
+/* El precio de arranque, debajo del nombre y antes de la descripcion: es lo
+   segundo que se mira despues del tipo de arreglo. */
+.lista .desde {
+  margin: var(--lc-e-2) 0 var(--lc-e-2);
+  color: var(--lc-acento-flor);
+
+  @include m.kicker;
+}

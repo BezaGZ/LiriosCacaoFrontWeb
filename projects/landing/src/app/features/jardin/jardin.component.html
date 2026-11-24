@@ -106,6 +106,42 @@
   </div>
 </section>
 
+<!-- Las dos formas de alquilarlo. Es la primera pregunta de quien compara
+     salones, y hasta hoy no estaba escrita en ninguna parte del sitio. -->
+<section class="modalidades" aria-labelledby="lc-modalidades">
+  <div class="marco">
+    <h2 id="lc-modalidades" class="titulo" lcRevelar>Dos formas de alquilarlo</h2>
+
+    <ul class="opciones">
+      @for (m of c.modalidades; track m.titulo; let i = $index) {
+        <li class="opcion" [lcRevelar]="80 + i * 70">
+          <p class="rotulo">{{ m.rotulo }}</p>
+          <h3>{{ m.titulo }}</h3>
+          <p class="texto">{{ m.texto }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<!-- Contestadas aqui, el mensaje de WhatsApp llega con menos dudas. Van
+     abiertas y no plegadas: una respuesta escondida no la lee nadie, y
+     ademas asi Google las encuentra. -->
+<section class="preguntas" aria-labelledby="lc-preguntas">
+  <div class="marco">
+    <h2 id="lc-preguntas" class="titulo" lcRevelar>Dudas frecuentes</h2>
+
+    <dl class="lista">
+      @for (p of c.preguntas; track p.pregunta; let i = $index) {
+        <div class="par" [lcRevelar]="80 + i * 50">
+          <dt>{{ p.pregunta }}</dt>
+          <dd>{{ p.respuesta }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
 <lc-cierre
   acento="evento"
   [kicker]="c.cierre.kicker"

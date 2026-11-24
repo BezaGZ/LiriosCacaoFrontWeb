@@ -46,6 +46,11 @@
     @for (item of c.queHacemos; track item.titulo) {
       <li [lcRevelar]="$index * 70">
         <h3>{{ item.titulo }}</h3>
+        <!-- Sin precio no se ensena ninguno: "pendiente" en una pagina
+             publica se lee como sitio a medio hacer. -->
+        @if (item.desde !== null) {
+          <p class="desde">Desde {{ item.desde | currency: 'GTQ' : 'symbol-narrow' : '1.0-0' }}</p>
+        }
         <p>{{ item.texto }}</p>
       </li>
     }
