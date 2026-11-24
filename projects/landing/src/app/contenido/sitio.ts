@@ -428,6 +428,9 @@ export const JARDIN = {
         icono: 'techo',
         titulo: 'Dos áreas techadas',
         texto: 'El patio y el rancho de teja, por si el día se pone lluvioso.',
+        // Va ancha y oscura: "¿y si llueve?" es la pregunta que decide un
+        // salon, y la respuesta no puede pesar lo mismo que los baños.
+        destacada: true,
       },
       {
         icono: 'sonido',

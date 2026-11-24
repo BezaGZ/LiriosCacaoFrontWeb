@@ -104,95 +104,81 @@
   @include m.display(var(--lc-t-titulo));
 }
 
-// Icono a un lado, texto al otro, y la siguiente fila al reves. Sin lineas
-// divisorias: cortaban la lista en pedazos y se leia a saltos.
-.alterna {
+// Rejilla de tarjetas. Antes era una lista que alternaba el icono de lado a
+// lado; con cinco piezas funcionaba, con siete son siete pantallas de
+// desplazamiento para leer siete frases cortas. En rejilla se abarcan todas
+// de un vistazo, que es lo que alguien quiere de una lista de lo incluido.
+.piezas {
   display: grid;
-  gap: clamp(2.75rem, 1.5rem + 4.5vw, 5rem);
-}
-
-.fila {
-  display: grid;
+  gap: var(--lc-e-4);
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--lc-e-6);
-  align-items: center;
 
-  @media (width >= 48rem) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(2rem, 1rem + 4vw, 4.5rem);
-  }
+  @media (width >= 34rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (width >= 58rem) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-.placa {
-  position: relative;
-  display: block;
-  width: 100%;
-  max-width: 19rem;
-  aspect-ratio: 4 / 3;
+.pieza {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lc-e-4);
+  padding: var(--lc-e-5);
+  background: var(--lc-fondo);
+  border: 1px solid var(--lc-linea-tenue);
 
   .caja {
-    position: relative;
-    z-index: 1;
     display: grid;
     place-items: center;
-    width: 100%;
-    height: 100%;
-    background: var(--lc-fondo);
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid rgb(57 94 124 / 26%);
     color: var(--lc-acento-evento);
   }
 
-  // El contorno desplazado es lo que da la profundidad. Una sombra haria lo
-  // mismo, pero seria la unica del sitio.
-  &::after {
-    content: '';
-    position: absolute;
-    inset: var(--lc-e-3) calc(var(--lc-e-3) * -1) calc(var(--lc-e-3) * -1) var(--lc-e-3);
-    border: 1px solid rgb(57 94 124 / 26%);
-  }
-
   svg {
-    width: 3.75rem;
-    height: 3.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
     fill: none;
     stroke: currentcolor;
     stroke-width: 1.1;
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-}
 
-.texto {
   h3 {
     margin-bottom: var(--lc-e-2);
     font-family: var(--lc-serif);
-    font-size: clamp(1.5rem, 1.3rem + .8vw, 1.9rem);
+    font-size: var(--lc-t-sub);
     font-weight: 400;
   }
 
   p {
-    max-width: 26rem;
+    margin: 0;
 
     @include m.cuerpo;
   }
 }
 
-// Alternan las COLUMNAS, no la alineacion: el texto arranca siempre a la
-// izquierda, o el ojo tiene que buscar donde empieza cada renglon.
-@media (width >= 48rem) {
-  .fila:nth-child(even) .placa {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
+// "Y si llueve" es la pregunta que decide un salon, asi que su respuesta no
+// puede pesar lo mismo que los baños: ocupa la fila entera y se invierte.
+.pieza.ancha {
+  background: var(--lc-tinta);
+  border-color: var(--lc-tinta);
+  color: var(--lc-sobre-foto);
+
+  @media (width >= 34rem) {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--lc-e-5);
+    grid-column: 1 / -1;
   }
 
-  .fila:nth-child(even) .placa::after {
-    inset: var(--lc-e-3) var(--lc-e-3) calc(var(--lc-e-3) * -1) calc(var(--lc-e-3) * -1);
+  .caja {
+    flex: none;
+    border-color: rgb(251 247 241 / 30%);
+    color: var(--lc-sobre-foto);
   }
 
-  .fila:nth-child(even) .texto {
-    grid-column: 1;
-    grid-row: 1;
-  }
+  p { color: var(--lc-sobre-foto-suave); }
 }
 
 .nota {
