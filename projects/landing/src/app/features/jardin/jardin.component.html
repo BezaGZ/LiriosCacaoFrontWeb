@@ -106,39 +106,43 @@
   </div>
 </section>
 
-<!-- Las dos formas de alquilarlo. Es la primera pregunta de quien compara
-     salones, y hasta hoy no estaba escrita en ninguna parte del sitio. -->
-<section class="modalidades" aria-labelledby="lc-modalidades">
+<!-- Las dos modalidades y las dudas van juntas, no en secciones aparte: son
+     la misma conversacion. Quien esta decidiendo entre A y B es exactamente
+     quien tiene estas preguntas, y leerlas al lado le ahorra el viaje. -->
+<section class="reservar" aria-labelledby="lc-reservar">
   <div class="marco">
-    <h2 id="lc-modalidades" class="titulo" lcRevelar>Dos formas de alquilarlo</h2>
 
-    <ul class="opciones">
-      @for (m of c.modalidades; track m.titulo; let i = $index) {
-        <li class="opcion" [lcRevelar]="80 + i * 70">
-          <p class="rotulo">{{ m.rotulo }}</p>
-          <h3>{{ m.titulo }}</h3>
-          <p class="texto">{{ m.texto }}</p>
-        </li>
-      }
-    </ul>
-  </div>
-</section>
+    <div class="eleccion">
+      <p class="kicker" lcRevelar>Dos formas de reservar</p>
+      <h2 id="lc-reservar" class="titulo" [lcRevelar]="60">
+        Solo el jardín o montaje completo
+      </h2>
 
-<!-- Contestadas aqui, el mensaje de WhatsApp llega con menos dudas. Van
-     abiertas y no plegadas: una respuesta escondida no la lee nadie, y
-     ademas asi Google las encuentra. -->
-<section class="preguntas" aria-labelledby="lc-preguntas">
-  <div class="marco">
-    <h2 id="lc-preguntas" class="titulo" lcRevelar>Dudas frecuentes</h2>
+      <ul class="opciones">
+        @for (m of c.modalidades; track m.titulo; let i = $index) {
+          <li class="opcion" [lcRevelar]="120 + i * 70">
+            <p class="rotulo">{{ m.rotulo }}</p>
+            <h3>{{ m.titulo }}</h3>
+            <p class="texto">{{ m.texto }}</p>
+          </li>
+        }
+      </ul>
+    </div>
 
-    <dl class="lista">
-      @for (p of c.preguntas; track p.pregunta; let i = $index) {
-        <div class="par" [lcRevelar]="80 + i * 50">
-          <dt>{{ p.pregunta }}</dt>
-          <dd>{{ p.respuesta }}</dd>
-        </div>
-      }
-    </dl>
+    <!-- Abiertas y no plegadas: una respuesta escondida no la lee nadie, y
+         ademas asi Google las encuentra. -->
+    <div class="dudas" [lcRevelar]="160">
+      <p class="kicker">Dudas frecuentes</p>
+      <dl class="lista">
+        @for (p of c.preguntas; track p.pregunta) {
+          <div class="par">
+            <dt>{{ p.pregunta }}</dt>
+            <dd>{{ p.respuesta }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
   </div>
 </section>
 

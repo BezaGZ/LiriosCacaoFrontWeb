@@ -203,20 +203,39 @@
 }
 
 
-/* --------------------------------------------------------- modalidades -- */
-/* Dos tarjetas, no una lista: la decision es entre A y B, y ponerlas lado a
-   lado es lo que hace que se comparen en vez de leerse una tras otra. */
-.modalidades {
+/* ------------------------------------------------------------ reservar -- */
+/* Las dos modalidades a la izquierda y las dudas a la derecha, en la misma
+   seccion. Quien esta decidiendo entre A y B es exactamente quien tiene esas
+   preguntas; separarlas en dos secciones obligaba a bajar dos veces. */
+.reservar {
   background: var(--lc-fondo);
   border-block-start: 1px solid var(--lc-linea-tenue);
 
   @include m.seccion;
 }
 
-.modalidades .marco { @include m.contenedor; }
+.reservar .marco {
+  display: grid;
+  gap: var(--lc-e-7);
 
-.modalidades .titulo {
-  margin-bottom: var(--lc-e-7);
+  @include m.contenedor;
+
+  @media (width >= 58rem) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--lc-e-8);
+    align-items: start;
+  }
+}
+
+.reservar .kicker {
+  margin-bottom: var(--lc-e-4);
+  color: var(--lc-acento-evento);
+
+  @include m.kicker;
+}
+
+.reservar .titulo {
+  margin-bottom: var(--lc-e-6);
   font-weight: 400;
 
   @include m.display(var(--lc-t-titulo));
@@ -224,16 +243,15 @@
 
 .opciones {
   display: grid;
-  gap: var(--lc-e-5);
+  gap: var(--lc-e-4);
 
-  @media (min-width: 46rem) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--lc-e-6);
+  @media (width >= 34rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 .opcion {
-  padding: var(--lc-e-6);
+  padding: var(--lc-e-5);
   background: var(--lc-fondo-alt);
   border: 1px solid var(--lc-linea-tenue);
 
@@ -245,7 +263,7 @@
   }
 
   h3 {
-    margin: 0 0 var(--lc-e-4);
+    margin: 0 0 var(--lc-e-3);
     font-weight: 400;
 
     @include m.display(var(--lc-t-sub));
@@ -258,46 +276,34 @@
   }
 }
 
-/* ----------------------------------------------------------- preguntas -- */
-/* Abiertas y no plegadas: una respuesta escondida no la lee nadie. En dos
-   columnas desde tableta para que la seccion no se vuelva una pared. */
-.preguntas {
+/* La caja de dudas se separa del fondo para que se lea como un aparte y no
+   como la continuacion de las modalidades. */
+.dudas {
+  padding: var(--lc-e-6);
   background: var(--lc-fondo-alt);
-  border-block-start: 1px solid var(--lc-linea);
-
-  @include m.seccion;
+  border: 1px solid var(--lc-linea-tenue);
 }
 
-.preguntas .marco { @include m.contenedor; }
-
-.preguntas .titulo {
-  margin-bottom: var(--lc-e-7);
-  font-weight: 400;
-
-  @include m.display(var(--lc-t-titulo));
-}
-
-.preguntas .lista {
+.dudas .lista {
   display: grid;
-  gap: var(--lc-e-6);
-  margin: 0;
-
-  @media (min-width: 52rem) {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: var(--lc-e-8);
-  }
+  gap: var(--lc-e-5);
+  margin: var(--lc-e-5) 0 0;
 }
 
 .par {
   padding-block-start: var(--lc-e-4);
   border-block-start: 1px solid var(--lc-linea-tenue);
 
-  dt {
-    margin-bottom: var(--lc-e-3);
-    font-weight: 400;
-    color: var(--lc-texto);
+  &:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
 
-    @include m.display(var(--lc-t-sub));
+  dt {
+    margin-bottom: var(--lc-e-2);
+    font-weight: 600;
+    color: var(--lc-texto);
+    font-size: var(--lc-t-cuerpo);
   }
 
   dd {
