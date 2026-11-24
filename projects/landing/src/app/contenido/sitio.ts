@@ -118,22 +118,29 @@ export const FLORISTERIA = {
       {
         titulo: 'Ramos',
         texto: 'Rosas, girasoles y flores de temporada, envueltos a mano.',
+        desde: 100,
       },
       {
         titulo: 'Canastas y arreglos',
         texto: 'Para la casa, la oficina o para llevar al hospital.',
+        desde: 150,
       },
       {
+        // `null` y no cero: no saber cuanto cuesta y salir gratis no son lo
+        // mismo. Sin precio, la linea no ensena ninguno.
         titulo: 'Bouquets de fresas',
         texto: 'Fresas cubiertas de chocolate, armadas como un ramo.',
+        desde: null,
       },
       {
         titulo: 'Pasteles de fresa',
         texto: 'Torre de fresas con chocolate y letrero personalizado.',
+        desde: null,
       },
       {
         titulo: 'Tarjeta de dedicatoria',
         texto: 'Escrita a mano y incluida en todos los arreglos.',
+        desde: null,
         // No es algo que se venda aparte, así que no entra como producto en
         // los datos estructurados: ahí solo va lo que de verdad se cotiza.
         esProducto: false,
@@ -301,7 +308,7 @@ export const SERVICIOS = {
       ruta: '/jardin',
       foto: {
         src: 'assets/fotos/jardin-patio-techado.jpg',
-        alt: 'Patio techado con herrería decorativa y la grama del jardín al fondo',
+        alt: 'Patio techado y la grama del jardín al fondo',
       },
     },
     {
@@ -361,7 +368,7 @@ export const JARDIN = {
   miga: 'Jardín',
   foto: {
     src: 'assets/fotos/jardin-patio-techado.jpg',
-    alt: 'Patio techado con herrería decorativa, abierto hacia la grama del jardín',
+    alt: 'Patio techado, abierto hacia la grama del jardín',
     // Centrada, la franja de la portada se queda con la lámina del techo.
     enfoque: 'center 80%',
   },
@@ -419,8 +426,18 @@ export const JARDIN = {
       },
       {
         icono: 'techo',
-        titulo: 'Techo con herrería',
-        texto: 'El patio cubierto, por si el día se pone lluvioso.',
+        titulo: 'Dos áreas techadas',
+        texto: 'El patio y el rancho de teja, por si el día se pone lluvioso.',
+      },
+      {
+        icono: 'sonido',
+        titulo: 'Sonido',
+        texto: 'Una bocina para la música y los discursos.',
+      },
+      {
+        icono: 'parqueo',
+        titulo: 'Parqueo',
+        texto: 'En el lugar, para usted y sus invitados.',
       },
     ],
     nota:
@@ -428,6 +445,64 @@ export const JARDIN = {
       'nuestra, se arma con lo que usted elija: arcos, neón, letras ' +
       'iluminadas y flores.',
   },
+  /**
+   * Las dos formas de alquilarlo. Es informacion de negocio, no de diseno: es
+   * la primera pregunta de quien compara salones, y hasta hoy no estaba
+   * escrita en ninguna parte del sitio.
+   */
+  modalidades: [
+    {
+      rotulo: 'Modalidad A',
+      titulo: 'Solo el jardín',
+      texto:
+        'El espacio equipado: mobiliario, cocina, refrigeradores, baños, ' +
+        'las dos áreas techadas, sonido y parqueo. Usted lleva su banquete, ' +
+        'su decoración y sus proveedores.',
+    },
+    {
+      rotulo: 'Modalidad B',
+      titulo: 'Montaje completo',
+      texto:
+        'Lo mismo, más la decoración, las flores, la mesa puesta, la comida ' +
+        'y el pastel, en una sola cotización.',
+    },
+  ],
+
+  /**
+   * Las que hace cualquiera que alquila un salon. Van antes del cierre: si se
+   * contestan aqui, el mensaje de WhatsApp llega con menos dudas y mas ganas.
+   */
+  preguntas: [
+    {
+      pregunta: '¿Qué pasa si llueve?',
+      respuesta:
+        'El jardín tiene dos áreas techadas, el patio y el rancho de teja, ' +
+        'así que la celebración sigue bajo techo sin mover nada.',
+    },
+    {
+      pregunta: '¿Hay parqueo?',
+      respuesta: 'Sí, parqueo en el lugar para usted y sus invitados.',
+    },
+    {
+      pregunta: '¿Hasta qué hora puede durar?',
+      respuesta:
+        'No hay hora de cierre fija. Lo acordamos con usted según la ' +
+        'celebración, sea de día o hasta la madrugada.',
+    },
+    {
+      pregunta: '¿Cómo se aparta la fecha?',
+      respuesta:
+        'Primero confirmamos que esté libre. Si lo está, se aparta con un ' +
+        'anticipo, por transferencia o en efectivo.',
+    },
+    {
+      pregunta: '¿Puedo llevar mi propio banquete o mis proveedores?',
+      respuesta:
+        'Sí. Con la modalidad A alquila solo el jardín y lleva su comida, ' +
+        'su decoración y a quien quiera.',
+    },
+  ],
+
   cierre: {
     kicker: 'Disponibilidad',
     titulo: 'Díganos la fecha y le confirmamos si está libre',
@@ -442,8 +517,8 @@ export const JARDIN = {
   seo: {
     titulo: 'Jardín para eventos en Chiquimula | Lirios y Cacao',
     descripcion:
-      'Jardín propio en Chiquimula para hasta 150 personas, con patio ' +
-      'techado, mobiliario, cocina equipada y baños incluidos en el alquiler.',
+      'Jardín propio en Chiquimula para hasta 150 personas, con dos áreas ' +
+      'techadas, mobiliario, cocina equipada y baños incluidos en el alquiler.',
   },
 } as const;
 
