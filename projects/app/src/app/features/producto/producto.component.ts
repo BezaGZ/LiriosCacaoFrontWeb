@@ -107,8 +107,14 @@ export class ProductoComponent {
   /** El chocolate elegido, para la insignia sobre la foto. */
   readonly chocolate = computed<Opcion | null>(() => {
     const c = this.datos();
-    if (!c) return null;
-    const base = c.grupos.find(g => g.visible && g.tipo === 'uno');
+    const p = this.producto();
+    if (!c || !p || p.configuradorId === null) return null;
+    // El grupo del PRODUCTO, no el primero del catalogo: desde que la paleta
+    // tiene su propio chocolate hay dos grupos 'uno' visibles y buscar a
+    // ciegas devolvia siempre el de la chocofruta.
+    const base = c.grupos.find(
+      g => g.configuradorId === p.configuradorId && g.visible && g.tipo === 'uno',
+    );
     if (!base) return null;
     const e = this.elecciones().find(x => x.grupoId === base.id);
     return c.opciones.find(o => o.id === e?.opcionId) ?? null;
