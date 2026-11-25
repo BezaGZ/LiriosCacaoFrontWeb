@@ -22,9 +22,9 @@
 
 .icono {
   display: block;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: var(--lc-e-4);
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: var(--lc-e-3);
   fill: none;
   stroke: var(--lc-acento-evento);
   stroke-width: 1.2;
@@ -32,11 +32,19 @@
   stroke-linejoin: round;
 }
 
-.rotulo {
+.orden {
   margin-bottom: var(--lc-e-3);
-  color: var(--lc-texto);
+  color: var(--lc-acento-evento);
 
   @include m.kicker;
+}
+
+.titulo {
+  margin-bottom: var(--lc-e-2);
+  font-family: var(--lc-serif);
+  font-size: clamp(1.25rem, 1.15rem + .4vw, 1.5rem);
+  font-weight: 400;
+  color: var(--lc-texto);
 }
 
 .texto { @include m.cuerpo(var(--lc-t-chico)); }

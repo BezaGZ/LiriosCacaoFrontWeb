@@ -1,40 +1,79 @@
 @use 'mixins' as m;
 
 .declaracion {
-  text-align: center;
-
   @include m.seccion;
 }
 
+.declaracion .marco {
+  display: grid;
+  gap: var(--lc-e-6);
+
+  @include m.contenedor;
+
+  @media (width >= 52rem) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+    align-items: center;
+  }
+}
+
 .kicker {
-  margin-bottom: var(--lc-e-5);
+  margin-bottom: var(--lc-e-4);
   color: var(--lc-acento-flor);
 
   @include m.kicker;
 }
 
 .frase {
-  margin: 0 auto var(--lc-e-6);
-  max-width: 24ch;
+  margin: 0 0 var(--lc-e-5);
+  max-width: 22ch;
   font-family: var(--lc-serif);
   font-size: var(--lc-t-titulo);
   font-weight: 300;
-  line-height: 1.38;
+  line-height: 1.26;
   letter-spacing: -.005em;
   text-wrap: balance;
 }
 
-.regla {
-  width: 3.5rem;
-  height: 1px;
-  margin: 0 auto var(--lc-e-5);
-  background: var(--lc-linea);
-  border: 0;
-}
-
 .nota {
-  margin-inline: auto;
+  margin: 0;
 
   @include m.cuerpo;
-  @include m.columna-texto;
+}
+
+/* Dos tarjetas y no una tira de numeros: cada cifra necesita su linea de
+   contexto, o "150" no dice nada. */
+.cifras {
+  display: grid;
+  gap: var(--lc-e-4);
+
+  @media (width >= 34rem) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.cifra {
+  padding: var(--lc-e-5);
+  background: var(--lc-hueso);
+  border: 1px solid var(--lc-linea-tenue);
+
+  .dato {
+    margin: 0 0 var(--lc-e-2);
+    font-family: var(--lc-serif);
+    font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.25rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--lc-acento-evento);
+  }
+
+  .rotulo {
+    margin: 0 0 var(--lc-e-3);
+    color: var(--lc-texto-tenue);
+
+    @include m.kicker;
+  }
+
+  .texto {
+    margin: 0;
+
+    @include m.cuerpo(var(--lc-t-chico));
+  }
 }

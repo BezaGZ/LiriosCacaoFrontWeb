@@ -91,3 +91,163 @@
     transform: none;
   }
 }
+
+/* ------------------------------------------- escenarios de cotizacion --
+   Tres tarjetas cuadradas, como todo el sitio: aqui no hay esquinas
+   redondeadas en ningun lado. La del medio va en tinta porque es la que mas
+   se pide, no porque cueste mas. */
+.escenarios {
+  background: var(--lc-fondo-alt);
+  border-block-start: 1px solid var(--lc-linea);
+
+  @include m.seccion;
+}
+
+.marco { @include m.contenedor; }
+
+.intro {
+  max-width: var(--lc-ancho-texto);
+  margin-bottom: var(--lc-e-7);
+
+  .kicker {
+    margin-bottom: var(--lc-e-3);
+    color: var(--lc-acento-evento);
+
+    @include m.kicker;
+  }
+
+  h2 {
+    margin-bottom: var(--lc-e-4);
+    font-weight: 400;
+
+    @include m.display(var(--lc-t-titulo));
+  }
+
+  .entrada { @include m.cuerpo; }
+}
+
+.formatos {
+  display: grid;
+  gap: var(--lc-e-6);
+  grid-template-columns: minmax(0, 1fr);
+
+  @media (width >= 62rem) {
+    gap: var(--lc-e-5);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.formato {
+  display: flex;
+  flex-direction: column;
+  background: var(--lc-hueso);
+  border: 1px solid var(--lc-linea-tenue);
+}
+
+.lamina {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  isolation: isolate;
+
+  img { object-fit: cover; }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--lc-velo-inferior);
+  }
+}
+
+.capacidad {
+  position: absolute;
+  inset-inline-start: var(--lc-e-5);
+  inset-block-end: var(--lc-e-4);
+  z-index: 2;
+  color: var(--lc-sobre-foto);
+
+  @include m.kicker;
+
+  em {
+    font-style: normal;
+
+    &::before { content: ' · '; }
+  }
+}
+
+.cuerpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--lc-e-6) var(--lc-e-5) var(--lc-e-5);
+
+  h3 {
+    margin-bottom: var(--lc-e-3);
+    font-family: var(--lc-serif);
+    font-size: var(--lc-t-sub);
+    font-weight: 400;
+    line-height: var(--lc-alto-titulo);
+    color: var(--lc-texto);
+  }
+
+  .texto {
+    margin-bottom: var(--lc-e-5);
+
+    @include m.cuerpo(var(--lc-t-chico));
+  }
+}
+
+/* Cada linea del incluye lleva una raya corta en vez de una vineta: es la
+   misma marca de lista que usa el resto del sitio. */
+.incluye {
+  margin-bottom: var(--lc-e-6);
+
+  li {
+    position: relative;
+    padding-inline-start: var(--lc-e-5);
+    color: var(--lc-texto-suave);
+    font-size: var(--lc-t-chico);
+    line-height: 1.6;
+
+    + li { margin-block-start: var(--lc-e-3); }
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: 0;
+      inset-block-start: .68em;
+      width: .625rem;
+      height: 1px;
+      background: var(--lc-acento-evento);
+    }
+  }
+}
+
+.cotizar {
+  margin-block-start: auto;
+  align-self: flex-start;
+
+  @include m.enlace-fino(var(--lc-acento-evento));
+  @include m.tactil;
+}
+
+/* La del medio: misma tarjeta, fondo de tinta. Solo cambian los colores, no
+   la estructura, para que las tres sigan midiendo igual. */
+.formato.destacado {
+  background: var(--lc-tinta);
+  border-color: var(--lc-tinta);
+
+  .cuerpo h3 { color: var(--lc-sobre-foto); }
+  .cuerpo .texto { color: var(--lc-sobre-foto-suave); }
+
+  .incluye li {
+    color: var(--lc-sobre-foto-suave);
+
+    &::before { background: var(--lc-sobre-foto-tenue); }
+  }
+
+  .cotizar { color: var(--lc-sobre-foto); }
+}

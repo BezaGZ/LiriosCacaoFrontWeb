@@ -71,13 +71,33 @@ export const PORTADA = {
 } as const;
 
 export const DECLARACION = {
-  kicker: `Desde ${NEGOCIO.desde}`,
+  kicker: `Desde ${NEGOCIO.desde} en ${NEGOCIO.direccion.ciudad ?? 'Chiquimula'}`,
   frase:
     'Hacemos el detalle de un martes cualquiera y también la fiesta que se ' +
     'recuerda por años.',
   nota:
     'Cada servicio se cotiza por separado y se acopla a lo que usted ' +
     'necesite. No manejamos paquetes cerrados.',
+  /**
+   * Las dos cifras que sostienen la frase.
+   *
+   * Las dos son verificables y salen del propio negocio: la capacidad real
+   * del jardin y el hecho de que el equipo es nuestro. No hay cuenta de
+   * eventos montados ni testimonio: eso se pone cuando exista, con nombre
+   * de un cliente de verdad que lo autorice.
+   */
+  cifras: [
+    {
+      dato: '150 personas',
+      rotulo: 'Capacidad del jardín',
+      texto: 'Dos áreas techadas, cocina equipada y mobiliario incluidos.',
+    },
+    {
+      dato: 'Todo propio',
+      rotulo: 'Sin intermediarios',
+      texto: 'El jardín, la decoración y el mobiliario son nuestros.',
+    },
+  ],
 } as const;
 
 export const FLORISTERIA = {
@@ -341,6 +361,80 @@ export const SERVICIOS = {
       },
     },
   ],
+  /**
+   * Los tres escenarios de cotizacion.
+   *
+   * La primera pregunta que llega por WhatsApp siempre es "cuanto sale una
+   * boda", y no tiene una sola respuesta. Esto no son paquetes cerrados: son
+   * las tres escalas en las que cae casi todo lo que montamos, para que el
+   * visitante se ubique antes de escribir y la primera respuesta ya sirva.
+   *
+   * Por eso no llevan precio. Lo que llevan es el tamano y lo que entra en
+   * cada escala, que es lo que alguien necesita para saber de cual hablar.
+   */
+  escenarios: {
+    kicker: 'Escenarios de cotización',
+    titulo: 'Tres formas frecuentes de armar su evento',
+    entrada:
+      'Cada cotización se ajusta al menú, las flores y el horario. Estos ' +
+      'tres formatos no son paquetes cerrados: sirven para ubicar la escala.',
+    formatos: [
+      {
+        titulo: 'Celebración íntima',
+        capacidad: 'Hasta 40 personas',
+        etiqueta: '',
+        texto:
+          'Para pedidas de mano, bodas civiles o cumpleaños familiares en ' +
+          'el jardín.',
+        incluye: [
+          'Jardín con área techada y mobiliario',
+          'Arreglo floral en la mesa principal',
+          'Pastel de celebración o mesa dulce',
+        ],
+        boton: 'Cotizar formato íntimo',
+        foto: {
+          src: 'assets/fotos/jardin-rancho-teja.jpg',
+          alt: 'El rancho de teja del jardín, con mesas bajo el techo',
+        },
+      },
+      {
+        titulo: 'Recepción mediana',
+        capacidad: '50 a 90 personas',
+        etiqueta: 'Más pedida',
+        texto:
+          'El formato más frecuente para bodas y quince años, con el jardín ' +
+          'completo.',
+        incluye: [
+          'Jardín completo, mobiliario y sonido',
+          'Decoración floral de mesas y entrada',
+          'Banquete y postres de la casa',
+        ],
+        boton: 'Cotizar recepción mediana',
+        foto: {
+          src: 'assets/fotos/jardin-montado-atardecer.jpg',
+          alt: 'El jardín montado al atardecer, con las mesas ya puestas',
+        },
+      },
+      {
+        titulo: 'Boda o XV completa',
+        capacidad: '100 a 150 personas',
+        etiqueta: '',
+        texto:
+          'La capacidad total del jardín, montada de principio a fin sin ' +
+          'proveedores externos.',
+        incluye: [
+          'Jardín completo para 150 invitados',
+          'Floristería integral e iluminación',
+          'Banquete, postres y coordinación',
+        ],
+        boton: 'Cotizar evento completo',
+        foto: {
+          src: 'assets/fotos/jardin-grama-luces.jpg',
+          alt: 'La grama del jardín de noche, con luces colgantes encendidas',
+        },
+      },
+    ],
+  },
   cierre: {
     kicker: '¿Ya tiene fecha?',
     titulo: 'Cuéntenos qué celebra y le armamos la cotización',
@@ -582,29 +676,63 @@ export const JARDIN = {
  * que conseguir por su cuenta.
  */
 export const INCLUIMOS = {
+  /**
+   * Van numeradas y con su categoria delante ("01 · Lugar"). El numero no es
+   * adorno: dice que son cuatro y que se leen en orden, que es justo lo que
+   * alguien esta contando cuando compara con otro presupuesto.
+   */
   cosas: [
     {
       icono: 'techo',
+      rotulo: 'Lugar',
       titulo: 'Jardín propio',
       texto: 'Techado y grama, hasta 150 personas. No lo alquilamos: es nuestro.',
     },
     {
       icono: 'decoracion',
+      rotulo: 'Flores',
       titulo: 'Decoración',
       texto: 'Arcos, neón, letras iluminadas y flores. Todo es equipo nuestro.',
     },
     {
       icono: 'mesa',
+      rotulo: 'Vajilla',
       titulo: 'Mesa puesta',
       texto: 'Mobiliario, vajilla, y cocina y baños equipados.',
     },
     {
       icono: 'sonido',
+      rotulo: 'Banquete',
       titulo: 'Comida y sonido',
       texto: 'Lo coordinamos nosotros. Cada cosa lleva su precio aparte.',
     },
   ],
   enlace: { texto: 'Ver todo lo que incluimos', ruta: '/servicios' },
+} as const;
+
+/**
+ * La franja que junta eventos y jardin en la portada.
+ *
+ * Iban separadas y era un error de argumento, no de diseno: que el lugar sea
+ * nuestro es LA razon por la que el montaje sale distinto de precio. En dos
+ * franjas el visitante leia dos servicios; en una lee una ventaja.
+ */
+export const EVENTOS_JARDIN = {
+  kicker: 'Eventos y jardín propio',
+  titulo: 'Montamos todo, de principio a fin, en un lugar que ya es nuestro',
+  parrafos: [
+    'No subarrendamos el salón, así que el presupuesto no se infla. ' +
+      'Cotizamos bodas, quince años y pedidas a la medida, según cuántos ' +
+      'invitados sean.',
+    'Jardín con dos áreas techadas para hasta 150 personas, mobiliario, ' +
+      'cocina equipada, refrigeradores y baños listos para su fecha.',
+  ],
+  enlace: { texto: 'Consultar fecha del jardín — hasta 150 personas', ruta: '/jardin' },
+  foto: {
+    src: 'assets/fotos/jardin-grama-luces.jpg',
+    alt: 'La grama del jardín mirando hacia el área techada, con luces colgantes',
+    enfoque: 'center 38%',
+  },
 } as const;
 
 /** La franja que manda a la tienda en línea. */

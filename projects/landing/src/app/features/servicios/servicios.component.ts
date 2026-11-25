@@ -41,6 +41,13 @@ export class ServiciosComponent {
   protected readonly c = SERVICIOS;
   protected readonly enlaceWhatsapp = this.whatsapp.porEvento();
 
+  /** Los tres escenarios, cada uno con su enlace de WhatsApp ya armado. */
+  protected readonly formatos = this.c.escenarios.formatos.map((f) => ({
+    ...f,
+    destacado: !!f.etiqueta,
+    enlace: this.whatsapp.porFormatoDeEvento(f.titulo, f.capacidad),
+  }));
+
   /**
    * Las teselas, ya resueltas a un solo tipo.
    *

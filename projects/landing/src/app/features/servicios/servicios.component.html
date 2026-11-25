@@ -37,6 +37,53 @@
   </span>
 </ng-template>
 
+<!-- Los tres escenarios van DESPUES del mosaico: primero se ve de que se
+     trata y luego se pregunta de que tamano. Al reves seria un formulario de
+     cotizacion antes de haber ensenado nada. -->
+<section class="escenarios" aria-labelledby="lc-escenarios">
+  <div class="marco">
+    <header class="intro">
+      <p class="kicker">{{ c.escenarios.kicker }}</p>
+      <h2 id="lc-escenarios">{{ c.escenarios.titulo }}</h2>
+      <p class="entrada">{{ c.escenarios.entrada }}</p>
+    </header>
+
+    <ul class="formatos">
+      @for (f of formatos; track f.titulo) {
+        <li class="formato" [class.destacado]="f.destacado" [lcRevelar]="$index * 80">
+          <span class="lamina">
+            <img
+              lcFoto
+              [ngSrc]="f.foto.src"
+              [alt]="f.foto.alt"
+              fill
+              sizes="(min-width: 62rem) 33vw, 100vw">
+            <span class="capacidad">
+              {{ f.capacidad }}
+              @if (f.etiqueta) {
+                <em>{{ f.etiqueta }}</em>
+              }
+            </span>
+          </span>
+
+          <div class="cuerpo">
+            <h3>{{ f.titulo }}</h3>
+            <p class="texto">{{ f.texto }}</p>
+
+            <ul class="incluye">
+              @for (cosa of f.incluye; track cosa) {
+                <li>{{ cosa }}</li>
+              }
+            </ul>
+
+            <a class="cotizar" [href]="f.enlace" rel="noopener">{{ f.boton }}</a>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
 <lc-cierre
   acento="evento"
   [kicker]="c.cierre.kicker"

@@ -3,8 +3,11 @@
     <h2 id="lc-incluimos" class="visualmente-oculto">Lo que incluimos</h2>
 
     <ul class="rejilla">
-      @for (cosa of c.cosas; track cosa.titulo) {
-        <li [lcRevelar]="$index * 70">
+      @for (cosa of c.cosas; track cosa.titulo; let i = $index) {
+        <li [lcRevelar]="i * 70">
+          <!-- El numero dice que son cuatro y que se leen en orden, que es
+               lo que alguien cuenta al comparar con otro presupuesto. -->
+          <p class="orden">{{ '0' + (i + 1) }} · {{ cosa.rotulo }}</p>
           @switch (cosa.icono) {
             @case ('techo') {
               <svg class="icono" viewBox="0 0 30 30" aria-hidden="true" focusable="false">
@@ -36,7 +39,7 @@
             }
           }
 
-          <p class="rotulo">{{ cosa.titulo }}</p>
+          <p class="titulo">{{ cosa.titulo }}</p>
           <p class="texto">{{ cosa.texto }}</p>
         </li>
       }

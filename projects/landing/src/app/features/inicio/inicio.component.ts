@@ -7,11 +7,10 @@ import { AppBandaComponent } from './secciones/app/app.component';
 import { BandaComponent } from '../../shared/components/banda/banda.component';
 import { SeoService } from '../../core/seo/seo.service';
 import {
+  EVENTOS_JARDIN,
   FLORISTERIA,
-  JARDIN,
   NEGOCIO,
   PORTADA,
-  SERVICIOS,
 } from '../../contenido/sitio';
 
 /**
@@ -37,8 +36,7 @@ export class InicioComponent {
   private readonly seo = inject(SeoService);
 
   protected readonly floristeria = FLORISTERIA.banda;
-  protected readonly eventos = SERVICIOS.banda;
-  protected readonly jardin = JARDIN.banda;
+  protected readonly eventosJardin = EVENTOS_JARDIN;
 
   constructor() {
     this.seo.aplicar({

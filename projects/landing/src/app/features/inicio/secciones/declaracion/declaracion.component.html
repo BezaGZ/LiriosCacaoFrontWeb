@@ -1,6 +1,24 @@
+<!-- Dos columnas: la frase a un lado y las cifras al otro. Centrada y sola,
+     la frase se leia como un lema; al lado de dos datos verificables se lee
+     como una afirmacion que se puede comprobar. -->
 <section class="declaracion">
-  <p class="kicker" lcRevelar>{{ c.kicker }}</p>
-  <p class="frase" [lcRevelar]="90">{{ c.frase }}</p>
-  <hr class="regla" [lcRevelar]="150">
-  <p class="nota" [lcRevelar]="200">{{ c.nota }}</p>
+  <div class="marco">
+
+    <div class="dicho">
+      <p class="kicker" lcRevelar>{{ c.kicker }}</p>
+      <p class="frase" [lcRevelar]="90">{{ c.frase }}</p>
+      <p class="nota" [lcRevelar]="150">{{ c.nota }}</p>
+    </div>
+
+    <ul class="cifras">
+      @for (x of c.cifras; track x.rotulo; let i = $index) {
+        <li class="cifra" [lcRevelar]="120 + i * 80">
+          <p class="dato">{{ x.dato }}</p>
+          <p class="rotulo">{{ x.rotulo }}</p>
+          <p class="texto">{{ x.texto }}</p>
+        </li>
+      }
+    </ul>
+
+  </div>
 </section>

@@ -41,6 +41,19 @@ export class WhatsappService {
     );
   }
 
+  /**
+   * Para uno de los tres formatos de la pagina de servicios.
+   *
+   * Va el nombre del formato y el tamano: con eso la respuesta puede salir
+   * sin una ronda de preguntas de por medio.
+   */
+  porFormatoDeEvento(formato: string, capacidad: string): string {
+    return this.enlace(
+      `Hola, me interesa el formato "${formato}" (${capacidad}). ` +
+        'Le comparto la fecha del evento.',
+    );
+  }
+
   /** Para un evento: pedimos lo mínimo que hace útil la primera respuesta. */
   porEvento(ocasion?: string): string {
     const que = ocasion ? ` para ${ocasion}` : '';

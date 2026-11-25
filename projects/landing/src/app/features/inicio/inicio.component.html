@@ -10,24 +10,19 @@
   [enlace]="floristeria.enlace"
   [foto]="floristeria.foto" />
 
+<!-- Eventos y jardin van JUNTOS, no en dos franjas. Que el lugar sea nuestro
+     es la razon por la que el montaje sale distinto de precio; separados, el
+     visitante leia dos servicios en vez de una ventaja. Los cuatro numerados
+     van pegados debajo porque son el desglose de esta misma franja. -->
 <lc-banda
   acento="evento"
   [invertida]="true"
-  [kicker]="eventos.kicker"
-  [titulo]="eventos.titulo"
-  [parrafos]="eventos.parrafos"
-  [enlace]="eventos.enlace"
-  [foto]="eventos.foto" />
+  [kicker]="eventosJardin.kicker"
+  [titulo]="eventosJardin.titulo"
+  [parrafos]="eventosJardin.parrafos"
+  [enlace]="eventosJardin.enlace"
+  [foto]="eventosJardin.foto" />
 
 <lc-incluimos />
-
-<lc-banda
-  acento="evento"
-  [kicker]="jardin.kicker"
-  [titulo]="jardin.titulo"
-  [parrafos]="jardin.parrafos"
-  [datos]="jardin.datos"
-  [enlace]="jardin.enlace"
-  [foto]="jardin.foto" />
 
 <lc-app-banda />
