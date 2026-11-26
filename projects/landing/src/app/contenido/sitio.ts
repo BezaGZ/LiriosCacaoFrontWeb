@@ -28,6 +28,41 @@ export const NEGOCIO = {
     codigoPostal: '20001',
     pais: 'GT',
   },
+  /**
+   * El punto exacto de la sede, tomado de la ficha de Google para que los dos
+   * digan lo mismo. El valor viejo (14.79906, -89.5510) caia a unos metros;
+   * cerca no sirve cuando el punto es lo que empareja ficha y sitio.
+   */
+  geo: { lat: 14.7990201, lng: -89.5509863 },
+  /**
+   * Atencion en la sede, de lunes a sabado: el domingo no abre. El jardin
+   * no tiene horario propio, abre por evento.
+   */
+  horario: { abre: '11:00', cierra: '20:00' },
+  /**
+   * Las redes, que van al pie y sobre todo al `sameAs` de los datos
+   * estructurados: es lo que le dice a Google que la ficha, la pagina de
+   * Facebook y este sitio son el mismo negocio y no tres cosas parecidas.
+   */
+  redes: {
+    instagram: 'https://www.instagram.com/lirios_ycacao',
+    facebook: '',
+  },
+  /**
+   * El jardin NO esta en la sede: son dos direcciones distintas, a unos dos
+   * kilometros una de otra. Decir lo contrario, como se hacia hasta ahora,
+   * manda a Google y a quien busque un salon a la floristeria.
+   *
+   * Google no tiene calle para este punto, solo un codigo plus, asi que lo
+   * que vale son las coordenadas y el enlace a la ficha.
+   */
+  jardin: {
+    nombre: 'El Jardín Los Cerezos',
+    plusCode: 'QFV8+7Q2',
+    ciudad: 'Chiquimula',
+    geo: { lat: 14.7925955, lng: -89.5333583 },
+    mapa: 'https://maps.app.goo.gl/gj1GNy25ZTzGY1GPA',
+  },
   app: 'https://app.liriosycacao.com',
   sitio: 'https://www.liriosycacao.com',
 } as const;
@@ -813,11 +848,11 @@ export const NOSOTROS = {
   mapas: [
     {
       texto: 'Abrir en Google Maps',
-      ruta: 'https://www.google.com/maps/search/?api=1&query=14.79906,-89.5510',
+      ruta: 'https://www.google.com/maps/search/?api=1&query=14.7990201,-89.5509863',
     },
     {
       texto: 'Abrir en Waze',
-      ruta: 'https://waze.com/ul?ll=14.79906,-89.5510&navigate=yes',
+      ruta: 'https://waze.com/ul?ll=14.7990201,-89.5509863&navigate=yes',
     },
   ],
   cierre: {

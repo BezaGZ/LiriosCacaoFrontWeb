@@ -62,6 +62,25 @@ export class InicioComponent {
       url: NEGOCIO.sitio,
       telephone: `+${NEGOCIO.whatsapp}`,
       foundingDate: String(NEGOCIO.desde),
+      image: this.seo.urlAbsoluta(`/${PORTADA.foto.escritorio}`),
+      // Las redes vacias no entran: un sameAs con una cadena vacia es peor
+      // que no ponerlo.
+      sameAs: Object.values(NEGOCIO.redes).filter(Boolean),
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: NEGOCIO.geo.lat,
+        longitude: NEGOCIO.geo.lng,
+      },
+      openingHoursSpecification: {
+        '@type': 'OpeningHoursSpecification',
+        // Domingo no abre: listar un dia cerrado le dice a Google que vaya
+        // a buscar a alguien que si abre.
+        dayOfWeek: [
+          'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
+        ],
+        opens: NEGOCIO.horario.abre,
+        closes: NEGOCIO.horario.cierra,
+      },
       address: {
         '@type': 'PostalAddress',
         streetAddress: d.calle,
